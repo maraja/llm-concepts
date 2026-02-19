@@ -114,6 +114,15 @@ Organizations and governments attempting to forecast AI progress rely heavily on
 - **AI Safety and Alignment**: Emergence directly impacts the ability to forecast and prepare for potentially dangerous capabilities.
 - **Evaluation and Benchmarks**: The choice of metric fundamentally affects whether emergence is observed.
 
+## Diagrams and Visualizations
+
+![BIG-Bench task performance curves showing the sharp phase transitions in accuracy as model scale increases, with some tasks jumping from near-random to high accuracy at specific parameter thresholds](https://raw.githubusercontent.com/google/BIG-bench/main/bigbench/benchmark_tasks/results/plot_all_tasks.png)
+*Source: [Google BIG-Bench Repository](https://github.com/google/BIG-bench)*
+
+*See the emergent abilities compilation figure in: [Wei et al., "Emergent Abilities of Large Language Models" (arXiv:2206.07682)](https://arxiv.org/abs/2206.07682), Figure 2, which shows performance on multiple tasks across model families (GPT-3, LaMDA, PaLM) with clear phase transitions from random to above-chance accuracy.*
+
+*See also the metric artifact analysis in: [Schaeffer et al., "Are Emergent Abilities a Mirage?" (arXiv:2304.15004)](https://arxiv.org/abs/2304.15004), Figure 1, which demonstrates how the same underlying smooth improvement appears emergent or smooth depending on whether exact-match or continuous metrics are used.*
+
 ## Further Reading
 
 - Wei, J., et al. (2022). "Emergent Abilities of Large Language Models" -- The paper that formalized the concept and catalogued over 130 emergent abilities across model families.

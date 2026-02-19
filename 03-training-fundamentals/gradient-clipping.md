@@ -193,6 +193,16 @@ Together, these three techniques are what make large-scale LLM training possible
 - **Distributed Training**: Data parallelism interacts with gradient accumulation (effective batch size = micro-batch x GPUs x accumulation steps).
 - **Pre-Training**: All three techniques are standard components of the pre-training infrastructure.
 
+## Diagrams and Visualizations
+
+![Illustration of gradient clipping showing the gradient vector being rescaled to fit within the clipping norm sphere while preserving direction](https://neptune.ai/wp-content/uploads/2022/10/gradient-clipping.png)
+*Source: [Neptune.ai -- Gradient Clipping in Practice](https://neptune.ai/blog/understanding-gradient-clipping-and-how-it-can-fix-exploding-gradients-problem)*
+
+![Visualization of exploding gradients in deep networks showing how gradient magnitudes grow exponentially through layers without clipping, and how clipping bounds the maximum update magnitude](https://www.researchgate.net/publication/344394220/figure/fig1/AS:941248144195585@1601422682994/Exploding-and-vanishing-gradient-problem.png)
+*Source: [ResearchGate -- Exploding and Vanishing Gradient Problem](https://www.researchgate.net/)*
+
+*See also the gradient norm monitoring diagrams from LLM training runs at: [Pascanu et al., "On the difficulty of training recurrent neural networks" (arXiv:1211.5063)](https://arxiv.org/abs/1211.5063) -- includes figures showing how gradient clipping prevents the catastrophic parameter updates that cause training divergence.*
+
 ## Further Reading
 
 - Pascanu, R., Mikolov, T., & Bengio, Y. (2013). "On the difficulty of training recurrent neural networks" -- The foundational analysis of exploding and vanishing gradients that motivated gradient clipping.

@@ -118,6 +118,14 @@ For interactive applications (chatbots, coding assistants), the sequential natur
 - **Multi-Head Attention (MQA/GQA)**: Variants designed to reduce KV cache size for more efficient generation (see `multi-head-attention.md`).
 - **Transformer Architecture**: The underlying model that performs each generation step (see `transformer-architecture.md`).
 
+## Diagrams and Visualizations
+
+![Autoregressive generation process showing the two phases: prefill (processing the full prompt in parallel) and decode (generating tokens one at a time with the KV cache growing at each step)](https://jalammar.github.io/images/gpt2/gpt2-output.png)
+*Source: [The Illustrated GPT-2 -- Jay Alammar](https://jalammar.github.io/illustrated-gpt2/)*
+
+![GPT-2 generating text token by token, showing how each newly generated token is fed back as input and the model produces a probability distribution over the vocabulary at each step](https://jalammar.github.io/images/xlnet/gpt-2-autoregression-2.gif)
+*Source: [The Illustrated GPT-2 -- Jay Alammar](https://jalammar.github.io/illustrated-gpt2/)*
+
 ## Further Reading
 
 - "Language Models are Unsupervised Multitask Learners" -- Radford et al., 2019 (GPT-2, demonstrating autoregressive generation quality)

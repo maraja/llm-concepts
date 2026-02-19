@@ -118,6 +118,13 @@ All of these are architecturally ReAct -- they just use cleaner interfaces than 
 - **Self-Reflection**: Self-reflection extends ReAct by adding an evaluative step after task completion, enabling learning across trials rather than just within a single execution.
 - **Multi-Agent Systems**: Individual agents within multi-agent frameworks typically run ReAct loops internally while coordinating with other agents at the orchestration layer.
 
+## Diagrams and Visualizations
+
+![ReAct framework showing interleaved Thought-Action-Observation steps grounding reasoning in environment feedback](https://lilianweng.github.io/posts/2023-06-23-agent/agent-overview.png)
+*Source: [Lilian Weng – LLM Powered Autonomous Agents](https://lilianweng.github.io/posts/2023-06-23-agent/)*
+
+*Recommended visual: ReAct vs Chain-of-Thought vs Act-Only comparison showing how interleaving reasoning with actions improves performance — see [ReAct Paper (arXiv:2210.03629)](https://arxiv.org/abs/2210.03629)*
+
 ## Further Reading
 
 - Yao et al., "ReAct: Synergizing Reasoning and Acting in Language Models," arXiv:2210.03629, ICLR 2023

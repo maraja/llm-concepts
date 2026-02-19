@@ -101,6 +101,15 @@ Data parallelism is the foundation of virtually all distributed training. Even w
 - **Mixed Precision Training**: Often used alongside data parallelism to reduce communication volume (sending fp16 gradients instead of fp32) and speed up computation.
 - **Gradient Compression**: Techniques like gradient quantization or sparsification reduce communication volume in data parallelism, improving scaling efficiency at the cost of some approximation.
 
+## Diagrams and Visualizations
+
+![Data parallelism overview showing model replicas processing different data shards with gradient synchronization](https://jalammar.github.io/images/model-parallelism/data-parallelism.png)
+*Source: [Jay Alammar - The Illustrated Model Parallelism](https://jalammar.github.io/model-parallelism/)*
+
+*Recommended visual: Ring all-reduce algorithm showing how gradient chunks are passed around a ring of GPUs in 2(N-1) steps -- see [Lilian Weng - How to Train Really Large Models on Many GPUs](https://lilianweng.github.io/posts/2021-09-25-train-large/)*
+
+*Recommended visual: DDP bucketed gradient all-reduce overlapping with backward pass computation -- see [PyTorch DDP documentation](https://pytorch.org/docs/stable/notes/ddp.html)*
+
 ## Further Reading
 
 - Goyal et al., *"Accurate, Large Minibatch SGD: Training ImageNet in 1 Hour"* (2017) -- Establishes linear learning rate scaling rules and warm-up strategies for large-batch data-parallel training.

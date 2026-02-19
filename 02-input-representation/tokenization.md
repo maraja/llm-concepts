@@ -79,6 +79,16 @@ Tokenization's impact is pervasive and often underappreciated:
 - **Special Tokens**: Tokenizers include special control tokens (BOS, EOS, PAD) that aren't derived from text.
 - **Positional Encoding**: Positions are assigned per-token, so tokenization granularity affects what "position" means.
 
+## Diagrams and Visualizations
+
+![Comparison of tokenization strategies: character-level, word-level, and subword (BPE/WordPiece) showing the trade-offs between vocabulary size and sequence length](https://huggingface.co/datasets/huggingface-course/documentation-images/resolve/main/en/chapter6/tokenization_strategies.svg)
+*Source: [Hugging Face NLP Course – Chapter 6: Tokenizers](https://huggingface.co/learn/nlp-course/chapter6/1)*
+
+![Overview of the three main subword tokenization algorithms: BPE (bottom-up merging), WordPiece (likelihood-based merging), and Unigram (top-down pruning)](https://huggingface.co/datasets/huggingface-course/documentation-images/resolve/main/en/chapter6/bpe_subword.svg)
+*Source: [Hugging Face NLP Course – Subword Tokenization](https://huggingface.co/learn/nlp-course/chapter6/5)*
+
+*See also the interactive tokenizer visualization at: [Tiktokenizer](https://tiktokenizer.vercel.app/) -- lets you compare how different models (GPT-4, LLaMA, etc.) tokenize the same input text.*
+
 ## Further Reading
 
 - Sennrich, R., Haddow, B., & Birch, A. (2016). "Neural Machine Translation of Rare Words with Subword Units." *ACL 2016.* -- The paper that introduced BPE to NLP.

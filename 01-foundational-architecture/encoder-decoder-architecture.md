@@ -112,6 +112,17 @@ Decoder-only models naturally support in-context learning: provide examples in t
 - **Next-Token Prediction**: The training objective that powers decoder-only models (see `next-token-prediction.md`).
 - **Transformer Architecture**: All three paradigms are variations of the Transformer (see `transformer-architecture.md`).
 
+## Diagrams and Visualizations
+
+![Comparison of encoder-only (BERT), decoder-only (GPT), and encoder-decoder (T5) architectures showing bidirectional vs. causal attention patterns and cross-attention connections](https://jalammar.github.io/images/xlnet/transformer-encoder-decoder.png)
+*Source: [The Illustrated GPT-2 -- Jay Alammar](https://jalammar.github.io/illustrated-gpt2/)*
+
+![Encoder-decoder architecture showing how the encoder processes the full input with bidirectional attention, and the decoder generates output autoregressively with cross-attention to encoder representations](https://jalammar.github.io/images/t/The_transformer_encoder_decoder_stack.png)
+*Source: [The Illustrated Transformer -- Jay Alammar](https://jalammar.github.io/illustrated-transformer/)*
+
+![BERT encoder-only architecture with bidirectional self-attention where every token attends to every other token, contrasted with GPT decoder-only masked self-attention](https://jalammar.github.io/images/gpt2/self-attention-and-masked-self-attention.png)
+*Source: [The Illustrated GPT-2 -- Jay Alammar](https://jalammar.github.io/illustrated-gpt2/)*
+
 ## Further Reading
 
 - "BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding" -- Devlin et al., 2018 (the definitive encoder-only model)

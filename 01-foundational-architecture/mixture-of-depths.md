@@ -111,6 +111,12 @@ Analysis of trained MoD models reveals interesting routing patterns:
 - **Self-Attention**: At MoD layers, attention is computed only among the top-k selected tokens. This changes the effective receptive field dynamically, as different tokens "see" different subsets of the sequence at different layers.
 - **Transformer Architecture**: MoD modifies the standard transformer by inserting a routing decision before each enabled layer, representing a significant architectural evolution from the fixed-computation-per-token paradigm.
 
+## Diagrams and Visualizations
+
+*Recommended visual: MoD architecture diagram showing the router selecting top-k tokens for full computation vs skip connection — see [Mixture of Depths Paper (arXiv:2404.02258)](https://arxiv.org/abs/2404.02258)*
+
+*Recommended visual: Comparison of compute allocation across tokens showing how MoD dynamically skips easy tokens — see [Raphaël Millière's MoD Explainer](https://arxiv.org/abs/2404.02258)*
+
 ## Further Reading
 
 - Raposo et al., "Mixture-of-Depths: Dynamically Allocating Compute in Transformer-Based Language Models" (Google DeepMind, 2024) -- The foundational paper demonstrating that MoD models match or exceed standard transformers at equivalent FLOP budgets.

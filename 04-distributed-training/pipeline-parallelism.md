@@ -108,6 +108,15 @@ Pipeline parallelism also divides model memory across stages. A model with 96 la
 - **Activation Checkpointing**: Particularly important in pipeline parallelism to reduce the memory overhead of stored activations across micro-batches.
 - **ZeRO / FSDP**: Can be combined with pipeline parallelism to shard optimizer states across data-parallel ranks within each pipeline stage.
 
+## Diagrams and Visualizations
+
+![GPipe pipeline parallelism schedule showing forward and backward passes with pipeline bubbles](https://jalammar.github.io/images/model-parallelism/gpipe-bubble.png)
+*Source: [Jay Alammar - The Illustrated Model Parallelism](https://jalammar.github.io/model-parallelism/)*
+
+*Recommended visual: Comparison of GPipe vs 1F1B pipeline schedules showing how 1F1B reduces memory requirements while maintaining the same bubble fraction -- see [Lilian Weng - How to Train Really Large Models on Many GPUs](https://lilianweng.github.io/posts/2021-09-25-train-large/)*
+
+*Recommended visual: Interleaved pipeline schedule with virtual stages, showing reduced bubble fraction -- see [Narayanan et al., "Efficient Large-Scale Language Model Training on GPU Clusters" (2021)](https://arxiv.org/abs/2104.04473), Figure 8*
+
 ## Further Reading
 
 - Huang et al., *"GPipe: Efficient Training of Giant Neural Networks using Pipeline Parallelism"* (2019) -- Introduces pipeline parallelism with micro-batching for neural network training, establishing the foundational concepts.

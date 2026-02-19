@@ -134,6 +134,17 @@ where $f_i$ is the fraction of tokens routed to expert $i$ and $P_i$ is the aver
 - **Next-Token Prediction**: MoE models are trained with the same next-token prediction objective as dense models (see `next-token-prediction.md`).
 - **Logits and Softmax**: The router uses softmax to produce expert weights, similar in form to the output layer (see `logits-and-softmax.md`).
 
+## Diagrams and Visualizations
+
+![Mixture of Experts layer architecture showing a router/gating network that sends each token to a selected subset of expert feed-forward networks, with outputs weighted and combined](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/moe/00_switch_transformer.png)
+*Source: [Mixture of Experts Explained -- Hugging Face Blog](https://huggingface.co/blog/moe)*
+
+![Switch Transformer architecture diagram showing top-1 routing where each token is dispatched to a single expert, with the router producing a sparse gating distribution](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/moe/01_switch_transformer.png)
+*Source: [Mixture of Experts Explained -- Hugging Face Blog](https://huggingface.co/blog/moe)*
+
+![Comparison of dense Transformer FFN vs. MoE layer showing how the single FFN is replaced by N parallel expert FFNs with a learned gating mechanism selecting top-k experts per token](https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Sparse_MoE_with_Top-2_Gating.svg/800px-Sparse_MoE_with_Top-2_Gating.svg.png)
+*Source: [Mixture of Experts -- Wikipedia](https://en.wikipedia.org/wiki/Mixture_of_experts)*
+
 ## Further Reading
 
 - "Outrageously Large Neural Networks: The Sparsely-Gated Mixture-of-Experts Layer" -- Shazeer et al., 2017 (the foundational MoE paper for modern deep learning)

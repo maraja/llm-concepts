@@ -156,6 +156,15 @@ As model architectures converge (most frontier models are dense transformers wit
 - **Fine-Tuning**: High-quality curated data is equally important for the supervised fine-tuning stage.
 - **Bias and Fairness**: Data curation decisions (what to include, what to filter) directly determine the model's biases.
 
+## Diagrams and Visualizations
+
+![The data curation pipeline showing the stages: raw web crawl, text extraction, language filtering, quality filtering, deduplication, toxic content removal, and final data mixing](https://huggingface.co/datasets/HuggingFaceFW/fineweb/resolve/main/FineWeb_pipeline.png)
+*Source: [Hugging Face -- FineWeb Dataset Documentation](https://huggingface.co/datasets/HuggingFaceFW/fineweb)*
+
+*See the deduplication impact analysis in: [Lee et al., "Deduplicating Training Data Makes Language Models Better" (arXiv:2107.06499)](https://arxiv.org/abs/2107.06499), Figure 1, which shows how removing duplicate content improves model performance on downstream benchmarks while reducing memorization and training compute waste.*
+
+*See also the data mixing ablation results at: [Penedo et al., "The FineWeb Datasets" (arXiv:2406.17557)](https://arxiv.org/abs/2406.17557) -- includes figures comparing model quality across different filtering strategies and data mix proportions, demonstrating that data quality dominates data quantity.*
+
 ## Further Reading
 
 - Gao, L., et al. (2020). "The Pile: An 800GB Dataset of Diverse Text for Language Modeling" -- One of the first transparently documented large-scale LLM training datasets, establishing practices for data documentation.

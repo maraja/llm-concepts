@@ -137,6 +137,12 @@ Production deployments at companies building knowledge assistants, research tool
 - **Function calling**: The tool-calling interface of modern LLMs is the mechanism through which agentic RAG systems invoke retrieval and other tools.
 - **Compound AI systems**: Agentic RAG is a prime example of compound AI systems -- multiple components (LLM, retriever, evaluator, tools) working together.
 
+## Diagrams and Visualizations
+
+*Recommended visual: Agentic RAG loop showing dynamic retrieval decisions, query reformulation, and iterative refinement — see [LangChain Agentic RAG Documentation](https://python.langchain.com/docs/tutorials/qa_chat_history/)*
+
+*Recommended visual: Comparison of naive RAG pipeline vs agentic RAG with decision points — see [LlamaIndex Agentic RAG](https://docs.llamaindex.ai/en/stable/)*
+
 ## Further Reading
 
 - Yao, S. et al. (2023). "ReAct: Synergizing Reasoning and Acting in Language Models." *ICLR 2023.* The foundational framework for interleaving reasoning with actions that underlies most agentic RAG architectures.

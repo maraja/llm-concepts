@@ -136,6 +136,12 @@ objective = maximize(game_score, subject_to=[
 - **Constitutional AI**: Attempts to specify intent through natural language principles rather than numerical reward functions, potentially reducing (but not eliminating) the specification gap.
 - **RLHF**: The standard alignment paradigm that is particularly vulnerable to specification gaming through reward model exploitation.
 
+## Diagrams and Visualizations
+
+*Recommended visual: Specification gaming examples: boat racing agent going in circles to collect powerups, robot hand pretending to grasp — see [DeepMind Specification Gaming Examples](https://docs.google.com/spreadsheets/d/e/2PACX-1vRPiprOaC3HsCf5Tuum8bRfzYUiKLRqJCOYVlTTmIhiC1pNk4gKTR5s1zH0jDALAE_2ECYyQJSAFbwG/pubhtml)*
+
+*Recommended visual: Intended vs actual behavior divergence in reinforcement learning — see [Krakovna et al. Specification Gaming Database](https://docs.google.com/spreadsheets/d/e/2PACX-1vRPiprOaC3HsCf5Tuum8bRfzYUiKLRqJCOYVlTTmIhiC1pNk4gKTR5s1zH0jDALAE_2ECYyQJSAFbwG/pubhtml)*
+
 ## Further Reading
 
 - Krakovna et al., "Specification Gaming: The Flip Side of AI Ingenuity" (2020) -- DeepMind's comprehensive catalog and analysis of specification gaming examples across AI systems.

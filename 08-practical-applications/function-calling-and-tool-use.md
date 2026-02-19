@@ -111,6 +111,13 @@ This is the foundation of the agent paradigm. Every AI agent -- from coding assi
 - **Prompt engineering** applies to tool descriptions and system prompts that guide tool selection behavior.
 - **Safety and alignment** become critical when tools can take real-world actions. The application layer must implement authorization, rate limiting, and human-in-the-loop approval for sensitive operations.
 
+## Diagrams and Visualizations
+
+![Tool use pattern showing LLM receiving a query, generating a structured function call, executing it, and incorporating results](https://lilianweng.github.io/posts/2023-06-23-agent/tool-use.png)
+*Source: [Lilian Weng – LLM Powered Autonomous Agents](https://lilianweng.github.io/posts/2023-06-23-agent/)*
+
+*Recommended visual: Function calling flow showing JSON schema definition, LLM generating structured calls, and application executing them — see [OpenAI Function Calling Documentation](https://platform.openai.com/docs/guides/function-calling)*
+
 ## Further Reading
 
 - Schick, T. et al. (2023). "Toolformer: Language Models Can Teach Themselves to Use Tools." *NeurIPS 2023.* The foundational paper on training LLMs to use tools autonomously.

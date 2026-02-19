@@ -74,6 +74,12 @@ Beyond pre-training, perplexity is invaluable for:
 - **Benchmark Contamination**: Suspiciously low perplexity on benchmark test sets can be a signal of data contamination during pre-training.
 - **KL Divergence**: Perplexity is closely related to KL divergence between the model's distribution and the true data distribution.
 
+## Diagrams and Visualizations
+
+*Recommended visual: Perplexity as average branching factor — a perplexity of 30 means the model is as uncertain as choosing uniformly among 30 options — see [Hugging Face Perplexity Documentation](https://huggingface.co/docs/transformers/perplexity)*
+
+*Recommended visual: Perplexity curves during training showing how model quality improves with more training tokens — see [Chinchilla Paper (arXiv:2203.15556)](https://arxiv.org/abs/2203.15556)*
+
 ## Further Reading
 
 - Jurafsky & Martin, *Speech and Language Processing*, Chapter 3 (N-grams and Perplexity) -- the canonical textbook treatment of perplexity in language modeling.

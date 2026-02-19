@@ -113,6 +113,12 @@ The transfer latency adds directly to the time-to-first-token (TTFT), so the dis
 - **Prefix Caching**: In a disaggregated system, the decode pool can maintain a prefix cache. Requests with cached prefixes might skip the prefill pool entirely, reducing load on prefill instances and eliminating transfer latency.
 - **Throughput vs. Latency**: Disaggregation explicitly decouples the throughput optimization (prefill) from the latency optimization (decode), allowing each to be tuned independently.
 
+## Diagrams and Visualizations
+
+*Recommended visual: Disaggregated prefill and decode phases running on separate GPU pools with KV cache transfer — see [Splitwise Paper (arXiv:2311.18677)](https://arxiv.org/abs/2311.18677)*
+
+*Recommended visual: Interference between compute-bound prefill and memory-bound decode when colocated on the same GPU — see [DistServe Paper (arXiv:2401.09670)](https://arxiv.org/abs/2401.09670)*
+
 ## Further Reading
 
 - Patel et al., "Splitwise: Efficient Generative LLM Inference Using Phase Splitting" (ISCA 2024) -- Foundational paper analyzing the compute and memory profiles of prefill vs. decode and proposing hardware-aware disaggregation.

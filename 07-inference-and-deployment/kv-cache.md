@@ -102,6 +102,16 @@ KV cache is not optional -- it is a hard requirement for practical LLM serving. 
 - **Model Serving Frameworks**: vLLM's PagedAttention, TensorRT-LLM's inflight batching, and TGI's memory management all revolve around efficient KV cache handling.
 - **Speculative Decoding**: The draft model maintains its own (smaller) KV cache, and verification re-uses the target model's cache efficiently.
 
+## Diagrams and Visualizations
+
+![Illustration of key-value attention mechanism showing queries attending to cached keys and values during autoregressive generation](https://jalammar.github.io/images/gpt2/self-attention-example-folders-3.png)
+*Source: [Jay Alammar - The Illustrated GPT-2](https://jalammar.github.io/illustrated-gpt2/)*
+
+![Diagram showing how KV cache grows during autoregressive generation, with new K and V appended at each step](https://jalammar.github.io/images/gpt2/gpt2-self-attention-qkv-attention2.gif)
+*Source: [Jay Alammar - The Illustrated GPT-2](https://jalammar.github.io/illustrated-gpt2/)*
+
+*See PagedAttention block table diagram at: [vLLM Paper - Efficient Memory Management for LLM Serving with PagedAttention (arXiv:2309.06180)](https://arxiv.org/abs/2309.06180)*
+
 ## Further Reading
 
 1. **"Efficient Memory Management for Large Language Model Serving with PagedAttention"** (Kwon et al., 2023) -- The vLLM paper that introduced PagedAttention and demonstrated its dramatic throughput improvements.

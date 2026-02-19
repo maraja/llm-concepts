@@ -159,6 +159,16 @@ The server applies token masking internally, so the API consumer receives a 100%
 - **Model Serving Frameworks**: vLLM, TGI, and TensorRT-LLM all integrate constrained decoding, making it available as a serving-layer feature rather than requiring client-side implementation.
 - **Speculative Decoding**: Constrained decoding interacts with speculative decoding -- draft tokens must also be checked against the grammar, and rejected tokens may need grammar state rollback.
 
+## Diagrams and Visualizations
+
+![Outlines structured generation overview showing how a finite-state machine guides token generation to produce valid JSON](https://raw.githubusercontent.com/dottxt-ai/outlines/main/docs/assets/images/logo.png)
+*See diagram at: [Outlines - Structured Generation Library](https://github.com/dottxt-ai/outlines)*
+
+![XGrammar constrained decoding architecture showing grammar compilation and token masking pipeline](https://raw.githubusercontent.com/mlc-ai/blog/main/img/xgrammar/xgrammar-overview.svg)
+*See diagram at: [XGrammar: Flexible and Efficient Structured Generation (MLC Blog)](https://blog.mlc.ai/2024/11/22/achieving-efficient-flexible-portable-structured-generation-with-xgrammar)*
+
+*See diagram of token masking during constrained decoding at: [Guidance - Microsoft (GitHub)](https://github.com/guidance-ai/guidance)*
+
 ## Further Reading
 
 - Willard and Louf, "Efficient Guided Generation for Large Language Models" (2023) -- The Outlines paper, introducing efficient finite-state machine compilation for regex and JSON schema constraints.

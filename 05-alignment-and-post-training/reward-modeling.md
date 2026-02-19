@@ -108,6 +108,13 @@ Where $c_t \in \{\text{correct}, \text{incorrect}\}$ is the correctness label fo
 - **Constitutional AI** uses AI feedback to generate preference data for reward model training, changing the data source but keeping the same reward modeling framework.
 - **Goodhart's Law** is the theoretical lens through which reward model overoptimization is understood: optimizing a proxy measure causes it to diverge from the true target.
 
+## Diagrams and Visualizations
+
+*Recommended visual: Reward model training from human pairwise preferences, showing comparisons being converted to Bradley-Terry scores — see [InstructGPT Paper (arXiv:2203.02155)](https://arxiv.org/abs/2203.02155)*
+
+![Reward model in the RLHF pipeline receiving two responses and learning to predict human preferences](https://huggingface.co/datasets/trl-internal-testing/example-images/resolve/main/blog/rlhf/reward-model.png)
+*Source: [Hugging Face – Illustrating RLHF](https://huggingface.co/blog/rlhf)*
+
 ## Further Reading
 
 1. **"Scaling Laws for Reward Model Overoptimization" (Gao et al., 2022)** -- The definitive study of how RL overoptimization degrades true performance, establishing the empirical relationship between KL divergence and reward model exploitation.

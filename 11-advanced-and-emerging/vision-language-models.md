@@ -117,6 +117,12 @@ VLMs represent a qualitative expansion of what AI systems can do:
 - **AI Agents**: VLMs enable visual grounding for agents -- understanding screenshots, reading web pages, interpreting dashboards, and navigating graphical interfaces.
 - **Prompt Injection**: VLMs introduce new attack surfaces: adversarial images can contain hidden text or patterns that manipulate model behavior.
 
+## Diagrams and Visualizations
+
+*Recommended visual: Vision-Language Model architecture showing vision encoder, projection layer, and language model backbone — see [LLaVA Paper (arXiv:2304.08485)](https://arxiv.org/abs/2304.08485)*
+
+*Recommended visual: CLIP contrastive learning showing image-text pairs aligned in shared embedding space — see [Radford et al. CLIP Paper (arXiv:2103.00020)](https://arxiv.org/abs/2103.00020)*
+
 ## Further Reading
 
 - Liu et al., "Visual Instruction Tuning" (LLaVA, 2023) -- the paper that established the simple but effective architecture (ViT + linear projection + LLM) and visual instruction tuning paradigm.

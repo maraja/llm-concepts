@@ -99,6 +99,12 @@ At the block level, prefix caching maps naturally onto PagedAttention. Cached KV
 - **Continuous Batching**: New requests admitted via continuous batching benefit immediately from prefix cache hits, making their prefill phase nearly instantaneous and allowing faster batch admission.
 - **Throughput vs. Latency**: Prefix caching primarily reduces latency (TTFT) and cost for individual requests. At the system level, reduced prefill compute frees GPU cycles for more decode throughput.
 
+## Diagrams and Visualizations
+
+*Recommended visual: Prefix caching showing shared system prompt KV cache reused across multiple requests — see [SGLang RadixAttention Paper (arXiv:2312.07104)](https://arxiv.org/abs/2312.07104)*
+
+*Recommended visual: Radix tree data structure indexing KV cache blocks by token content for automatic prefix matching — see [SGLang Documentation](https://sgl-project.github.io/)*
+
 ## Further Reading
 
 - Zheng et al., "SGLang: Efficient Execution of Structured Language Model Programs" (2024) -- Introduces RadixAttention with its radix-tree-based prefix caching and LRU eviction strategy.

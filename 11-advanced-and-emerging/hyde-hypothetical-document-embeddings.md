@@ -107,6 +107,10 @@ Gao et al. (2022) showed that HyDE with the unsupervised Contriever model outper
 - **Agentic RAG**: In agentic RAG systems, the agent can decide dynamically whether to use HyDE or direct query embedding based on query characteristics.
 - **Corrective RAG**: If initial HyDE retrieval returns irrelevant documents, CRAG mechanisms can trigger re-retrieval with different strategies.
 
+## Diagrams and Visualizations
+
+*Recommended visual: HyDE pipeline: query → LLM generates hypothetical answer → embed hypothetical document → retrieve real documents — see [Gao et al. HyDE Paper (arXiv:2212.10496)](https://arxiv.org/abs/2212.10496)*
+
 ## Further Reading
 
 - Gao, L. et al. (2022). "Precise Zero-Shot Dense Retrieval without Relevance Labels." (arXiv: 2212.10496) The original HyDE paper, demonstrating effectiveness across BEIR benchmarks without any relevance supervision.

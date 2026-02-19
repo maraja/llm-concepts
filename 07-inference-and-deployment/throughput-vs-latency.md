@@ -162,6 +162,12 @@ Getting this wrong means either overpaying for hardware (over-provisioned for la
 - **Speculative Decoding**: A pure latency optimization that works best at low batch sizes, explicitly trading potential throughput for lower per-request latency.
 - **Model Serving Frameworks**: The framework's scheduling policy, batching strategy, and memory management directly implement the chosen position on the throughput-latency trade-off curve.
 
+## Diagrams and Visualizations
+
+*Recommended visual: Throughput vs latency trade-off curve showing how increasing batch size improves throughput but degrades per-request latency — see [Lilian Weng – Large Transformer Model Inference Optimization](https://lilianweng.github.io/posts/2023-01-10-inference-optimization/)*
+
+*Recommended visual: Roofline model showing compute-bound (prefill) vs memory-bound (decode) regimes — see [Efficient LLM Inference Survey (arXiv:2404.14294)](https://arxiv.org/abs/2404.14294)*
+
 ## Further Reading
 
 1. **"Orca: A Distributed Serving System for Transformer-Based Generative Models"** (Yu et al., 2022) -- Introduced iteration-level scheduling (continuous batching), the foundational technique for navigating the throughput-latency trade-off in LLM serving.

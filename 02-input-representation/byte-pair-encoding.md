@@ -123,6 +123,16 @@ BPE is not just one algorithm among equals -- it is the foundation of tokenizati
 - **Special Tokens**: BPE vocabularies are augmented with special tokens (BOS, EOS, etc.) that are added separately, not learned through the merge process.
 - **Context Window**: BPE's compression efficiency determines how many words of text fit within a model's fixed token-length context window.
 
+## Diagrams and Visualizations
+
+![Step-by-step illustration of the BPE merge process, showing how character pairs are iteratively combined into subword tokens based on frequency](https://huggingface.co/datasets/huggingface-course/documentation-images/resolve/main/en/chapter6/bpe_subword.svg)
+*Source: [Hugging Face NLP Course – Chapter 6: Tokenizers](https://huggingface.co/learn/nlp-course/chapter6/5)*
+
+![Visualization of BPE tokenization showing how words are split into subword units and how the vocabulary is built through iterative merging](https://huggingface.co/datasets/huggingface-course/documentation-images/resolve/main/en/chapter6/bpe-training-steps.svg)
+*Source: [Hugging Face NLP Course – BPE Training](https://huggingface.co/learn/nlp-course/chapter6/5)*
+
+*See also the tokenization visualization at: [Tiktokenizer](https://tiktokenizer.vercel.app/) -- an interactive tool that shows how text is split into BPE tokens by different models' tokenizers.*
+
 ## Further Reading
 
 - Gage, P. (1994). "A New Algorithm for Data Compression." *The C Users Journal.* -- The original BPE algorithm for data compression.

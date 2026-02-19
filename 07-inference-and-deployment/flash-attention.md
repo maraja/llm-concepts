@@ -125,6 +125,16 @@ Flash Attention is not just faster -- it fundamentally changes what is practical
 - **Throughput vs. Latency**: Flash Attention's speedup benefits both throughput (more tokens per second in batch) and latency (faster per-request attention).
 - **Speculative Decoding**: During the verification step, the target model processes multiple tokens at once -- Flash Attention ensures this batched attention is fast.
 
+## Diagrams and Visualizations
+
+![Flash Attention tiling diagram showing how Q, K, V blocks are loaded into SRAM to avoid materializing the full N x N attention matrix in HBM](https://raw.githubusercontent.com/Dao-AILab/flash-attention/main/assets/FlashAttention_banner.jpg)
+*Source: [Flash Attention GitHub Repository](https://github.com/Dao-AILab/flash-attention)*
+
+![GPU memory hierarchy showing the bandwidth gap between SRAM and HBM that Flash Attention exploits](https://gordicaleksa.medium.com/eli5-flash-attention-5c44017022ad)
+*See detailed GPU memory hierarchy and tiling diagrams at: [Aleksa Gordic - ELI5 Flash Attention](https://gordicaleksa.medium.com/eli5-flash-attention-5c44017022ad)*
+
+*See comparison of standard attention vs Flash Attention memory access patterns at: [Tri Dao's Flash Attention Paper (arXiv:2205.14135)](https://arxiv.org/abs/2205.14135)*
+
 ## Further Reading
 
 1. **"FlashAttention: Fast and Memory-Efficient Exact Attention with IO-Awareness"** (Dao et al., 2022) -- The original paper that introduced the IO-aware tiling approach and demonstrated its dramatic impact.

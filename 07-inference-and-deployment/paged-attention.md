@@ -94,6 +94,13 @@ SGLang extends PagedAttention with a radix tree data structure that indexes all 
 - **Flash Attention**: Flash Attention optimizes the *computation* of attention (tiling for SRAM locality). PagedAttention optimizes the *memory management* of attention's KV data. They are complementary and used together in production.
 - **Speculative Decoding**: When draft tokens are rejected, their KV cache blocks can be freed immediately, making speculative decoding more memory-efficient under paged management.
 
+## Diagrams and Visualizations
+
+![PagedAttention block table mapping logical blocks to physical blocks in GPU memory, enabling non-contiguous KV cache storage](https://blog.vllm.ai/assets/figures/annimation1.gif)
+*Source: [vLLM Blog – vLLM: Easy, Fast, and Cheap LLM Serving](https://blog.vllm.ai/2023/06/20/vllm.html)*
+
+*Recommended visual: Memory waste comparison between contiguous pre-allocation and paged allocation showing 60-80% savings — see [vLLM Paper (arXiv:2309.06180)](https://arxiv.org/abs/2309.06180)*
+
 ## Further Reading
 
 - Kwon et al., "Efficient Memory Management for Large Language Model Serving with PagedAttention" (2023) -- The foundational paper introducing PagedAttention and vLLM, with detailed benchmarks showing 2-4x throughput improvement.

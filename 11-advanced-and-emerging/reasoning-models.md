@@ -111,6 +111,12 @@ This adaptive compute allocation is analogous to how humans spend more mental ef
 - **Self-Reflection**: The self-verification behavior that emerges naturally in reasoning models is closely related to self-reflection, but occurs within a single generation rather than across separate trials.
 - **Distillation and Model Compression**: The R1 distillation results demonstrate that reasoning can be transferred from large teacher models to small student models, extending classical knowledge distillation techniques to emergent reasoning behaviors.
 
+## Diagrams and Visualizations
+
+*Recommended visual: OpenAI o1 performance scaling with inference-time compute on AIME and MATH benchmarks — see [OpenAI Learning to Reason](https://openai.com/index/learning-to-reason-with-llms/)*
+
+*Recommended visual: DeepSeek-R1 four-stage training pipeline: R1-Zero → Cold-Start SFT → Large-Scale RL → Rejection Sampling + SFT — see [DeepSeek-R1 Paper (arXiv:2501.12948)](https://arxiv.org/abs/2501.12948)*
+
 ## Further Reading
 
 - DeepSeek-AI, "DeepSeek-R1: Incentivizing Reasoning Capability in LLMs via Reinforcement Learning," arXiv:2501.12948, 2025

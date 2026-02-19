@@ -208,6 +208,12 @@ On the MTEB (Massive Text Embedding Benchmark) reranking leaderboard, as of earl
 - **Agentic RAG**: Agentic systems can dynamically decide whether to apply reranking based on first-stage retrieval confidence, saving latency when retrieval is already high-quality.
 - **HyDE**: HyDE improves first-stage recall (the relevant documents appear somewhere in the candidate set). Reranking improves precision (the relevant documents are at the top). They are complementary: HyDE + reranking is a powerful combination.
 
+## Diagrams and Visualizations
+
+*Recommended visual: Two-stage retrieve-then-rerank architecture: fast bi-encoder retrieves candidates, cross-encoder reranks top-k — see [Hugging Face Cross-Encoders Documentation](https://www.sbert.net/docs/cross_encoder/usage/usage.html)*
+
+*Recommended visual: Bi-encoder vs cross-encoder architecture showing independent vs joint query-document processing — see [Sentence-BERT Paper (arXiv:1908.10084)](https://arxiv.org/abs/1908.10084)*
+
 ## Further Reading
 
 - Nogueira, R. & Cho, K. (2019). "Passage Re-ranking with BERT." (arXiv: 1901.04085) One of the earliest papers demonstrating BERT-based cross-encoder reranking, establishing the modern reranking paradigm.

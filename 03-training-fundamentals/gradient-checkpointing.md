@@ -175,6 +175,15 @@ Memory savings breakdown:
 - **Distributed Training (Tensor/Pipeline Parallelism)**: Splits activation memory across devices, combining with checkpointing when per-device memory is still insufficient.
 - **Activation Recomputation**: Gradient checkpointing is the most common form of activation recomputation, but the general principle (recompute rather than store) applies to many settings beyond layer checkpoints.
 
+## Diagrams and Visualizations
+
+![Diagram comparing standard backpropagation (storing all activations) vs. gradient checkpointing (storing only selected checkpoints and recomputing intermediate activations during backward pass)](https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Gradient_checkpointing_tradeoff.svg/1200px-Gradient_checkpointing_tradeoff.svg.png)
+*Source: [Wikimedia Commons -- Gradient Checkpointing Tradeoff](https://commons.wikimedia.org/wiki/File:Gradient_checkpointing_tradeoff.svg)*
+
+*See the memory vs. compute trade-off diagrams in: [Chen et al., "Training Deep Nets with Sublinear Memory Cost" (arXiv:1604.06174)](https://arxiv.org/abs/1604.06174), Figure 1, which shows the sqrt(N) checkpointing strategy and how it reduces memory from O(N) to O(sqrt(N)) at the cost of ~33% additional compute.*
+
+*See also the selective activation checkpointing strategy at: [Korthikanti et al., "Reducing Activation Recomputation in Large Transformer Models" (arXiv:2205.05198)](https://arxiv.org/abs/2205.05198) -- includes diagrams of which transformer layer components are checkpointed vs. recomputed for optimal memory-compute balance.*
+
 ## Further Reading
 
 - Chen et al., "Training Deep Nets with Sublinear Memory Cost" (2016) -- the foundational paper establishing the sqrt(L) checkpointing strategy

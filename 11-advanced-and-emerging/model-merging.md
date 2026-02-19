@@ -113,6 +113,12 @@ Model merging has democratized model development. The open-source community uses
 - **Test-Time Compute**: Kimi's innovation of merging reasoning and fast models connects merging to the inference-time scaling paradigm.
 - **Open-Source Ecosystem**: Merging has become central to the open-source model ecosystem, enabling community-driven improvement without massive compute budgets.
 
+## Diagrams and Visualizations
+
+*Recommended visual: Model merging methods comparison: linear interpolation, SLERP, TIES, DARE showing weight combination strategies — see [Hugging Face Model Merging Guide](https://huggingface.co/blog/mlabonne/merge-models)*
+
+*Recommended visual: Task vector arithmetic showing how task capabilities can be added and subtracted in weight space — see [Ilharco et al. Task Arithmetic Paper (arXiv:2212.04089)](https://arxiv.org/abs/2212.04089)*
+
 ## Further Reading
 
 - **"Model Soups: Averaging Weights of Multiple Fine-tuned Models Improves Accuracy without Increasing Inference Time" (Wortsman et al., 2022)**: The foundational work showing that simple averaging of fine-tuned checkpoints yields consistent improvements.

@@ -111,6 +111,12 @@ Compression ratio can be dynamically adjusted based on the input length relative
 - **Knowledge Distillation**: LLMLingua-2's training process distills GPT-4's compression judgment into a small classifier, a form of task-specific knowledge distillation.
 - **Model Routing**: Compression and routing are complementary cost-reduction strategies. Routing selects a cheaper model; compression reduces the input cost for whichever model is selected.
 
+## Diagrams and Visualizations
+
+*Recommended visual: LLMLingua pipeline showing budget controller, iterative token compression, and distribution alignment — see [LLMLingua Paper (arXiv:2310.05736)](https://arxiv.org/abs/2310.05736)*
+
+*Recommended visual: Token-level perplexity scoring showing how low-perplexity (predictable) tokens are pruned first — see [LLMLingua-2 Paper (arXiv:2403.12968)](https://arxiv.org/abs/2403.12968)*
+
 ## Further Reading
 
 - Jiang, H., Wu, Q., Luo, X., Li, D., Lin, C.-Y., Yang, Y., & Qiu, L. (2023). "LLMLingua: Compressing Prompts for Accelerated Inference of Large Language Models." EMNLP 2023. arXiv:2310.05736.

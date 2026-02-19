@@ -156,6 +156,12 @@ Lightman et al. showed that process reward models significantly outperform outco
 - **AI Sandbagging**: If models underperform during evaluation, oversight systems must account for hidden capabilities.
 - **Constitutional AI**: An alternative alignment paradigm that partially sidesteps the oversight problem by grounding behavior in principles rather than per-instance evaluation.
 
+## Diagrams and Visualizations
+
+*Recommended visual: Scalable oversight techniques: debate, recursive reward modeling, iterated amplification — see [Lilian Weng – Alignment](https://lilianweng.github.io/posts/2023-03-15-prompt-engineering/)*
+
+*Recommended visual: AI Debate protocol where two AI systems argue opposing sides for a human judge — see [Irving et al. AI Safety via Debate (arXiv:1805.00899)](https://arxiv.org/abs/1805.00899)*
+
 ## Further Reading
 
 - Irving et al., "AI Safety via Debate" (2018) -- the foundational proposal for using adversarial AI dialogue to amplify human judgment.

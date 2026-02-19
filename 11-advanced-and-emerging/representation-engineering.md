@@ -146,6 +146,12 @@ Representation engineering matters for several reasons that span safety, control
 - **LoRA and PEFT**: Like LoRA, representation engineering provides a parameter-efficient way to modify model behavior. LoRA adds low-rank weight updates; steering adds activation-level vectors. LoRA requires training; steering does not.
 - **Probing classifiers**: Linear probes (training a linear classifier on activations to predict a property) are the precursor to representation engineering. Probes read properties; steering vectors both read and control them.
 
+## Diagrams and Visualizations
+
+*Recommended visual: Activation steering showing a "honesty direction" vector being added to model hidden states during inference — see [Zou et al. Representation Engineering Paper (arXiv:2310.01405)](https://arxiv.org/abs/2310.01405)*
+
+*Recommended visual: Refusal direction in activation space showing how a single direction mediates safety refusal behavior — see [Arditi et al. Refusal in Language Models (arXiv:2406.11717)](https://arxiv.org/abs/2406.11717)*
+
 ## Further Reading
 
 - Zou, A. et al. (2023). "Representation Engineering: A Top-Down Approach to AI Transparency." (arXiv: 2310.01405) The foundational paper from the Center for AI Safety, introducing representation reading and control across multiple concepts and models.

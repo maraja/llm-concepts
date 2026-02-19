@@ -127,6 +127,12 @@ Chatbot Arena has emerged as perhaps the most trusted single evaluation source p
 - **Data Curation**: Training data filtering and deduplication pipelines are the first line of defense against contamination.
 - **Scaling Laws**: Contamination complicates scaling law analysis because benchmark improvements may reflect memorization rather than genuine capability gains.
 
+## Diagrams and Visualizations
+
+*Recommended visual: Pairwise human evaluation setup showing annotators comparing two model outputs for quality — see [LMSYS Chatbot Arena Methodology](https://arxiv.org/abs/2403.04132)*
+
+*Recommended visual: Inter-annotator agreement metrics and their impact on evaluation reliability — see [Hugging Face Evaluate Documentation](https://huggingface.co/docs/evaluate/index)*
+
 ## Further Reading
 
 - Chiang et al., "Chatbot Arena: An Open Platform for Evaluating LLMs by Human Preference" (2024) -- the definitive paper on the most influential human evaluation platform.

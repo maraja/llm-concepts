@@ -138,6 +138,12 @@ Sparse attention addresses the fundamental scalability bottleneck of Transformer
 - **KV Cache**: Sparse attention patterns directly affect which KV cache entries need to be stored and accessed, influencing inference memory requirements.
 - **Mixture of Experts**: Both MoE and sparse attention embody the principle of conditional computation -- not all parameters or computations are needed for every input.
 
+## Diagrams and Visualizations
+
+*Recommended visual: Comparison of dense, strided, and fixed sparse attention patterns from the Sparse Transformer paper — see [Generating Long Sequences with Sparse Transformers (arXiv:1904.10509)](https://arxiv.org/abs/1904.10509)*
+
+*Recommended visual: BigBird attention pattern combining random, window, and global attention — see [BigBird Paper (arXiv:2007.14062)](https://arxiv.org/abs/2007.14062)*
+
 ## Further Reading
 
 - Child et al., "Generating Long Sequences with Sparse Transformers" (2019) -- the foundational sparse attention paper from OpenAI, introducing strided and fixed sparse attention patterns.

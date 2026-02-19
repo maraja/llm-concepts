@@ -118,6 +118,12 @@ Jailbreaking has direct practical implications for AI deployment:
 - **Guardrails & Content Filtering**: External guardrails provide defense-in-depth against jailbreaks that bypass model-level safety training. A multi-layered approach combining internal safety training with external filtering is the standard.
 - **The Alignment Problem**: Jailbreaking is a concrete demonstration that current alignment techniques produce probabilistic safety, not guaranteed safety. This motivates research into more fundamentally robust alignment approaches.
 
+## Diagrams and Visualizations
+
+*Recommended visual: Taxonomy of jailbreak techniques: role-playing, encoding tricks, multi-turn, adversarial suffixes — see [Liu et al. Jailbreak Survey (arXiv:2308.03825)](https://arxiv.org/abs/2308.03825)*
+
+*Recommended visual: DAN (Do Anything Now) jailbreak example showing role-play prompt structure — see [Shen et al. Jailbreak Analysis (arXiv:2308.03825)](https://arxiv.org/abs/2308.03825)*
+
 ## Further Reading
 
 - Zou et al., "Universal and Transferable Adversarial Attacks on Aligned Language Models" (2023) -- the adversarial suffix paper that demonstrated automated, transferable jailbreak generation through gradient-based optimization.

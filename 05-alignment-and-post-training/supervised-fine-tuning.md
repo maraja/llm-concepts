@@ -86,6 +86,13 @@ SFT is also the bridge to further alignment. RLHF and DPO build on top of an SFT
 - **Synthetic data generation** is increasingly used to create SFT datasets, with stronger models generating training data for weaker ones (distillation).
 - **Evaluation and benchmarks** (like MT-Bench and AlpacaEval) specifically measure the quality of instruction-following that SFT enables.
 
+## Diagrams and Visualizations
+
+![The three stages of LLM development: pretraining, supervised fine-tuning on instruction-response pairs, and RLHF alignment](https://huggingface.co/datasets/trl-internal-testing/example-images/resolve/main/blog/rlhf/thumbnail.png)
+*Source: [Hugging Face – Illustrating RLHF](https://huggingface.co/blog/rlhf)*
+
+*Recommended visual: SFT training on instruction-response pairs showing how a base model becomes an instruction-following assistant — see [InstructGPT Paper (arXiv:2203.02155)](https://arxiv.org/abs/2203.02155)*
+
 ## Further Reading
 
 1. **"Scaling Instruction-Finetuned Language Models" (Chung et al., 2022)** -- The FLAN-T5/FLAN-PaLM paper that demonstrated the power of multi-task instruction tuning at scale.

@@ -81,6 +81,13 @@ For businesses, good prompt engineering reduces the need for expensive fine-tuni
 - **Prompt templates** are the foundation of **RAG pipelines** and **agent frameworks**, where retrieved context or tool results are injected into structured prompts.
 - **Output format control** connects directly to **structured output and constrained decoding**.
 
+## Diagrams and Visualizations
+
+![Prompt engineering techniques taxonomy: zero-shot, few-shot, chain-of-thought, self-consistency, and more](https://lilianweng.github.io/posts/2023-03-15-prompt-engineering/prompt-chain-of-thought.png)
+*Source: [Lilian Weng – Prompt Engineering](https://lilianweng.github.io/posts/2023-03-15-prompt-engineering/)*
+
+*Recommended visual: Chain-of-thought prompting comparison showing standard vs CoT prompting with intermediate reasoning steps — see [Wei et al. CoT Paper (arXiv:2201.11903)](https://arxiv.org/abs/2201.11903)*
+
 ## Further Reading
 
 - Wei, J. et al. (2022). "Chain-of-Thought Prompting Elicits Reasoning in Large Language Models." *NeurIPS 2022.* The paper that established CoT prompting as a major technique.

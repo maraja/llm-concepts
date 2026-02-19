@@ -132,6 +132,12 @@ Chunking is often the most impactful and least glamorous part of a RAG pipeline.
 - **Prompt engineering** determines how retrieved chunks are presented to the generative model.
 - **Long-context models** change the calculus: larger context windows mean more chunks can be included, partially mitigating imperfect retrieval.
 
+## Diagrams and Visualizations
+
+*Recommended visual: Comparison of fixed-size, recursive, sentence-level, and semantic chunking strategies showing chunk boundaries — see [Pinecone Chunking Strategies Guide](https://www.pinecone.io/learn/chunking-strategies/)*
+
+*Recommended visual: Impact of chunk size on retrieval quality showing the precision-recall trade-off — see [LangChain Documentation on Text Splitters](https://python.langchain.com/docs/concepts/text_splitters/)*
+
 ## Further Reading
 
 - Langchain documentation on Text Splitters. The most comprehensive practical guide to different splitting strategies, with code examples for each approach.

@@ -98,6 +98,15 @@ RLHF also enabled the alignment of models with safety considerations -- teaching
 - **Constitutional AI** replaces human annotators with AI-generated feedback (RLAIF), modifying Stage 1 of the pipeline.
 - **KL divergence** appears throughout machine learning and information theory; in RLHF it serves as a regularizer preventing mode collapse.
 
+## Diagrams and Visualizations
+
+![RLHF three-phase pipeline: pretraining, reward model training from human preferences, and RL fine-tuning with PPO](https://huggingface.co/datasets/trl-internal-testing/example-images/resolve/main/blog/rlhf/thumbnail.png)
+*Source: [Hugging Face – Illustrating RLHF](https://huggingface.co/blog/rlhf)*
+
+*Recommended visual: Detailed RLHF training loop diagram showing policy, reward model, reference model, and KL penalty — see [Lilian Weng – RLHF Post](https://lilianweng.github.io/posts/2023-03-15-prompt-engineering/)*
+
+*Recommended visual: OpenAI InstructGPT diagram showing the three steps of RLHF — see [InstructGPT Paper (arXiv:2203.02155)](https://arxiv.org/abs/2203.02155)*
+
 ## Further Reading
 
 1. **"Training Language Models to Follow Instructions with Human Feedback" (Ouyang et al., 2022)** -- The InstructGPT paper that defined the modern RLHF pipeline and demonstrated its effectiveness at scale.

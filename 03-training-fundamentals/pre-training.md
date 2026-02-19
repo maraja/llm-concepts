@@ -106,6 +106,16 @@ The enormous cost of pre-training also creates a significant barrier to entry. O
 - **Fine-Tuning (SFT) and RLHF**: The stages that follow pre-training to specialize and align the model.
 - **Distributed Training**: Parallelism strategies (data, tensor, pipeline) that make training across thousands of GPUs possible.
 
+## Diagrams and Visualizations
+
+![Diagram of the GPT pre-training process showing text input flowing through transformer layers with next-token prediction objective, illustrating the autoregressive self-supervised learning loop](https://jalammar.github.io/images/gpt2/gpt2-output.png)
+*Source: [Jay Alammar -- The Illustrated GPT-2](https://jalammar.github.io/illustrated-gpt2/)*
+
+![Overview of the three-stage LLM development pipeline: pre-training (next-token prediction on large corpus), supervised fine-tuning (instruction following), and RLHF (human preference alignment)](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/rlhf/pretraining.png)
+*Source: [Hugging Face Blog -- RLHF: Reinforcement Learning from Human Feedback](https://huggingface.co/blog/rlhf)*
+
+*See also the training loss curves and scaling behavior at: [Brown et al., "Language Models are Few-Shot Learners" (GPT-3, arXiv:2005.14165)](https://arxiv.org/abs/2005.14165), Figure 1, which shows smooth cross-entropy loss reduction over training steps for models of different sizes, demonstrating predictable scaling behavior during pre-training.*
+
 ## Further Reading
 
 - Radford, A., et al. (2018). "Improving Language Understanding by Generative Pre-Training" -- The GPT-1 paper that established the pre-training + fine-tuning paradigm.

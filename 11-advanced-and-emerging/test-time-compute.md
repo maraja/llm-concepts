@@ -117,6 +117,12 @@ Test-time compute may be the most important development in AI scaling since the 
 - **Model Distillation**: Knowledge from reasoning models can be distilled into faster models that approximate the reasoning behavior without the full search cost.
 - **Evaluation and Benchmarks**: Reasoning models have saturated many traditional benchmarks, driving demand for harder evaluations (FrontierMath, SWE-bench Verified).
 
+## Diagrams and Visualizations
+
+*Recommended visual: Test-time compute scaling showing performance improving with repeated sampling, verification, and search — see [Snell et al. Paper (arXiv:2408.03314)](https://arxiv.org/abs/2408.03314)*
+
+*Recommended visual: Compute-optimal frontier showing trade-off between model size and inference-time compute — see [OpenAI Learning to Reason](https://openai.com/index/learning-to-reason-with-llms/)*
+
 ## Further Reading
 
 - **"Self-Consistency Improves Chain of Thought Reasoning in Language Models" (Wang et al., 2023)**: Establishes the foundation of sampling multiple reasoning paths and selecting the most consistent answer.

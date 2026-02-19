@@ -109,6 +109,13 @@ Why does ICL work? Several competing (and possibly complementary) theories have 
 - **Context Window Length**: The practical limit of ICL is determined by the model's context window. Longer contexts enable many-shot ICL, which approaches fine-tuning-level performance on some tasks.
 - **Scaling Laws**: ICL performance improves predictably with model scale, and the gap between few-shot and fine-tuned performance narrows as models grow larger, suggesting that sufficiently large models may close this gap entirely.
 
+## Diagrams and Visualizations
+
+![Few-shot in-context learning example showing demonstrations in the prompt enabling task performance without gradient updates](https://lilianweng.github.io/posts/2023-03-15-prompt-engineering/few-shot-example.png)
+*Source: [Lilian Weng – Prompt Engineering](https://lilianweng.github.io/posts/2023-03-15-prompt-engineering/)*
+
+*Recommended visual: In-context learning performance scaling with number of demonstrations and model size — see [GPT-3 Paper (arXiv:2005.14165)](https://arxiv.org/abs/2005.14165)*
+
 ## Further Reading
 
 - Brown et al., "Language Models are Few-Shot Learners" (2020) -- the GPT-3 paper that demonstrated ICL at scale

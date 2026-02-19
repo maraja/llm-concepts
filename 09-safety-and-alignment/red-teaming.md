@@ -98,6 +98,12 @@ Red teaming also creates organizational knowledge. The process of trying to brea
 - **The Alignment Problem**: Red teaming is a practical, empirical approach to discovering alignment failures -- cases where the model's behavior diverges from what its developers intended.
 - **RLHF**: Red team findings are often used to generate additional training data for RLHF, creating a feedback loop between adversarial testing and model improvement.
 
+## Diagrams and Visualizations
+
+*Recommended visual: Red teaming pipeline: define scope, design attacks, execute probes, document findings, remediate — see [Anthropic Red Teaming Research](https://www.anthropic.com/research)*
+
+*Recommended visual: Automated red teaming with attacker LLM generating adversarial prompts — see [Perez et al. Red Teaming Paper (arXiv:2202.03286)](https://arxiv.org/abs/2202.03286)*
+
 ## Further Reading
 
 - Ganguli et al., "Red Teaming Language Models to Reduce Harms: Methods, Scaling Behaviors, and Lessons Learned" (2022) -- Anthropic's comprehensive study on red teaming methodology and findings at scale.

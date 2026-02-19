@@ -111,6 +111,16 @@ When deploying Medusa in production, several practical factors affect real-world
 - **Lookahead Decoding**: Another parallel decoding method that uses Jacobi iteration to generate and verify multiple tokens, providing a training-free alternative to Medusa's learned heads.
 - **Continuous Batching**: In serving systems with continuous batching, Medusa's per-request speedup translates into higher overall throughput by reducing the time each request occupies a batch slot.
 
+## Diagrams and Visualizations
+
+![Medusa architecture diagram showing multiple prediction heads attached to the base model's final hidden state for parallel token generation](https://raw.githubusercontent.com/FasterDecoding/Medusa/main/assets/medusa_logo.png)
+*See detailed architecture and tree verification diagrams at: [Medusa GitHub Repository](https://github.com/FasterDecoding/Medusa)*
+
+![Tree-structured verification diagram showing how candidate tokens from Medusa heads form a tree verified in a single forward pass](https://cai-tianle.github.io/medusa-site/assets/overview.png)
+*See diagram at: [Medusa Project Page](https://sites.google.com/view/medusa-llm)*
+
+*See EAGLE feature-level autoregression diagram at: [EAGLE GitHub Repository](https://github.com/SafeAILab/EAGLE)*
+
 ## Further Reading
 
 - Cai, T., Li, Y., Geng, Z., Peng, H., Lee, J. D., Chen, D., & Dao, T. (2024). "Medusa: Simple LLM Inference Acceleration Framework with Multiple Decoding Heads." arXiv:2401.10774.

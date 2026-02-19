@@ -122,6 +122,16 @@ Backpropagation reduces the cost of computing all gradients to roughly 2-3 times
 - **Gradient Checkpointing**: A memory optimization technique that modifies how backpropagation stores intermediate activations.
 - **Residual Connections (in Transformers)**: Architectural feature that directly improves gradient flow.
 
+## Diagrams and Visualizations
+
+![Computational graph of a neural network showing the forward pass computing activations and the backward pass propagating gradients via the chain rule](https://colah.github.io/posts/2015-08-Backprop/img/tree-backprop.png)
+*Source: [Chris Olah -- Calculus on Computational Graphs: Backpropagation](https://colah.github.io/posts/2015-08-Backprop/)*
+
+![Illustration of gradient flow through a multi-layer neural network showing how the chain rule decomposes the total gradient into local gradient products at each layer](https://cs231n.github.io/assets/nn2/backprop_example.png)
+*Source: [Stanford CS231n -- Backpropagation, Intuitions](https://cs231n.github.io/optimization-2/)*
+
+*See also the visual explanation of gradient flow through residual connections at: [Jay Alammar -- The Illustrated Transformer](https://jalammar.github.io/illustrated-transformer/) -- shows how skip connections in transformers create gradient highways that prevent vanishing gradients.*
+
 ## Further Reading
 
 - Rumelhart, D.E., Hinton, G.E., & Williams, R.J. (1986). "Learning representations by back-propagating errors" -- The seminal paper that popularized backpropagation for multi-layer networks.

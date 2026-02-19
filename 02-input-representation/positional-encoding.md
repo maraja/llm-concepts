@@ -100,6 +100,17 @@ The choice of positional encoding method also determines whether a model can han
 - **Self-Attention**: Positional encoding modifies what the attention mechanism "sees" about token relationships.
 - **Special Tokens**: Tokens like BOS always appear at position 0, creating a consistent positional anchor.
 
+## Diagrams and Visualizations
+
+![Sinusoidal positional encoding heatmap showing the wave patterns across positions and embedding dimensions, with low-frequency and high-frequency components](https://jalammar.github.io/images/t/transformer_positional_encoding_large_example.png)
+*Source: [Jay Alammar – The Illustrated Transformer](https://jalammar.github.io/illustrated-transformer/)*
+
+![Diagram showing how positional encoding vectors are added element-wise to token embedding vectors to form the transformer input representation](https://jalammar.github.io/images/t/transformer_positional_encoding_vectors.png)
+*Source: [Jay Alammar – The Illustrated Transformer](https://jalammar.github.io/illustrated-transformer/)*
+
+![Overview of positional encoding approaches in transformers: absolute (sinusoidal, learned) vs. relative (RoPE, ALiBi, T5 bias)](https://lilianweng.github.io/posts/2023-01-27-the-transformer-family-v2/position-encoding-methods.png)
+*Source: [Lilian Weng – The Transformer Family Version 2.0](https://lilianweng.github.io/posts/2023-01-27-the-transformer-family-v2/)*
+
 ## Further Reading
 
 - Vaswani, A., et al. (2017). "Attention Is All You Need." *NeurIPS 2017.* -- Introduced sinusoidal positional encoding alongside the transformer architecture.

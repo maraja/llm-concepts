@@ -125,6 +125,13 @@ The agent paradigm also changes how we think about AI capability. Individual mod
 - **Structured output** ensures reliable communication between the agent's reasoning and its tool invocations.
 - **Safety and alignment** become paramount when agents act autonomously -- misaligned goals combined with tool access can produce harmful outcomes.
 
+## Diagrams and Visualizations
+
+![LLM-powered autonomous agent system overview showing planning, memory, and tool use components](https://lilianweng.github.io/posts/2023-06-23-agent/agent-overview.png)
+*Source: [Lilian Weng – LLM Powered Autonomous Agents](https://lilianweng.github.io/posts/2023-06-23-agent/)*
+
+*Recommended visual: Agent loop diagram showing Observe → Think → Act → Observe cycle — see [Lilian Weng – LLM Powered Autonomous Agents](https://lilianweng.github.io/posts/2023-06-23-agent/)*
+
 ## Further Reading
 
 - Yao, S. et al. (2023). "ReAct: Synergizing Reasoning and Acting in Language Models." *ICLR 2023.* The paper that established the dominant reasoning-plus-acting agent pattern.

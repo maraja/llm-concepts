@@ -90,6 +90,12 @@ The "free lunch" nature of speculative decoding -- identical quality, strictly f
 - **Model Serving Frameworks**: vLLM and TensorRT-LLM both support speculative decoding, with ongoing work to improve integration with continuous batching.
 - **Knowledge Distillation**: A distilled small model can serve as an excellent draft model, combining two optimization strategies.
 
+## Diagrams and Visualizations
+
+*Recommended visual: Speculative decoding pipeline showing draft model generating candidate tokens and target model verifying in a single forward pass — see [Leviathan et al. Paper (arXiv:2211.17192)](https://arxiv.org/abs/2211.17192)*
+
+*Recommended visual: Acceptance/rejection verification step showing how rejected tokens are resampled to maintain exact output distribution — see [Chen et al. Paper (arXiv:2302.01318)](https://arxiv.org/abs/2302.01318)*
+
 ## Further Reading
 
 1. **"Fast Inference from Transformers via Speculative Decoding"** (Leviathan et al., 2023) -- One of the two foundational papers that independently proposed speculative decoding with its formal correctness guarantee.

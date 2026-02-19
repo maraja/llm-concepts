@@ -110,6 +110,14 @@ Several mechanisms have been identified as contributing to grokking:
 - **Curriculum Learning**: Both concern the dynamics of when and how models learn. Curriculum learning manipulates data ordering to control learning dynamics, while grokking reveals that the model's internal curriculum can be dramatically different from the external loss curve.
 - **Double Descent**: Another counter-intuitive training phenomenon where test loss first decreases, then increases (overfitting), then decreases again. Grokking and double descent may share underlying mechanisms related to phase transitions in representation structure.
 
+## Diagrams and Visualizations
+
+*See the canonical grokking training curves in: [Power et al., "Grokking: Generalization Beyond Overfitting on Small Algorithmic Datasets" (arXiv:2201.02177)](https://arxiv.org/abs/2201.02177), Figure 1, which shows the dramatic phase transition where training accuracy reaches 100% early while validation accuracy remains at chance for thousands of steps before suddenly jumping to near-perfect.*
+
+*See the mechanistic interpretability analysis of grokked networks in: [Nanda et al., "Progress Measures for Grokking via Mechanistic Interpretability" (arXiv:2301.05217)](https://arxiv.org/abs/2301.05217) -- includes visualizations of the Fourier-based circular representations that the network learns for modular arithmetic, showing the transition from memorization circuits to structured generalization circuits.*
+
+*See also the grokking phase diagram at: [Liu et al., "Omnigrok: Grokking Beyond Algorithmic Data" (arXiv:2210.01117)](https://arxiv.org/abs/2210.01117) -- includes figures mapping the relationship between weight decay strength, dataset size fraction, and the onset of grokking.*
+
 ## Further Reading
 
 - Power et al., "Grokking: Generalization Beyond Overfitting on Small Algorithmic Datasets" (2022) -- the original paper documenting grokking

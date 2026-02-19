@@ -92,6 +92,14 @@ Without the FFN (and its activation function), the Transformer would be a stack 
 - **Layer Normalization**: Applied before (Pre-LN) or after (Post-LN) the FFN (see `layer-normalization.md`).
 - **Mixture of Experts**: MoE replaces the single FFN with multiple expert FFNs, routing each token to a subset (see `mixture-of-experts.md`).
 
+## Diagrams and Visualizations
+
+![Transformer block diagram highlighting the feed-forward network layer that follows the self-attention layer](https://jalammar.github.io/images/t/transformer_resideual_layer_norm_2.png)
+*Source: [Jay Alammar – The Illustrated Transformer](https://jalammar.github.io/illustrated-transformer/)*
+
+![Position-wise feed-forward network architecture showing the two-layer MLP applied independently to each token](https://jalammar.github.io/images/t/transformer_encoder_with_tensors_2.png)
+*Source: [Jay Alammar – The Illustrated Transformer](https://jalammar.github.io/illustrated-transformer/)*
+
 ## Further Reading
 
 - "Transformer Feed-Forward Layers Are Key-Value Memories" -- Geva et al., 2021 (demonstrates that FFNs act as knowledge stores)

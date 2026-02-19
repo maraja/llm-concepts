@@ -142,6 +142,12 @@ RAPTOR addresses a fundamental limitation of flat-chunk RAG: the loss of hierarc
 - **Agentic RAG**: An agentic system could use RAPTOR's tree structure strategically -- first retrieving high-level summaries to understand the landscape, then drilling into specific leaf nodes for details.
 - **Late chunking**: Both RAPTOR and late chunking aim to preserve broader context that is lost in standard chunking. Late chunking preserves context at the embedding level; RAPTOR preserves it through hierarchical summarization.
 
+## Diagrams and Visualizations
+
+*Recommended visual: RAPTOR tree structure showing leaf chunks clustered and summarized into hierarchical nodes — see [Sarthi et al. RAPTOR Paper (arXiv:2401.18059)](https://arxiv.org/abs/2401.18059)*
+
+*Recommended visual: Multi-level retrieval in RAPTOR showing queries matching at different abstraction levels in the tree — see [RAPTOR Paper Figure 1](https://arxiv.org/abs/2401.18059)*
+
 ## Further Reading
 
 - Sarthi, P., Abdullah, S., Tuli, A., Khanna, S., Goldie, A., & Manning, C. D. (2024). "RAPTOR: Recursive Abstractive Processing for Tree-Organized Retrieval." *ICLR 2024.* (arXiv: 2401.18059) The foundational RAPTOR paper from Stanford.

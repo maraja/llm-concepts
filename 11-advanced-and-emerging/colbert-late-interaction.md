@@ -118,6 +118,12 @@ ColBERT closes roughly 70-90% of the gap between bi-encoders and cross-encoders 
 - **Cross-encoders**: ColBERT approximates cross-encoder quality while maintaining the pre-computation advantages of bi-encoders. ColBERTv2's training uses cross-encoder distillation.
 - **Late chunking**: Both late chunking and ColBERT preserve fine-grained information that single-vector approaches discard. They are complementary and could theoretically be combined.
 
+## Diagrams and Visualizations
+
+*Recommended visual: ColBERT late interaction architecture showing per-token embeddings and MaxSim operation between query and document tokens — see [ColBERT Paper (arXiv:2004.12832)](https://arxiv.org/abs/2004.12832)*
+
+*Recommended visual: Comparison of bi-encoder (single vector), cross-encoder (joint), and ColBERT (late interaction) architectures — see [ColBERTv2 Paper (arXiv:2112.01488)](https://arxiv.org/abs/2112.01488)*
+
 ## Further Reading
 
 - Khattab, O. & Zaharia, M. (2020). "ColBERT: Efficient and Effective Passage Search via Contextualized Late Interaction over BERT." *SIGIR 2020.* (arXiv: 2004.12832) The original ColBERT paper introducing late interaction and MaxSim.

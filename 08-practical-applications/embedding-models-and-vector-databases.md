@@ -95,6 +95,13 @@ Embeddings and vector databases are the infrastructure layer that enables RAG, s
 - **Attention mechanisms** are the building blocks inside embedding models themselves.
 - **Fine-tuning** embedding models on domain-specific data (using techniques like contrastive fine-tuning) can dramatically improve retrieval quality for specialized domains.
 
+## Diagrams and Visualizations
+
+![Word embedding space showing how semantically similar words cluster together, with vector arithmetic like king - man + woman = queen](https://jalammar.github.io/images/word2vec/king-analogy-viz.png)
+*Source: [Jay Alammar – The Illustrated Word2Vec](https://jalammar.github.io/illustrated-word2vec/)*
+
+*Recommended visual: Vector database architecture showing embedding, indexing (HNSW/IVF), and similarity search pipeline — see [Pinecone – What is a Vector Database](https://www.pinecone.io/learn/vector-database/)*
+
 ## Further Reading
 
 - Johnson, J., Douze, M., & Jegou, H. (2019). "Billion-scale similarity search with GPUs." *IEEE Transactions on Big Data.* The FAISS paper that established foundational ANN techniques.

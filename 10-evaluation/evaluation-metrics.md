@@ -141,6 +141,12 @@ These metrics remain most relevant for narrower, well-defined tasks (translation
 - **Benchmarks**: Many standard benchmarks (WMT for translation, CNN/DailyMail for summarization) report these metrics as their primary evaluation measure.
 - **Human Evaluation**: The ultimate validation for all automated metrics. A metric's value is measured by its correlation with human judgments.
 
+## Diagrams and Visualizations
+
+*Recommended visual: BLEU n-gram matching example showing precision calculation between generated and reference text — see [Hugging Face Evaluate Documentation](https://huggingface.co/docs/evaluate/index)*
+
+*Recommended visual: BERTScore computation showing cosine similarity between contextual embeddings of generated and reference tokens — see [BERTScore Paper (arXiv:1904.09675)](https://arxiv.org/abs/1904.09675)*
+
 ## Further Reading
 
 - Papineni et al., "BLEU: a Method for Automatic Evaluation of Machine Translation" (2002) -- the original BLEU paper, one of the most cited papers in NLP.

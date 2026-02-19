@@ -109,6 +109,12 @@ Toxicity detection is essential for safe LLM deployment:
 - **Jailbreaking**: Many jailbreaks specifically aim to elicit toxic outputs that the model has been trained to refuse. Toxicity detection measures the success rate of these attacks.
 - **Hallucination**: A model that hallucinates harmful claims about real people is producing a specific kind of toxic output that combines factual inaccuracy with potential harm.
 
+## Diagrams and Visualizations
+
+*Recommended visual: Toxicity detection pipeline showing input classification, content moderation, and output filtering — see [Perspective API Documentation](https://perspectiveapi.com/)*
+
+*Recommended visual: RealToxicityPrompts evaluation framework — see [Gehman et al. Paper (arXiv:2009.11462)](https://arxiv.org/abs/2009.11462)*
+
 ## Further Reading
 
 - Gehman et al., "RealToxicityPrompts: Evaluating Neural Toxic Degeneration in Language Models" (2020) -- the foundational benchmark for measuring toxicity in language model generation.

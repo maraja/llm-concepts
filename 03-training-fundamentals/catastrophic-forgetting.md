@@ -141,6 +141,15 @@ This avoids sequential forgetting by never training a single model on multiple t
 - **Continual Learning**: The research field dedicated to solving catastrophic forgetting, aiming to build systems that learn sequentially without knowledge loss.
 - **Model Merging**: An alternative paradigm that avoids sequential training entirely, sidestepping the forgetting problem through parallel adaptation.
 
+## Diagrams and Visualizations
+
+![Diagram of Elastic Weight Consolidation (EWC) showing how Fisher information identifies important parameters for Task A and constrains them during Task B training](https://lilianweng.github.io/posts/2020-01-29-curriculum-cl/EWC.png)
+*Source: [Lilian Weng -- Learning with Not Forgetting](https://lilianweng.github.io/posts/2020-01-29-curriculum-cl/)*
+
+*See the catastrophic forgetting illustration in: [Kirkpatrick et al., "Overcoming Catastrophic Forgetting in Neural Networks" (arXiv:1612.00796)](https://arxiv.org/abs/1612.00796), Figure 1, which shows how unconstrained gradient descent on Task B destroys the parameter configuration learned for Task A.*
+
+*See also the comparison of continual learning strategies (replay, regularization, architecture-based) at: [Lilian Weng -- Lifelong/Continual Learning](https://lilianweng.github.io/posts/2020-01-29-curriculum-cl/) -- includes diagrams of multiple mitigation approaches.*
+
 ## Further Reading
 
 - McCloskey & Cohen, "Catastrophic Interference in Connectionist Networks" (1989) -- the original identification of catastrophic forgetting in neural networks

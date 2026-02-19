@@ -132,6 +132,12 @@ The framework also determines:
 - **Throughput vs. Latency**: Serving frameworks provide the knobs (batch size, scheduling policy, prefill chunking) to navigate this trade-off.
 - **Speculative Decoding**: Framework support for speculative decoding is still maturing, with vLLM and TensorRT-LLM leading.
 
+## Diagrams and Visualizations
+
+*Recommended visual: vLLM architecture diagram showing PagedAttention, continuous batching, and request scheduling — see [vLLM Documentation](https://docs.vllm.ai/en/latest/)*
+
+*Recommended visual: Comparison of LLM serving frameworks (vLLM, TensorRT-LLM, SGLang) throughput benchmarks — see [vLLM Paper (arXiv:2309.06180)](https://arxiv.org/abs/2309.06180)*
+
 ## Further Reading
 
 1. **"Efficient Memory Management for Large Language Model Serving with PagedAttention"** (Kwon et al., 2023) -- The vLLM paper that introduced PagedAttention and demonstrated the throughput impact of intelligent KV cache memory management.

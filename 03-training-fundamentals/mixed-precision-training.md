@@ -118,6 +118,16 @@ BF16 in particular removed a major source of training instability (FP16 overflow
 - **Gradient Clipping**: Applied to gradients after they are cast back to FP32 (or sometimes in half precision before casting).
 - **Quantization (Inference)**: Mixed precision training is distinct from inference-time quantization (INT8, INT4), which further reduces precision for deployment.
 
+## Diagrams and Visualizations
+
+![Diagram of the mixed precision training workflow: FP32 master weights are cast to FP16/BF16 for forward and backward passes, then gradients are cast back to FP32 for the optimizer update](https://developer-blogs.nvidia.com/wp-content/uploads/2019/01/Mixed-Precision-Training_NVIDIA-Figure1.png)
+*Source: [NVIDIA Developer Blog -- Mixed Precision Training](https://developer.nvidia.com/blog/mixed-precision-training-deep-neural-networks/)*
+
+![Comparison of FP32, FP16, and BF16 floating-point formats showing bit allocation for sign, exponent, and mantissa, highlighting BF16's FP32-matching range with reduced precision](https://developer-blogs.nvidia.com/wp-content/uploads/2020/07/bf16-fp16-fp32.png)
+*Source: [NVIDIA Developer Blog -- BFloat16 Training](https://developer.nvidia.com/blog/accelerating-ai-training-with-tf32-tensor-cores/)*
+
+*See also the loss scaling mechanism diagram in: [Micikevicius et al., "Mixed Precision Training" (arXiv:1710.03740)](https://arxiv.org/abs/1710.03740), Figure 2, which shows how loss scaling prevents gradient underflow in FP16 by multiplying the loss before backward pass and dividing gradients afterward.*
+
 ## Further Reading
 
 - Micikevicius, P., et al. (2018). "Mixed Precision Training" -- The foundational paper that established the loss scaling technique and the mixed precision training recipe.

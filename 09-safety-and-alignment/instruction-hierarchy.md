@@ -121,6 +121,10 @@ When instructions conflict, the model follows the higher-priority source. When i
 - **Constitutional AI**: Shares the principle of embedding behavioral constraints at training time rather than relying on runtime filtering.
 - **Red-Teaming**: Evaluating the hierarchy's robustness requires systematic adversarial testing across all priority levels.
 
+## Diagrams and Visualizations
+
+*Recommended visual: Instruction hierarchy showing priority levels: system prompt > developer instructions > user input — see [OpenAI Instruction Hierarchy Paper (arXiv:2404.13208)](https://arxiv.org/abs/2404.13208)*
+
 ## Further Reading
 
 - Wallace et al., "The Instruction Hierarchy: Training LLMs to Prioritize Privileged Instructions" (2024) -- the foundational paper formalizing the hierarchy for OpenAI models.

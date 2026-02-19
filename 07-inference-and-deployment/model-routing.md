@@ -114,6 +114,15 @@ This layered design ensures that the majority of queries are routed quickly whil
 - **Inference-Time Scaling**: Routing can allocate more inference compute (better model, more samples, longer CoT) to harder queries, implementing a form of adaptive compute allocation.
 - **Speculative Decoding**: Both routing and speculative decoding optimize inference cost by using cheaper computation where possible, escalating to expensive computation only when needed.
 
+## Diagrams and Visualizations
+
+![RouteLLM architecture diagram showing query classification routing between strong and weak models based on estimated difficulty](https://raw.githubusercontent.com/lm-sys/RouteLLM/main/assets/router.png)
+*See diagram at: [RouteLLM GitHub Repository (LMSys)](https://github.com/lm-sys/RouteLLM)*
+
+*See FrugalGPT cascading architecture diagram showing learned stopping criteria across model tiers at: [FrugalGPT Paper (arXiv:2305.05176)](https://arxiv.org/abs/2305.05176)*
+
+*See Semantic Router embedding-based routing diagram at: [Semantic Router GitHub Repository (Aurelio AI)](https://github.com/aurelio-labs/semantic-router)*
+
 ## Further Reading
 
 - Ong, I., Almahairi, A., Wu, V., Chiang, W.-L., Wu, T., Gonzalez, J. E., Kadous, M. W., & Stoica, I. (2024). "RouteLLM: Learning to Route LLMs with Preference Data." arXiv:2406.18665.

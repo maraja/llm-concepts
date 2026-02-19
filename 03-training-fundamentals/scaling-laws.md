@@ -124,6 +124,15 @@ The billion-dollar decisions in AI -- how many GPUs to buy, what size model to t
 - **Distributed Training**: The infrastructure that makes billion-parameter, trillion-token training possible.
 - **Compute-Optimal Training**: The direct practical application of Chinchilla-style scaling analysis.
 
+## Diagrams and Visualizations
+
+![Log-log plot of language model loss vs. compute (FLOPs) showing the smooth power-law relationship, where performance improves as a straight line on the log-log scale across many orders of magnitude](https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/Scaling_laws_-_loss_vs_compute.svg/1200px-Scaling_laws_-_loss_vs_compute.svg.png)
+*Source: [Wikimedia Commons -- Scaling Laws for Neural Language Models](https://commons.wikimedia.org/wiki/File:Scaling_laws_-_loss_vs_compute.svg)*
+
+*See the Chinchilla compute-optimal frontier in: [Hoffmann et al., "Training Compute-Optimal Large Language Models" (arXiv:2203.15556)](https://arxiv.org/abs/2203.15556), Figure 1, which plots loss isocontours as a function of model size and token count, showing the optimal allocation curve where parameters and data should scale equally.*
+
+*See also the original Kaplan scaling law figures at: [Kaplan et al., "Scaling Laws for Neural Language Models" (arXiv:2001.08361)](https://arxiv.org/abs/2001.08361), Figures 1-3, which show the separate power-law relationships between loss and model parameters, dataset size, and total compute.*
+
 ## Further Reading
 
 - Kaplan, J., et al. (2020). "Scaling Laws for Neural Language Models" -- The foundational paper establishing power-law relationships between performance and scale for language models.

@@ -180,6 +180,12 @@ Furthermore, **verification** remains unsolved. How do you prove that a model ha
 - **Membership Inference Attacks**: Used as both a threat model (what we want to prevent) and an evaluation tool (verifying that unlearning succeeded).
 - **Mechanistic Interpretability**: Understanding where and how knowledge is stored in LLMs (circuits, features, factual associations in MLP layers) directly informs more targeted unlearning approaches.
 
+## Diagrams and Visualizations
+
+*Recommended visual: Machine unlearning pipeline: identify forget set, apply unlearning method, verify removal while maintaining utility — see [TOFU Benchmark Paper (arXiv:2401.06121)](https://arxiv.org/abs/2401.06121)*
+
+*Recommended visual: Gradient ascent unlearning showing loss maximization on forget data alongside retention on keep data — see [Machine Unlearning Survey (arXiv:2402.08787)](https://arxiv.org/abs/2402.08787)*
+
 ## Further Reading
 
 - Maini, P. et al. (2024). "TOFU: A Task of Fictitious Unlearning for LLMs." *arXiv: 2401.06121.* The benchmark that standardized LLM unlearning evaluation using fictitious author profiles.

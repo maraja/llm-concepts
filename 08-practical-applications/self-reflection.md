@@ -112,6 +112,12 @@ Self-reflection is most effective on **verifiable tasks** where the evaluator ca
 - **Chain-of-Thought Prompting**: Self-reflection extends CoT from single-pass reasoning to iterative, feedback-driven reasoning across multiple attempts at the same problem.
 - **Multi-Agent Systems**: Critic agents in multi-agent architectures perform a role analogous to the evaluator and self-reflection components in Reflexion, providing external feedback.
 
+## Diagrams and Visualizations
+
+*Recommended visual: Reflexion architecture showing Actor, Evaluator, Self-Reflection Model, and Memory components in a loop — see [Reflexion Paper (arXiv:2303.11366)](https://arxiv.org/abs/2303.11366)*
+
+*Recommended visual: Self-Refine iterative loop showing Generate → Feedback → Refine cycle — see [Self-Refine Paper (arXiv:2303.17651)](https://arxiv.org/abs/2303.17651)*
+
 ## Further Reading
 
 - Shinn et al., "Reflexion: Language Agents with Verbal Reinforcement Learning," arXiv:2303.11366, NeurIPS 2023

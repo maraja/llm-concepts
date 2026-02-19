@@ -180,6 +180,12 @@ The knowledge graph also provides a powerful foundation for explainability. Inst
 - **Compound AI systems**: GraphRAG is a prime example of a compound AI system -- multiple LLM calls, graph algorithms, and retrieval mechanisms orchestrated into a pipeline.
 - **Neurosymbolic AI**: GraphRAG combines neural capabilities (LLM extraction and generation) with symbolic structures (knowledge graphs), making it a form of neurosymbolic AI applied to retrieval.
 
+## Diagrams and Visualizations
+
+*Recommended visual: GraphRAG pipeline: document → entities/relationships → knowledge graph → community detection → community summaries — see [Microsoft GraphRAG Paper (arXiv:2404.16130)](https://arxiv.org/abs/2404.16130)*
+
+*Recommended visual: Local vs global search in GraphRAG showing entity-level retrieval vs community-summary-level retrieval — see [Microsoft GraphRAG GitHub](https://github.com/microsoft/graphrag)*
+
 ## Further Reading
 
 - Edge, D., Trinh, H., Cheng, N., et al. (2024). "From Local to Global: A Graph RAG Approach to Query-Focused Summarization." (arXiv: 2404.16130) The foundational GraphRAG paper from Microsoft Research.

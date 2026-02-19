@@ -57,7 +57,7 @@ The MemGPT paradigm has influenced subsequent agent frameworks. The core idea --
 
 1. **Buffer Memory**: Store the full conversation history, truncating from the front when the context limit is reached. Simple to implement but loses important early context and instructions.
 2. **Summary Memory**: Periodically compress older conversation history into summaries using an LLM call. Preserves key information at the cost of detail and nuance.
-3. **Entity Memory**: Extract and maintain a running store of entities (people, projects, preferences, decisions) mentioned in conversation. Good for personalization and tracking state.
+3. **Entity Memory**: Extract and maintain a running store of entities (people, projects, preferences, decisions) mentioned in conversation. Good for personalization and tracking evolving state over time.
 4. **Hybrid Memory**: Combine buffer (recent messages verbatim), summary (older history compressed), and entity extraction (key facts structured). This is the most robust approach for production systems and is what most deployed agents use. The tradeoff is implementation complexity -- maintaining three synchronized memory subsystems requires careful engineering.
 
 ### Persistence Strategies
@@ -107,6 +107,14 @@ The choice of persistence strategy depends on the application. A coding assistan
 - **Transformer Architecture**: The attention mechanism over the context window is the built-in "working memory" that external memory systems extend and augment.
 - **Multi-Agent Systems**: Shared memory stores enable multiple agents to coordinate, share findings, and maintain consistent state across a collaborative workflow.
 - **Attention Mechanisms**: Understanding how attention distributes weight across the context window explains why the "lost in the middle" problem occurs and why external memory is needed.
+- **Prompt Engineering**: Memory retrieval results must be formatted and injected into prompts effectively. The placement, formatting, and quantity of retrieved memories significantly impact generation quality.
+
+## Diagrams and Visualizations
+
+![Memory types for LLM agents: sensory, short-term (in-context), and long-term (external storage) mapped to cognitive science](https://lilianweng.github.io/posts/2023-06-23-agent/memory.png)
+*Source: [Lilian Weng – LLM Powered Autonomous Agents](https://lilianweng.github.io/posts/2023-06-23-agent/)*
+
+*Recommended visual: MemGPT architecture showing hierarchical memory management with main context and external storage — see [MemGPT Paper (arXiv:2310.08560)](https://arxiv.org/abs/2310.08560)*
 
 ## Further Reading
 
@@ -115,3 +123,5 @@ The choice of persistence strategy depends on the application. A coding assistan
 - Microsoft Research, "GraphRAG: Unlocking LLM Discovery on Narrative Private Data," 2024
 - Zhang et al., "A Survey on the Memory Mechanism of Large Language Model Based Agents," arXiv:2404.13501, 2024
 - Park et al., "Generative Agents: Interactive Simulacra of Human Behavior," arXiv:2304.03442, 2023
+- Lewis et al., "Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks," NeurIPS 2020
+- Johnson et al., "Billion-Scale Similarity Search with GPUs" (FAISS), IEEE Big Data 2019

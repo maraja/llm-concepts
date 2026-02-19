@@ -129,6 +129,15 @@ The choice of parallelism configuration directly impacts training throughput (an
 - **MoE (Mixture of Experts)**: Adds the expert parallelism dimension, enabling models with trillions of parameters while keeping per-token compute manageable.
 - **Flash Attention**: Reduces activation memory for the attention mechanism, complementing parallelism strategies by lowering the per-GPU memory floor.
 
+## Diagrams and Visualizations
+
+![3D parallelism topology mapping data, tensor, and pipeline parallelism to hardware hierarchy](https://jalammar.github.io/images/model-parallelism/3d-parallelism-megatron.png)
+*Source: [Jay Alammar - The Illustrated Model Parallelism](https://jalammar.github.io/model-parallelism/)*
+
+*Recommended visual: Diagram showing how D x T x P GPUs are organized with tensor parallelism within nodes, pipeline parallelism across nodes, and data parallelism across replicas -- see [Megatron-LM paper (Narayanan et al., 2021)](https://arxiv.org/abs/2104.04473), Figure 3*
+
+*Recommended visual: PTD-P (Pipeline, Tensor, Data Parallelism) schedule showing micro-batch interleaving across pipeline stages with tensor-parallel groups -- see [Lilian Weng's blog post on Large Transformer Model Training](https://lilianweng.github.io/posts/2021-09-25-train-large/)*
+
 ## Further Reading
 
 - Narayanan et al., *"Efficient Large-Scale Language Model Training on GPU Clusters Using Megatron-LM"* (2021) -- The definitive guide to 3D parallelism, presenting the mapping of tensor/pipeline/data parallelism to hardware topology with detailed scaling analysis.

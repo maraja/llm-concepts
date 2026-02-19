@@ -108,6 +108,16 @@ The context window is one of the most practically important properties of an LLM
 - **Special Tokens**: The BOS token anchors position 0, and the EOS token signals the end of useful context.
 - **Self-Attention**: The quadratic cost of attention with respect to sequence length is the fundamental computational constraint on context window size.
 
+## Diagrams and Visualizations
+
+![The "Lost in the Middle" U-shaped curve showing how LLM accuracy varies depending on where relevant information is placed within the context window](https://github.com/nelson-liu/lost-in-the-middle/raw/main/lost-in-the-middle.png)
+*Source: [Nelson Liu – Lost in the Middle GitHub Repository](https://github.com/nelson-liu/lost-in-the-middle)*
+
+![Illustration of the self-attention mechanism showing quadratic scaling of computation with sequence length, the fundamental constraint on context window size](https://jalammar.github.io/images/t/transformer_self-attention_visualization.png)
+*Source: [Jay Alammar – The Illustrated Transformer](https://jalammar.github.io/illustrated-transformer/)*
+
+*See also the Needle-in-a-Haystack evaluation visualizations at: [Greg Kamradt's NIAH Testing](https://github.com/gkamradt/LLMTest_NeedleInAHaystack) -- heatmaps showing model retrieval accuracy across different context depths and positions.*
+
 ## Further Reading
 
 - Liu, N.F., et al. (2023). "Lost in the Middle: How Language Models Use Long Contexts." *arXiv:2307.03172.* -- The landmark paper documenting the U-shaped attention phenomenon.

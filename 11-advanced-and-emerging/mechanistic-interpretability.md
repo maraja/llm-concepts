@@ -106,6 +106,12 @@ The stakes for mechanistic interpretability extend beyond scientific curiosity:
 - **Model Editing**: Once circuits are identified, targeted editing (activation patching, feature clamping) can modify specific behaviors without retraining.
 - **Neuroscience**: The methodology draws parallels to neuroscience -- probing, ablation studies, and circuit mapping are inspired by techniques used to study biological brains.
 
+## Diagrams and Visualizations
+
+*Recommended visual: Sparse autoencoder decomposing model activations into interpretable features — see [Anthropic Scaling Monosemanticity](https://transformer-circuits.pub/2024/scaling-monosemanticity/index.html)*
+
+*Recommended visual: Induction head circuit showing how two attention heads compose to implement in-context pattern matching — see [Olsson et al. In-context Learning and Induction Heads](https://transformer-circuits.pub/2022/in-context-learning-and-induction-heads/index.html)*
+
 ## Further Reading
 
 - **"Toy Models of Superposition" (Elhage et al., 2022)**: Foundational work demonstrating how and why neural networks represent more features than neurons through superposition, establishing the theoretical basis for the field.

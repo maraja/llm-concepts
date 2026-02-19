@@ -104,6 +104,16 @@ RoPE has become the de facto standard for position encoding in modern LLMs for s
 - **Token Embeddings**: RoPE is applied after the initial embedding and Q/K projections, not to the embeddings themselves.
 - **Fine-Tuning**: Context extension via RoPE modification typically requires some fine-tuning to adapt the model to the new positional distribution.
 
+## Diagrams and Visualizations
+
+![RoPE rotation mechanism showing how query and key vectors are rotated in 2D subspaces, with the angle proportional to the token position](https://blog.eleuther.ai/assets/images/rotary-embeddings/rope_diagram.png)
+*Source: [EleutherAI – Rotary Embeddings: A Relative Revolution](https://blog.eleuther.ai/rotary-embeddings/)*
+
+![Visualization of RoPE's multi-frequency rotation scheme across embedding dimension pairs, showing low-frequency components for long-range and high-frequency for local position encoding](https://raw.githubusercontent.com/lucidrains/rotary-embedding-torch/main/rope.png)
+*Source: [lucidrains – Rotary Embedding PyTorch Implementation](https://github.com/lucidrains/rotary-embedding-torch)*
+
+*See also the detailed RoPE explanation with diagrams at: [EleutherAI Blog – Rotary Embeddings](https://blog.eleuther.ai/rotary-embeddings/) -- includes visual derivations of the rotation matrices and their effect on attention scores.*
+
 ## Further Reading
 
 - Su, J., Lu, Y., Pan, S., Murtadha, A., Wen, B., & Liu, Y. (2021). "RoFormer: Enhanced Transformer with Rotary Position Embedding." *arXiv:2104.09864.* -- The original RoPE paper.

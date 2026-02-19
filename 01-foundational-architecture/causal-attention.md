@@ -113,6 +113,14 @@ In the original encoder-decoder Transformer, the encoder uses bidirectional atte
 - **Encoder-Decoder Architecture**: The distinction between causal and bidirectional attention defines the difference between encoder and decoder (see `encoder-decoder-architecture.md`).
 - **KV Cache**: The append-only nature of the KV cache is a direct consequence of the causal mask.
 
+## Diagrams and Visualizations
+
+![Causal attention mask showing the lower-triangular matrix that prevents each token from attending to future positions](https://jalammar.github.io/images/gpt2/self-attention-and-masked-self-attention.png)
+*Source: [Jay Alammar – The Illustrated GPT-2](https://jalammar.github.io/illustrated-gpt2/)*
+
+![Masked self-attention matrix visualization showing how the triangular mask restricts information flow to left-to-right only](https://jalammar.github.io/images/xlnet/masked-self-attention-2.png)
+*Source: [Jay Alammar – A Visual Guide to Using BERT](https://jalammar.github.io/a-visual-guide-to-using-bert-for-the-first-time/)*
+
 ## Further Reading
 
 - "Attention Is All You Need" -- Vaswani et al., 2017 (introduces the masked attention mechanism in the decoder)

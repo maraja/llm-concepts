@@ -106,6 +106,13 @@ They lose on simple single-step tasks where the orchestration overhead (3-10x co
 - **Self-Reflection**: Critic agents in multi-agent systems apply self-reflection principles to evaluate other agents' outputs, creating external feedback loops.
 - **Reasoning Models**: Using reasoning models (o1, R1) as the backbone for critical agents (reviewers, planners) can improve multi-agent system quality on complex tasks.
 - **RAG (Retrieval-Augmented Generation)**: Research agents in multi-agent systems typically use RAG to ground their outputs in retrieved documents before passing results to other agents.
+- **Prompt Engineering**: The system prompt for each agent is effectively a role specification -- the quality of these prompts directly determines how well agents perform their specialized functions.
+
+## Diagrams and Visualizations
+
+*Recommended visual: Multi-agent collaboration patterns showing debate, delegation, pipeline, and voting architectures — see [AutoGen Paper (arXiv:2308.08155)](https://arxiv.org/abs/2308.08155)*
+
+*Recommended visual: CrewAI agent-role-task framework diagram — see [CrewAI Documentation](https://docs.crewai.com/)*
 
 ## Further Reading
 
@@ -115,3 +122,5 @@ They lose on simple single-step tasks where the orchestration overhead (3-10x co
 - Li et al., "CAMEL: Communicative Agents for 'Mind' Exploration of Large Language Model Society," arXiv:2303.17760, 2023
 - Qian et al., "ChatDev: Communicative Agents for Software Development," arXiv:2307.07924, 2023
 - LangGraph documentation, "Multi-Agent Architectures," LangChain, 2024
+- Park et al., "Generative Agents: Interactive Simulacra of Human Behavior," arXiv:2304.03442, 2023
+- Chen et al., "AgentVerse: Facilitating Multi-Agent Collaboration," arXiv:2308.10848, 2023

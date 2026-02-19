@@ -125,6 +125,12 @@ Each iteration roughly doubles the inference cost but can yield substantial qual
 - **Monte Carlo Tree Search (MCTS)**: Tree search with value estimation is a natural framework for structured inference-time compute allocation, explored in approaches like Tree-of-Thought and reasoning-via-planning.
 - **Speculative Decoding**: While speculative decoding speeds up individual samples, inference-time scaling is about improving quality by spending more compute -- opposite goals that can coexist in the same system.
 
+## Diagrams and Visualizations
+
+*Recommended visual: Inference-time compute scaling curves showing performance improving with more samples, longer chains, and tree search — see [Snell et al. Scaling LLM Test-Time Compute (arXiv:2408.03314)](https://arxiv.org/abs/2408.03314)*
+
+*Recommended visual: Compute-optimal inference showing when to use a smaller model with more inference compute vs a larger model — see [OpenAI Learning to Reason](https://openai.com/index/learning-to-reason-with-llms/)*
+
 ## Further Reading
 
 - Snell, C., Lee, J., Xu, K., & Kumar, A. (2024). "Scaling LLM Test-Time Compute Optimally can be More Effective than Scaling Model Parameters." arXiv:2408.03314.

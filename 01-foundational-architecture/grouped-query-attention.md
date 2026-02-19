@@ -130,6 +130,13 @@ GQA has become the standard attention configuration for production LLMs because 
 - **Context Window Extension**: Longer contexts require larger KV caches, making GQA increasingly important as context lengths grow.
 - **Model Serving / Throughput vs. Latency**: GQA is primarily a throughput optimization -- it enables serving more concurrent requests or longer contexts within the same memory budget.
 
+## Diagrams and Visualizations
+
+![Comparison of Multi-Head Attention, Grouped-Query Attention, and Multi-Query Attention showing how KV heads are shared across query heads](https://blog.fireworks.ai/content/images/2023/07/GQA.png)
+*Source: [GQA Paper – Ainslie et al., 2023](https://arxiv.org/abs/2305.13245)*
+
+*Recommended visual: GQA interpolation between MHA and MQA with benchmark results — see [GQA Paper Figure 1 (arXiv:2305.13245)](https://arxiv.org/abs/2305.13245)*
+
 ## Further Reading
 
 - Ainslie et al., "GQA: Training Generalized Multi-Query Transformer Models from Multi-Head Checkpoints" (2023) -- the original GQA paper, including the method for converting existing MHA models to GQA.

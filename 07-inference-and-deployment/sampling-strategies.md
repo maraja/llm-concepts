@@ -126,6 +126,13 @@ Sampling strategy is arguably the most user-facing aspect of LLM behavior. The s
 - **Knowledge Distillation**: Temperature plays a dual role -- in distillation, high temperature softens the teacher's distribution to transfer more information. In sampling, it softens the distribution to increase diversity.
 - **Quantization**: Reduced precision can slightly alter the probability distribution, which interacts with sampling. At very low bit widths, the effective temperature may shift.
 
+## Diagrams and Visualizations
+
+![Visualization of temperature scaling effect on probability distribution: low temperature sharpens peaks, high temperature flattens distribution](https://jalammar.github.io/images/gpt2/gpt2-output.png)
+*Source: [Jay Alammar – The Illustrated GPT-2](https://jalammar.github.io/illustrated-gpt2/)*
+
+*Recommended visual: Top-k vs Top-p sampling comparison showing how each truncates the probability distribution differently — see [Hugging Face – How to Generate Text](https://huggingface.co/blog/how-to-generate)*
+
 ## Further Reading
 
 1. **"The Curious Case of Neural Text Degeneration"** (Holtzman et al., 2020) -- The paper that introduced nucleus (top-p) sampling and demonstrated why greedy and beam search produce degenerate text.

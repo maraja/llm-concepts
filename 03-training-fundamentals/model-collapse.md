@@ -112,6 +112,14 @@ for generation in range(20):
 - **RLHF / Alignment Training**: Alignment training already uses synthetic data (AI-generated responses). Understanding model collapse informs how to structure this pipeline safely.
 - **Scaling Laws**: Model collapse may impose fundamental limits on scaling by degrading the quality of available training data, even as compute continues to increase.
 
+## Diagrams and Visualizations
+
+*See the recursive degradation diagram in: [Shumailov et al., "AI Models Collapse When Trained on Recursively Generated Data" (Nature, 2024)](https://www.nature.com/articles/s41586-024-07566-y), Figure 1, which shows how the data distribution narrows generation after generation, with tail distributions progressively trimmed until only the modes remain.*
+
+*See also the "self-consuming generative models" illustration in: [Alemohammad et al., "Self-Consuming Generative Models Go MAD" (arXiv:2307.01850)](https://arxiv.org/abs/2307.01850), Figure 1, which visualizes how iterative training on synthetic data causes the learned distribution to contract toward the mean, losing diversity and rare patterns across generations.*
+
+*See the distributional shift diagrams at: [Dohmatob et al., "A Tale of Tails: Model Collapse as a Change of Scaling Laws" (arXiv:2402.04164)](https://arxiv.org/abs/2402.04164) -- includes figures showing how the scaling law exponents worsen with each recursive training generation, quantifying the degradation in model capability.*
+
 ## Further Reading
 
 - Shumailov et al., "AI Models Collapse When Trained on Recursively Generated Data" (Nature, 2024) -- the definitive analysis of model collapse with rigorous mathematical treatment

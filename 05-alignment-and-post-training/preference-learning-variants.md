@@ -120,6 +120,12 @@ Instead of the sigmoid-based loss in DPO, IPO uses a squared loss centered on a 
 - **Goodhart's Law**: All preference methods risk optimizing a proxy for human intent; IPO's regularization directly mitigates this.
 - **Constitutional AI (CAI)**: An orthogonal alignment approach that generates preference data from principles, which can then be used with any of these training methods.
 
+## Diagrams and Visualizations
+
+*Recommended visual: Comparison of DPO, IPO, KTO, and ORPO loss functions and their data requirements — see [Hugging Face TRL Documentation](https://huggingface.co/docs/trl/index)*
+
+*Recommended visual: KTO architecture showing optimization from binary feedback (thumbs up/down) without paired preferences — see [KTO Paper (arXiv:2402.01306)](https://arxiv.org/abs/2402.01306)*
+
 ## Further Reading
 
 - Ethayarajh et al., "KTO: Model Alignment as Prospect Theoretic Optimization" (2024) -- introduces the unpaired binary feedback framework grounded in behavioral economics.

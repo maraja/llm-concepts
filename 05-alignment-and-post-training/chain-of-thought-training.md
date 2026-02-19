@@ -111,6 +111,13 @@ This has profound implications:
 - **Inference optimization** becomes more important when models produce long reasoning chains, motivating techniques like speculative decoding and KV-cache optimization.
 - **Synthetic data** -- reasoning models can generate synthetic reasoning traces used to train other models, creating a flywheel of reasoning capability.
 
+## Diagrams and Visualizations
+
+![Chain-of-thought prompting example showing how intermediate reasoning steps lead to correct answers](https://lilianweng.github.io/posts/2023-03-15-prompt-engineering/chain-of-thought-examples.png)
+*Source: [Lilian Weng – Prompt Engineering](https://lilianweng.github.io/posts/2023-03-15-prompt-engineering/)*
+
+*Recommended visual: Evolution from chain-of-thought prompting to training with reasoning traces (o1/R1 paradigm) — see [OpenAI Learning to Reason](https://openai.com/index/learning-to-reason-with-llms/)*
+
 ## Further Reading
 
 1. **"DeepSeek-R1: Incentivizing Reasoning Capability in LLMs via Reinforcement Learning" (DeepSeek, 2025)** -- A detailed and transparent account of training a frontier reasoning model, including the discovery of emergent reasoning behaviors through RL.

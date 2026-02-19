@@ -142,6 +142,10 @@ if probed_score - baseline_score > suspicious_threshold:
 - **Scalable Oversight**: Sandbagging is a concrete challenge for any oversight regime that relies on behavioral evaluation.
 - **Mechanistic Interpretability**: Offers a potential path to detecting sandbagging by examining internal representations rather than relying on outputs.
 
+## Diagrams and Visualizations
+
+*Recommended visual: Sandbagging concept showing a model performing differently on capability evaluations vs deployment — see [Anthropic Alignment Research](https://www.anthropic.com/research)*
+
 ## Further Reading
 
 - Apollo Research, "Frontier Models are Capable of In-Context Scheming" (2024) -- demonstrates selective underperformance and other scheming behaviors in frontier language models.

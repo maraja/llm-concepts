@@ -89,6 +89,12 @@ This is especially important for:
 - **Approximate nearest neighbor search**: Lower-dimensional embeddings speed up ANN algorithms like HNSW and IVF, making MRL a natural companion to these indexing strategies.
 - **Contrastive learning**: MRL extends standard contrastive learning with multi-granularity objectives.
 
+## Diagrams and Visualizations
+
+*Recommended visual: Matryoshka embedding showing nested representations at different dimensionalities, each being a valid embedding — see [Kusupati et al. MRL Paper (arXiv:2205.13147)](https://arxiv.org/abs/2205.13147)*
+
+*Recommended visual: Quality vs dimensionality trade-off showing graceful degradation as embedding dimensions are truncated — see [Nomic Matryoshka Embeddings Blog](https://blog.nomic.ai/posts/nomic-embed-matryoshka)*
+
 ## Further Reading
 
 - Kusupati, A. et al. (2022). "Matryoshka Representation Learning." *NeurIPS 2022.* (arXiv: 2205.13147) The original paper introducing MRL, with experiments on vision and text tasks.

@@ -114,6 +114,13 @@ LayerNorm and residual connections work as a team. The residual connection provi
 - **Training Stability**: Closely related to learning rate scheduling, initialization schemes, and mixed-precision training.
 - **Activation Functions**: The interaction between normalization and activation functions affects the overall training dynamics (see `activation-functions.md`).
 
+## Diagrams and Visualizations
+
+![Comparison of Pre-Layer Normalization vs Post-Layer Normalization in Transformer blocks](https://production-media.paperswithcode.com/methods/new_pre-layer.jpg)
+*Source: [Papers With Code – Pre-Layer Normalization](https://paperswithcode.com/method/pre-layer-normalization)*
+
+*Recommended visual: Layer Norm vs Batch Norm comparison showing normalization axes — see [Lei Mao's Layer Normalization Post](https://leimao.github.io/blog/Layer-Normalization/)*
+
 ## Further Reading
 
 - "Layer Normalization" -- Ba, Kiros, and Hinton, 2016 (the original LayerNorm paper)

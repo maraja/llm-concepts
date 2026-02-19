@@ -117,6 +117,14 @@ The log of the softmax output ($\log P(t_i)$) is the **log-probability** of a to
 - **Activation Functions**: Softmax is itself an activation function, applied at the final output layer (see `activation-functions.md`).
 - **Transformer Architecture**: The logits layer sits on top of the full Transformer stack (see `transformer-architecture.md`).
 
+## Diagrams and Visualizations
+
+![Language model output showing logits being converted through softmax into a probability distribution over the vocabulary](https://jalammar.github.io/images/gpt2/gpt2-output.png)
+*Source: [Jay Alammar – The Illustrated GPT-2](https://jalammar.github.io/illustrated-gpt2/)*
+
+![Softmax function visualization showing how raw logits are transformed into a valid probability distribution](https://jalammar.github.io/images/t/transformer_decoder_output_softmax.png)
+*Source: [Jay Alammar – The Illustrated Transformer](https://jalammar.github.io/illustrated-transformer/)*
+
 ## Further Reading
 
 - "On the Properties of Neural Machine Translation: Encoder-Decoder Approaches" -- Cho et al., 2014 (early work on softmax in sequence-to-sequence models)

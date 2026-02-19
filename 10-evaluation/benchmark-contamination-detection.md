@@ -256,6 +256,12 @@ Commercially, contaminated benchmark scores create information asymmetry. AI com
 - **Machine Unlearning**: If a model is found to be contaminated on a specific benchmark, machine unlearning could theoretically remove the contamination. In practice, this is difficult because the contaminated benchmark data is entangled with legitimate training.
 - **Memorization vs. Generalization**: Contamination is a specific instance of the broader memorization problem. Detection methods for contamination draw on the same principles used to study memorization in neural networks more generally.
 
+## Diagrams and Visualizations
+
+*Recommended visual: Contamination detection methods: n-gram overlap, Min-K% Prob membership inference, canary strings, perplexity analysis — see [Shi et al. Min-K% Prob Paper (arXiv:2310.16789)](https://arxiv.org/abs/2310.16789)*
+
+*Recommended visual: Performance inflation from benchmark contamination showing score differences on contaminated vs clean splits — see [Oren et al. Contamination Paper (arXiv:2311.04850)](https://arxiv.org/abs/2311.04850)*
+
 ## Further Reading
 
 - Oren, Y. et al. (2024). "Proving Test Set Contamination in Black Box Language Models." *arXiv: 2402.04013.* Methods for statistically proving contamination without training data access, using exchangeable paraphrases.

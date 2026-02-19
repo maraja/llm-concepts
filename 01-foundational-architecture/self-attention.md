@@ -101,6 +101,17 @@ Self-attention is also the mechanism that makes Transformers **interpretable** (
 - **Positional Encoding**: Necessary because self-attention itself is position-agnostic.
 - **KV Cache**: In autoregressive generation, the keys and values from previous tokens are cached to avoid recomputation (see `autoregressive-generation.md`).
 
+## Diagrams and Visualizations
+
+![Scaled dot-product attention showing query, key, and value matrices flowing through MatMul, Scale, Mask, and Softmax operations to produce the weighted output](https://jalammar.github.io/images/t/self-attention-output.png)
+*Source: [The Illustrated Transformer -- Jay Alammar](https://jalammar.github.io/illustrated-transformer/)*
+
+![Self-attention computation visualized step by step: computing Q, K, V vectors from input embeddings, calculating attention scores, and producing context-aware output representations](https://jalammar.github.io/images/t/self-attention-matrix-calculation-2.png)
+*Source: [The Illustrated Transformer -- Jay Alammar](https://jalammar.github.io/illustrated-transformer/)*
+
+![Attention heatmap visualization showing which words attend to which other words in a sentence, illustrating how "it" attends to "the animal" for coreference resolution](https://jalammar.github.io/images/t/transformer_self-attention_visualization.png)
+*Source: [The Illustrated Transformer -- Jay Alammar](https://jalammar.github.io/illustrated-transformer/)*
+
 ## Further Reading
 
 - "Attention Is All You Need" -- Vaswani et al., 2017 (the paper that introduced scaled dot-product attention in the Transformer)

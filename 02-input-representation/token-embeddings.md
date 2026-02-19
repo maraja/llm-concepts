@@ -109,6 +109,17 @@ Embeddings also matter practically:
 - **Attention Mechanism**: Operates on the embedded (and positionally encoded) vectors. Attention queries, keys, and values are all linear projections of these representations.
 - **Context Window**: Each position in the context window corresponds to one embedding vector; the total input to the transformer is a sequence of these vectors.
 
+## Diagrams and Visualizations
+
+![Embedding lookup illustration showing how a one-hot token ID vector indexes into the embedding matrix to retrieve a dense vector representation](https://jalammar.github.io/images/word2vec/embedding-lookup.png)
+*Source: [Jay Alammar – The Illustrated Word2Vec](https://jalammar.github.io/illustrated-word2vec/)*
+
+![The famous word embedding analogy visualization showing king - man + woman = queen as vector arithmetic in embedding space](https://jalammar.github.io/images/word2vec/king-analogy-viz.png)
+*Source: [Jay Alammar – The Illustrated Word2Vec](https://jalammar.github.io/illustrated-word2vec/)*
+
+![GPT-2 token and positional embedding process showing how token IDs are converted to embedding vectors and combined with positional encodings](https://jalammar.github.io/images/gpt2/gpt2-token-embeddings-wte-2.png)
+*Source: [Jay Alammar – The Illustrated GPT-2](https://jalammar.github.io/illustrated-gpt2/)*
+
 ## Further Reading
 
 - Mikolov, T., et al. (2013). "Efficient Estimation of Word Representations in Vector Space." *arXiv:1301.3781.* -- The Word2Vec paper that popularized word embeddings and demonstrated the king-queen analogy.

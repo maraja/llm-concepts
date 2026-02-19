@@ -87,6 +87,12 @@ For enterprises building LLM applications, prompt injection represents a fundame
 - **RAG**: Retrieval-augmented generation creates new attack surfaces through indirect injection in retrieved documents.
 - **Tool Use and Agents**: Agentic systems with tool-use capabilities amplify the consequences of prompt injection from information disclosure to unauthorized actions.
 
+## Diagrams and Visualizations
+
+*Recommended visual: Direct vs indirect prompt injection showing how attacker instructions can override system prompts — see [OWASP LLM Top 10](https://owasp.org/www-project-top-10-for-large-language-model-applications/)*
+
+*Recommended visual: Indirect prompt injection via retrieved documents injecting malicious instructions — see [Greshake et al. Paper (arXiv:2302.12173)](https://arxiv.org/abs/2302.12173)*
+
 ## Further Reading
 
 - Greshake et al., "Not What You've Signed Up For: Compromising Real-World LLM-Integrated Applications with Indirect Prompt Injection" (2023) -- Foundational paper demonstrating indirect prompt injection attacks against real-world LLM applications.

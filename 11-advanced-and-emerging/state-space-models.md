@@ -105,6 +105,12 @@ For applications like real-time streaming, long-document processing, and edge de
 - **RNNs and LSTMs**: SSMs are the modern evolution of recurrent sequence modeling, solving the parallelization and vanishing gradient problems that limited classical RNNs.
 - **Model Efficiency**: SSMs connect to the broader theme of making models faster and cheaper at inference, alongside quantization and distillation.
 
+## Diagrams and Visualizations
+
+*Recommended visual: State space model (S4) diagram showing continuous-time state evolution discretized for sequence modeling — see [Gu et al. S4 Paper (arXiv:2111.00396)](https://arxiv.org/abs/2111.00396)*
+
+*Recommended visual: Mamba selective state space showing input-dependent selection mechanism replacing fixed dynamics — see [Gu and Dao Mamba Paper (arXiv:2312.00752)](https://arxiv.org/abs/2312.00752)*
+
 ## Further Reading
 
 - **"Efficiently Modeling Long Sequences with Structured State Spaces" (Gu et al., 2022)**: The S4 paper that established structured SSMs as viable sequence models.

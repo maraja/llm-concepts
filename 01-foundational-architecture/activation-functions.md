@@ -119,6 +119,14 @@ The success of GLU variants highlights a broader principle: **multiplicative int
 - **Layer Normalization**: Normalization and activation functions interact to determine the distribution of values flowing through the network (see `layer-normalization.md`).
 - **Mixture of Experts**: Each expert in an MoE model contains an FFN with its own activation function (see `mixture-of-experts.md`).
 
+## Diagrams and Visualizations
+
+![Plot comparing common activation functions -- ReLU, GELU, SiLU/Swish -- showing their shapes: ReLU with a hard zero cutoff, GELU and SiLU with smooth curves that dip slightly below zero for negative inputs](https://production-media.paperswithcode.com/methods/Screen_Shot_2020-05-27_at_12.48.44_PM.png)
+*Source: [GELU Activation Function -- Papers With Code](https://paperswithcode.com/method/gelu)*
+
+![Comparison of ReLU and Swish (SiLU) activation functions showing the non-monotonic property of Swish where it allows small negative values to pass through before returning to zero](https://production-media.paperswithcode.com/methods/Screen_Shot_2020-05-27_at_12.17.29_PM_CpPmzYG.png)
+*Source: [Swish Activation Function -- Papers With Code](https://paperswithcode.com/method/swish)*
+
 ## Further Reading
 
 - "Gaussian Error Linear Units (GELUs)" -- Hendrycks and Gimpel, 2016 (the original GELU paper)

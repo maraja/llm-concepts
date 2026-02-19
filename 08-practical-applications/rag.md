@@ -101,6 +101,12 @@ RAG is arguably the most important architectural pattern in production LLM appli
 - **Function calling** enables agentic RAG, where the model decides when to retrieve, what query to use, and whether to retrieve again.
 - **AI agents** often use RAG as their memory and knowledge retrieval mechanism.
 
+## Diagrams and Visualizations
+
+*Recommended visual: RAG pipeline showing document chunking, embedding, vector storage, retrieval, and augmented generation — see [Pinecone RAG Guide](https://www.pinecone.io/learn/retrieval-augmented-generation/)*
+
+*Recommended visual: Comparison of parametric knowledge (in model weights) vs non-parametric knowledge (retrieved documents) — see [RAG Paper (arXiv:2005.11401)](https://arxiv.org/abs/2005.11401)*
+
 ## Further Reading
 
 - Lewis, P. et al. (2020). "Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks." *NeurIPS 2020.* The foundational RAG paper.

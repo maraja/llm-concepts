@@ -94,6 +94,12 @@ Late chunking mitigates all of these by ensuring every chunk embedding is inform
 - **Long-context models**: The trend toward longer context windows in both embedding models and generative models is synergistic with late chunking, enabling it to work on longer documents.
 - **RAG**: Late chunking is an indexing-time improvement that transparently improves retrieval quality in any RAG pipeline without changing the query or generation phases.
 
+## Diagrams and Visualizations
+
+*Recommended visual: Late chunking pipeline: full document through transformer → contextualized token embeddings → chunk and pool — see [Jina AI Late Chunking Blog](https://jina.ai/news/late-chunking-in-long-context-embedding-models/)*
+
+*Recommended visual: Comparison of traditional chunking (chunk then embed) vs late chunking (embed then chunk) showing context preservation — see [Günther et al. Late Chunking Paper (arXiv:2409.04701)](https://arxiv.org/abs/2409.04701)*
+
 ## Further Reading
 
 - Gunther, M. et al. (2024). "Late Chunking: Contextual Chunk Embeddings Using Long-Context Embedding Models." *Jina AI Technical Report.* (arXiv: 2409.04701) The paper introducing late chunking and demonstrating its benefits on retrieval benchmarks.

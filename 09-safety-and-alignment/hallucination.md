@@ -79,6 +79,12 @@ For content creation, hallucination erodes trust. A single fabricated citation i
 - **Evaluation and Benchmarks**: Hallucination measurement is a core component of LLM evaluation, with benchmarks like TruthfulQA specifically targeting it.
 - **Guardrails**: Post-generation fact-checking and citation-verification systems serve as a safety net against hallucinated outputs reaching end users.
 
+## Diagrams and Visualizations
+
+*Recommended visual: Types of hallucination: intrinsic (contradicts source) vs extrinsic (unverifiable) — see [Survey of Hallucination in NLG (arXiv:2202.03629)](https://arxiv.org/abs/2202.03629)*
+
+*Recommended visual: Hallucination mitigation strategies: retrieval augmentation, self-consistency, citation generation — see [Hugging Face Blog](https://huggingface.co/blog)*
+
 ## Further Reading
 
 - Huang et al., "A Survey on Hallucination in Large Language Models" (2023) -- Comprehensive taxonomy and survey of hallucination types, causes, and mitigations.

@@ -120,6 +120,16 @@ This approach is less mature than quantization and eviction but represents a pro
 - **Quantization (Weight)**: KV cache quantization shares mathematical foundations with weight quantization (scale factors, zero points, calibration) but operates on activations rather than parameters, requiring different strategies.
 - **Flash Attention**: Flash Attention reduces the peak memory of attention *computation* (by tiling). KV cache compression reduces the persistent memory of attention *storage*. Both address attention memory costs but at different stages.
 
+## Diagrams and Visualizations
+
+![H2O Heavy-Hitter Oracle diagram showing attention sink tokens, heavy hitters, and recent window retention strategy](https://raw.githubusercontent.com/FMInference/H2O/main/imgs/h2o_logo.png)
+*See KV cache eviction strategy diagrams at: [H2O GitHub Repository](https://github.com/FMInference/H2O)*
+
+![StreamingLLM attention sink diagram showing how initial tokens act as attention sinks enabling infinite-length streaming](https://raw.githubusercontent.com/mit-han-lab/streaming-llm/main/figures/streaming_llm.png)
+*Source: [StreamingLLM GitHub Repository (MIT-HAN-Lab)](https://github.com/mit-han-lab/streaming-llm)*
+
+*See KIVI asymmetric quantization diagrams (per-channel keys vs per-token values) at: [KIVI Paper (arXiv:2402.02750)](https://arxiv.org/abs/2402.02750)*
+
 ## Further Reading
 
 - Liu et al., "KIVI: A Tuning-Free Asymmetric 2bit Quantization for KV Cache" (2024) -- The key paper on ultra-low-bit KV cache quantization with per-channel key and per-token value quantization.

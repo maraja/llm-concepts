@@ -145,6 +145,12 @@ Results for bootstrapping were mixed. In some cases, the chain preserved more of
 - **Sycophancy**: The strong model's tendency to imitate the weak supervisor's errors mirrors the sycophancy problem in user-facing models.
 - **Iterated Distillation and Amplification (IDA)**: A theoretical framework for iteratively improving oversight that the bootstrapping experiments partially test.
 
+## Diagrams and Visualizations
+
+*Recommended visual: Weak-to-strong generalization setup: small model supervises large model, measuring performance gap recovery — see [Burns et al. Weak-to-Strong Paper (arXiv:2312.09390)](https://arxiv.org/abs/2312.09390)*
+
+*Recommended visual: Performance gap recovery (PGR) metric showing how much of the strong model's capability is elicited by weak supervision — see [OpenAI Superalignment Blog](https://openai.com/index/weak-to-strong-generalization/)*
+
 ## Further Reading
 
 - Burns et al., "Weak-to-Strong Generalization: Eliciting Strong Capabilities with Weak Supervision" (2023) -- the primary paper introducing the framework and presenting results.

@@ -120,6 +120,12 @@ The memory bandwidth savings are particularly important: a 4-bit model reads 4x 
 - **Speculative Decoding**: If the target model is already quantized, the speedup from speculative decoding may be smaller (the target is already fast). However, using a tiny quantized draft model can still provide benefits.
 - **Flash Attention**: Flash Attention operates on FP16/BF16 activations regardless of weight quantization, so the two optimizations are fully complementary.
 
+## Diagrams and Visualizations
+
+*Recommended visual: Comparison of FP32, FP16, INT8, and INT4 precision formats showing bit layout and representable ranges — see [Hugging Face Quantization Guide](https://huggingface.co/docs/optimum/concept_guides/quantization)*
+
+*Recommended visual: GPTQ vs AWQ vs GGUF quantization quality comparison across model sizes — see [Hugging Face Blog – Overview of Quantization](https://huggingface.co/blog/overview-quantization-transformers)*
+
 ## Further Reading
 
 1. **"GPTQ: Accurate Post-Training Quantization for Generative Pre-trained Transformers"** (Frantar et al., 2023) -- The foundational paper for GPU-optimized LLM quantization using Hessian-based methods.

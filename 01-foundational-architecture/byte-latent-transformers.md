@@ -116,6 +116,13 @@ Token-based models give disproportionate representation to English (where common
 - **Multi-Token Prediction**: MTP and BLT both aim to improve representations -- MTP through richer training objectives, BLT through more flexible input processing. They could potentially be combined.
 - **Mixture of Experts**: Both MoE and BLT's dynamic patching are forms of conditional computation -- allocating resources where they are most needed rather than uniformly.
 
+## Diagrams and Visualizations
+
+*Recommended visual: Architecture diagram showing the encoder-decoder BLT pipeline with dynamic byte patching — see [Meta AI BLT Paper (arXiv:2412.09871)](https://arxiv.org/abs/2412.09871)*
+
+![Byte-level vs token-level processing comparison showing how BLT dynamically groups bytes into patches](https://github.com/facebookresearch/blt/raw/main/assets/blt_architecture.png)
+*Source: [Meta BLT GitHub Repository](https://github.com/facebookresearch/blt)*
+
 ## Further Reading
 
 - Pagnoni et al., "Byte Latent Transformer: Patches Scale Better Than Tokens" (2024) -- the foundational BLT paper from Meta FAIR

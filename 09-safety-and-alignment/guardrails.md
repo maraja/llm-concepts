@@ -102,6 +102,12 @@ Guardrails also provide **adaptability**. When safety requirements change (new r
 - **Bias & Fairness**: Guardrails can include bias detection classifiers, though subtle biases are often harder to catch with post-hoc filtering than explicit harmful content.
 - **The Alignment Problem**: Guardrails are an external alignment mechanism -- they constrain the model's behavior from outside rather than changing the model's internal optimization. They are a practical, engineering-driven complement to research-driven alignment techniques.
 
+## Diagrams and Visualizations
+
+*Recommended visual: Multi-layered guardrails architecture: input filters, system prompt, model-level constraints, output filters — see [NeMo Guardrails Documentation](https://docs.nvidia.com/nemo/guardrails/)*
+
+*Recommended visual: NVIDIA NeMo Guardrails pipeline showing programmable safety rails — see [NeMo Guardrails GitHub](https://github.com/NVIDIA/NeMo-Guardrails)*
+
 ## Further Reading
 
 - Rebedea et al., "NeMo Guardrails: A Toolkit for Controllable and Safe LLM Applications with Programmable Rails" (2023) -- Technical paper introducing NVIDIA's guardrails framework, including the Colang specification language and dialogue management approach.

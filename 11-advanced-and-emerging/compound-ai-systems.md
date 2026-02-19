@@ -121,6 +121,12 @@ The compound systems paradigm represents a fundamental reorientation of the AI f
 - **Context Window Extension**: Longer contexts enable richer compound interactions -- more retrieved documents, longer tool outputs, more conversation history -- but context management remains essential even with large windows.
 - **Multimodal Models**: Multimodal models are themselves compound (encoder + projector + LLM) and increasingly serve as components in larger multimodal compound systems.
 
+## Diagrams and Visualizations
+
+*Recommended visual: Compound AI system architecture combining LLM, retriever, code executor, and verifier components — see [Berkeley AI Research Blog – The Shift from Models to Compound AI Systems](https://bair.berkeley.edu/blog/2024/02/18/compound-ai-systems/)*
+
+*Recommended visual: DSPy programming framework for optimizing compound AI systems — see [DSPy Paper (arXiv:2310.03714)](https://arxiv.org/abs/2310.03714)*
+
 ## Further Reading
 
 - **"The Shift from Models to Compound AI Systems" (Zaharia et al., BAIR Blog, 2024)**: The influential blog post that named and framed the paradigm shift, arguing that systems engineering is becoming as important as model training.

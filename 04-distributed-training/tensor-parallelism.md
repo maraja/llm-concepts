@@ -96,6 +96,15 @@ Tensor parallelism also reduces the **per-GPU computation time** for each layer,
 - **Sequence Parallelism**: Extends tensor parallelism to split the sequence dimension for operations like LayerNorm and dropout that otherwise require the full hidden state, further reducing activation memory.
 - **Attention Mechanisms**: Multi-head attention is naturally amenable to tensor parallelism because attention heads operate independently, making the column-wise split communication-free during the core attention computation.
 
+## Diagrams and Visualizations
+
+![Tensor parallelism splitting the MLP and self-attention layers across GPUs with column-wise and row-wise partitioning](https://jalammar.github.io/images/model-parallelism/megatron-lm-tensor-parallelism.png)
+*Source: [Jay Alammar - The Illustrated Model Parallelism](https://jalammar.github.io/model-parallelism/)*
+
+*Recommended visual: Megatron-LM column-parallel and row-parallel linear layer decomposition showing how f and g operators handle all-reduce communication -- see [Shoeybi et al., "Megatron-LM" (2019)](https://arxiv.org/abs/1909.08053), Figure 3*
+
+*Recommended visual: Attention head partitioning across GPUs, showing independent per-head computation with a single all-reduce for the output projection -- see [Lilian Weng - How to Train Really Large Models on Many GPUs](https://lilianweng.github.io/posts/2021-09-25-train-large/)*
+
 ## Further Reading
 
 - Shoeybi et al., *"Megatron-LM: Training Multi-Billion Parameter Language Models Using Model Parallelism"* (2019) -- The foundational paper introducing efficient tensor parallelism for transformers with column/row partitioning strategies.

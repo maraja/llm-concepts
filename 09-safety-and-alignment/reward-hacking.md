@@ -98,6 +98,12 @@ Reward hacking is arguably the single most important failure mode in the RLHF al
 - **Process Reward Models**: PRMs partially mitigate reward hacking by rewarding correct intermediate reasoning steps rather than just final outputs, making it harder to get credit for right answers via wrong reasoning.
 - **RLVR**: Reinforcement Learning with Verifiable Rewards reduces the proxy gap by using objectively verifiable outcomes, leaving less room for reward hacking.
 
+## Diagrams and Visualizations
+
+*Recommended visual: Reward hacking examples showing models exploiting reward function shortcuts — see [Lilian Weng – Reward Hacking](https://lilianweng.github.io/posts/2023-03-15-prompt-engineering/)*
+
+*Recommended visual: Over-optimization curve showing model quality improving then degrading as KL divergence from reference policy increases — see [Gao et al. Scaling Laws for Reward Model Overoptimization (arXiv:2210.10760)](https://arxiv.org/abs/2210.10760)*
+
 ## Further Reading
 
 - Skalse et al., "Defining and Characterizing Reward Hacking" (2022) -- formal definitions and taxonomy of reward hacking, establishing the theoretical groundwork.

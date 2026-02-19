@@ -114,6 +114,16 @@ Attempts to replace AdamW with alternatives have been a persistent research dire
 - **Distributed Training**: Optimizer states must be partitioned across GPUs (e.g., via ZeRO).
 - **Scaling Laws**: The optimal learning rate and other hyperparameters shift predictably with model size.
 
+## Diagrams and Visualizations
+
+![Comparison of optimization trajectories for SGD, SGD with momentum, and Adam on a 2D loss surface, showing how Adam navigates ravines more efficiently with adaptive per-parameter learning rates](https://ruder.io/content/images/2016/09/contours_evaluation_optimizers.gif)
+*Source: [Sebastian Ruder -- An Overview of Gradient Descent Optimization Algorithms](https://ruder.io/optimizing-gradient-descent/)*
+
+![Comparison of SGD, momentum, RMSProp, and Adam optimizers converging on a saddle point, illustrating how adaptive methods escape saddle points faster](https://ruder.io/content/images/2016/09/saddle_point_evaluation_optimizers.gif)
+*Source: [Sebastian Ruder -- An Overview of Gradient Descent Optimization Algorithms](https://ruder.io/optimizing-gradient-descent/)*
+
+*See also the AdamW weight decay decoupling diagram in: [Loshchilov & Hutter, "Decoupled Weight Decay Regularization" (arXiv:1711.05101)](https://arxiv.org/abs/1711.05101), Figure 1, which illustrates the difference between L2 regularization in Adam vs. decoupled weight decay in AdamW.*
+
 ## Further Reading
 
 - Kingma, D.P. & Ba, J. (2015). "Adam: A Method for Stochastic Optimization" -- The original Adam paper, one of the most cited papers in deep learning.

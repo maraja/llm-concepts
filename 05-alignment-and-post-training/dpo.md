@@ -100,6 +100,12 @@ DPO and its variants have become the dominant approach for open-source model ali
 - **KL divergence** is implicitly enforced in DPO through the reference model terms in the loss, achieving the same regularization effect as the explicit KL penalty in RLHF.
 - **Constitutional AI** can provide the preference data that DPO trains on, combining RLAIF with DPO for a fully automated alignment pipeline.
 
+## Diagrams and Visualizations
+
+*Recommended visual: Side-by-side comparison of RLHF pipeline (reward model + PPO) vs DPO (direct optimization from preferences) — see [DPO Paper Figure 1 (arXiv:2305.18290)](https://arxiv.org/abs/2305.18290)*
+
+*Recommended visual: DPO loss landscape showing how the implicit reward is derived from the policy ratio — see [Lilian Weng – LLM Alignment Post](https://lilianweng.github.io/posts/2023-03-15-prompt-engineering/)*
+
 ## Further Reading
 
 1. **"Direct Preference Optimization: Your Language Model Is Secretly a Reward Model" (Rafailov et al., 2023)** -- The original DPO paper, notable for both its mathematical elegance and clear exposition.

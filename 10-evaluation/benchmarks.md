@@ -79,6 +79,12 @@ However, the benchmark ecosystem faces several serious challenges:
 - **Chain-of-Thought Prompting**: The prompting technique that unlocked dramatic improvements on reasoning benchmarks like GSM8K and MATH.
 - **Scaling Laws**: Predict benchmark performance as a function of model size and training compute.
 
+## Diagrams and Visualizations
+
+*Recommended visual: LLM benchmark taxonomy: knowledge (MMLU), reasoning (GSM8K, MATH), coding (HumanEval), safety (TruthfulQA) — see [Hugging Face Open LLM Leaderboard](https://huggingface.co/spaces/open-llm-leaderboard/open_llm_leaderboard)*
+
+*Recommended visual: Benchmark saturation chart showing how models have approached ceiling on older benchmarks — see [Stanford HELM](https://crfm.stanford.edu/helm/latest/)*
+
 ## Further Reading
 
 - Hendrycks et al., "Measuring Massive Multitask Language Understanding" (2021) -- the MMLU paper that became the de facto standard for knowledge evaluation.

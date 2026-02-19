@@ -98,6 +98,12 @@ The trajectory is clear: future AI systems will be natively multimodal, processi
 - **Compound AI Systems**: Multimodal models are themselves compound systems (encoder + projector + LLM), and they often serve as components in larger systems with tools, retrieval, and code execution.
 - **Tokenization**: Understanding how continuous signals (pixels, audio waveforms) are converted into discrete or continuous token representations.
 
+## Diagrams and Visualizations
+
+*Recommended visual: Multimodal model architecture showing vision encoder connected to language model via projection layer — see [LLaVA Paper (arXiv:2304.08485)](https://arxiv.org/abs/2304.08485)*
+
+*Recommended visual: Flamingo architecture showing cross-attention between visual features and language model — see [Alayrac et al. Flamingo Paper (arXiv:2204.14198)](https://arxiv.org/abs/2204.14198)*
+
 ## Further Reading
 
 - **"Learning Transferable Visual Models From Natural Language Supervision" (Radford et al., 2021)**: The CLIP paper that established contrastive image-text pre-training as the foundation for modern multimodal AI.

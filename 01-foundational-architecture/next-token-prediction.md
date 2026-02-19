@@ -110,6 +110,14 @@ A subtlety: small improvements in cross-entropy loss can correspond to dramatic 
 - **Encoder-Decoder Architecture**: Encoder-only models use masked LM instead of next-token prediction; a different training paradigm with different tradeoffs (see `encoder-decoder-architecture.md`).
 - **Feed-Forward Networks**: Where the factual knowledge needed for good next-token prediction is stored (see `feed-forward-networks.md`).
 
+## Diagrams and Visualizations
+
+![Next token prediction showing the model receiving a sequence and outputting probability distributions over the vocabulary at each position](https://jalammar.github.io/images/gpt2/gpt2-output-scores-2.png)
+*Source: [Jay Alammar – The Illustrated GPT-2](https://jalammar.github.io/illustrated-gpt2/)*
+
+![Autoregressive language model training showing how the model learns to predict each token from its left context](https://jalammar.github.io/images/xlnet/output_training_7.png)
+*Source: [Jay Alammar – XLNet Illustrated](https://jalammar.github.io/illustrated-gpt2/)*
+
 ## Further Reading
 
 - "Language Models are Unsupervised Multitask Learners" -- Radford et al., 2019 (GPT-2, demonstrating emergent multitask learning from next-token prediction)

@@ -99,6 +99,10 @@ Goodhart's Law is not just an abstract theoretical concern; it has concrete impl
 - **Process Reward Models**: PRMs mitigate Goodharting by providing denser, harder-to-fake signals (evaluating reasoning steps rather than just final answers).
 - **RLVR**: Verifiable rewards reduce the proxy gap because correctness is objectively determinable, leaving less room for Goodharting.
 
+## Diagrams and Visualizations
+
+*Recommended visual: Goodhart's Law in AI showing proxy metric diverging from true objective as optimization pressure increases — see [Lilian Weng – Reward Hacking](https://lilianweng.github.io/posts/2023-03-15-prompt-engineering/)*
+
 ## Further Reading
 
 - Goodhart, Charles, "Problems of Monetary Management: The U.K. Experience" (1975) -- the original articulation of Goodhart's Law in the context of monetary policy.

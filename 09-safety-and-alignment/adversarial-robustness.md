@@ -225,6 +225,12 @@ Adversarial attacks are the technical toolkit for red teaming. Organizations use
 - **Benchmark Contamination**: Just as contamination undermines benchmark evaluation, adversarial vulnerability undermines safety evaluation. A model that appears safe on standard tests may fail catastrophically on adversarial inputs.
 - **Machine Unlearning**: Where adversarial robustness asks "can we prevent the model from producing harmful output?", unlearning asks "can we remove the harmful knowledge entirely?" They are complementary approaches with different threat models.
 
+## Diagrams and Visualizations
+
+*Recommended visual: GCG adversarial suffix optimization showing gradient-based token search on source model with transfer to target — see [Zou et al. GCG Paper (arXiv:2307.15043)](https://arxiv.org/abs/2307.15043)*
+
+*Recommended visual: Taxonomy of LLM attacks: gradient-based (GCG), semantic (AutoDAN), black-box (PAIR), many-shot — see [HarmBench Paper (arXiv:2402.04249)](https://arxiv.org/abs/2402.04249)*
+
 ## Further Reading
 
 - Zou, A. et al. (2023). "Universal and Transferable Adversarial Attacks on Aligned Language Models." *arXiv: 2307.15043.* The GCG paper -- the most influential adversarial attack method for LLMs.

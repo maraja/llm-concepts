@@ -105,6 +105,17 @@ GQA has become the standard in modern models (LLaMA 2 70B, LLaMA 3, Mistral) bec
 - **Transformer Architecture**: Multi-head attention is the first sub-layer in each Transformer block (see `transformer-architecture.md`).
 - **Residual Stream**: Each head's output contributes additively to the residual stream (see `residual-connections.md`).
 
+## Diagrams and Visualizations
+
+![Multi-head attention diagram showing multiple parallel attention heads each computing their own Q, K, V projections, followed by concatenation and a final linear projection](https://jalammar.github.io/images/t/transformer_multi-headed_self-attention-recap.png)
+*Source: [The Illustrated Transformer -- Jay Alammar](https://jalammar.github.io/illustrated-transformer/)*
+
+![Comparison of Multi-Head Attention (MHA), Grouped-Query Attention (GQA), and Multi-Query Attention (MQA) showing how key-value heads are shared across query head groups](https://blog.google/static/blogv2/images/1x/GQA_Figure1.png)
+*See diagram at: [GQA: Training Generalized Multi-Query Transformer Models from Multi-Head Checkpoints -- Ainslie et al.](https://arxiv.org/abs/2305.13245)*
+
+![Attention head visualization showing different heads attending to different linguistic patterns: one head tracks subject-verb relationships while another attends to adjacent positional tokens](https://jalammar.github.io/images/t/transformer_self-attention_visualization_2.png)
+*Source: [The Illustrated Transformer -- Jay Alammar](https://jalammar.github.io/illustrated-transformer/)*
+
 ## Further Reading
 
 - "Attention Is All You Need" -- Vaswani et al., 2017 (original multi-head attention formulation)

@@ -112,6 +112,12 @@ LoRAX supports hot-swapping adapters at runtime, enabling use cases like A/B tes
 - **Continuous Batching**: Multi-LoRA scheduling integrates with continuous batching to handle variable-length requests and adapter heterogeneity simultaneously.
 - **Mixture of Experts**: Conceptually similar to MoE where different experts activate for different inputs, but implemented at the adapter level with explicit routing rather than learned gating.
 
+## Diagrams and Visualizations
+
+*Recommended visual: S-LoRA unified paging architecture showing shared base model with dynamically loaded LoRA adapters — see [S-LoRA Paper (arXiv:2311.03285)](https://arxiv.org/abs/2311.03285)*
+
+*Recommended visual: Multi-LoRA batching diagram showing heterogeneous requests each using different adapters served from a single GPU — see [S-LoRA Paper Figure 1](https://arxiv.org/abs/2311.03285)*
+
 ## Further Reading
 
 - Sheng, Y., Cao, S., Li, D., Hooper, C., Lee, N., Yang, S., Chou, C., Zhu, B., Zheng, L., Keutzer, K., Gonzalez, J. E., & Stoica, I. (2024). "S-LoRA: Serving Thousands of Concurrent LoRA Adapters." MLSys 2024. arXiv:2311.03285.

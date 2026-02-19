@@ -130,6 +130,10 @@ In the CRAG paper's experiments, the approach improved RAG performance by 5-10% 
 - **Guardrails and safety**: CRAG shares the philosophy of evaluation-before-action with guardrails systems -- both add a checking layer to prevent poor outputs.
 - **Hallucination**: CRAG specifically targets context-based hallucination (the LLM generating answers from irrelevant context), one of the primary hallucination modes in RAG systems.
 
+## Diagrams and Visualizations
+
+*Recommended visual: CRAG pipeline showing retrieval evaluation, confidence scoring, and corrective actions (rewrite, web search fallback) — see [Yan et al. CRAG Paper (arXiv:2401.15884)](https://arxiv.org/abs/2401.15884)*
+
 ## Further Reading
 
 - Yan, S. et al. (2024). "Corrective Retrieval Augmented Generation." (arXiv: 2401.15884) The original CRAG paper introducing the retrieval evaluator and corrective action framework.

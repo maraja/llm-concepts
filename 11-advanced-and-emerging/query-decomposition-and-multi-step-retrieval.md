@@ -213,6 +213,12 @@ In practice, query decomposition is often the first step in building an agentic 
 - **Prompt engineering**: The decomposition prompt is a critical piece of prompt engineering. Few-shot examples, output format instructions, and domain-specific guidance all affect decomposition quality.
 - **Compound AI systems**: Multi-step retrieval systems with decomposition, routing, reranking, and synthesis are compound AI systems with multiple interacting components.
 
+## Diagrams and Visualizations
+
+*Recommended visual: Query decomposition pipeline breaking a complex question into sub-queries, retrieving for each, and synthesizing — see [LangChain Query Decomposition Documentation](https://python.langchain.com/docs/how_to/query_decomposition/)*
+
+*Recommended visual: IRCoT (Interleaving Retrieval with Chain of Thought) showing alternating reasoning and retrieval steps — see [Trivedi et al. IRCoT Paper (arXiv:2212.10509)](https://arxiv.org/abs/2212.10509)*
+
 ## Further Reading
 
 - Zheng, H. et al. (2023). "Take a Step Back: Evoking Reasoning via Abstraction in Large Language Models." (arXiv: 2310.06117) The step-back prompting paper from Google DeepMind.

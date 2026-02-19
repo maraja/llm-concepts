@@ -138,6 +138,12 @@ The PRM vs. ORM distinction addresses some of the deepest challenges in AI reaso
 - **RLVR**: RLVR uses verifiable final outcomes as rewards (like an ORM with perfect accuracy). PRMs complement RLVR by adding step-level signals to the outcome-level verification.
 - **DPO**: DPO can be applied at the step level (StepDPO), preferring correct reasoning steps over incorrect ones, combining the simplicity of DPO with the density of PRM-style supervision.
 
+## Diagrams and Visualizations
+
+*Recommended visual: Process Reward Model vs Outcome Reward Model showing step-level vs final-answer evaluation — see [Let's Verify Step by Step Paper (arXiv:2305.20050)](https://arxiv.org/abs/2305.20050)*
+
+*Recommended visual: PRM scoring each reasoning step in a math problem with step-level correctness labels — see [OpenAI Process Reward Models Blog](https://openai.com/index/improving-mathematical-reasoning-with-process-reward-models/)*
+
 ## Further Reading
 
 - Lightman et al., "Let's Verify Step by Step" (OpenAI, 2023) -- the foundational PRM paper, introducing PRM800K and demonstrating that process supervision outperforms outcome supervision for mathematical reasoning.

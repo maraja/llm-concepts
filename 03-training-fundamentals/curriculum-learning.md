@@ -131,6 +131,14 @@ Counterintuitively, presenting hard examples first (anti-curriculum) can also wo
 - **Catastrophic Forgetting**: Curriculum transitions must be managed carefully to avoid forgetting earlier training. Gradual transitions and data replay help maintain stability.
 - **Mixed-Precision Training**: Both are "training efficiency" techniques that improve the cost-performance trade-off without changing the model architecture.
 
+## Diagrams and Visualizations
+
+*See the curriculum learning framework diagram in: [Bengio et al., "Curriculum Learning" (ICML 2009)](https://dl.acm.org/doi/10.1145/1553374.1553380), Figure 1, which illustrates how training examples are ordered by difficulty and how the model progressively encounters harder examples.*
+
+*See also the DoReMi data mixing visualization at: [Xie et al., "DoReMi: Optimizing Data Mixtures" (arXiv:2305.10429)](https://arxiv.org/abs/2305.10429), Figure 1, which shows how proxy model excess loss is used to dynamically reweight domain proportions during LLM training.*
+
+*See the training data ordering comparison at: [Albalak et al., "A Survey on Data Selection for Language Models" (arXiv:2402.16827)](https://arxiv.org/abs/2402.16827) -- includes figures comparing random ordering, easy-to-hard curriculum, and dynamic data mixing strategies for LLM pre-training.*
+
 ## Further Reading
 
 - Bengio et al., "Curriculum Learning" (2009) -- the foundational paper introducing curriculum learning for machine learning

@@ -106,6 +106,16 @@ The choice of cross-entropy is not arbitrary. It is the theoretically optimal lo
 - **Knowledge Distillation**: Uses cross-entropy between a student model's distribution and a teacher model's distribution (soft targets) rather than one-hot labels.
 - **KL Divergence**: Used in RLHF to keep the fine-tuned model close to the pre-trained model; intimately related to cross-entropy.
 
+## Diagrams and Visualizations
+
+![Graph of the negative log-likelihood function showing how cross-entropy heavily penalizes low-probability predictions for the correct class (steep curve near zero) and lightly penalizes high-probability correct predictions](https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/Cross_entropy_-_loss_function.svg/1200px-Cross_entropy_-_loss_function.svg.png)
+*Source: [Wikimedia Commons -- Cross-Entropy Loss Function](https://commons.wikimedia.org/wiki/File:Cross_entropy_-_loss_function.svg)*
+
+![Diagram of the softmax output layer showing logits converted to probabilities, with cross-entropy loss computed against the one-hot target distribution](https://jalammar.github.io/images/t/output_target_probability_distributions.png)
+*Source: [Jay Alammar -- The Illustrated Transformer](https://jalammar.github.io/illustrated-transformer/)*
+
+*See also the relationship between cross-entropy, KL divergence, and entropy visualized at: [Chris Olah -- Visual Information Theory](https://colah.github.io/posts/2015-09-Visual-Information/) -- provides intuitive visual explanations of information-theoretic concepts underlying cross-entropy loss.*
+
 ## Further Reading
 
 - Shannon, C.E. (1948). "A Mathematical Theory of Communication" -- The foundational paper that defined entropy and cross-entropy, establishing the information-theoretic basis for everything in this field.

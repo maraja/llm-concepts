@@ -158,6 +158,12 @@ The importance of neurosymbolic AI is driven by the reliability gap in pure neur
 - **Tool Use**: Using formal tools (calculators, code interpreters, theorem provers) is a lightweight neurosymbolic pattern that most modern LLM systems already employ.
 - **Hallucination Mitigation**: Symbolic verification is one of the most principled approaches to detecting and preventing hallucination.
 
+## Diagrams and Visualizations
+
+*Recommended visual: Neurosymbolic AI spectrum showing integration patterns from neural-dominant to symbolic-dominant — see [Kautz Neurosymbolic AI Survey](https://arxiv.org/abs/2305.00813)*
+
+*Recommended visual: LLM + symbolic solver pipeline showing natural language parsed to formal representation then solved — see [PAL: Program-aided Language Models (arXiv:2211.10435)](https://arxiv.org/abs/2211.10435)*
+
 ## Further Reading
 
 - **"Neurosymbolic AI: The 3rd Wave" (Garcez & Lamb, 2023)**: A comprehensive survey framing neurosymbolic AI as the next major paradigm in artificial intelligence, synthesizing decades of research.

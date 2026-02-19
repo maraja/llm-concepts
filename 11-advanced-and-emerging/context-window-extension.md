@@ -101,6 +101,12 @@ The progression from 512 tokens (BERT) to 10M+ tokens (Gemini 1.5) represents a 
 - **KV Cache and Inference Optimization**: Context extension directly increases KV cache requirements, making techniques like GQA, MQA, and KV cache quantization critical companions.
 - **Distributed Training**: Ring Attention and context parallelism connect context extension to distributed systems design.
 
+## Diagrams and Visualizations
+
+*Recommended visual: Timeline of context window lengths from 512 (original Transformer) to 1M+ (Gemini) — see [Lilian Weng – The Transformer Family](https://lilianweng.github.io/posts/2023-01-27-the-transformer-family-v2/)*
+
+*Recommended visual: RoPE position interpolation vs extrapolation showing how scaling the frequency base extends context — see [Chen et al. YaRN Paper (arXiv:2309.00071)](https://arxiv.org/abs/2309.00071)*
+
 ## Further Reading
 
 - **"Extending Context Window of Large Language Models via Positional Interpolation" (Chen et al., 2023)**: The foundational position interpolation paper that showed simple scaling works surprisingly well.

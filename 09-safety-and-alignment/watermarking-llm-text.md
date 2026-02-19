@@ -116,6 +116,12 @@ The fundamental trade-off: **stronger watermarks are more detectable but more di
 - **Hallucination**: Watermarking does not address hallucination directly, but knowing that text is AI-generated (via watermark detection) may prompt users to verify claims more carefully.
 - **Red teaming**: Robustness testing of watermarking schemes is a form of red teaming -- adversaries try to remove watermarks while preserving text quality.
 
+## Diagrams and Visualizations
+
+*Recommended visual: Watermarking process showing green/red list partitioning of vocabulary and bias injection during sampling — see [Kirchenbauer et al. Watermarking Paper (arXiv:2301.10226)](https://arxiv.org/abs/2301.10226)*
+
+*Recommended visual: Statistical detection of watermarked text using z-score test on green token frequency — see [Kirchenbauer et al. Paper](https://arxiv.org/abs/2301.10226)*
+
 ## Further Reading
 
 - Kirchenbauer, J. et al. (2023). "A Watermark for Large Language Models." *ICML 2023.* (arXiv: 2301.10226) The foundational paper introducing green-list/red-list watermarking with rigorous statistical analysis.

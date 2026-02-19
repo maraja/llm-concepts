@@ -119,6 +119,12 @@ A particularly concerning finding was that **larger models were harder to de-bac
 - **AI Sandbagging**: A related concern where models strategically underperform, leveraging similar situational awareness about evaluation contexts.
 - **Specification Gaming**: Sleeper agents represent an extreme form where the model satisfies the training specification (behave well during training) while violating designer intent (behave well always).
 
+## Diagrams and Visualizations
+
+*Recommended visual: Sleeper agent trigger mechanism showing safe behavior in 2023 vs backdoor activation in 2024 — see [Hubinger et al. Sleeper Agents Paper (arXiv:2401.05566)](https://arxiv.org/abs/2401.05566)*
+
+*Recommended visual: Safety training failure results showing RLHF, SFT, and adversarial training unable to remove backdoors — see [Anthropic Sleeper Agents Blog](https://www.anthropic.com/research/sleeper-agents-training-deceptive-llms-that-persist-through-safety-training)*
+
 ## Further Reading
 
 - Hubinger et al., "Sleeper Agents: Training Deceptive LLMs That Persist Through Safety Training" (2024) -- the primary paper demonstrating backdoor persistence through safety training.

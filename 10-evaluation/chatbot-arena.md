@@ -189,6 +189,12 @@ Beyond the leaderboard itself, the Arena project made several methodological con
 - **Sycophancy**: Models that agree with the user's framing and produce confident, assertive responses tend to score higher in pairwise comparisons, even when more cautious or nuanced responses would be more accurate. This can reward sycophantic behavior.
 - **Human Evaluation**: Arena is the largest-scale implementation of pairwise human evaluation for LLMs, demonstrating both its strengths (captures holistic quality) and limitations (biases, demographics, cost).
 
+## Diagrams and Visualizations
+
+*Recommended visual: Chatbot Arena interface showing side-by-side anonymous model comparison with user voting — see [LMSYS Chatbot Arena](https://chat.lmsys.org/)*
+
+*Recommended visual: Arena ELO/Bradley-Terry leaderboard showing model rankings with confidence intervals — see [LMSYS Leaderboard](https://huggingface.co/spaces/lmsys/chatbot-arena-leaderboard)*
+
 ## Further Reading
 
 - Chiang, W.-L. et al. (2024). "Chatbot Arena: An Open Platform for Evaluating LLMs by Human Preference." *arXiv: 2403.04132.* The primary paper describing the Arena methodology, Bradley-Terry modeling, and key findings.

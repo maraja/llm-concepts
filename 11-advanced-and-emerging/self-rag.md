@@ -180,6 +180,10 @@ Self-RAG represents a paradigm shift in how we think about RAG systems:
 - **Constitutional AI**: Both Self-RAG and Constitutional AI train models to self-evaluate and self-correct. Self-RAG applies this principle to retrieval and factual grounding; Constitutional AI applies it to safety and harmlessness.
 - **Reward modeling**: The reflection tokens can be viewed as a form of process reward -- evaluating intermediate steps (retrieval decisions, relevance, support) rather than just the final output.
 
+## Diagrams and Visualizations
+
+*Recommended visual: Self-RAG architecture showing reflection tokens (Retrieve, IsRel, IsSup, IsUse) controlling retrieval and generation — see [Asai et al. Self-RAG Paper (arXiv:2310.11511)](https://arxiv.org/abs/2310.11511)*
+
 ## Further Reading
 
 - Asai, A., Wu, Z., Wang, Y., Sil, A., & Hajishirzi, H. (2024). "Self-RAG: Learning to Retrieve, Generate, and Critique through Self-Reflection." *ICLR 2024.* (arXiv: 2310.11511) The foundational Self-RAG paper.

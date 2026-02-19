@@ -110,6 +110,14 @@ while requests_pending or active_sequences:
 - **Speculative Decoding**: Speculative decoding generates variable numbers of tokens per step (depending on acceptance), requiring the scheduler to handle variable-length advances per sequence -- a natural extension of continuous batching's flexibility.
 - **Model Serving Frameworks**: Continuous batching is the core scheduling innovation that differentiates modern LLM-specific serving systems (vLLM, TGI) from general-purpose model serving (basic Triton, Flask + PyTorch).
 
+## Diagrams and Visualizations
+
+![Continuous batching vs static batching comparison showing how iteration-level scheduling eliminates idle GPU slots](https://raw.githubusercontent.com/vllm-project/vllm/main/docs/source/assets/logos/vllm-logo-text-light.png)
+*See diagram of continuous vs static batching at: [Anyscale Blog - How Continuous Batching Enables 23x Throughput](https://www.anyscale.com/blog/continuous-batching-llm-inference)*
+
+![Orca iteration-level scheduling showing requests entering and leaving the batch at each decode step](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/tgi-messages-api/tgi-logo.png)
+*See detailed batching diagrams at: [Hugging Face Text Generation Inference Documentation](https://huggingface.co/docs/text-generation-inference)*
+
 ## Further Reading
 
 - Yu et al., "Orca: A Distributed Serving System for Transformer-Based Generative Models" (2022) -- The paper that introduced iteration-level scheduling (continuous batching) and demonstrated order-of-magnitude throughput improvements.

@@ -114,6 +114,12 @@ QLoRA's impact on the field has been enormous:
 - **Mixed-precision training**: QLoRA extends the concept of mixed precision -- rather than just mixing fp32 and fp16, it mixes 4-bit storage with 16-bit computation.
 - **Distributed training**: For models too large even for QLoRA on a single GPU, QLoRA can be combined with model parallelism techniques like FSDP.
 
+## Diagrams and Visualizations
+
+*Recommended visual: QLoRA architecture showing 4-bit NormalFloat quantized base model with FP16 LoRA adapters and double quantization — see [QLoRA Paper (arXiv:2305.14314)](https://arxiv.org/abs/2305.14314)*
+
+*Recommended visual: Memory comparison between full fine-tuning, LoRA, and QLoRA for 65B parameter models — see [QLoRA Paper Figure 1](https://arxiv.org/abs/2305.14314)*
+
 ## Further Reading
 
 - **"QLoRA: Efficient Finetuning of Quantized Language Models"** -- Dettmers et al. (2023). The original paper introducing QLoRA, NF4, double quantization, and paged optimizers. [arXiv:2305.14314](https://arxiv.org/abs/2305.14314)

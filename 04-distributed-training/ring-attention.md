@@ -1,94 +1,110 @@
 # Ring Attention
 
-**One-Line Summary**: Ring Attention distributes long sequences across multiple GPUs arranged in a ring topology, overlapping the communication of key-value blocks with attention computation to enable near-linear scaling of context length with the number of devices -- theoretically supporting millions of tokens with less than 5% communication overhead.
+**One-Line Summary**: Ring Attention distributes long sequences across multiple GPUs arranged in a ring topology, overlapping the communication of key-value blocks with attention computation to enable near-linear scaling of context length with the number of devices -- supporting millions of tokens with less than 5% communication overhead.
 
-**Prerequisites**: Self-attention mechanism and its quadratic memory cost, FlashAttention (blockwise attention with online softmax), distributed training concepts (data parallelism, tensor parallelism), GPU communication primitives (point-to-point send/receive, all-to-all), and KV cache fundamentals.
+**Prerequisites**: Self-attention and its quadratic memory cost, FlashAttention (blockwise attention with online softmax), distributed training concepts (data parallelism, tensor parallelism), GPU communication primitives (point-to-point send/receive), and KV cache fundamentals.
 
 ## What Is Ring Attention?
 
-The context window is one of the most fundamental constraints of transformer models. Even with memory-efficient attention algorithms like FlashAttention, a single GPU can only hold so many tokens before running out of memory. Doubling the context length quadruples the attention computation and doubles the KV memory. At some point, no single device can handle the full sequence.
+The context window is one of the most fundamental constraints of transformer models. Even with FlashAttention, a single GPU can only hold so many tokens before running out of memory. Doubling context length quadruples attention computation and doubles KV memory. At some point, no single device can handle the full sequence.
 
-Ring Attention solves this by distributing the sequence itself across devices. Imagine a group of people sitting in a circle, each holding a different chapter of a book. To understand the full book, each person reads their chapter while simultaneously passing their notes (key-value pairs) to the person on their left. As the notes circulate around the ring, each person computes attention between their chapter (queries) and each set of incoming notes (keys and values). By the time the notes have traveled the full circle, everyone has attended to every chapter. The critical trick is that reading and note-passing happen simultaneously -- while you are computing attention with the current set of notes, the next set is already in transit.
+Ring Attention solves this by distributing the sequence itself across devices. Imagine a group of people sitting in a circle, each holding a different chapter of a book. To understand the full book, each person reads their chapter while simultaneously passing their notes (key-value pairs) to the person on their left.
 
-This overlapping of computation and communication is what makes Ring Attention practical. If the attention computation per block takes longer than the time to transfer a block across the interconnect (which it typically does for large enough blocks, since attention is quadratic in block size while communication is linear), the communication is effectively "free" -- hidden entirely behind the computation. The result is that you can process sequences of virtually unlimited length, scaling linearly with the number of GPUs.
+As the notes circulate around the ring, each person computes attention between their chapter (queries) and each set of incoming notes. By the time the notes have traveled the full circle, everyone has attended to every chapter.
+
+The critical trick: computation and communication happen simultaneously. While you compute attention with the current KV block, the next block is already in transit. Since attention computation (quadratic in block size) typically takes longer than data transfer (linear in block size), the communication is effectively free.
 
 ## How It Works
 
 ### Sequence Partitioning and Ring Topology
 
-Given a sequence of $N$ tokens and $P$ devices, Ring Attention splits the sequence into $P$ contiguous blocks of size $N/P$. Each device $p$ holds:
-- Its local query block $Q_p$ (the queries for its portion of the sequence, kept permanently on device)
-- Its local key-value block $(K_p, V_p)$ (initially, the KVs for its portion, which will be passed around the ring)
+Given $N$ tokens and $P$ devices, Ring Attention splits the sequence into $P$ contiguous blocks of $N/P$ tokens. Each device $p$ holds:
 
-The devices are arranged in a logical ring: device 0 sends to device 1, device 1 to device 2, and so on, with device $P-1$ sending back to device 0 to close the ring.
+- Its local query block $Q_p$ (kept permanently on device)
+- Its local key-value block $(K_p, V_p)$ (initially local, will be passed around the ring)
+
+Devices form a logical ring: device 0 sends to device 1, device 1 to device 2, ..., device $P-1$ back to device 0.
 
 ### The Ring Communication Pattern
 
-The algorithm proceeds in $P$ rounds. In each round $r$, every device simultaneously performs two operations:
+The algorithm proceeds in $P$ rounds. In each round $r$, every device simultaneously:
 
-1. **Compute**: Device $p$ computes blockwise attention between its local queries $Q_p$ and the currently-held key-value block $(K_{(p-r) \bmod P}, V_{(p-r) \bmod P})$, accumulating the attention output incrementally.
-2. **Communicate**: Device $p$ sends its currently-held KV block to device $(p+1) \bmod P$ and receives a new KV block from device $(p-1) \bmod P$.
-
-After $P$ rounds, every device has computed attention between its queries and all $P$ key-value blocks in the sequence, producing the complete attention output for its local portion.
+1. **Computes**: Blockwise attention between $Q_p$ and the currently-held KV block, accumulating the output incrementally.
+2. **Communicates**: Sends the current KV block to the next device; receives a new KV block from the previous device.
 
 ```
-Round 0: Device p computes Attn(Q_p, K_p, V_p)         | sends K_p,V_p → next device
-Round 1: Device p computes Attn(Q_p, K_{p-1}, V_{p-1})  | sends K_{p-1},V_{p-1} → next device
-Round 2: Device p computes Attn(Q_p, K_{p-2}, V_{p-2})  | sends K_{p-2},V_{p-2} → next device
+Round 0: Device p computes Attn(Q_p, K_p, V_p)         | sends K_p,V_p → next
+Round 1: Device p computes Attn(Q_p, K_{p-1}, V_{p-1})  | sends K_{p-1},V_{p-1} → next
 ...
-Round P-1: Device p computes Attn(Q_p, K_{p+1}, V_{p+1}) | [final round, no more sends needed]
+Round P-1: Device p computes Attn(Q_p, K_{p+1}, V_{p+1}) | [final round]
 ```
+
+After $P$ rounds, every device has computed attention between its queries and all KV blocks.
 
 ### Online Softmax for Incremental Accumulation
 
-A naive implementation would require storing all $N \times N$ attention logits before applying softmax, which would defeat the purpose of distribution. Ring Attention avoids this by using **online softmax** (also called the "safe softmax" or "log-sum-exp trick"), the same technique underlying FlashAttention's blockwise computation. For each incoming KV block, the partial attention output is incrementally merged with the running output:
+A naive approach would store all $N \times N$ attention logits before applying softmax. Ring Attention avoids this using **online softmax** (from FlashAttention):
 
 $$m_{\text{new}} = \max(m_{\text{old}}, m_{\text{block}})$$
 $$l_{\text{new}} = e^{m_{\text{old}} - m_{\text{new}}} \cdot l_{\text{old}} + e^{m_{\text{block}} - m_{\text{new}}} \cdot l_{\text{block}}$$
 $$O_{\text{new}} = \frac{e^{m_{\text{old}} - m_{\text{new}}} \cdot l_{\text{old}} \cdot O_{\text{old}} + e^{m_{\text{block}} - m_{\text{new}}} \cdot l_{\text{block}} \cdot O_{\text{block}}}{l_{\text{new}}}$$
 
-where $m$ tracks the running maximum logit (for numerical stability) and $l$ tracks the running sum of exponentials. This accumulation is numerically stable and produces results that are *exactly* equivalent to full attention, with zero approximation error.
+Here $m$ tracks the running maximum logit and $l$ the running sum of exponentials. This is numerically stable and *exactly* equivalent to full attention -- zero approximation error.
 
 ### Causal Masking and Load Balancing
 
-For causal (autoregressive) models, tokens can only attend to earlier tokens. This means roughly half the attention blocks in the ring are fully masked (queries from early in the sequence cannot attend to keys from later in the sequence) and can be skipped entirely. However, this creates a load imbalance: devices holding early portions of the sequence have less work than devices holding later portions.
+For causal models, tokens only attend to earlier tokens. Roughly half the attention blocks are fully masked and can be skipped, but this creates load imbalance: devices with early sequence portions have less work.
 
-**Striped Attention** addresses this by interleaving token assignments across devices rather than using contiguous blocks. Device $p$ holds tokens at positions $\{p, p+P, p+2P, \ldots\}$. This ensures every device has a roughly equal mix of early and late tokens, balancing the causal masking workload evenly across devices.
+**Striped Attention** fixes this by interleaving token assignments: device $p$ holds tokens at positions $\{p, p+P, p+2P, \ldots\}$. Every device gets a mix of early and late tokens, balancing the workload.
+
+### Backward Pass
+
+The ring pattern applies to the backward pass as well. Gradients flow in the reverse direction around the ring, with the same computation-communication overlap. Each device computes local gradients with respect to its queries while circulating the KV blocks and their gradients.
 
 ## Why It Matters
 
-1. **Near-unlimited context length**: Ring Attention scales context length linearly with the number of devices. With 256 GPUs, a model that handles 8K tokens per GPU can process over 2 million tokens.
-2. **Minimal overhead**: When block sizes are large enough for computation to dominate communication (which is the typical regime), the overhead is less than 5%. The communication is almost entirely hidden behind the attention computation.
-3. **Exact attention**: Unlike sparse or approximate attention methods (Longformer, BigBird, linear attention), Ring Attention computes exact full attention. There is no quality degradation from approximation.
-4. **Foundation for frontier models**: The technique (or close variants) underpins models like Gemini 1.5 (1M token context), enabling the longest context windows in production language models.
-5. **Composable with other parallelism**: Ring Attention operates on the sequence dimension, orthogonal to tensor parallelism (model dimension) and data parallelism (batch dimension), enabling integration into existing multi-dimensional distributed training frameworks.
+1. **Near-unlimited context**: Scales context linearly with devices. 256 GPUs with 8K tokens each = 2M+ token context.
+2. **Minimal overhead**: Less than 5% when computation dominates communication (typical for large blocks).
+3. **Exact attention**: No approximation, no quality loss -- mathematically identical to full attention.
+4. **Foundation for frontier models**: Variants underpin Gemini 1.5's 1M token context and other long-context systems.
+5. **Composable**: Orthogonal to tensor parallelism and data parallelism, enabling multi-dimensional distribution.
 
 ## Key Technical Details
 
-- **Memory per device**: $O(N/P \times d)$ for the local sequence block, where $d$ is the model dimension. Plus buffer space for one incoming and one outgoing KV block.
-- **Communication volume**: Each device sends and receives $O(N/P \times d)$ data per round, for $P-1$ rounds total. Total communication per device is $O((P-1) \times N/P \times d) \approx O(N \times d)$.
-- **Overlap condition**: Communication is fully hidden when $T_{\text{compute}} \geq T_{\text{communicate}}$. For attention, compute scales as $(N/P)^2 \times d$ while communication scales as $(N/P) \times d$. This means the overlap works when $N/P \geq$ some constant, which is easily satisfied for long sequences.
-- **Demonstrated scale**: The original paper demonstrated sequences of over 1 million tokens distributed across TPU/GPU clusters, with stable training and near-perfect overlap.
-- **Compatibility with FlashAttention**: The blockwise computation within each device naturally uses FlashAttention's tiling strategy, combining inter-device distribution (Ring Attention) with intra-device memory efficiency (FlashAttention).
-- **Backward pass**: The ring pattern is applied to the backward pass as well, with gradients flowing in the reverse direction around the ring. The same overlap principle applies.
+- **Memory per device**: $O(N/P \times d)$ for the local block, plus double-buffer for KV transfer.
+- **Communication volume**: Each device transfers $O(N \times d)$ total across all $P-1$ rounds.
+- **Overlap condition**: Communication is hidden when $(N/P)^2 \times d > (N/P) \times d / \text{bandwidth}$, easily satisfied for long sequences.
+- **Demonstrated scale**: Millions of tokens across GPU/TPU clusters with stable training.
+- **FlashAttention compatibility**: Each device uses FlashAttention's tiling for local block computation.
+- **Multi-head amortization**: Ring communication is shared across attention heads, amortizing transfer costs.
+- **Practical deployment**: Believed to underpin context extension in Gemini 1.5 and similar frontier systems.
+- **Bandwidth requirements**: Modern NVLink (900 GB/s) or InfiniBand (400 Gb/s) provide sufficient bandwidth for most configurations.
 
 ## Common Misconceptions
 
-- **"Ring Attention is an approximation to full attention."** It computes mathematically exact full attention. The online softmax accumulation is numerically equivalent to computing the full $N \times N$ attention matrix and applying softmax globally. The results are bit-for-bit identical (up to floating point ordering).
-- **"Communication overhead makes it impractical."** With proper block sizing, the attention computation per block (quadratic in block size) dominates the communication transfer (linear in block size). For practical long-context configurations, the overlap is near-perfect.
-- **"Ring Attention replaces FlashAttention."** They are complementary. FlashAttention optimizes attention computation within a single device using tiling and SRAM management. Ring Attention distributes the sequence across devices. In practice, each device runs FlashAttention for its local block computations.
-- **"You need special hardware for the ring topology."** The ring is a logical topology implemented with standard point-to-point send/receive operations that work on any GPU interconnect (NVLink, InfiniBand, PCIe, etc.).
+- **"Ring Attention is an approximation."** It computes exact full attention via online softmax. Results are mathematically identical to standard attention.
+- **"Communication overhead makes it impractical."** Attention computation (quadratic in block size) dominates communication (linear), making overlap near-perfect.
+- **"Ring Attention replaces FlashAttention."** They are complementary: FlashAttention handles within-device tiling, Ring Attention handles across-device distribution.
+- **"You need special ring hardware."** The ring is logical, implemented with standard point-to-point operations on any interconnect.
 
 ## Connections to Other Concepts
 
-- **FlashAttention**: Provides the blockwise attention primitive and online softmax algorithm that Ring Attention builds upon for its incremental accumulation. Without FlashAttention's insights, the online accumulation would not be practical.
-- **Tensor parallelism**: Distributes model weights across devices along the hidden dimension. Ring Attention distributes the sequence. They operate on orthogonal dimensions and can be combined in the same training setup.
-- **Sequence parallelism**: A related concept in Megatron-LM that distributes activation memory across the sequence dimension for non-attention operations (LayerNorm, dropout). Ring Attention extends sequence-level distribution to the attention computation itself.
-- **Sliding window attention**: An alternative approach to long sequences that restricts attention to a local window, trading global context for efficiency. Ring Attention preserves full global attention over arbitrarily long sequences.
-- **Context window extension**: Ring Attention is a key enabling technology for extending context windows beyond what fits on a single device, complementing positional encoding extrapolation techniques like RoPE scaling.
+- **FlashAttention**: Provides the blockwise computation and online softmax that Ring Attention uses for incremental accumulation.
+- **Tensor parallelism**: Distributes model weights across devices. Ring Attention distributes the sequence. They are orthogonal.
+- **Sequence parallelism**: Megatron-LM distributes activations across the sequence for non-attention ops. Ring Attention extends this to attention itself.
+- **Sliding window attention**: An alternative for long sequences via locality. Ring Attention preserves full global attention.
+- **Context window extension**: Ring Attention is a key enabler for extending context beyond single-device limits.
+
+## Diagrams and Visualizations
+
+*Recommended visual: Ring topology diagram showing KV blocks circulating between devices while each device computes attention with its local queries -- see [Liu et al., "Ring Attention with Blockwise Transformers for Near-Infinite Context" (2023)](https://arxiv.org/abs/2310.01889), Figure 1*
+
+*Recommended visual: Computation-communication overlap timeline showing how attention computation on the current KV block hides the transfer latency of the next block -- see [Liu et al., "Ring Attention" (2023)](https://arxiv.org/abs/2310.01889), Figure 2*
+
+*Recommended visual: Striped attention token assignment pattern for causal masking load balance, contrasting block-contiguous vs interleaved partitioning -- see [Brandon et al., "Striped Attention" (2023)](https://arxiv.org/abs/2311.09431), Figure 1*
 
 ## Further Reading
 
-1. **"Ring Attention with Blockwise Transformers for Near-Infinite Context" (Liu et al., 2023, arXiv:2310.01889)** -- The original Ring Attention paper, presenting the algorithm, overlap analysis, and million-token demonstrations.
-2. **"Striped Attention: Faster Ring Attention for Causal Transformers" (Brandon et al., 2023, arXiv:2311.09431)** -- Addresses load imbalance under causal masking by interleaving token assignments across devices, improving throughput for autoregressive models.
-3. **"FlashAttention: Fast and Memory-Efficient Exact Attention with IO-Awareness" (Dao et al., 2022, arXiv:2205.14135)** -- The foundation for blockwise attention computation and online softmax that Ring Attention relies upon for its incremental accumulation.
+1. **"Ring Attention with Blockwise Transformers for Near-Infinite Context" (Liu et al., 2023, arXiv:2310.01889)** -- The original paper presenting the algorithm, overlap analysis, and million-token demonstrations.
+2. **"Striped Attention: Faster Ring Attention for Causal Transformers" (Brandon et al., 2023, arXiv:2311.09431)** -- Addresses causal masking load imbalance via interleaved token assignment.
+3. **"FlashAttention: Fast and Memory-Efficient Exact Attention with IO-Awareness" (Dao et al., 2022, arXiv:2205.14135)** -- The foundation for blockwise computation and online softmax.

@@ -118,6 +118,16 @@ Special tokens are the invisible control plane of LLMs. Their correct handling i
 - **Context Window**: Special tokens consume positions in the context window. A complex chat template with many special tokens reduces the space available for actual content.
 - **Vocabulary Design**: Special tokens are a fixed overhead in the vocabulary. Models with many special tokens (e.g., for multilingual or multi-task use) dedicate vocabulary slots to these control signals.
 
+## Diagrams and Visualizations
+
+![BERT input representation showing how token embeddings, segment embeddings, and position embeddings combine, with CLS and SEP special tokens marked](https://jalammar.github.io/images/bert-input-representation.png)
+*Source: [Jay Alammar – A Visual Guide to Using BERT](https://jalammar.github.io/a-visual-guide-to-using-bert-for-the-first-time/)*
+
+![Diagram of GPT-2 tokenization pipeline showing how text is split into tokens including special tokens like end-of-text, then converted to token IDs and embeddings](https://jalammar.github.io/images/gpt2/gpt2-token-embeddings-wte-2.png)
+*Source: [Jay Alammar – The Illustrated GPT-2](https://jalammar.github.io/illustrated-gpt2/)*
+
+*See also the Hugging Face documentation on chat templates and special tokens: [Hugging Face – Chat Templates](https://huggingface.co/docs/transformers/chat_templating) -- shows how different model families structure conversations with role-specific special tokens.*
+
 ## Further Reading
 
 - Devlin, J., et al. (2019). "BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding." *NAACL 2019.* -- Introduced CLS and SEP tokens and defined the paradigm for special token usage in encoder models.

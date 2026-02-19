@@ -143,6 +143,12 @@ Circuit breakers represent a potential paradigm shift in AI safety from **behavi
 - **Machine Unlearning**: While unlearning removes knowledge and circuit breakers disrupt access to knowledge, both aim to prevent models from producing harmful outputs. They are complementary approaches to the same goal.
 - **Guardrails and Content Filtering**: Circuit breakers operate at the representation level (internal to the model), while guardrails operate at the input/output level (external to the model). Together they provide defense in depth.
 
+## Diagrams and Visualizations
+
+*Recommended visual: Circuit breaker representation rerouting showing harmful activations redirected to orthogonal directions — see [Zou et al. Circuit Breakers Paper (arXiv:2406.04313)](https://arxiv.org/abs/2406.04313)*
+
+*Recommended visual: Attack success rate comparison: RLHF (80-95% jailbroken) vs Circuit Breakers (<5%) — see [Gray Swan AI Blog](https://www.gray-swan.com/)*
+
 ## Further Reading
 
 - Zou, A. et al. (2024). "Improving Alignment and Robustness with Circuit Breakers." *arXiv: 2406.04313.* The primary circuit breakers paper introducing representation rerouting for AI safety.

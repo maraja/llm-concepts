@@ -99,6 +99,13 @@ LoRA has fundamentally changed the economics of model customization:
 - **Model merging**: LoRA adapters can be merged with the base model or with each other, connecting to the broader topic of model merging and task arithmetic.
 - **Serving infrastructure**: LoRA's small adapter size enables architectures like S-LoRA that batch requests across many different adapters efficiently.
 
+## Diagrams and Visualizations
+
+![LoRA architecture showing frozen pretrained weights W with trainable low-rank matrices A and B, where the update is W + BA](https://huggingface.co/datasets/trl-internal-testing/example-images/resolve/main/blog/stackllama/lora.png)
+*Source: [Hugging Face – LoRA](https://huggingface.co/blog/stackllama)*
+
+*Recommended visual: LoRA low-rank decomposition showing how a d×d weight update is factored into d×r and r×d matrices — see [LoRA Paper Figure 1 (arXiv:2106.09685)](https://arxiv.org/abs/2106.09685)*
+
 ## Further Reading
 
 - **"LoRA: Low-Rank Adaptation of Large Language Models"** -- Hu et al. (2021). The original paper introducing the method. [arXiv:2106.09685](https://arxiv.org/abs/2106.09685)

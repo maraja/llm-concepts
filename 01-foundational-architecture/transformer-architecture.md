@@ -85,6 +85,17 @@ This parallelism is why the Transformer could scale. The entire era of large lan
 - **Positional Encoding**: Covered in a dedicated topic; the mechanism that gives order to the Transformer's otherwise order-agnostic attention.
 - **Autoregressive Generation**: How the decoder generates text token by token (see `autoregressive-generation.md`).
 
+## Diagrams and Visualizations
+
+![The Transformer model architecture showing the encoder (left) and decoder (right) stacks with multi-head attention, feed-forward networks, residual connections, and layer normalization](https://nlp.seas.harvard.edu/images/the-annotated-transformer_14_0.png)
+*Source: [The Annotated Transformer -- Harvard NLP](https://nlp.seas.harvard.edu/annotated-transformer/)*
+
+![Detailed walkthrough of the Transformer architecture showing input embeddings, positional encoding, encoder self-attention, decoder masked attention, cross-attention, and output generation](https://jalammar.github.io/images/t/transformer_resideual_layer_norm_3.png)
+*Source: [The Illustrated Transformer -- Jay Alammar](https://jalammar.github.io/illustrated-transformer/)*
+
+![The encoder-decoder structure of the Transformer with data flow from input embeddings through stacked encoder layers, cross-attention into decoder layers, and final linear plus softmax output](https://jalammar.github.io/images/t/The_transformer_encoder_decoder_stack.png)
+*Source: [The Illustrated Transformer -- Jay Alammar](https://jalammar.github.io/illustrated-transformer/)*
+
 ## Further Reading
 
 - "Attention Is All You Need" -- Vaswani et al., 2017 (the original Transformer paper)

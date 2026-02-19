@@ -108,6 +108,12 @@ This capability enables LLMs to serve as components in larger software architect
 - **Tokenization** interacts with constrained decoding: the token vocabulary determines what atomic units the grammar must reason about.
 - **Inference optimization** intersects with constrained decoding -- speculative decoding and batched generation must be compatible with per-token grammar constraints.
 
+## Diagrams and Visualizations
+
+*Recommended visual: Constrained decoding process showing token masking against a JSON schema at each generation step — see [Outlines GitHub Repository](https://github.com/dottxt-ai/outlines)*
+
+*Recommended visual: Comparison of structured output approaches: prompt-based, fine-tuned, and grammar-constrained — see [Guidance GitHub Repository](https://github.com/guidance-ai/guidance)*
+
 ## Further Reading
 
 - Willard, B. & Louf, R. (2023). "Efficient Guided Generation for Large Language Models." The foundational paper behind the Outlines library, describing how to compile regular expressions and context-free grammars into token-level masks.

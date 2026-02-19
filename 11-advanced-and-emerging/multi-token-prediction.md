@@ -126,6 +126,12 @@ The auxiliary heads can use equal weighting or a decay schedule (where farther-a
 - **DeepSeek-V3 / Mixture of Experts**: DeepSeek-V3 combined MTP with MoE architecture, demonstrating that MTP composes well with other architectural innovations.
 - **Knowledge Distillation**: MTP's auxiliary heads resemble multi-task distillation, where the model "teaches itself" about future structure.
 
+## Diagrams and Visualizations
+
+*Recommended visual: Multi-token prediction architecture showing multiple prediction heads predicting n future tokens simultaneously — see [Gloeckle et al. Multi-Token Prediction Paper (arXiv:2404.19737)](https://arxiv.org/abs/2404.19737)*
+
+*Recommended visual: Self-speculative decoding using multi-token heads as draft predictions for verification — see [Meta AI Multi-Token Prediction Blog](https://arxiv.org/abs/2404.19737)*
+
 ## Further Reading
 
 - Gloeckle et al., "Better & Faster Large Language Models via Multi-token Prediction" (2024) -- Meta's foundational paper demonstrating MTP at scale

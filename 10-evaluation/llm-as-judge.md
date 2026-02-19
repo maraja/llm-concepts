@@ -112,6 +112,12 @@ However, LLM-as-a-Judge has not replaced human evaluation -- it has stratified i
 - **Constitutional AI**: Uses LLM self-evaluation as part of the training loop, a closely related application of the same principle.
 - **Prompt Engineering**: The quality of the judge prompt and rubric is essentially a prompt engineering problem, and the same techniques (few-shot examples, chain-of-thought, structured output) apply.
 
+## Diagrams and Visualizations
+
+*Recommended visual: LLM-as-Judge pipeline showing strong model evaluating outputs of other models with rubric-based scoring — see [Zheng et al. MT-Bench Paper (arXiv:2306.05685)](https://arxiv.org/abs/2306.05685)*
+
+*Recommended visual: Known biases in LLM judges: position bias, verbosity bias, self-enhancement bias — see [MT-Bench Paper](https://arxiv.org/abs/2306.05685)*
+
 ## Further Reading
 
 - Zheng et al., "Judging LLM-as-a-Judge with MT-Bench and Chatbot Arena" (2023) -- the foundational paper establishing the LLM-as-a-Judge methodology and analyzing its biases.

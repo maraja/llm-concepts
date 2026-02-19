@@ -140,6 +140,12 @@ The existence of multiple approaches also drives theoretical understanding of wh
 - **Continual learning**: PEFT methods are natural tools for continual learning, since the frozen base model prevents catastrophic forgetting of pre-existing knowledge.
 - **Multi-task learning**: Methods like prompt tuning naturally support multi-task setups by learning different soft prompts for different tasks while sharing the same frozen backbone.
 
+## Diagrams and Visualizations
+
+*Recommended visual: Adapter bottleneck architecture showing small trainable modules inserted between frozen transformer layers — see [Houlsby et al. Adapter Paper (arXiv:1902.00751)](https://arxiv.org/abs/1902.00751)*
+
+*Recommended visual: Comparison of adapter, prefix tuning, prompt tuning, and LoRA showing where each injects trainable parameters — see [Hugging Face PEFT Documentation](https://huggingface.co/docs/peft/index)*
+
 ## Further Reading
 
 - **"Parameter-Efficient Transfer Learning for NLP"** -- Houlsby et al. (2019). The original bottleneck adapter paper that launched the PEFT research direction. [arXiv:1902.00751](https://arxiv.org/abs/1902.00751)

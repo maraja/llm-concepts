@@ -137,6 +137,13 @@ ToT represents a paradigm shift in how we think about LLM problem-solving:
 - **Self-Consistency**: A simplified version of ToT that generates multiple independent chains and votes on the final answer, without intermediate evaluation or backtracking.
 - **Compound AI Systems**: ToT is a compound system pattern -- multiple LLM calls coordinated by a search algorithm to achieve better results than a single call.
 
+## Diagrams and Visualizations
+
+![Tree of Thought diagram showing branching reasoning paths with evaluation and backtracking](https://lilianweng.github.io/posts/2023-03-15-prompt-engineering/tree-of-thought.png)
+*Source: [Lilian Weng – Prompt Engineering](https://lilianweng.github.io/posts/2023-03-15-prompt-engineering/)*
+
+*Recommended visual: Comparison of Chain-of-Thought (linear), Self-Consistency (parallel), and Tree-of-Thought (branching) — see [Yao et al. ToT Paper (arXiv:2305.10601)](https://arxiv.org/abs/2305.10601)*
+
 ## Further Reading
 
 - Yao et al., "Tree of Thoughts: Deliberate Problem Solving with Large Language Models" (2023) -- the original ToT paper, demonstrating the framework on Game of 24, creative writing, and crossword puzzles.

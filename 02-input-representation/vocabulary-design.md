@@ -142,6 +142,15 @@ Vocabulary design decisions are among the most permanent choices in LLM developm
 - **Special Tokens**: These are manually added to the vocabulary outside the normal BPE process.
 - **Byte-Pair Encoding**: The specific algorithm most commonly used to construct the vocabulary from a training corpus.
 
+## Diagrams and Visualizations
+
+![Chart showing tokenization fertility (tokens per word) across different languages, illustrating the disparity between English and non-Latin-script languages](https://raw.githubusercontent.com/openai/tiktoken/main/scripts/vocab_size_comparison.png)
+*Source: [OpenAI tiktoken – Vocabulary Size Comparison](https://github.com/openai/tiktoken)*
+
+*See diagram comparing vocabulary allocation strategies at: [Petrov et al., "Language Model Tokenizers Introduce Unfairness Between Languages" (NeurIPS 2024)](https://arxiv.org/abs/2305.15425) -- includes figures showing token fertility ratios across 350+ languages and the impact of vocabulary size on multilingual equity.*
+
+*See also the vocabulary composition analysis at: [Hugging Face Blog – Tokenizers: How Machines Read](https://huggingface.co/docs/tokenizers/) -- includes visualizations of how different vocabulary sizes affect compression ratios and the trade-off between vocabulary coverage and embedding matrix size.*
+
 ## Further Reading
 
 - Rust, P., et al. (2021). "How Good is Your Tokenizer? On the Monolingual Performance of Multilingual Language Models." *ACL 2021.* -- Rigorous analysis of how tokenizer quality varies across languages and its impact on model performance.

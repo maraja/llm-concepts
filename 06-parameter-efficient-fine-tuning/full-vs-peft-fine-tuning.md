@@ -153,6 +153,12 @@ The binary choice between full and PEFT is increasingly blurred:
 - **Model merging and task arithmetic**: PEFT adapters enable model merging techniques (e.g., TIES merging, DARE) that combine capabilities from multiple fine-tuned variants without additional training.
 - **Instruction tuning and RLHF**: Both the supervised fine-tuning (SFT) stage and the reinforcement learning stage of alignment can use either full fine-tuning or PEFT. Many open-source alignment efforts use LoRA for SFT and full fine-tuning (or LoRA) for the reward model.
 
+## Diagrams and Visualizations
+
+*Recommended visual: Parameter count comparison across PEFT methods showing trainable vs frozen parameters — see [Hugging Face PEFT Documentation](https://huggingface.co/docs/peft/index)*
+
+*Recommended visual: Performance vs parameter efficiency trade-off curves for full fine-tuning, LoRA, QLoRA, and adapters — see [Scaling Down to Scale Up: A Guide to Parameter-Efficient Fine-Tuning (arXiv:2303.15647)](https://arxiv.org/abs/2303.15647)*
+
 ## Further Reading
 
 - **"Scaling Down to Scale Up: A Guide to Parameter-Efficient Fine-Tuning"** -- Lialin et al. (2023). A comprehensive survey covering the full PEFT landscape with systematic comparisons. [arXiv:2303.15647](https://arxiv.org/abs/2303.15647)

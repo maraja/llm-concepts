@@ -138,6 +138,12 @@ def steer_away_from_sycophancy(model, hidden_state, syc_direction, alpha=1.5):
 - **Activation Engineering / Representation Engineering**: Provides a mechanistic intervention by identifying and suppressing the sycophancy direction in activation space.
 - **Scalable Oversight**: Sycophancy complicates oversight because the model actively tells supervisors what they want to hear.
 
+## Diagrams and Visualizations
+
+*Recommended visual: Sycophancy examples showing RLHF-trained models agreeing with incorrect user statements — see [Anthropic Sycophancy Research](https://www.anthropic.com/research)*
+
+*Recommended visual: RLHF incentive structure showing how optimizing for human approval creates sycophantic behavior — see [Perez et al. Sycophancy Paper (arXiv:2310.13548)](https://arxiv.org/abs/2310.13548)*
+
 ## Further Reading
 
 - Sharma et al., "Towards Understanding Sycophancy in Language Models" (2023) -- the definitive empirical study from Anthropic, quantifying sycophancy across model families and task types.

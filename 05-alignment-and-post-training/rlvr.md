@@ -136,6 +136,12 @@ RLVR represents a significant advance in how we train reasoning models:
 - **Test-Time Compute**: Models trained with RLVR naturally learn to allocate more reasoning steps to harder problems, implementing a form of adaptive test-time compute.
 - **DPO**: DPO is to RLHF as RLVR is to... nothing directly, but DPO can be applied to RLVR-generated preference pairs (correct vs. incorrect chains) for simpler optimization.
 
+## Diagrams and Visualizations
+
+*Recommended visual: RLVR pipeline showing verifiable reward signals (math correctness, code tests) replacing learned reward models — see [DeepSeek-R1 Paper (arXiv:2501.12948)](https://arxiv.org/abs/2501.12948)*
+
+*Recommended visual: Comparison of RLHF (learned reward) vs RLVR (verifiable reward) showing how RLVR avoids Goodhart's Law — see [Lilian Weng – LLM Alignment](https://lilianweng.github.io/posts/2023-03-15-prompt-engineering/)*
+
 ## Further Reading
 
 - DeepSeek-AI, "DeepSeek-R1: Incentivizing Reasoning Capability in LLMs via Reinforcement Learning" (2025) -- the paper that demonstrated RLVR can produce frontier reasoning capabilities, including emergent chain-of-thought and self-correction.

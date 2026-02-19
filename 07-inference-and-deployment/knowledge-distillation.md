@@ -109,6 +109,16 @@ The economic significance is enormous. If a distilled 8B model can handle 90% of
 - **Model Serving**: Distilled models are easier to serve -- they fit on fewer GPUs, have smaller KV caches, and generate tokens faster, simplifying the entire serving infrastructure.
 - **Flash Attention**: Smaller distilled models benefit less from Flash Attention (shorter sequences are already fast), but the attention optimization still helps during prefill.
 
+## Diagrams and Visualizations
+
+![Knowledge distillation diagram showing teacher model producing soft labels that guide student model training](https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/Knowledge_Distillation.svg/800px-Knowledge_Distillation.svg.png)
+*Source: [Wikimedia Commons - Knowledge Distillation](https://commons.wikimedia.org/wiki/File:Knowledge_Distillation.svg)*
+
+![Illustration of soft label distributions showing dark knowledge in the teacher's probability outputs](https://lilianweng.github.io/posts/2023-01-27-the-transformer-family-v2/)
+*See detailed distillation architecture diagrams at: [Lilian Weng - The Transformer Family v2](https://lilianweng.github.io/posts/2023-01-27-the-transformer-family-v2/)*
+
+*See Minitron pruning + distillation pipeline diagram at: [NVIDIA Minitron Paper (arXiv:2407.14679)](https://arxiv.org/abs/2407.14679)*
+
 ## Further Reading
 
 1. **"Distilling the Knowledge in a Neural Network"** (Hinton, Vinyals, and Dean, 2015) -- The foundational paper that formalized knowledge distillation with temperature-scaled soft targets.

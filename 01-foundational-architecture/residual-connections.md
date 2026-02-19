@@ -97,6 +97,13 @@ This robustness is a direct consequence of the additive nature of residual conne
 - **Mechanistic Interpretability**: The residual stream framework is central to understanding how Transformer circuits work.
 - **Mixture of Experts**: MoE layers also write additively to the residual stream, just through a selected subset of expert FFNs (see `mixture-of-experts.md`).
 
+## Diagrams and Visualizations
+
+![Residual connection (skip connection) in a Transformer layer showing the Add & Norm step where the layer's input is added to its output](https://jalammar.github.io/images/t/transformer_resideual_layer_norm_2.png)
+*Source: [Jay Alammar – The Illustrated Transformer](https://jalammar.github.io/illustrated-transformer/)*
+
+*Recommended visual: Residual stream concept showing how information flows through the entire model via skip connections — see [Chris Olah's Transformer Circuits Thread](https://transformer-circuits.pub/2021/framework/index.html)*
+
 ## Further Reading
 
 - "Deep Residual Learning for Image Recognition" -- He et al., 2015 (the original ResNet paper that introduced skip connections)

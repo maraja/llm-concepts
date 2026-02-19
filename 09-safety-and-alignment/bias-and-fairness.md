@@ -94,6 +94,12 @@ The scale of LLM deployment means that even small biases, applied billions of ti
 - **Guardrails**: Content filters can catch some egregiously biased outputs, but subtle, systemic bias typically passes through output filters undetected.
 - **Hallucination**: The model's tendency to confabulate can interact with bias -- it may hallucinate "facts" that align with stereotypical patterns absorbed from training data.
 
+## Diagrams and Visualizations
+
+*Recommended visual: Sources of bias in the LLM pipeline: training data, annotation, model architecture, and deployment — see [Hugging Face Ethics Documentation](https://huggingface.co/docs/hub/model-cards)*
+
+*Recommended visual: Gender bias in word embeddings showing stereotypical associations (he:doctor :: she:nurse) — see [Bolukbasi et al. Debiasing Paper (arXiv:1607.06520)](https://arxiv.org/abs/1607.06520)*
+
 ## Further Reading
 
 - Gallegos et al., "Bias and Fairness in Large Language Models: A Survey" (2024) -- Comprehensive survey covering bias sources, measurement approaches, and mitigation strategies across the LLM lifecycle.
