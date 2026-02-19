@@ -8,8 +8,7 @@
 
 Imagine a writer composing a sonnet. Normally they have complete freedom -- any word, any structure. Now imagine an editor sitting beside them who, after each word, instantly crosses out every possible next word that would violate the sonnet's rules: wrong syllable count, broken rhyme scheme, incorrect meter. The writer still chooses freely among the remaining valid words, preserving their creative style, but the structural constraints are guaranteed to be met. The editor never changes the writer's preferences -- they only remove options that would break the form.
 
-![Outlines structured generation overview showing how a finite-state machine guides token generation to produce valid JSON](https://raw.githubusercontent.com/dottxt-ai/outlines/main/docs/assets/images/logo.png)
-*See diagram at: [Outlines - Structured Generation Library](https://github.com/dottxt-ai/outlines)*
+*Recommended visual: Outlines structured generation overview showing how a finite-state machine guides token generation to produce valid JSON — see [Outlines - Structured Generation Library](https://github.com/dottxt-ai/outlines)*
 
 
 This is exactly what constrained decoding does to an LLM. At each generation step, the model produces logits (scores) for every token in its vocabulary. Before sampling, a constraint engine masks tokens that would produce structurally invalid output -- setting their logits to negative infinity so they have zero probability of being selected. The model then samples from the remaining valid tokens using its normal probability distribution.
@@ -19,8 +18,7 @@ The power of this approach is its guarantee: the output is 100% structurally val
 ## How It Works
 
 
-![XGrammar constrained decoding architecture showing grammar compilation and token masking pipeline](https://raw.githubusercontent.com/mlc-ai/blog/main/img/xgrammar/xgrammar-overview.svg)
-*See diagram at: [XGrammar: Flexible and Efficient Structured Generation (MLC Blog)](https://blog.mlc.ai/2024/11/22/achieving-efficient-flexible-portable-structured-generation-with-xgrammar)*
+*Recommended visual: XGrammar constrained decoding architecture showing grammar compilation and token masking pipeline — see [XGrammar: Flexible and Efficient Structured Generation (MLC Blog)](https://blog.mlc.ai/2024/11/22/achieving-efficient-flexible-portable-structured-generation-with-xgrammar)*
 
 ### Grammar Compilation to Automata
 

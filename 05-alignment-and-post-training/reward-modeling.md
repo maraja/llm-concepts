@@ -18,8 +18,7 @@ In the RLHF pipeline, the reward model sits between human judgment and model opt
 ## How It Works
 
 
-![Reward model in the RLHF pipeline receiving two responses and learning to predict human preferences](https://huggingface.co/datasets/trl-internal-testing/example-images/resolve/main/blog/rlhf/reward-model.png)
-*Source: [Hugging Face – Illustrating RLHF](https://huggingface.co/blog/rlhf)*
+*Recommended visual: Reward model in the RLHF pipeline receiving two responses and learning to predict human preferences — see [Hugging Face – Illustrating RLHF](https://huggingface.co/blog/rlhf)*
 
 ### Data Collection
 

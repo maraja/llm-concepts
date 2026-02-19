@@ -18,8 +18,7 @@ The result is a model free from all tokenization artifacts: no more whitespace s
 ## How It Works
 
 
-![Byte-level vs token-level processing comparison showing how BLT dynamically groups bytes into patches](https://github.com/facebookresearch/blt/raw/main/assets/blt_architecture.png)
-*Source: [Meta BLT GitHub Repository](https://github.com/facebookresearch/blt)*
+*Recommended visual: Byte-level vs token-level processing comparison showing how BLT dynamically groups bytes into patches — see [Meta BLT GitHub Repository](https://github.com/facebookresearch/blt)*
 
 ### The Three-Component Architecture
 

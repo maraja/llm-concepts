@@ -8,8 +8,7 @@
 
 Imagine you are giving instructions to an extraordinarily well-read but extremely literal colleague. They have read nearly everything ever written, they can mimic any style, and they are eager to help -- but they will do *exactly* what you ask, not what you *meant* to ask. Prompt engineering is the skill of learning to say precisely what you mean.
 
-![Prompt engineering techniques taxonomy: zero-shot, few-shot, chain-of-thought, self-consistency, and more](https://lilianweng.github.io/posts/2023-03-15-prompt-engineering/prompt-chain-of-thought.png)
-*Source: [Lilian Weng – Prompt Engineering](https://lilianweng.github.io/posts/2023-03-15-prompt-engineering/)*
+*Recommended visual: Prompt engineering techniques taxonomy: zero-shot, few-shot, chain-of-thought, self-consistency, and more — see [Lilian Weng – Prompt Engineering](https://lilianweng.github.io/posts/2023-03-15-prompt-engineering/)*
 
 
 At its core, a prompt is the text you send to an LLM before it begins generating. This includes everything: the system message that sets behavioral ground rules, any examples you provide, the user's question, and even the formatting hints you include. Every token in that prompt shapes the probability distribution over the model's next-token predictions. Prompt engineering is about deliberately shaping that distribution so the model lands in the region of outputs you actually want.

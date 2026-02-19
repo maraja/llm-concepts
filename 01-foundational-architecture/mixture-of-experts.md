@@ -19,8 +19,7 @@ This is the principle of **conditional computation**: different parts of the net
 ## How It Works
 
 
-![Switch Transformer architecture diagram showing top-1 routing where each token is dispatched to a single expert, with the router producing a sparse gating distribution](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/moe/01_switch_transformer.png)
-*Source: [Mixture of Experts Explained -- Hugging Face Blog](https://huggingface.co/blog/moe)*
+*Recommended visual: Switch Transformer architecture diagram showing top-1 routing where each token is dispatched to a single expert, with the router producing a sparse gating distribution — see [Mixture of Experts Explained -- Hugging Face Blog](https://huggingface.co/blog/moe)*
 
 ### The MoE Layer (Replacing the FFN)
 

@@ -8,8 +8,7 @@
 
 Think of reading a book through a small window cut in a piece of cardboard. You can slide the window over the page and see whatever text is currently visible, but you cannot see the whole page at once. The size of that window determines how much context you have for understanding any given word.
 
-![The "Lost in the Middle" U-shaped curve showing how LLM accuracy varies depending on where relevant information is placed within the context window](https://github.com/nelson-liu/lost-in-the-middle/raw/main/lost-in-the-middle.png)
-*Source: [Nelson Liu – Lost in the Middle GitHub Repository](https://github.com/nelson-liu/lost-in-the-middle)*
+*Recommended visual: The "Lost in the Middle" U-shaped curve showing how LLM accuracy varies depending on where relevant information is placed within the context window — see [Nelson Liu – Lost in the Middle GitHub Repository](https://github.com/nelson-liu/lost-in-the-middle)*
 
 
 A transformer's context window works similarly. When you send a prompt to GPT-4, the model can only "see" a certain number of tokens at once. If your conversation plus the model's response exceeds that limit, older content must be dropped or summarized. The context window is the hard upper bound on how much information the model can jointly reason about in a single computation.

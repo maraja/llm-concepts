@@ -8,8 +8,7 @@
 
 Imagine you're reading a script for a play. The words the actors speak are the content, but the script also contains stage directions: "ENTER Hamlet," "Exit, pursued by a bear," "End of Act III." These directions aren't part of the dialogue -- they're meta-information that controls the performance.
 
-![BERT input representation showing how token embeddings, segment embeddings, and position embeddings combine, with CLS and SEP special tokens marked](https://jalammar.github.io/images/bert-input-representation.png)
-*Source: [Jay Alammar – A Visual Guide to Using BERT](https://jalammar.github.io/a-visual-guide-to-using-bert-for-the-first-time/)*
+*Recommended visual: BERT input representation showing how token embeddings, segment embeddings, and position embeddings combine, with CLS and SEP special tokens marked — see [Jay Alammar – A Visual Guide to Using BERT](https://jalammar.github.io/a-visual-guide-to-using-bert-for-the-first-time/)*
 
 
 Special tokens serve the same role for language models. They are tokens that don't represent text content but instead carry instructions to the model about structure and behavior. When the model sees `<|endoftext|>`, it doesn't interpret that as English words -- it understands that the current text has ended. When it sees `<|im_start|>assistant`, it knows it should begin generating a response in the assistant's voice.

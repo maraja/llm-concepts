@@ -58,8 +58,7 @@ Through next-token prediction at scale, the model implicitly learns:
 
 The training corpus is never just one kind of text. Teams carefully curate a **data mix** that typically includes:
 
-![Pre-training pipeline showing massive text corpus being processed through the transformer to predict next tokens](https://jalammar.github.io/images/gpt2/gpt2-training-step-back-prop.png)
-*Source: [Jay Alammar – The Illustrated GPT-2](https://jalammar.github.io/illustrated-gpt2/)*
+*Recommended visual: Pre-training pipeline showing massive text corpus being processed through the transformer to predict next tokens — see [Jay Alammar – The Illustrated GPT-2](https://jalammar.github.io/illustrated-gpt2/)*
 
 
 | Source | Typical Proportion | Purpose |

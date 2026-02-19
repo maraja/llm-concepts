@@ -8,8 +8,7 @@
 
 Consider an automobile assembly line with four stations: frame welding, engine installation, painting, and interior fitting. Each station handles one phase of production, and cars move sequentially from one station to the next. If only one car is on the line, three stations sit idle at any given moment. But if you feed multiple cars into the line in quick succession, all four stations can work simultaneously on different cars at different stages of completion.
 
-![GPipe pipeline parallelism schedule showing forward and backward passes with pipeline bubbles](https://jalammar.github.io/images/model-parallelism/gpipe-bubble.png)
-*Source: [Jay Alammar - The Illustrated Model Parallelism](https://jalammar.github.io/model-parallelism/)*
+*Recommended visual: GPipe pipeline parallelism schedule showing forward and backward passes with pipeline bubbles — see [Jay Alammar - The Illustrated Model Parallelism](https://jalammar.github.io/model-parallelism/)*
 
 
 Pipeline parallelism applies this assembly-line metaphor to neural network training. The model's layers are divided into consecutive **stages**, each assigned to a different GPU. A training batch is split into smaller **micro-batches** that flow through the pipeline in sequence. While GPU 4 runs the forward pass on micro-batch 1, GPU 3 can process micro-batch 2, GPU 2 handles micro-batch 3, and GPU 1 works on micro-batch 4 -- all simultaneously.

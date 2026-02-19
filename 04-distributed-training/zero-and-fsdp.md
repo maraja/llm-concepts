@@ -8,8 +8,7 @@
 
 In standard data parallelism, every GPU holds a complete copy of everything: the model parameters, the gradients, and the optimizer states. This is enormously wasteful. If you have 64 GPUs, you are storing 64 identical copies of the optimizer states, 64 identical copies of the gradients, and 64 identical copies of the model parameters. The only thing that differs across GPUs is the data.
 
-![ZeRO Stages 1, 2, and 3 showing progressive sharding of optimizer states, gradients, and parameters](https://jalammar.github.io/images/model-parallelism/zero-deepspeed.png)
-*Source: [Jay Alammar - The Illustrated Model Parallelism](https://jalammar.github.io/model-parallelism/)*
+*Recommended visual: ZeRO Stages 1, 2, and 3 showing progressive sharding of optimizer states, gradients, and parameters — see [Jay Alammar - The Illustrated Model Parallelism](https://jalammar.github.io/model-parallelism/)*
 
 
 Imagine a library with 64 branches, each keeping a full copy of every book, every catalog card, and every librarian's reading notes. ZeRO's insight is: why not distribute the collection? Each branch keeps only 1/64th of the books, notes, and catalogs. When a patron needs a book held by another branch, it is quickly delivered, used, and returned. The total storage across the system is the same as a single branch, not 64 times that.

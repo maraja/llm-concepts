@@ -8,8 +8,7 @@
 
 Mixture-of-Experts models activate only a small subset of their total parameters for each input token. Mixtral 8x7B has 46.7 billion total parameters but only uses 12.9 billion per token -- the router selects 2 of 8 experts for each token. This sparse activation means MoE models can be dramatically larger than dense models at the same computational cost per token.
 
-![Switch Transformer architecture showing routing of tokens to individual experts across devices](https://production-media.paperswithcode.com/methods/Screen_Shot_2021-01-26_at_3.23.50_PM_dpkfwMF.png)
-*Source: [Papers With Code - Switch Transformer](https://paperswithcode.com/method/switch-transformer)*
+*Recommended visual: Switch Transformer architecture showing routing of tokens to individual experts across devices — see [Papers With Code - Switch Transformer](https://paperswithcode.com/method/switch-transformer)*
 
 
 But where do all those expert parameters physically reside? Each expert is a full feed-forward network (typically two large linear layers with an activation function), and with hundreds or thousands of experts, they cannot all fit on a single GPU. Expert parallelism solves this by distributing experts across devices: GPU 0 holds experts 0-7, GPU 1 holds experts 8-15, and so on. When a token is routed to expert 12, it must be physically sent to the GPU holding that expert, processed through the expert's feed-forward network, and sent back to its originating device.

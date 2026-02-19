@@ -8,8 +8,7 @@
 
 Imagine you've hired someone with encyclopedic knowledge -- they've read every book, every website, every forum post. They know an astonishing amount. But if you ask them "Can you summarize this document for me?", they might just... keep writing more document-like text. They know *about* everything, but they don't know how to *help* you.
 
-![The three stages of LLM development: pretraining, supervised fine-tuning on instruction-response pairs, and RLHF alignment](https://huggingface.co/datasets/trl-internal-testing/example-images/resolve/main/blog/rlhf/thumbnail.png)
-*Source: [Hugging Face – Illustrating RLHF](https://huggingface.co/blog/rlhf)*
+*Recommended visual: The three stages of LLM development: pretraining, supervised fine-tuning on instruction-response pairs, and RLHF alignment — see [Hugging Face – Illustrating RLHF](https://huggingface.co/blog/rlhf)*
 
 
 Supervised fine-tuning (SFT) is the process of teaching that knowledgeable entity how to be helpful. It takes a pre-trained base model -- one that has absorbed vast amounts of text and learned the statistical structure of language -- and trains it further on carefully curated examples of desired behavior. These examples typically take the form of (instruction, response) pairs: "When a user asks X, a good response looks like Y."

@@ -8,8 +8,7 @@
 
 Chain-of-thought (CoT) prompting showed that adding "Let's think step by step" to a prompt dramatically improves reasoning performance. But this was purely an inference-time trick -- the model wasn't *trained* to reason, it was merely *prompted* to.
 
-![Chain-of-thought prompting example showing how intermediate reasoning steps lead to correct answers](https://lilianweng.github.io/posts/2023-03-15-prompt-engineering/chain-of-thought-examples.png)
-*Source: [Lilian Weng – Prompt Engineering](https://lilianweng.github.io/posts/2023-03-15-prompt-engineering/)*
+*Recommended visual: Chain-of-thought prompting example showing how intermediate reasoning steps lead to correct answers — see [Lilian Weng – Prompt Engineering](https://lilianweng.github.io/posts/2023-03-15-prompt-engineering/)*
 
 
 Chain-of-thought training takes the next step: what if we train models to *always* produce extended reasoning before answering? What if the reasoning itself becomes a first-class training objective?

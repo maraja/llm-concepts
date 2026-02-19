@@ -8,8 +8,7 @@
 
 Imagine an orchestra where each musician plays at a wildly different volume -- some whisper, others blast. Before a conductor can give useful feedback ("play louder," "play softer"), they need everyone at a comparable baseline. Layer normalization does this for neural network activations: it normalizes them to a consistent scale so that each layer receives well-behaved inputs, regardless of what happened in previous layers.
 
-![Comparison of Pre-Layer Normalization vs Post-Layer Normalization in Transformer blocks](https://production-media.paperswithcode.com/methods/new_pre-layer.jpg)
-*Source: [Papers With Code – Pre-Layer Normalization](https://paperswithcode.com/method/pre-layer-normalization)*
+*Recommended visual: Comparison of Pre-Layer Normalization vs Post-Layer Normalization in Transformer blocks — see [Papers With Code – Pre-Layer Normalization](https://paperswithcode.com/method/pre-layer-normalization)*
 
 
 In deep networks, the distribution of activations at each layer can shift dramatically during training (a phenomenon sometimes called "internal covariate shift," though this terminology is debated). Without normalization, these shifts force the model to constantly readjust, making training slow and unstable. Layer normalization ensures that each layer receives inputs with a stable distribution, allowing the model to train effectively even with dozens or hundreds of layers.

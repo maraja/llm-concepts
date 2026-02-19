@@ -8,8 +8,7 @@
 
 Imagine you are a weather forecaster. Every day, you announce the probability of rain. If you say "90% chance of rain" and it rains, your prediction was good -- you should not be penalized much. But if you say "5% chance of rain" and it rains, your prediction was terrible -- you should be penalized heavily.
 
-![Graph of the negative log-likelihood function showing how cross-entropy heavily penalizes low-probability predictions for the correct class (steep curve near zero) and lightly penalizes high-probability correct predictions](https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/Cross_entropy_-_loss_function.svg/1200px-Cross_entropy_-_loss_function.svg.png)
-*Source: [Wikimedia Commons -- Cross-Entropy Loss Function](https://commons.wikimedia.org/wiki/File:Cross_entropy_-_loss_function.svg)*
+*Recommended visual: Graph of the negative log-likelihood function showing how cross-entropy heavily penalizes low-probability predictions for the correct class (steep curve near zero) and lightly penalizes high-probability correct predictions — see [Wikimedia Commons -- Cross-Entropy Loss Function](https://commons.wikimedia.org/wiki/File:Cross_entropy_-_loss_function.svg)*
 
 
 Cross-entropy loss works exactly this way. After the model reads a sequence of tokens and predicts a probability distribution over the entire vocabulary for the next token, cross-entropy measures **how much probability the model assigned to the token that actually appeared**. If the model assigned high probability to the correct token, the loss is low. If the model assigned almost zero probability to the correct token, the loss is enormous.

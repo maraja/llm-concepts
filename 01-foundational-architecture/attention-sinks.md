@@ -8,8 +8,7 @@
 
 When you examine the attention patterns of trained transformers, something surprising appears: the very first token in the sequence receives an enormous amount of attention from tokens throughout the entire sequence. This happens regardless of what that first token actually is -- it could be a BOS (beginning-of-sequence) special token, a period, the word "the," or any arbitrary content. Across Llama 2, Falcon, Pythia, MPT, and many other model families, the pattern is remarkably consistent.
 
-![Attention heatmap showing disproportionate attention mass concentrated on the first few tokens (attention sinks) regardless of their semantic content, with the sink pattern visible across multiple layers](https://github.com/mit-han-lab/streaming-llm/raw/main/figures/attention_sink.png)
-*Source: [StreamingLLM -- MIT Han Lab GitHub Repository](https://github.com/mit-han-lab/streaming-llm)*
+*Recommended visual: Attention heatmap showing disproportionate attention mass concentrated on the first few tokens (attention sinks) regardless of their semantic content, with the sink pattern visible across multiple layers — see [StreamingLLM -- MIT Han Lab GitHub Repository](https://github.com/mit-han-lab/streaming-llm)*
 
 
 Why does this happen? The answer lies in softmax's fundamental constraint. Every attention head must produce weights that sum to exactly 1.0 across all attended positions. But what happens when a query token has no particularly relevant prior context to attend to? There is no "none of the above" option in the softmax distribution. The attention mass *must* go somewhere. In practice, models learn during training to dump this excess probability mass onto the first token, which acts as a "sink" -- absorbing attention that has nowhere more useful to go.
@@ -21,8 +20,7 @@ This phenomenon has a critical practical consequence for long-context inference.
 ## How It Works
 
 
-![StreamingLLM KV cache layout showing fixed sink tokens at the beginning plus a rolling window of recent tokens, with evicted middle tokens creating a gap that does not degrade perplexity](https://github.com/mit-han-lab/streaming-llm/raw/main/figures/streaming_llm.png)
-*Source: [StreamingLLM -- MIT Han Lab GitHub Repository](https://github.com/mit-han-lab/streaming-llm)*
+*Recommended visual: StreamingLLM KV cache layout showing fixed sink tokens at the beginning plus a rolling window of recent tokens, with evicted middle tokens creating a gap that does not degrade perplexity — see [StreamingLLM -- MIT Han Lab GitHub Repository](https://github.com/mit-han-lab/streaming-llm)*
 
 ### The Mathematical Cause
 

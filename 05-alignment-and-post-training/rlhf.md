@@ -8,8 +8,7 @@
 
 Supervised fine-tuning teaches a model the *format* of good responses -- but how do you teach it the *quality*? If you show a model ten different ways to answer "Explain quantum computing," how does it learn which explanation is clearest, most accurate, and most helpful? You can't easily encode "helpfulness" into a simple cross-entropy loss.
 
-![RLHF three-phase pipeline: pretraining, reward model training from human preferences, and RL fine-tuning with PPO](https://huggingface.co/datasets/trl-internal-testing/example-images/resolve/main/blog/rlhf/thumbnail.png)
-*Source: [Hugging Face – Illustrating RLHF](https://huggingface.co/blog/rlhf)*
+*Recommended visual: RLHF three-phase pipeline: pretraining, reward model training from human preferences, and RL fine-tuning with PPO — see [Hugging Face – Illustrating RLHF](https://huggingface.co/blog/rlhf)*
 
 
 RLHF solves this by borrowing an idea from reinforcement learning: let humans express preferences between model outputs, train a separate model to predict those preferences (the reward model), and then use that reward model as a signal to improve the language model itself.

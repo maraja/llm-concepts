@@ -8,8 +8,7 @@
 
 Imagine two clock hands. Each starts pointing in a specific direction determined by the token it represents (its embedding). Now, rotate each hand by an angle proportional to its position in the sequence -- the first token gets a small rotation, the tenth token gets a larger rotation, the hundredth token gets a much larger rotation.
 
-![RoPE rotation mechanism showing how query and key vectors are rotated in 2D subspaces, with the angle proportional to the token position](https://blog.eleuther.ai/assets/images/rotary-embeddings/rope_diagram.png)
-*Source: [EleutherAI – Rotary Embeddings: A Relative Revolution](https://blog.eleuther.ai/rotary-embeddings/)*
+*Recommended visual: RoPE rotation mechanism showing how query and key vectors are rotated in 2D subspaces, with the angle proportional to the token position — see [EleutherAI – Rotary Embeddings: A Relative Revolution](https://blog.eleuther.ai/rotary-embeddings/)*
 
 
 When you measure the angle between the two hands, it depends only on the difference in their positions, not on where they are in absolute terms. Tokens that are 5 apart will always have the same angular difference, whether they're at positions (2, 7) or (100, 105).
@@ -19,8 +18,7 @@ This is the core insight of RoPE. By encoding position as rotation, the relative
 ## How It Works
 
 
-![Visualization of RoPE's multi-frequency rotation scheme across embedding dimension pairs, showing low-frequency components for long-range and high-frequency for local position encoding](https://raw.githubusercontent.com/lucidrains/rotary-embedding-torch/main/rope.png)
-*Source: [lucidrains – Rotary Embedding PyTorch Implementation](https://github.com/lucidrains/rotary-embedding-torch)*
+*Recommended visual: Visualization of RoPE's multi-frequency rotation scheme across embedding dimension pairs, showing low-frequency components for long-range and high-frequency for local position encoding — see [lucidrains – Rotary Embedding PyTorch Implementation](https://github.com/lucidrains/rotary-embedding-torch)*
 
 ### The Mathematical Foundation
 

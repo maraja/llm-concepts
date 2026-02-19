@@ -19,8 +19,7 @@ Research has consistently shown that the FFN layers function as **key-value memo
 ## How It Works
 
 
-![Position-wise feed-forward network architecture showing the two-layer MLP applied independently to each token](https://jalammar.github.io/images/t/transformer_encoder_with_tensors_2.png)
-*Source: [Jay Alammar – The Illustrated Transformer](https://jalammar.github.io/illustrated-transformer/)*
+*Recommended visual: Position-wise feed-forward network architecture showing the two-layer MLP applied independently to each token — see [Jay Alammar – The Illustrated Transformer](https://jalammar.github.io/illustrated-transformer/)*
 
 ### The Standard Two-Layer Structure
 

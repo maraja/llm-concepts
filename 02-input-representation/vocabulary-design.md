@@ -8,8 +8,7 @@
 
 Imagine you're designing an alphabet for a new universal language. Too few characters and every word requires long, cumbersome sequences of symbols. Too many characters and people must memorize thousands of glyphs, many of which they'll rarely use. The sweet spot depends on who will use the language, what they'll write about, and how much memory they have for learning symbols.
 
-![Chart showing tokenization fertility (tokens per word) across different languages, illustrating the disparity between English and non-Latin-script languages](https://raw.githubusercontent.com/openai/tiktoken/main/scripts/vocab_size_comparison.png)
-*Source: [OpenAI tiktoken – Vocabulary Size Comparison](https://github.com/openai/tiktoken)*
+*Recommended visual: Chart showing tokenization fertility (tokens per word) across different languages, illustrating the disparity between English and non-Latin-script languages — see [OpenAI tiktoken – Vocabulary Size Comparison](https://github.com/openai/tiktoken)*
 
 
 Vocabulary design for LLMs faces exactly this trade-off. The vocabulary is the fixed set of tokens (subword units) that the model can recognize and produce. Every piece of text the model reads or writes must be expressed using only these tokens. The vocabulary is typically finalized before model training begins and remains immutable throughout the model's lifetime.

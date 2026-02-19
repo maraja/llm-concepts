@@ -8,8 +8,7 @@
 
 Imagine you are an architect designing a building. For your final blueprints, you need precise measurements down to the millimeter (FP32 -- full precision). But when doing rough sketches and quick calculations to explore designs, you only need measurements to the nearest centimeter (FP16/BF16 -- half precision). You save enormous time and paper doing the bulk of your work at lower precision, while keeping a precise master copy for the critical details.
 
-![Diagram of the mixed precision training workflow: FP32 master weights are cast to FP16/BF16 for forward and backward passes, then gradients are cast back to FP32 for the optimizer update](https://developer-blogs.nvidia.com/wp-content/uploads/2019/01/Mixed-Precision-Training_NVIDIA-Figure1.png)
-*Source: [NVIDIA Developer Blog -- Mixed Precision Training](https://developer.nvidia.com/blog/mixed-precision-training-deep-neural-networks/)*
+*Recommended visual: Diagram of the mixed precision training workflow: FP32 master weights are cast to FP16/BF16 for forward and backward passes, then gradients are cast back to FP32 for the optimizer update — see [NVIDIA Developer Blog -- Mixed Precision Training](https://developer.nvidia.com/blog/mixed-precision-training-deep-neural-networks/)*
 
 
 Mixed precision training applies this same principle to neural network training. The "mixed" refers to using multiple numerical precisions simultaneously: lower precision for the bulk of computation (forward pass, backward pass, gradient computation) and higher precision where it matters most (optimizer state, parameter master copy).
@@ -17,8 +16,7 @@ Mixed precision training applies this same principle to neural network training.
 ## How It Works
 
 
-![Comparison of FP32, FP16, and BF16 floating-point formats showing bit allocation for sign, exponent, and mantissa, highlighting BF16's FP32-matching range with reduced precision](https://developer-blogs.nvidia.com/wp-content/uploads/2020/07/bf16-fp16-fp32.png)
-*Source: [NVIDIA Developer Blog -- BFloat16 Training](https://developer.nvidia.com/blog/accelerating-ai-training-with-tf32-tensor-cores/)*
+*Recommended visual: Comparison of FP32, FP16, and BF16 floating-point formats showing bit allocation for sign, exponent, and mantissa, highlighting BF16's FP32-matching range with reduced precision — see [NVIDIA Developer Blog -- BFloat16 Training](https://developer.nvidia.com/blog/accelerating-ai-training-with-tf32-tensor-cores/)*
 
 ### Floating-Point Formats Explained
 

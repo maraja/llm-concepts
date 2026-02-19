@@ -8,8 +8,7 @@
 
 Imagine building a skyscraper. You need three kinds of organization simultaneously: (1) within each floor, specialized teams handle different sections of the same floor plan in parallel (this is tensor parallelism -- splitting work within a single layer); (2) different floors are assigned to different construction crews who pass materials up the building sequentially (this is pipeline parallelism -- splitting consecutive layers); (3) you build multiple identical buildings at once to house more people (this is data parallelism -- processing different data through identical model replicas).
 
-![3D parallelism topology mapping data, tensor, and pipeline parallelism to hardware hierarchy](https://jalammar.github.io/images/model-parallelism/3d-parallelism-megatron.png)
-*Source: [Jay Alammar - The Illustrated Model Parallelism](https://jalammar.github.io/model-parallelism/)*
+*Recommended visual: 3D parallelism topology mapping data, tensor, and pipeline parallelism to hardware hierarchy — see [Jay Alammar - The Illustrated Model Parallelism](https://jalammar.github.io/model-parallelism/)*
 
 
 No single strategy alone can handle the scale of training frontier language models. A model with 175 billion to over a trillion parameters, trained on trillions of tokens across thousands of GPUs for months, requires the orchestrated combination of all three parallelism dimensions. 3D parallelism is the engineering framework that makes this possible.

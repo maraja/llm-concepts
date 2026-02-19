@@ -17,8 +17,7 @@ KV cache is the simple but powerful optimization of saving -- caching -- the key
 ## How It Works
 
 
-![Diagram showing how KV cache grows during autoregressive generation, with new K and V appended at each step](https://jalammar.github.io/images/gpt2/gpt2-self-attention-qkv-attention2.gif)
-*Source: [Jay Alammar - The Illustrated GPT-2](https://jalammar.github.io/illustrated-gpt2/)*
+*Recommended visual: Diagram showing how KV cache grows during autoregressive generation, with new K and V appended at each step — see [Jay Alammar - The Illustrated GPT-2](https://jalammar.github.io/illustrated-gpt2/)*
 
 ### The Problem: Redundant Computation
 

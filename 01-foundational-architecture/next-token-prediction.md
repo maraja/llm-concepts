@@ -25,8 +25,7 @@ All of these capabilities emerge implicitly from a single, simple objective.
 ## How It Works
 
 
-![Autoregressive language model training showing how the model learns to predict each token from its left context](https://jalammar.github.io/images/xlnet/output_training_7.png)
-*Source: [Jay Alammar – XLNet Illustrated](https://jalammar.github.io/illustrated-gpt2/)*
+*Recommended visual: Autoregressive language model training showing how the model learns to predict each token from its left context — see [Jay Alammar – XLNet Illustrated](https://jalammar.github.io/illustrated-gpt2/)*
 
 ### The Training Objective
 

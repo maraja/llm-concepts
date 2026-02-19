@@ -8,8 +8,7 @@
 
 Imagine you have a massive textbook to summarize and four friends willing to help. Rather than giving each friend a different chapter (which would require coordination about narrative flow), you photocopy the entire textbook for each friend and assign each person a different quarter of the pages to summarize. At the end, everyone shares their notes and you merge them into a single, complete summary.
 
-![Data parallelism overview showing model replicas processing different data shards with gradient synchronization](https://jalammar.github.io/images/model-parallelism/data-parallelism.png)
-*Source: [Jay Alammar - The Illustrated Model Parallelism](https://jalammar.github.io/model-parallelism/)*
+*Recommended visual: Data parallelism overview showing model replicas processing different data shards with gradient synchronization — see [Jay Alammar - The Illustrated Model Parallelism](https://jalammar.github.io/model-parallelism/)*
 
 
 Data parallelism works exactly this way. Every GPU gets a complete copy of the model. The training dataset is split into chunks, and each GPU processes its own chunk independently. After computing gradients on their local data, all GPUs communicate to average those gradients. Then every GPU applies the same averaged gradient update, keeping all model copies perfectly synchronized.

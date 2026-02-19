@@ -8,8 +8,7 @@
 
 Imagine you are planning to build the world's tallest skyscraper. Before committing billions of dollars, you build a series of smaller buildings -- 5 stories, 10 stories, 50 stories -- and carefully measure how construction cost, stability, and usable space scale with height. You discover that these relationships follow clean, predictable mathematical curves. Using these curves, you can forecast the cost and characteristics of a 200-story building without building it first.
 
-![Log-log plot of language model loss vs. compute (FLOPs) showing the smooth power-law relationship, where performance improves as a straight line on the log-log scale across many orders of magnitude](https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/Scaling_laws_-_loss_vs_compute.svg/1200px-Scaling_laws_-_loss_vs_compute.svg.png)
-*Source: [Wikimedia Commons -- Scaling Laws for Neural Language Models](https://commons.wikimedia.org/wiki/File:Scaling_laws_-_loss_vs_compute.svg)*
+*Recommended visual: Log-log plot of language model loss vs. compute (FLOPs) showing the smooth power-law relationship, where performance improves as a straight line on the log-log scale across many orders of magnitude — see [Wikimedia Commons -- Scaling Laws for Neural Language Models](https://commons.wikimedia.org/wiki/File:Scaling_laws_-_loss_vs_compute.svg)*
 
 
 Scaling laws for LLMs work the same way. By training a series of small, medium, and large models and plotting their performance, researchers discovered that **loss decreases as a smooth power law** with respect to three variables: the number of model parameters ($N$), the amount of training data ($D$), and the total training compute ($C$). These relationships are remarkably consistent across orders of magnitude, allowing teams to make informed decisions about how to allocate billion-dollar compute budgets.

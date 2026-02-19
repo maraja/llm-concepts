@@ -8,8 +8,7 @@
 
 Suppose you have a dictionary of 50,000 words, and you want to represent each word as a number. You could assign "cat" = 1, "dog" = 2, "automobile" = 3, and so on. But this creates a problem: the model would conclude that "cat" is closer to "dog" than to "automobile" simply because 1 is closer to 2 than to 3. The numbering is arbitrary and encodes false relationships.
 
-![Embedding lookup illustration showing how a one-hot token ID vector indexes into the embedding matrix to retrieve a dense vector representation](https://jalammar.github.io/images/word2vec/embedding-lookup.png)
-*Source: [Jay Alammar – The Illustrated Word2Vec](https://jalammar.github.io/illustrated-word2vec/)*
+*Recommended visual: Embedding lookup illustration showing how a one-hot token ID vector indexes into the embedding matrix to retrieve a dense vector representation — see [Jay Alammar – The Illustrated Word2Vec](https://jalammar.github.io/illustrated-word2vec/)*
 
 
 Token embeddings solve this by representing each token not as a single number but as a **vector** -- a list of numbers in a high-dimensional space. "Cat" might be `[0.2, -0.5, 0.8, ...]` (768 numbers long), and "dog" might be `[0.3, -0.4, 0.7, ...]`. These vectors are close together because cats and dogs are semantically related. "Automobile" lives in a completely different region of the space.
@@ -59,8 +58,7 @@ During training, when the model processes "The cat sat on the mat" and "The dog 
 
 The most famous demonstration of embedding structure is the word analogy:
 
-![Word embedding space showing semantically similar words clustering together in high-dimensional space](https://jalammar.github.io/images/word2vec/king-queen-composition.png)
-*Source: [Jay Alammar – The Illustrated Word2Vec](https://jalammar.github.io/illustrated-word2vec/)*
+*Recommended visual: Word embedding space showing semantically similar words clustering together in high-dimensional space — see [Jay Alammar – The Illustrated Word2Vec](https://jalammar.github.io/illustrated-word2vec/)*
 
 
 $$\vec{\text{king}} - \vec{\text{man}} + \vec{\text{woman}} \approx \vec{\text{queen}}$$

@@ -8,8 +8,7 @@
 
 Training a large language model is an exercise in managing instability, memory constraints, and computational budgets. Three techniques -- often confused because they all have "gradient" in their names -- address distinct but equally critical challenges:
 
-![Illustration of gradient clipping showing the gradient vector being rescaled to fit within the clipping norm sphere while preserving direction](https://neptune.ai/wp-content/uploads/2022/10/gradient-clipping.png)
-*Source: [Neptune.ai -- Gradient Clipping in Practice](https://neptune.ai/blog/understanding-gradient-clipping-and-how-it-can-fix-exploding-gradients-problem)*
+*Recommended visual: Illustration of gradient clipping showing the gradient vector being rescaled to fit within the clipping norm sphere while preserving direction — see [Neptune.ai -- Gradient Clipping in Practice](https://neptune.ai/blog/understanding-gradient-clipping-and-how-it-can-fix-exploding-gradients-problem)*
 
 
 Think of training a massive model as driving a high-performance race car:
@@ -27,8 +26,7 @@ Each addresses a different problem, but all three are nearly universal in large-
 
 During backpropagation, gradients can occasionally become extremely large -- a phenomenon called **exploding gradients**. This happens when multiple large gradient values multiply together through the chain rule, producing gradient magnitudes that are orders of magnitude larger than normal. If these enormous gradients are passed directly to the optimizer, the resulting parameter update can be so large that it destroys what the model has learned, often causing the loss to spike or become NaN.
 
-![Visualization of exploding gradients in deep networks showing how gradient magnitudes grow exponentially through layers without clipping, and how clipping bounds the maximum update magnitude](https://www.researchgate.net/publication/344394220/figure/fig1/AS:941248144195585@1601422682994/Exploding-and-vanishing-gradient-problem.png)
-*Source: [ResearchGate -- Exploding and Vanishing Gradient Problem](https://www.researchgate.net/)*
+*Recommended visual: Visualization of exploding gradients in deep networks showing how gradient magnitudes grow exponentially through layers without clipping, and how clipping bounds the maximum update magnitude — see [ResearchGate -- Exploding and Vanishing Gradient Problem](https://www.researchgate.net/)*
 
 
 Gradient clipping caps the magnitude of gradients before they reach the optimizer, ensuring that no single step can cause catastrophic damage.

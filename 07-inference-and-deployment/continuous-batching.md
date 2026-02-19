@@ -8,7 +8,7 @@
 
 Picture a restaurant where the kitchen refuses to take any new orders until every table from the current seating has finished eating. Table 1 finishes in 15 minutes, but table 8 ordered a seven-course meal that takes 90 minutes. Tables 2 through 7 have long since paid and left, their places sitting empty, while a line of hungry customers grows outside the door. No new food is being prepared for those empty seats -- the kitchen simply waits. This is static batching.
 
-![Continuous batching vs static batching comparison showing how iteration-level scheduling eliminates idle GPU slots](https://raw.githubusercontent.com/vllm-project/vllm/main/docs/source/assets/logos/vllm-logo-text-light.png)
+*Recommended visual: Continuous batching vs static batching comparison showing how iteration-level scheduling eliminates idle GPU slots — see [GitHub](https://docs.vllm.ai/)*
 *See diagram of continuous vs static batching at: [Anyscale Blog - How Continuous Batching Enables 23x Throughput](https://www.anyscale.com/blog/continuous-batching-llm-inference)*
 
 
@@ -19,7 +19,7 @@ In static batching, a group of requests is assembled into a batch, processed tog
 ## How It Works
 
 
-![Orca iteration-level scheduling showing requests entering and leaving the batch at each decode step](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/tgi-messages-api/tgi-logo.png)
+*Recommended visual: Orca iteration-level scheduling showing requests entering and leaving the batch at each decode step — see [Hugging Face](https://huggingface.co/docs/text-generation-inference)*
 *See detailed batching diagrams at: [Hugging Face Text Generation Inference Documentation](https://huggingface.co/docs/text-generation-inference)*
 
 ### Iteration-Level Scheduling

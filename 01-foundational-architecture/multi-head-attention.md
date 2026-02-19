@@ -19,8 +19,7 @@ Think of it like a panel of analysts: each analyst examines the same data throug
 ## How It Works
 
 
-![Comparison of Multi-Head Attention (MHA), Grouped-Query Attention (GQA), and Multi-Query Attention (MQA) showing how key-value heads are shared across query head groups](https://blog.google/static/blogv2/images/1x/GQA_Figure1.png)
-*See diagram at: [GQA: Training Generalized Multi-Query Transformer Models from Multi-Head Checkpoints -- Ainslie et al.](https://arxiv.org/abs/2305.13245)*
+*Recommended visual: Comparison of Multi-Head Attention (MHA), Grouped-Query Attention (GQA), and Multi-Query Attention (MQA) showing how key-value heads are shared across query head groups — see [GQA: Training Generalized Multi-Query Transformer Models from Multi-Head Checkpoints -- Ainslie et al.](https://arxiv.org/abs/2305.13245)*
 
 ### Step 1: Project Into Multiple Subspaces
 

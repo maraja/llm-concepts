@@ -19,8 +19,7 @@ Backpropagation is not a learning algorithm itself. It is a gradient computation
 ## How It Works
 
 
-![Illustration of gradient flow through a multi-layer neural network showing how the chain rule decomposes the total gradient into local gradient products at each layer](https://cs231n.github.io/assets/nn2/backprop_example.png)
-*Source: [Stanford CS231n -- Backpropagation, Intuitions](https://cs231n.github.io/optimization-2/)*
+*Recommended visual: Illustration of gradient flow through a multi-layer neural network showing how the chain rule decomposes the total gradient into local gradient products at each layer — see [Stanford CS231n -- Backpropagation, Intuitions](https://cs231n.github.io/optimization-2/)*
 
 ### The Forward Pass
 
