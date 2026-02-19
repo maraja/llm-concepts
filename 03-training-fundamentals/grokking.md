@@ -8,6 +8,9 @@
 
 Imagine a student preparing for a math exam by memorizing every answer in the practice workbook. For weeks, they can recite solutions perfectly but fail every new problem the teacher throws at them. Then one morning -- seemingly out of nowhere -- something clicks. The student suddenly understands the underlying rules and can solve any problem of that type, even ones they have never seen. That abrupt transition from rote memorization to genuine understanding is grokking.
 
+*See the canonical grokking training curves in: [Power et al., "Grokking: Generalization Beyond Overfitting on Small Algorithmic Datasets" (arXiv:2201.02177)](https://arxiv.org/abs/2201.02177), Figure 1, which shows the dramatic phase transition where training accuracy reaches 100% early while validation accuracy remains at chance for thousands of steps before suddenly jumping to near-perfect.*
+
+
 In neural network training, grokking manifests as a dramatic phase transition. The model quickly reaches near-perfect training accuracy (memorization), while validation accuracy remains at chance level. Training continues for thousands or even millions of additional steps with no visible improvement on the validation set. Then, abruptly, validation accuracy shoots up to match training accuracy. The model has "grokked" the task -- it has discovered the generalizable structure hidden beneath the memorized solutions.
 
 This phenomenon was first documented by Power et al. (2022) at OpenAI, who observed it on simple algorithmic tasks like modular arithmetic (e.g., learning (a + b) mod 97). The model would memorize all training pairs quickly, then continue training for 100x longer before suddenly generalizing. The discovery was startling because it directly contradicts the standard practice of early stopping, which would have terminated training long before generalization occurred.
@@ -16,9 +19,15 @@ The name "grokking" comes from Robert Heinlein's science fiction novel "Stranger
 
 ## How It Works
 
+
+*See the mechanistic interpretability analysis of grokked networks in: [Nanda et al., "Progress Measures for Grokking via Mechanistic Interpretability" (arXiv:2301.05217)](https://arxiv.org/abs/2301.05217) -- includes visualizations of the Fourier-based circular representations that the network learns for modular arithmetic, showing the transition from memorization circuits to structured generalization circuits.*
+
 ### The Two Phases of Learning
 
 Grokking reveals that training proceeds in two distinct phases with a long gap between them:
+
+*See also the grokking phase diagram at: [Liu et al., "Omnigrok: Grokking Beyond Algorithmic Data" (arXiv:2210.01117)](https://arxiv.org/abs/2210.01117) -- includes figures mapping the relationship between weight decay strength, dataset size fraction, and the onset of grokking.*
+
 
 **Phase 1 -- Memorization (fast)**: The model rapidly fits the training data by learning a lookup table. Each training example is stored almost independently. This is computationally easy -- the model just needs enough parameters to memorize the dataset. Training loss drops to near zero. Validation loss remains high.
 
@@ -109,14 +118,6 @@ Several mechanisms have been identified as contributing to grokking:
 - **Catastrophic Forgetting**: Both phenomena involve dramatic shifts in learned representations, though in opposite directions -- grokking builds structure, forgetting destroys it.
 - **Curriculum Learning**: Both concern the dynamics of when and how models learn. Curriculum learning manipulates data ordering to control learning dynamics, while grokking reveals that the model's internal curriculum can be dramatically different from the external loss curve.
 - **Double Descent**: Another counter-intuitive training phenomenon where test loss first decreases, then increases (overfitting), then decreases again. Grokking and double descent may share underlying mechanisms related to phase transitions in representation structure.
-
-## Diagrams and Visualizations
-
-*See the canonical grokking training curves in: [Power et al., "Grokking: Generalization Beyond Overfitting on Small Algorithmic Datasets" (arXiv:2201.02177)](https://arxiv.org/abs/2201.02177), Figure 1, which shows the dramatic phase transition where training accuracy reaches 100% early while validation accuracy remains at chance for thousands of steps before suddenly jumping to near-perfect.*
-
-*See the mechanistic interpretability analysis of grokked networks in: [Nanda et al., "Progress Measures for Grokking via Mechanistic Interpretability" (arXiv:2301.05217)](https://arxiv.org/abs/2301.05217) -- includes visualizations of the Fourier-based circular representations that the network learns for modular arithmetic, showing the transition from memorization circuits to structured generalization circuits.*
-
-*See also the grokking phase diagram at: [Liu et al., "Omnigrok: Grokking Beyond Algorithmic Data" (arXiv:2210.01117)](https://arxiv.org/abs/2210.01117) -- includes figures mapping the relationship between weight decay strength, dataset size fraction, and the onset of grokking.*
 
 ## Further Reading
 

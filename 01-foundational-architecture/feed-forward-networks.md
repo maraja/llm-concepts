@@ -8,11 +8,19 @@
 
 If self-attention is the Transformer's communication system -- letting tokens share information with each other -- then the feed-forward network (FFN) is where each token goes off to "think privately." After attention has gathered relevant context, the FFN processes each token's representation independently, transforming it through a non-linear function.
 
+![Transformer block diagram highlighting the feed-forward network layer that follows the self-attention layer](https://jalammar.github.io/images/t/transformer_resideual_layer_norm_2.png)
+*Source: [Jay Alammar – The Illustrated Transformer](https://jalammar.github.io/illustrated-transformer/)*
+
+
 A useful analogy: imagine a team meeting (self-attention) where everyone shares their updates. After the meeting, each person goes back to their desk (FFN) to process what they heard, look things up in their personal notes, and update their understanding. The "personal notes" are the learned weights of the FFN, and this is where factual knowledge is stored.
 
 Research has consistently shown that the FFN layers function as **key-value memories** -- they store factual associations like "Eiffel Tower is in Paris" or "Python is a programming language" in their weight matrices. When a token's representation activates certain neurons in the FFN, it retrieves the associated knowledge.
 
 ## How It Works
+
+
+![Position-wise feed-forward network architecture showing the two-layer MLP applied independently to each token](https://jalammar.github.io/images/t/transformer_encoder_with_tensors_2.png)
+*Source: [Jay Alammar – The Illustrated Transformer](https://jalammar.github.io/illustrated-transformer/)*
 
 ### The Standard Two-Layer Structure
 
@@ -91,14 +99,6 @@ Without the FFN (and its activation function), the Transformer would be a stack 
 - **Residual Connections**: The FFN output is added to the residual stream via a skip connection (see `residual-connections.md`).
 - **Layer Normalization**: Applied before (Pre-LN) or after (Post-LN) the FFN (see `layer-normalization.md`).
 - **Mixture of Experts**: MoE replaces the single FFN with multiple expert FFNs, routing each token to a subset (see `mixture-of-experts.md`).
-
-## Diagrams and Visualizations
-
-![Transformer block diagram highlighting the feed-forward network layer that follows the self-attention layer](https://jalammar.github.io/images/t/transformer_resideual_layer_norm_2.png)
-*Source: [Jay Alammar – The Illustrated Transformer](https://jalammar.github.io/illustrated-transformer/)*
-
-![Position-wise feed-forward network architecture showing the two-layer MLP applied independently to each token](https://jalammar.github.io/images/t/transformer_encoder_with_tensors_2.png)
-*Source: [Jay Alammar – The Illustrated Transformer](https://jalammar.github.io/illustrated-transformer/)*
 
 ## Further Reading
 

@@ -8,9 +8,16 @@
 
 When an LLM generates text, it does not "know" the next word. It produces a probability distribution over its entire vocabulary -- often 32,000 to 128,000 tokens -- and then must *choose one*. The strategy for making that choice profoundly affects the quality, creativity, and consistency of the output.
 
+![Visualization of temperature scaling effect on probability distribution: low temperature sharpens peaks, high temperature flattens distribution](https://jalammar.github.io/images/gpt2/gpt2-output.png)
+*Source: [Jay Alammar – The Illustrated GPT-2](https://jalammar.github.io/illustrated-gpt2/)*
+
+
 Think of it like a chef selecting ingredients. Greedy decoding always picks the single freshest ingredient regardless of the dish. Temperature adjusts how adventurous the chef is. Top-k limits the chef to choosing among only the k freshest ingredients. Top-p lets the chef consider any ingredient that, together with better options, makes up a certain percentage of total freshness. Each approach yields different meals.
 
 ## How It Works
+
+
+*Recommended visual: Top-k vs Top-p sampling comparison showing how each truncates the probability distribution differently — see [Hugging Face – How to Generate Text](https://huggingface.co/blog/how-to-generate)*
 
 ### Greedy Decoding
 
@@ -125,13 +132,6 @@ Sampling strategy is arguably the most user-facing aspect of LLM behavior. The s
 - **Speculative Decoding**: The acceptance/rejection step in speculative decoding must account for the target model's sampling distribution, making the interaction between speculative decoding and non-greedy sampling a subtle technical challenge.
 - **Knowledge Distillation**: Temperature plays a dual role -- in distillation, high temperature softens the teacher's distribution to transfer more information. In sampling, it softens the distribution to increase diversity.
 - **Quantization**: Reduced precision can slightly alter the probability distribution, which interacts with sampling. At very low bit widths, the effective temperature may shift.
-
-## Diagrams and Visualizations
-
-![Visualization of temperature scaling effect on probability distribution: low temperature sharpens peaks, high temperature flattens distribution](https://jalammar.github.io/images/gpt2/gpt2-output.png)
-*Source: [Jay Alammar – The Illustrated GPT-2](https://jalammar.github.io/illustrated-gpt2/)*
-
-*Recommended visual: Top-k vs Top-p sampling comparison showing how each truncates the probability distribution differently — see [Hugging Face – How to Generate Text](https://huggingface.co/blog/how-to-generate)*
 
 ## Further Reading
 

@@ -8,11 +8,17 @@
 
 Imagine you are training a new restaurant chef. DPO is like showing the chef two dishes side by side for every meal -- "this steak is better than that steak" -- and requiring a perfectly matched pair every time. This works, but sourcing those exact pairs is expensive and labor-intensive. Now imagine alternatives: one approach (KTO) just uses individual diner reviews ("thumbs up" or "thumbs down" on single dishes), another (SimPO) lets the chef self-evaluate without constantly referencing a baseline recipe, another (ORPO) combines cooking school and taste refinement into a single curriculum, and yet another (IPO) adds guardrails so the chef does not over-index on a few strongly-opinionated reviews.
 
+*Recommended visual: Comparison of DPO, IPO, KTO, and ORPO loss functions and their data requirements — see [Hugging Face TRL Documentation](https://huggingface.co/docs/trl/index)*
+
+
 These are the preference learning variants -- a family of algorithms that all aim to align language models with human preferences, but each relaxes or restructures a different assumption that DPO makes. DPO itself was a breakthrough because it eliminated the need for a separate reward model, distilling the RLHF objective into a simple classification loss over preference pairs. But DPO still has friction points: it requires carefully curated paired data, needs a frozen reference model in memory, and can overfit to preference margins. The variants described here each tackle one or more of those pain points.
 
 The rapid proliferation of these methods -- ORPO, SimPO, KTO, IPO, and others like SPPO and RPO -- reflects the field's recognition that preference alignment is not one-size-fits-all. Different deployment scenarios have different data availability, compute budgets, and robustness requirements.
 
 ## How It Works
+
+
+*Recommended visual: KTO architecture showing optimization from binary feedback (thumbs up/down) without paired preferences — see [KTO Paper (arXiv:2402.01306)](https://arxiv.org/abs/2402.01306)*
 
 ### KTO: Kahneman-Tversky Optimization
 KTO (Ethayarajh et al., 2024) is perhaps the most radical departure from DPO. Instead of requiring paired comparisons (chosen and rejected responses for the same prompt), KTO works with **unpaired binary feedback** -- simple thumbs-up or thumbs-down on individual outputs. The key insight draws from prospect theory in behavioral economics: humans weigh losses more heavily than equivalent gains.
@@ -119,12 +125,6 @@ Instead of the sigmoid-based loss in DPO, IPO uses a squared loss centered on a 
 - **Reward Modeling**: SimPO and ORPO bypass explicit reward models; KTO reframes the reward signal from comparative to absolute.
 - **Goodhart's Law**: All preference methods risk optimizing a proxy for human intent; IPO's regularization directly mitigates this.
 - **Constitutional AI (CAI)**: An orthogonal alignment approach that generates preference data from principles, which can then be used with any of these training methods.
-
-## Diagrams and Visualizations
-
-*Recommended visual: Comparison of DPO, IPO, KTO, and ORPO loss functions and their data requirements — see [Hugging Face TRL Documentation](https://huggingface.co/docs/trl/index)*
-
-*Recommended visual: KTO architecture showing optimization from binary feedback (thumbs up/down) without paired preferences — see [KTO Paper (arXiv:2402.01306)](https://arxiv.org/abs/2402.01306)*
 
 ## Further Reading
 

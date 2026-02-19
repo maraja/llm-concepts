@@ -8,6 +8,9 @@
 
 Human evaluation is exactly what it sounds like: real people assess the quality of language model outputs. While this may seem unsophisticated compared to automated metrics, it captures something no automated method fully can -- the holistic judgment of whether a response is actually good, useful, and trustworthy.
 
+*Recommended visual: Pairwise human evaluation setup showing annotators comparing two model outputs for quality — see [LMSYS Chatbot Arena Methodology](https://arxiv.org/abs/2403.04132)*
+
+
 Think of it like restaurant reviews. You could measure a restaurant with objective metrics: cook times, ingredient costs, calorie counts. But none of these tell you whether the food tastes good. For that, you need a human to eat it and give their opinion. LLM evaluation faces the same fundamental challenge: the quality dimensions that matter most to users (helpfulness, clarity, trustworthiness, naturalness) are inherently subjective and resist full automation.
 
 Benchmark contamination, on the other hand, is the problem of the exam answers leaking before the test. If a student memorizes the answer key, their test score tells you nothing about their actual knowledge. When LLM training data contains benchmark test questions and answers, benchmark scores become similarly meaningless.
@@ -15,6 +18,9 @@ Benchmark contamination, on the other hand, is the problem of the exam answers l
 These two topics are deeply linked: contamination undermines automated benchmarks, which increases our reliance on human evaluation, which is expensive and slow. The tension between these forces shapes the entire LLM evaluation landscape.
 
 ## How It Works
+
+
+*Recommended visual: Inter-annotator agreement metrics and their impact on evaluation reliability — see [Hugging Face Evaluate Documentation](https://huggingface.co/docs/evaluate/index)*
 
 ### Human Evaluation Methods
 
@@ -126,12 +132,6 @@ Chatbot Arena has emerged as perhaps the most trusted single evaluation source p
 - **RLHF**: Uses human preference data as its training signal, making the quality of human evaluation directly impact model training.
 - **Data Curation**: Training data filtering and deduplication pipelines are the first line of defense against contamination.
 - **Scaling Laws**: Contamination complicates scaling law analysis because benchmark improvements may reflect memorization rather than genuine capability gains.
-
-## Diagrams and Visualizations
-
-*Recommended visual: Pairwise human evaluation setup showing annotators comparing two model outputs for quality — see [LMSYS Chatbot Arena Methodology](https://arxiv.org/abs/2403.04132)*
-
-*Recommended visual: Inter-annotator agreement metrics and their impact on evaluation reliability — see [Hugging Face Evaluate Documentation](https://huggingface.co/docs/evaluate/index)*
 
 ## Further Reading
 

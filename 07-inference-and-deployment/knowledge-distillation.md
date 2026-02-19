@@ -8,11 +8,19 @@
 
 Consider how an experienced mentor teaches a junior colleague. The mentor does not simply say "the answer is X." They explain *why* it is X, what other possibilities were considered and why they were less likely, and what subtle patterns to look for. This nuanced guidance transfers far more knowledge than a simple answer key.
 
+![Knowledge distillation diagram showing teacher model producing soft labels that guide student model training](https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/Knowledge_Distillation.svg/800px-Knowledge_Distillation.svg.png)
+*Source: [Wikimedia Commons - Knowledge Distillation](https://commons.wikimedia.org/wiki/File:Knowledge_Distillation.svg)*
+
+
 Knowledge distillation works the same way. When a large teacher model predicts the next token, it does not just output the correct token -- it produces a full probability distribution over the entire vocabulary. A token predicted with 70% confidence, with 15% on a close synonym and 5% on a related word, contains rich information about the structure of language. Distillation trains the student to reproduce this full distribution, not just match the top-1 answer.
 
 Introduced by Hinton, Vartia, and Dean in 2015, distillation has become one of the primary methods for creating smaller, deployable models from large, capable ones.
 
 ## How It Works
+
+
+![Illustration of soft label distributions showing dark knowledge in the teacher's probability outputs](https://lilianweng.github.io/posts/2023-01-27-the-transformer-family-v2/)
+*See detailed distillation architecture diagrams at: [Lilian Weng - The Transformer Family v2](https://lilianweng.github.io/posts/2023-01-27-the-transformer-family-v2/)*
 
 ### The Teacher-Student Framework
 
@@ -67,6 +75,9 @@ Consider a vocabulary of 50,000 tokens. A hard label is a one-hot vector -- it c
 
 In production settings, distillation serves a specific role in the deployment pipeline:
 
+*See Minitron pruning + distillation pipeline diagram at: [NVIDIA Minitron Paper (arXiv:2407.14679)](https://arxiv.org/abs/2407.14679)*
+
+
 1. Train or obtain the largest, best model (teacher).
 2. Evaluate what performance level is acceptable for the application.
 3. Distill to the smallest student that meets the quality bar.
@@ -108,16 +119,6 @@ The economic significance is enormous. If a distilled 8B model can handle 90% of
 - **Sampling Strategies**: The temperature parameter in distillation directly parallels temperature in sampling, though serving a different purpose.
 - **Model Serving**: Distilled models are easier to serve -- they fit on fewer GPUs, have smaller KV caches, and generate tokens faster, simplifying the entire serving infrastructure.
 - **Flash Attention**: Smaller distilled models benefit less from Flash Attention (shorter sequences are already fast), but the attention optimization still helps during prefill.
-
-## Diagrams and Visualizations
-
-![Knowledge distillation diagram showing teacher model producing soft labels that guide student model training](https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/Knowledge_Distillation.svg/800px-Knowledge_Distillation.svg.png)
-*Source: [Wikimedia Commons - Knowledge Distillation](https://commons.wikimedia.org/wiki/File:Knowledge_Distillation.svg)*
-
-![Illustration of soft label distributions showing dark knowledge in the teacher's probability outputs](https://lilianweng.github.io/posts/2023-01-27-the-transformer-family-v2/)
-*See detailed distillation architecture diagrams at: [Lilian Weng - The Transformer Family v2](https://lilianweng.github.io/posts/2023-01-27-the-transformer-family-v2/)*
-
-*See Minitron pruning + distillation pipeline diagram at: [NVIDIA Minitron Paper (arXiv:2407.14679)](https://arxiv.org/abs/2407.14679)*
 
 ## Further Reading
 

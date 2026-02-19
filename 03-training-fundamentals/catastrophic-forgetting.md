@@ -8,15 +8,25 @@
 
 Imagine an expert violinist who decides to intensively study the piano for six months. Normal human learning would result in a competent pianist who is still an excellent violinist -- perhaps slightly rusty, but fundamentally skilled. Now imagine that studying the piano somehow erased their violin ability entirely. After six months of piano study, they cannot play a single violin piece. That is catastrophic forgetting: not gradual skill decay, but wholesale destruction of prior knowledge when learning something new.
 
+![Diagram of Elastic Weight Consolidation (EWC) showing how Fisher information identifies important parameters for Task A and constrains them during Task B training](https://lilianweng.github.io/posts/2020-01-29-curriculum-cl/EWC.png)
+*Source: [Lilian Weng -- Learning with Not Forgetting](https://lilianweng.github.io/posts/2020-01-29-curriculum-cl/)*
+
+
 In neural networks, catastrophic forgetting occurs because all tasks share the same set of parameters. When you fine-tune a model on Task B, the gradients from Task B push parameters in directions that optimize for Task B -- but those same parameters were carefully tuned for Task A during prior training. There is no mechanism in standard gradient descent to "protect" important parameters, so Task A knowledge is simply overwritten. The forgetting is catastrophic rather than graceful: a model that was 95% accurate on Task A can drop to 20% accuracy after fine-tuning on Task B.
 
 This problem is directly relevant to large language models. An LLM pre-trained on general text has broad capabilities -- language understanding, factual knowledge, reasoning, and (after alignment training) safety behaviors. Fine-tuning this model on a specific domain (medical QA, legal documents, code generation) can significantly degrade these general capabilities. Even more concerning, fine-tuning can erode safety training, re-enabling harmful behaviors that were suppressed during alignment. Catastrophic forgetting is one of the core reasons why LLM fine-tuning is delicate and why parameter-efficient methods like LoRA have become dominant.
 
 ## How It Works
 
+
+*See the catastrophic forgetting illustration in: [Kirkpatrick et al., "Overcoming Catastrophic Forgetting in Neural Networks" (arXiv:1612.00796)](https://arxiv.org/abs/1612.00796), Figure 1, which shows how unconstrained gradient descent on Task B destroys the parameter configuration learned for Task A.*
+
 ### The Parameter Interference Problem
 
 Consider a simplified neural network with parameters theta that has been trained on Task A:
+
+*See also the comparison of continual learning strategies (replay, regularization, architecture-based) at: [Lilian Weng -- Lifelong/Continual Learning](https://lilianweng.github.io/posts/2020-01-29-curriculum-cl/) -- includes diagrams of multiple mitigation approaches.*
+
 
 ```
 Task A training: theta_0 --> theta_A (optimized for Task A)
@@ -140,15 +150,6 @@ This avoids sequential forgetting by never training a single model on multiple t
 - **Grokking**: Both involve dramatic changes in learned representations -- grokking builds new structure (generalization), while forgetting destroys existing structure.
 - **Continual Learning**: The research field dedicated to solving catastrophic forgetting, aiming to build systems that learn sequentially without knowledge loss.
 - **Model Merging**: An alternative paradigm that avoids sequential training entirely, sidestepping the forgetting problem through parallel adaptation.
-
-## Diagrams and Visualizations
-
-![Diagram of Elastic Weight Consolidation (EWC) showing how Fisher information identifies important parameters for Task A and constrains them during Task B training](https://lilianweng.github.io/posts/2020-01-29-curriculum-cl/EWC.png)
-*Source: [Lilian Weng -- Learning with Not Forgetting](https://lilianweng.github.io/posts/2020-01-29-curriculum-cl/)*
-
-*See the catastrophic forgetting illustration in: [Kirkpatrick et al., "Overcoming Catastrophic Forgetting in Neural Networks" (arXiv:1612.00796)](https://arxiv.org/abs/1612.00796), Figure 1, which shows how unconstrained gradient descent on Task B destroys the parameter configuration learned for Task A.*
-
-*See also the comparison of continual learning strategies (replay, regularization, architecture-based) at: [Lilian Weng -- Lifelong/Continual Learning](https://lilianweng.github.io/posts/2020-01-29-curriculum-cl/) -- includes diagrams of multiple mitigation approaches.*
 
 ## Further Reading
 

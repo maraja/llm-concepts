@@ -8,9 +8,15 @@
 
 Imagine you have a high-resolution photograph stored at 24 bits per pixel. Converting it to 8 bits per pixel reduces the file size by 3x, and for most purposes the image still looks fine -- you lose some subtle gradients, but the content is preserved. Quantization does the same thing to neural network weights: it reduces the precision of each number, trading a small amount of accuracy for dramatic savings in memory and computation.
 
+*Recommended visual: Comparison of FP32, FP16, INT8, and INT4 precision formats showing bit layout and representable ranges — see [Hugging Face Quantization Guide](https://huggingface.co/docs/optimum/concept_guides/quantization)*
+
+
 A 70B parameter model in FP16 requires about 140 GB of memory -- too large for a single GPU. Quantized to 4-bit integers, that same model fits in about 35 GB, comfortably fitting on a single 48 GB GPU. This is not just a convenience; it is often the difference between a model being deployable or not.
 
 ## How It Works
+
+
+*Recommended visual: GPTQ vs AWQ vs GGUF quantization quality comparison across model sizes — see [Hugging Face Blog – Overview of Quantization](https://huggingface.co/blog/overview-quantization-transformers)*
 
 ### The Basics of Number Representation
 
@@ -119,12 +125,6 @@ The memory bandwidth savings are particularly important: a 4-bit model reads 4x 
 - **Model Serving Frameworks**: vLLM supports AWQ and GPTQ; TensorRT-LLM supports FP8 and INT4; Ollama uses GGUF. Framework choice often determines quantization method.
 - **Speculative Decoding**: If the target model is already quantized, the speedup from speculative decoding may be smaller (the target is already fast). However, using a tiny quantized draft model can still provide benefits.
 - **Flash Attention**: Flash Attention operates on FP16/BF16 activations regardless of weight quantization, so the two optimizations are fully complementary.
-
-## Diagrams and Visualizations
-
-*Recommended visual: Comparison of FP32, FP16, INT8, and INT4 precision formats showing bit layout and representable ranges — see [Hugging Face Quantization Guide](https://huggingface.co/docs/optimum/concept_guides/quantization)*
-
-*Recommended visual: GPTQ vs AWQ vs GGUF quantization quality comparison across model sizes — see [Hugging Face Blog – Overview of Quantization](https://huggingface.co/blog/overview-quantization-transformers)*
 
 ## Further Reading
 

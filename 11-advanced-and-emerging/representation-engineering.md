@@ -8,11 +8,17 @@
 
 Language models develop internal representations of concepts as they process text. Somewhere in the model's activations -- the high-dimensional vectors flowing through transformer layers -- there exist directions that correspond to abstract properties like honesty, harmfulness, sentiment, formality, and confidence. Representation engineering, formalized by Zou et al. (2023) at the Center for AI Safety, is the systematic study and manipulation of these internal representations.
 
+*Recommended visual: Activation steering showing a "honesty direction" vector being added to model hidden states during inference — see [Zou et al. Representation Engineering Paper (arXiv:2310.01405)](https://arxiv.org/abs/2310.01405)*
+
+
 The core discovery: many behavioral properties of LLMs are encoded as roughly linear directions in activation space. If you can identify the "honesty direction" -- a vector in the model's hidden state space that separates honest from dishonest activations -- you can add this vector to the model's activations during generation to make it more honest, or subtract it to make it less honest. This works because the model's internal geometry is surprisingly linear for many high-level concepts.
 
 Activation steering (a closely related technique, also called "inference-time intervention" or "representation reading and control") is the practical application: given a steering vector for a desired property, add a scaled version of that vector to the model's residual stream at a specific layer during every forward pass. The model's behavior shifts in the direction of the concept encoded by the vector, without changing any model weights.
 
 ## How It Works
+
+
+*Recommended visual: Refusal direction in activation space showing how a single direction mediates safety refusal behavior — see [Arditi et al. Refusal in Language Models (arXiv:2406.11717)](https://arxiv.org/abs/2406.11717)*
 
 ### Finding Steering Vectors: The Contrastive Approach
 
@@ -145,12 +151,6 @@ Representation engineering matters for several reasons that span safety, control
 - **AI safety**: The ability to read the model's internal state (e.g., detecting deception by reading the "honesty direction") is directly relevant to scalable oversight and AI safety monitoring.
 - **LoRA and PEFT**: Like LoRA, representation engineering provides a parameter-efficient way to modify model behavior. LoRA adds low-rank weight updates; steering adds activation-level vectors. LoRA requires training; steering does not.
 - **Probing classifiers**: Linear probes (training a linear classifier on activations to predict a property) are the precursor to representation engineering. Probes read properties; steering vectors both read and control them.
-
-## Diagrams and Visualizations
-
-*Recommended visual: Activation steering showing a "honesty direction" vector being added to model hidden states during inference — see [Zou et al. Representation Engineering Paper (arXiv:2310.01405)](https://arxiv.org/abs/2310.01405)*
-
-*Recommended visual: Refusal direction in activation space showing how a single direction mediates safety refusal behavior — see [Arditi et al. Refusal in Language Models (arXiv:2406.11717)](https://arxiv.org/abs/2406.11717)*
 
 ## Further Reading
 

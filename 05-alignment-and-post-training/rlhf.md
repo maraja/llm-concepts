@@ -8,6 +8,10 @@
 
 Supervised fine-tuning teaches a model the *format* of good responses -- but how do you teach it the *quality*? If you show a model ten different ways to answer "Explain quantum computing," how does it learn which explanation is clearest, most accurate, and most helpful? You can't easily encode "helpfulness" into a simple cross-entropy loss.
 
+![RLHF three-phase pipeline: pretraining, reward model training from human preferences, and RL fine-tuning with PPO](https://huggingface.co/datasets/trl-internal-testing/example-images/resolve/main/blog/rlhf/thumbnail.png)
+*Source: [Hugging Face – Illustrating RLHF](https://huggingface.co/blog/rlhf)*
+
+
 RLHF solves this by borrowing an idea from reinforcement learning: let humans express preferences between model outputs, train a separate model to predict those preferences (the reward model), and then use that reward model as a signal to improve the language model itself.
 
 Think of it like training a chef. SFT is like giving them a cookbook (follow these recipes). RLHF is like having food critics taste pairs of dishes, learning what the critics value, and then having the chef iteratively refine their cooking based on predicted critic scores -- while making sure they don't stray so far from cooking that they start doing something completely unrecognizable.
@@ -15,6 +19,9 @@ Think of it like training a chef. SFT is like giving them a cookbook (follow the
 ## How It Works
 
 RLHF proceeds in three distinct stages:
+
+*Recommended visual: Detailed RLHF training loop diagram showing policy, reward model, reference model, and KL penalty — see [Lilian Weng – RLHF Post](https://lilianweng.github.io/posts/2023-03-15-prompt-engineering/)*
+
 
 ### Stage 1: Collect Human Preference Data
 
@@ -59,6 +66,9 @@ The PPO algorithm itself involves:
 
 Without the KL penalty, the policy would find degenerate ways to maximize reward -- exploiting quirks in the reward model rather than genuinely improving response quality. For example, the model might learn to produce responses that are extremely verbose (because the reward model slightly prefers longer responses) or repeat certain phrases that game the reward signal.
 
+*Recommended visual: OpenAI InstructGPT diagram showing the three steps of RLHF — see [InstructGPT Paper (arXiv:2203.02155)](https://arxiv.org/abs/2203.02155)*
+
+
 The KL divergence:
 
 $$D_{\text{KL}}(\pi_\theta \| \pi_{\text{ref}}) = \mathbb{E}_{y \sim \pi_\theta} \left[ \log \frac{\pi_\theta(y|x)}{\pi_{\text{ref}}(y|x)} \right]$$
@@ -97,15 +107,6 @@ RLHF also enabled the alignment of models with safety considerations -- teaching
 - **DPO** emerged as a direct response to RLHF's instability, reparameterizing the problem to eliminate the need for an explicit reward model and RL loop.
 - **Constitutional AI** replaces human annotators with AI-generated feedback (RLAIF), modifying Stage 1 of the pipeline.
 - **KL divergence** appears throughout machine learning and information theory; in RLHF it serves as a regularizer preventing mode collapse.
-
-## Diagrams and Visualizations
-
-![RLHF three-phase pipeline: pretraining, reward model training from human preferences, and RL fine-tuning with PPO](https://huggingface.co/datasets/trl-internal-testing/example-images/resolve/main/blog/rlhf/thumbnail.png)
-*Source: [Hugging Face – Illustrating RLHF](https://huggingface.co/blog/rlhf)*
-
-*Recommended visual: Detailed RLHF training loop diagram showing policy, reward model, reference model, and KL penalty — see [Lilian Weng – RLHF Post](https://lilianweng.github.io/posts/2023-03-15-prompt-engineering/)*
-
-*Recommended visual: OpenAI InstructGPT diagram showing the three steps of RLHF — see [InstructGPT Paper (arXiv:2203.02155)](https://arxiv.org/abs/2203.02155)*
 
 ## Further Reading
 

@@ -8,9 +8,17 @@
 
 Imagine you are writing a long essay by hand, and every time you add a new sentence you must re-read the entire essay from the beginning before deciding what comes next. That is what a vanilla transformer does during autoregressive generation: for every new token, it re-computes the attention keys and values for *all* preceding tokens, even though those tokens have not changed.
 
+![Illustration of key-value attention mechanism showing queries attending to cached keys and values during autoregressive generation](https://jalammar.github.io/images/gpt2/self-attention-example-folders-3.png)
+*Source: [Jay Alammar - The Illustrated GPT-2](https://jalammar.github.io/illustrated-gpt2/)*
+
+
 KV cache is the simple but powerful optimization of saving -- caching -- the key (K) and value (V) projection outputs for every token that has already been processed. When the model generates token number 501, it only needs to compute the Q, K, and V for that single new token, then look up the cached K and V for tokens 1 through 500. The query for the new token attends over the full cached history without any redundant computation.
 
 ## How It Works
+
+
+![Diagram showing how KV cache grows during autoregressive generation, with new K and V appended at each step](https://jalammar.github.io/images/gpt2/gpt2-self-attention-qkv-attention2.gif)
+*Source: [Jay Alammar - The Illustrated GPT-2](https://jalammar.github.io/illustrated-gpt2/)*
 
 ### The Problem: Redundant Computation
 
@@ -58,9 +66,15 @@ That is a staggering amount of memory for a *single request*. For a batch of 32 
 
 KV cache grows **linearly** with sequence length per request and **linearly** with batch size across requests. This makes it the dominant memory consumer during inference, often exceeding the model weights themselves for long-context scenarios. A 128K context window multiplies the figures above by 32x.
 
+*Recommended visual: KV cache growth during autoregressive generation showing previously computed keys and values being reused — see [Lilian Weng – Large Transformer Model Inference Optimization](https://lilianweng.github.io/posts/2023-01-10-inference-optimization/)*
+
+
 ### PagedAttention: An OS-Inspired Solution
 
 Traditional KV cache implementations pre-allocate contiguous memory blocks for the maximum possible sequence length per request. This causes severe **internal fragmentation** -- most requests do not use the full context window, so memory is wasted.
+
+*See PagedAttention block table diagram at: [vLLM Paper - Efficient Memory Management for LLM Serving with PagedAttention (arXiv:2309.06180)](https://arxiv.org/abs/2309.06180)*
+
 
 PagedAttention (introduced by the vLLM project) borrows the concept of virtual memory paging from operating systems:
 
@@ -101,16 +115,6 @@ KV cache is not optional -- it is a hard requirement for practical LLM serving. 
 - **Throughput vs. Latency**: KV cache size directly determines how many requests can be batched, linking it to the fundamental throughput-latency trade-off.
 - **Model Serving Frameworks**: vLLM's PagedAttention, TensorRT-LLM's inflight batching, and TGI's memory management all revolve around efficient KV cache handling.
 - **Speculative Decoding**: The draft model maintains its own (smaller) KV cache, and verification re-uses the target model's cache efficiently.
-
-## Diagrams and Visualizations
-
-![Illustration of key-value attention mechanism showing queries attending to cached keys and values during autoregressive generation](https://jalammar.github.io/images/gpt2/self-attention-example-folders-3.png)
-*Source: [Jay Alammar - The Illustrated GPT-2](https://jalammar.github.io/illustrated-gpt2/)*
-
-![Diagram showing how KV cache grows during autoregressive generation, with new K and V appended at each step](https://jalammar.github.io/images/gpt2/gpt2-self-attention-qkv-attention2.gif)
-*Source: [Jay Alammar - The Illustrated GPT-2](https://jalammar.github.io/illustrated-gpt2/)*
-
-*See PagedAttention block table diagram at: [vLLM Paper - Efficient Memory Management for LLM Serving with PagedAttention (arXiv:2309.06180)](https://arxiv.org/abs/2309.06180)*
 
 ## Further Reading
 

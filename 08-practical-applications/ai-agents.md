@@ -8,11 +8,18 @@
 
 Imagine hiring a contractor to renovate your kitchen. You do not stand over them dictating every hammer swing. Instead, you describe the end goal ("modern kitchen, white cabinets, quartz countertops"), and they plan the work, use various tools, handle unexpected problems (finding old wiring behind a wall), adjust their plan, and deliver the finished result. An AI agent works the same way: you give it a goal, and it autonomously figures out the steps.
 
+![LLM-powered autonomous agent system overview showing planning, memory, and tool use components](https://lilianweng.github.io/posts/2023-06-23-agent/agent-overview.png)
+*Source: [Lilian Weng – LLM Powered Autonomous Agents](https://lilianweng.github.io/posts/2023-06-23-agent/)*
+
+
 A standard LLM interaction is one turn: you ask, it answers. An agent interaction is a *loop*: the model thinks about what to do, takes an action (calls a tool, writes code, searches the web), observes the result, and decides what to do next. This loop continues -- sometimes for dozens or hundreds of iterations -- until the task is complete or the agent determines it cannot proceed.
 
 The key distinction is *autonomy*. A chatbot responds to individual prompts. An agent pursues goals across multiple steps, managing its own workflow.
 
 ## How It Works
+
+
+*Recommended visual: Agent loop diagram showing Observe → Think → Act → Observe cycle — see [Lilian Weng – LLM Powered Autonomous Agents](https://lilianweng.github.io/posts/2023-06-23-agent/)*
 
 ### The Agent Loop
 
@@ -124,13 +131,6 @@ The agent paradigm also changes how we think about AI capability. Individual mod
 - **Prompt engineering** (especially chain-of-thought and system prompts) shapes how agents reason and plan.
 - **Structured output** ensures reliable communication between the agent's reasoning and its tool invocations.
 - **Safety and alignment** become paramount when agents act autonomously -- misaligned goals combined with tool access can produce harmful outcomes.
-
-## Diagrams and Visualizations
-
-![LLM-powered autonomous agent system overview showing planning, memory, and tool use components](https://lilianweng.github.io/posts/2023-06-23-agent/agent-overview.png)
-*Source: [Lilian Weng – LLM Powered Autonomous Agents](https://lilianweng.github.io/posts/2023-06-23-agent/)*
-
-*Recommended visual: Agent loop diagram showing Observe → Think → Act → Observe cycle — see [Lilian Weng – LLM Powered Autonomous Agents](https://lilianweng.github.io/posts/2023-06-23-agent/)*
 
 ## Further Reading
 

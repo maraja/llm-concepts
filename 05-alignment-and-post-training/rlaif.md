@@ -8,6 +8,9 @@
 
 RLHF's biggest bottleneck is not algorithmic -- it is the human annotators. Collecting high-quality preference data requires hiring and training annotators, managing quality control, handling disagreements, and paying per comparison. For a single alignment iteration, teams may need 50,000-100,000 comparisons, costing hundreds of thousands of dollars.
 
+*Recommended visual: RLAIF pipeline showing AI model generating preference labels instead of human annotators — see [RLAIF Paper (arXiv:2309.00267)](https://arxiv.org/abs/2309.00267)*
+
+
 RLAIF asks: can an AI model itself serve as the preference annotator?
 
 The idea seems circular -- use an AI to improve an AI -- but it works because the labeler and policy play different roles. The labeler does not need to *generate* good responses; it only needs to *judge* which of two responses is better. Judgment is often easier than generation, just as a food critic can identify the better dish without being able to cook either one.
@@ -15,6 +18,9 @@ The idea seems circular -- use an AI to improve an AI -- but it works because th
 Two major research threads established RLAIF's viability. Google showed that LLM-labeled preferences match human preferences closely enough that resulting models are statistically indistinguishable from RLHF-trained ones. Anthropic's Constitutional AI embedded explicit principles into the labeling process for scalable, transparent alignment.
 
 ## How It Works
+
+
+*Recommended visual: Position debiasing and self-consistency voting techniques used in RLAIF for higher-quality AI labels — see [Google RLAIF Paper](https://arxiv.org/abs/2309.00267)*
 
 ### Standard RLAIF Pipeline (Google)
 
@@ -92,12 +98,6 @@ Constitutions typically contain 10-20 principles. Each comparison uses 1-2 rando
 - **DPO**: AI preferences from RLAIF can feed directly into DPO, combining AI labeling scalability with DPO simplicity.
 - **Synthetic data**: RLAIF is a structured form of synthetic data generation for preference labels.
 - **Constitutional AI**: The most principled RLAIF variant, with explicit, auditable alignment criteria.
-
-## Diagrams and Visualizations
-
-*Recommended visual: RLAIF pipeline showing AI model generating preference labels instead of human annotators — see [RLAIF Paper (arXiv:2309.00267)](https://arxiv.org/abs/2309.00267)*
-
-*Recommended visual: Position debiasing and self-consistency voting techniques used in RLAIF for higher-quality AI labels — see [Google RLAIF Paper](https://arxiv.org/abs/2309.00267)*
 
 ## Further Reading
 

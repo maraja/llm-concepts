@@ -8,6 +8,9 @@
 
 First-stage retrieval is designed for speed. Whether using BM25 (keyword matching) or bi-encoders (dense embedding similarity), the goal is to quickly narrow millions of candidate documents down to a manageable set (typically 50-1000 candidates). Speed is prioritized over precision because every document in the corpus must be considered.
 
+*Recommended visual: Two-stage retrieve-then-rerank architecture: fast bi-encoder retrieves candidates, cross-encoder reranks top-k — see [Hugging Face Cross-Encoders Documentation](https://www.sbert.net/docs/cross_encoder/usage/usage.html)*
+
+
 But this speed comes at a cost. Bi-encoders compress entire documents into single vectors, losing fine-grained information. BM25 matches keywords without understanding semantics. Both produce noisy rankings where the top-10 results often include irrelevant documents and miss relevant ones that are ranked lower.
 
 Reranking adds a second stage: take the initial candidate set from the first-stage retriever, and re-score each candidate using a more powerful (but slower) model that can assess relevance with much higher accuracy. The reranker reorders the candidates so that the most relevant documents are at the top, and the least relevant are at the bottom or filtered out entirely.
@@ -15,6 +18,9 @@ Reranking adds a second stage: take the initial candidate set from the first-sta
 The dominant reranking architecture is the **cross-encoder**, which processes the query and document *together* through a transformer, allowing full bidirectional attention between query and document tokens. This joint processing is far more accurate than the independent encoding used by bi-encoders, but it is also far slower -- which is why it is used only on the small candidate set from the first stage, not on the full corpus.
 
 ## How It Works
+
+
+*Recommended visual: Bi-encoder vs cross-encoder architecture showing independent vs joint query-document processing — see [Sentence-BERT Paper (arXiv:1908.10084)](https://arxiv.org/abs/1908.10084)*
 
 ### Bi-Encoder vs. Cross-Encoder Architecture
 
@@ -207,12 +213,6 @@ On the MTEB (Massive Text Embedding Benchmark) reranking leaderboard, as of earl
 - **Corrective RAG (CRAG)**: CRAG's relevance evaluation step can use a cross-encoder reranker as the relevance scorer, applying a threshold to determine whether retrieved documents are "correct," "incorrect," or "ambiguous."
 - **Agentic RAG**: Agentic systems can dynamically decide whether to apply reranking based on first-stage retrieval confidence, saving latency when retrieval is already high-quality.
 - **HyDE**: HyDE improves first-stage recall (the relevant documents appear somewhere in the candidate set). Reranking improves precision (the relevant documents are at the top). They are complementary: HyDE + reranking is a powerful combination.
-
-## Diagrams and Visualizations
-
-*Recommended visual: Two-stage retrieve-then-rerank architecture: fast bi-encoder retrieves candidates, cross-encoder reranks top-k — see [Hugging Face Cross-Encoders Documentation](https://www.sbert.net/docs/cross_encoder/usage/usage.html)*
-
-*Recommended visual: Bi-encoder vs cross-encoder architecture showing independent vs joint query-document processing — see [Sentence-BERT Paper (arXiv:1908.10084)](https://arxiv.org/abs/1908.10084)*
 
 ## Further Reading
 

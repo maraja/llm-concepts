@@ -8,9 +8,15 @@
 
 Imagine a person who can only read -- they are incredibly literate but blind and deaf. Now imagine giving them eyes and ears, but with a twist: everything they see and hear must first be translated into written descriptions before they can think about it. That is essentially how most multimodal LLMs work. The language model is the "brain" that reasons in text, and specialized encoders act as sensory organs that convert images, audio, and video into token-like representations the language model can process.
 
+*Recommended visual: Multimodal model architecture showing vision encoder connected to language model via projection layer — see [LLaVA Paper (arXiv:2304.08485)](https://arxiv.org/abs/2304.08485)*
+
+
 Multimodal models are AI systems that can process and reason about multiple types of input -- text, images, audio, video, and potentially more. The central challenge is **alignment**: ensuring that visual features, audio features, and text features all live in a shared representational space where the language model can reason about them coherently.
 
 ## How It Works
+
+
+*Recommended visual: Flamingo architecture showing cross-attention between visual features and language model — see [Alayrac et al. Flamingo Paper (arXiv:2204.14198)](https://arxiv.org/abs/2204.14198)*
 
 ### Vision Encoders: Teaching Models to See
 
@@ -97,12 +103,6 @@ The trajectory is clear: future AI systems will be natively multimodal, processi
 - **RLHF and Alignment**: Multimodal models require specialized alignment -- including reducing visual hallucination -- using adapted RLHF pipelines that include image-based evaluation.
 - **Compound AI Systems**: Multimodal models are themselves compound systems (encoder + projector + LLM), and they often serve as components in larger systems with tools, retrieval, and code execution.
 - **Tokenization**: Understanding how continuous signals (pixels, audio waveforms) are converted into discrete or continuous token representations.
-
-## Diagrams and Visualizations
-
-*Recommended visual: Multimodal model architecture showing vision encoder connected to language model via projection layer — see [LLaVA Paper (arXiv:2304.08485)](https://arxiv.org/abs/2304.08485)*
-
-*Recommended visual: Flamingo architecture showing cross-attention between visual features and language model — see [Alayrac et al. Flamingo Paper (arXiv:2204.14198)](https://arxiv.org/abs/2204.14198)*
 
 ## Further Reading
 

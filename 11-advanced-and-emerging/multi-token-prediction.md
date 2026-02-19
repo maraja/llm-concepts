@@ -8,11 +8,17 @@
 
 Imagine learning to play chess by only ever thinking one move ahead. You might learn local tactics -- forks, pins, skewers -- but you would struggle with strategy that requires envisioning positions three or four moves into the future. Now imagine training yourself to always visualize the next four moves as a sequence. You would develop a qualitatively different kind of understanding: one that incorporates planning, anticipation, and longer-range coherence. That is the intuition behind multi-token prediction.
 
+*Recommended visual: Multi-token prediction architecture showing multiple prediction heads predicting n future tokens simultaneously — see [Gloeckle et al. Multi-Token Prediction Paper (arXiv:2404.19737)](https://arxiv.org/abs/2404.19737)*
+
+
 Standard language model training uses a next-token prediction (NTP) objective: at each position in the sequence, the model predicts only the immediately following token. Multi-token prediction (MTP) extends this by requiring the model to simultaneously predict tokens at positions t+1, t+2, t+3, and t+4 (or more) from the same hidden representation at position t. Each future position gets its own lightweight prediction head, but all heads share the same transformer backbone.
 
 This deceptively simple change has profound implications. By forcing the model to anticipate further into the future, MTP encourages the backbone to build representations that encode not just "what comes next" but "what trajectory the text is on." Meta's Gloeckle et al. (2024) demonstrated these benefits at scale, and DeepSeek-V3 adopted MTP as a key architectural innovation in one of the most capable open-weight models.
 
 ## How It Works
+
+
+*Recommended visual: Self-speculative decoding using multi-token heads as draft predictions for verification — see [Meta AI Multi-Token Prediction Blog](https://arxiv.org/abs/2404.19737)*
 
 ### Architecture and Training
 
@@ -125,12 +131,6 @@ The auxiliary heads can use equal weighting or a decay schedule (where farther-a
 - **Training Objectives (BERT-style MLM)**: MTP can be seen as a middle ground between autoregressive NTP and bidirectional objectives -- it maintains autoregressive structure while extracting richer signal per position.
 - **DeepSeek-V3 / Mixture of Experts**: DeepSeek-V3 combined MTP with MoE architecture, demonstrating that MTP composes well with other architectural innovations.
 - **Knowledge Distillation**: MTP's auxiliary heads resemble multi-task distillation, where the model "teaches itself" about future structure.
-
-## Diagrams and Visualizations
-
-*Recommended visual: Multi-token prediction architecture showing multiple prediction heads predicting n future tokens simultaneously — see [Gloeckle et al. Multi-Token Prediction Paper (arXiv:2404.19737)](https://arxiv.org/abs/2404.19737)*
-
-*Recommended visual: Self-speculative decoding using multi-token heads as draft predictions for verification — see [Meta AI Multi-Token Prediction Blog](https://arxiv.org/abs/2404.19737)*
 
 ## Further Reading
 

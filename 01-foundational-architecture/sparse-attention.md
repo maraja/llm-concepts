@@ -8,11 +8,17 @@
 
 Imagine reading a 500-page book. Full attention would be like cross-referencing every sentence with every other sentence in the entire book -- 250,000 sentences times 250,000 sentences equals 62.5 billion comparisons. Obviously, humans do not do this. You focus primarily on nearby sentences (local context), occasionally reference key passages from earlier chapters (global context), and skip vast amounts of irrelevant text.
 
+*Recommended visual: Comparison of dense, strided, and fixed sparse attention patterns from the Sparse Transformer paper — see [Generating Long Sequences with Sparse Transformers (arXiv:1904.10509)](https://arxiv.org/abs/1904.10509)*
+
+
 Sparse attention applies this same principle to Transformers. Instead of computing attention between every pair of tokens (dense attention), sparse attention restricts which pairs of tokens can attend to each other. Each token attends to a carefully chosen subset of other tokens, dramatically reducing computation while preserving the ability to model both local patterns and long-range dependencies.
 
 The fundamental insight is that most attention weights in a trained model are near zero anyway. Dense attention computes attention scores for all token pairs but then softmax concentrates most of the probability mass on a small number of relevant tokens. Sparse attention avoids computing the scores that would be near-zero, saving both compute and memory.
 
 ## How It Works
+
+
+*Recommended visual: BigBird attention pattern combining random, window, and global attention — see [BigBird Paper (arXiv:2007.14062)](https://arxiv.org/abs/2007.14062)*
 
 ### Sparsity Patterns
 
@@ -137,12 +143,6 @@ Sparse attention addresses the fundamental scalability bottleneck of Transformer
 - **State Space Models (SSMs)**: SSMs achieve O(n) sequence processing without attention at all. Hybrid architectures combining SSM layers and sparse attention layers represent the state of the art for long-context models.
 - **KV Cache**: Sparse attention patterns directly affect which KV cache entries need to be stored and accessed, influencing inference memory requirements.
 - **Mixture of Experts**: Both MoE and sparse attention embody the principle of conditional computation -- not all parameters or computations are needed for every input.
-
-## Diagrams and Visualizations
-
-*Recommended visual: Comparison of dense, strided, and fixed sparse attention patterns from the Sparse Transformer paper — see [Generating Long Sequences with Sparse Transformers (arXiv:1904.10509)](https://arxiv.org/abs/1904.10509)*
-
-*Recommended visual: BigBird attention pattern combining random, window, and global attention — see [BigBird Paper (arXiv:2007.14062)](https://arxiv.org/abs/2007.14062)*
 
 ## Further Reading
 

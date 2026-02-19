@@ -8,15 +8,26 @@
 
 Imagine you are in a conversation with someone. Naturally, the words they just said are most relevant to understanding what they are saying now. Words from a minute ago are somewhat relevant. Words from an hour ago are barely relevant. You do not need an explicit memory of "this was word number 47 and this was word number 1,203" -- you just know that more recent things matter more, with a smooth decay.
 
+![ALiBi attention bias matrix showing linear distance penalties added to attention scores, with different slopes per attention head](https://raw.githubusercontent.com/ofirpress/attention_with_linear_biases/master/alibi.png)
+*Source: [Ofir Press – ALiBi GitHub Repository](https://github.com/ofirpress/attention_with_linear_biases)*
+
+
 ALiBi encodes exactly this intuition. Instead of giving the model an explicit representation of each token's position (like adding a "position 47" tag to the 47th token), ALiBi simply makes it harder for tokens to attend to distant tokens. It adds a penalty to the attention score that grows linearly with distance. Close tokens get a small penalty (easy to attend to). Distant tokens get a large penalty (harder to attend to). That is the entire mechanism.
 
 The elegance of ALiBi is in what it does not do: it does not add positional embeddings to the input, it does not modify the token representations, and it does not require any learnable parameters. It is a fixed, deterministic bias applied to the attention computation. This simplicity is also why it can extrapolate -- there is no learned component that breaks when it encounters unseen positions.
 
 ## How It Works
 
+
+![Comparison of positional encoding methods: sinusoidal, rotary (RoPE), T5 bias, and ALiBi showing extrapolation performance on perplexity vs. sequence length](https://raw.githubusercontent.com/ofirpress/attention_with_linear_biases/master/alibi-extrapolation.png)
+*Source: [Press et al., "Train Short, Test Long" – ALiBi Paper Repository](https://github.com/ofirpress/attention_with_linear_biases)*
+
 ### The Mechanism
 
 In standard attention, the attention score between query token i and key token j is:
+
+*See also the ALiBi figure in the original paper: [Train Short, Test Long (arXiv:2108.12409)](https://arxiv.org/abs/2108.12409), Figure 1, which illustrates the head-specific slope mechanism and attention decay patterns.*
+
 
 ```
 score(i, j) = q_i^T * k_j / sqrt(d_k)
@@ -105,16 +116,6 @@ ALiBi matters for several reasons:
 - **Positional Encoding**: ALiBi is part of the broader positional encoding family. Understanding it requires and enriches understanding of sinusoidal, learned, and rotary alternatives.
 - **Flash Attention**: FlashAttention implementations need to account for ALiBi biases in the tiled attention computation. Most FlashAttention libraries support ALiBi natively.
 - **Sparse Attention**: ALiBi's distance penalty naturally creates a soft form of sparsity -- attention to very distant tokens is strongly suppressed. This connects to explicit sparse attention mechanisms that hard-cut attention beyond a window.
-
-## Diagrams and Visualizations
-
-![ALiBi attention bias matrix showing linear distance penalties added to attention scores, with different slopes per attention head](https://raw.githubusercontent.com/ofirpress/attention_with_linear_biases/master/alibi.png)
-*Source: [Ofir Press – ALiBi GitHub Repository](https://github.com/ofirpress/attention_with_linear_biases)*
-
-![Comparison of positional encoding methods: sinusoidal, rotary (RoPE), T5 bias, and ALiBi showing extrapolation performance on perplexity vs. sequence length](https://raw.githubusercontent.com/ofirpress/attention_with_linear_biases/master/alibi-extrapolation.png)
-*Source: [Press et al., "Train Short, Test Long" – ALiBi Paper Repository](https://github.com/ofirpress/attention_with_linear_biases)*
-
-*See also the ALiBi figure in the original paper: [Train Short, Test Long (arXiv:2108.12409)](https://arxiv.org/abs/2108.12409), Figure 1, which illustrates the head-specific slope mechanism and attention decay patterns.*
 
 ## Further Reading
 

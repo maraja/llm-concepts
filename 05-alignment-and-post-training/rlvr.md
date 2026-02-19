@@ -8,11 +8,17 @@
 
 Imagine two ways to train a student mathematician. In the first approach (RLHF), you hire a tutor who watches the student's work and gives a thumbs up or down based on whether the work "looks right." The tutor is pretty good but sometimes gives credit for elegant-looking but incorrect solutions, and sometimes marks down messy but correct ones. Over time, the student learns to produce work that impresses the tutor, which is not quite the same as learning mathematics.
 
+*Recommended visual: RLVR pipeline showing verifiable reward signals (math correctness, code tests) replacing learned reward models — see [DeepSeek-R1 Paper (arXiv:2501.12948)](https://arxiv.org/abs/2501.12948)*
+
+
 In the second approach (RLVR), you give the student problems with known answers. After the student writes a solution, you check whether their final answer matches the true answer. Correct answer: reward. Wrong answer: no reward. The student cannot game this -- there is no tutor to impress, no style to optimize for, no proxy to hack. The only way to get rewards is to actually solve the problems correctly.
 
 RLVR replaces the learned reward model with a verifiable outcome checker. For math, the verifier checks if the answer equals the ground truth. For code, the verifier runs test cases. For logic puzzles, the verifier checks the solution against constraints. The reward is binary and objective: correct or incorrect. No ambiguity, no style bias, no hackable proxy.
 
 ## How It Works
+
+
+*Recommended visual: Comparison of RLHF (learned reward) vs RLVR (verifiable reward) showing how RLVR avoids Goodhart's Law — see [Lilian Weng – LLM Alignment](https://lilianweng.github.io/posts/2023-03-15-prompt-engineering/)*
 
 ### The RLVR Pipeline
 
@@ -135,12 +141,6 @@ RLVR represents a significant advance in how we train reasoning models:
 - **Process Reward Models**: PRMs complement RLVR by adding step-level signals. While RLVR only rewards the final outcome, PRMs can evaluate intermediate reasoning, and combining both provides denser, more informative training signal.
 - **Test-Time Compute**: Models trained with RLVR naturally learn to allocate more reasoning steps to harder problems, implementing a form of adaptive test-time compute.
 - **DPO**: DPO is to RLHF as RLVR is to... nothing directly, but DPO can be applied to RLVR-generated preference pairs (correct vs. incorrect chains) for simpler optimization.
-
-## Diagrams and Visualizations
-
-*Recommended visual: RLVR pipeline showing verifiable reward signals (math correctness, code tests) replacing learned reward models — see [DeepSeek-R1 Paper (arXiv:2501.12948)](https://arxiv.org/abs/2501.12948)*
-
-*Recommended visual: Comparison of RLHF (learned reward) vs RLVR (verifiable reward) showing how RLVR avoids Goodhart's Law — see [Lilian Weng – LLM Alignment](https://lilianweng.github.io/posts/2023-03-15-prompt-engineering/)*
 
 ## Further Reading
 

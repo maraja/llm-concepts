@@ -8,11 +8,18 @@
 
 Consider an automobile assembly line with four stations: frame welding, engine installation, painting, and interior fitting. Each station handles one phase of production, and cars move sequentially from one station to the next. If only one car is on the line, three stations sit idle at any given moment. But if you feed multiple cars into the line in quick succession, all four stations can work simultaneously on different cars at different stages of completion.
 
+![GPipe pipeline parallelism schedule showing forward and backward passes with pipeline bubbles](https://jalammar.github.io/images/model-parallelism/gpipe-bubble.png)
+*Source: [Jay Alammar - The Illustrated Model Parallelism](https://jalammar.github.io/model-parallelism/)*
+
+
 Pipeline parallelism applies this assembly-line metaphor to neural network training. The model's layers are divided into consecutive **stages**, each assigned to a different GPU. A training batch is split into smaller **micro-batches** that flow through the pipeline in sequence. While GPU 4 runs the forward pass on micro-batch 1, GPU 3 can process micro-batch 2, GPU 2 handles micro-batch 3, and GPU 1 works on micro-batch 4 -- all simultaneously.
 
 The challenge, as with any pipeline, is the **bubble**: the startup and drain phases where not all stages are active. Minimizing this bubble is the central design problem of pipeline parallelism.
 
 ## How It Works
+
+
+*Recommended visual: Comparison of GPipe vs 1F1B pipeline schedules showing how 1F1B reduces memory requirements while maintaining the same bubble fraction -- see [Lilian Weng - How to Train Really Large Models on Many GPUs](https://lilianweng.github.io/posts/2021-09-25-train-large/)*
 
 ### Basic Setup
 
@@ -79,6 +86,9 @@ The trade-off is more frequent, smaller communications.
 
 Within a pipeline-parallel group, no gradient all-reduce is needed (each stage has unique layers). However, pipeline parallelism is typically combined with data parallelism, where gradient all-reduce occurs across pipeline replicas after all micro-batches in a batch complete.
 
+*Recommended visual: Interleaved pipeline schedule with virtual stages, showing reduced bubble fraction -- see [Narayanan et al., "Efficient Large-Scale Language Model Training on GPU Clusters" (2021)](https://arxiv.org/abs/2104.04473), Figure 8*
+
+
 ## Why It Matters
 
 Pipeline parallelism enables training models across multiple nodes where inter-node bandwidth is limited. Unlike tensor parallelism (which requires NVLink-class bandwidth due to per-layer communication), pipeline parallelism only communicates **activation tensors between adjacent stages** at layer boundaries. These activations are typically much smaller than the full gradient tensors, and the communication is point-to-point rather than collective. This makes pipeline parallelism well-suited for the inter-node dimension of a training cluster, where bandwidth may be 100-400 Gb/s InfiniBand rather than 600+ GB/s NVLink.
@@ -107,15 +117,6 @@ Pipeline parallelism also divides model memory across stages. A model with 96 la
 - **3D Parallelism**: The full combination of data + tensor + pipeline parallelism used for the largest models.
 - **Activation Checkpointing**: Particularly important in pipeline parallelism to reduce the memory overhead of stored activations across micro-batches.
 - **ZeRO / FSDP**: Can be combined with pipeline parallelism to shard optimizer states across data-parallel ranks within each pipeline stage.
-
-## Diagrams and Visualizations
-
-![GPipe pipeline parallelism schedule showing forward and backward passes with pipeline bubbles](https://jalammar.github.io/images/model-parallelism/gpipe-bubble.png)
-*Source: [Jay Alammar - The Illustrated Model Parallelism](https://jalammar.github.io/model-parallelism/)*
-
-*Recommended visual: Comparison of GPipe vs 1F1B pipeline schedules showing how 1F1B reduces memory requirements while maintaining the same bubble fraction -- see [Lilian Weng - How to Train Really Large Models on Many GPUs](https://lilianweng.github.io/posts/2021-09-25-train-large/)*
-
-*Recommended visual: Interleaved pipeline schedule with virtual stages, showing reduced bubble fraction -- see [Narayanan et al., "Efficient Large-Scale Language Model Training on GPU Clusters" (2021)](https://arxiv.org/abs/2104.04473), Figure 8*
 
 ## Further Reading
 

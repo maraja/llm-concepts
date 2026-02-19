@@ -8,11 +8,18 @@
 
 Imagine a library where every book must be stored on a single, unbroken shelf. If a shelf is 100 slots long but a book only needs 37 slots, the remaining 63 slots sit empty -- no other book can use them. Worse, when you do not know in advance how long a book will be (it is still being written), you must reserve the maximum possible shelf length, wasting even more space. Now imagine a smarter system: each book's pages are scattered across any available slot in the library, and a compact index card records which slot holds which page. Suddenly, every slot can be used, and books of unpredictable length grow one page at a time. This is exactly what PagedAttention does for the KV cache.
 
+![PagedAttention block table mapping logical blocks to physical blocks in GPU memory, enabling non-contiguous KV cache storage](https://blog.vllm.ai/assets/figures/annimation1.gif)
+*Source: [vLLM Blog – vLLM: Easy, Fast, and Cheap LLM Serving](https://blog.vllm.ai/2023/06/20/vllm.html)*
+
+
 In standard LLM serving, the KV cache for each sequence must occupy a contiguous block of GPU memory, pre-allocated to the maximum possible sequence length. Because generation lengths are unknown in advance, systems over-provision aggressively. Internal fragmentation (allocated but unused space within a reservation) and external fragmentation (unusable gaps between allocations) together waste 60-80% of KV cache memory. Since the KV cache is the dominant memory consumer during inference -- often larger than the model weights themselves at high batch sizes -- this waste directly limits how many sequences the GPU can serve simultaneously.
 
 PagedAttention, introduced by the vLLM team (Kwon et al., 2023), solves this by borrowing the core abstraction of virtual memory from operating systems. Each sequence's KV cache is divided into fixed-size blocks (pages), and a per-sequence block table maps logical block indices to physical block locations in GPU memory. Blocks are allocated on demand as tokens are generated, and freed immediately when a sequence completes.
 
 ## How It Works
+
+
+*Recommended visual: Memory waste comparison between contiguous pre-allocation and paged allocation showing 60-80% savings — see [vLLM Paper (arXiv:2309.06180)](https://arxiv.org/abs/2309.06180)*
 
 ### Block Tables and Dynamic Allocation
 
@@ -62,6 +69,8 @@ When multiple sequences share a prefix (e.g., the same system prompt), their blo
 
 SGLang extends PagedAttention with a radix tree data structure that indexes all cached KV blocks by their token content. When a new request arrives, the system traverses the radix tree to find the longest matching prefix already in the cache, reuses those blocks, and only computes KV vectors for the new tokens. Eviction follows an LRU (Least Recently Used) policy at the block level.
 
+
+
 ## Why It Matters
 
 1. **Memory efficiency**: PagedAttention reduces KV cache memory waste from 60-80% to under 4%, enabling far more concurrent sequences on the same GPU hardware.
@@ -93,13 +102,6 @@ SGLang extends PagedAttention with a radix tree data structure that indexes all 
 - **Prefix Caching**: Copy-on-write and block-level sharing are the mechanisms that make prefix caching efficient. RadixAttention builds directly on PagedAttention's block abstraction.
 - **Flash Attention**: Flash Attention optimizes the *computation* of attention (tiling for SRAM locality). PagedAttention optimizes the *memory management* of attention's KV data. They are complementary and used together in production.
 - **Speculative Decoding**: When draft tokens are rejected, their KV cache blocks can be freed immediately, making speculative decoding more memory-efficient under paged management.
-
-## Diagrams and Visualizations
-
-![PagedAttention block table mapping logical blocks to physical blocks in GPU memory, enabling non-contiguous KV cache storage](https://blog.vllm.ai/assets/figures/annimation1.gif)
-*Source: [vLLM Blog – vLLM: Easy, Fast, and Cheap LLM Serving](https://blog.vllm.ai/2023/06/20/vllm.html)*
-
-*Recommended visual: Memory waste comparison between contiguous pre-allocation and paged allocation showing 60-80% savings — see [vLLM Paper (arXiv:2309.06180)](https://arxiv.org/abs/2309.06180)*
 
 ## Further Reading
 

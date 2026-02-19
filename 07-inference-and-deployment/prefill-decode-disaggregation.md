@@ -8,11 +8,17 @@
 
 Imagine a restaurant with two fundamentally different types of work: prep cooking (chopping vegetables, making sauces, marinating proteins -- labor-intensive, parallelizable) and plating (carefully placing one element at a time on the dish -- precision-oriented, sequential). In a traditional kitchen, every chef does both tasks, switching between them. But prep cooking uses heavy equipment and physical strength, while plating needs steady hands and artistic precision. When a chef interrupts plating to do a burst of prep work, the plates in progress go cold. When a chef designed for heavy prep sits idle doing delicate plating, their strength is wasted.
 
+*Recommended visual: Disaggregated prefill and decode phases running on separate GPU pools with KV cache transfer — see [Splitwise Paper (arXiv:2311.18677)](https://arxiv.org/abs/2311.18677)*
+
+
 A smart restaurant separates these into two stations: a prep kitchen with powerful equipment and many hands, and a plating line optimized for precision and speed. Raw prepped ingredients are transferred between them. This is prefill-decode disaggregation.
 
 In LLM inference, the prefill phase processes all input tokens in parallel through the model. This is a compute-bound operation -- the GPU's arithmetic units are the bottleneck, operating at high FLOP utilization. The decode phase generates output tokens one at a time, reading the entire model's weights from memory for each token. This is memory-bandwidth-bound -- the GPU's memory bus is the bottleneck, while its compute units sit mostly idle (often 1-5% utilization). These two phases have fundamentally different hardware requirements, yet in traditional serving they share the same GPUs and interfere with each other.
 
 ## How It Works
+
+
+*Recommended visual: Interference between compute-bound prefill and memory-bound decode when colocated on the same GPU — see [DistServe Paper (arXiv:2401.09670)](https://arxiv.org/abs/2401.09670)*
 
 ### The Interference Problem
 
@@ -112,12 +118,6 @@ The transfer latency adds directly to the time-to-first-token (TTFT), so the dis
 - **KV Cache Compression**: Quantizing the KV cache before inter-pool transfer reduces bandwidth requirements. INT8 or INT4 KV cache compression directly halves or quarters the transfer time.
 - **Prefix Caching**: In a disaggregated system, the decode pool can maintain a prefix cache. Requests with cached prefixes might skip the prefill pool entirely, reducing load on prefill instances and eliminating transfer latency.
 - **Throughput vs. Latency**: Disaggregation explicitly decouples the throughput optimization (prefill) from the latency optimization (decode), allowing each to be tuned independently.
-
-## Diagrams and Visualizations
-
-*Recommended visual: Disaggregated prefill and decode phases running on separate GPU pools with KV cache transfer — see [Splitwise Paper (arXiv:2311.18677)](https://arxiv.org/abs/2311.18677)*
-
-*Recommended visual: Interference between compute-bound prefill and memory-bound decode when colocated on the same GPU — see [DistServe Paper (arXiv:2401.09670)](https://arxiv.org/abs/2401.09670)*
 
 ## Further Reading
 

@@ -8,6 +8,9 @@
 
 Dense retrieval works by embedding both queries and documents into the same vector space, then finding documents whose embeddings are closest to the query embedding. But there is a fundamental asymmetry: a question and its answer are semantically related but structurally very different. The query "What are the health effects of microplastics?" is a short question. The relevant documents are long passages full of specific facts, chemical names, and study results. The question and the answer occupy different regions of embedding space, and the gap between them is the primary failure mode of naive dense retrieval.
 
+*Recommended visual: HyDE pipeline: query → LLM generates hypothetical answer → embed hypothetical document → retrieve real documents — see [Gao et al. HyDE Paper (arXiv:2212.10496)](https://arxiv.org/abs/2212.10496)*
+
+
 HyDE, introduced by Gao et al. (2022), addresses this with an elegantly simple idea: before retrieval, ask an LLM to generate a hypothetical document that answers the query. This hypothetical answer is probably imprecise, possibly wrong, and certainly not grounded in your actual knowledge base. But it does not need to be correct. It just needs to look like the kind of document that would answer the query. Then, embed this hypothetical document and use that embedding for retrieval instead of the query embedding.
 
 The hypothetical document's embedding is much closer in vector space to the real relevant documents than the original query's embedding, because it shares the same structure, vocabulary, and topic density as real answers. The vector database then finds actual documents that are similar to this hypothetical answer, and those real documents are used for the final generation step.
@@ -106,10 +109,6 @@ Gao et al. (2022) showed that HyDE with the unsupervised Contriever model outper
 - **Query decomposition**: HyDE can be combined with query decomposition for complex multi-faceted queries.
 - **Agentic RAG**: In agentic RAG systems, the agent can decide dynamically whether to use HyDE or direct query embedding based on query characteristics.
 - **Corrective RAG**: If initial HyDE retrieval returns irrelevant documents, CRAG mechanisms can trigger re-retrieval with different strategies.
-
-## Diagrams and Visualizations
-
-*Recommended visual: HyDE pipeline: query → LLM generates hypothetical answer → embed hypothetical document → retrieve real documents — see [Gao et al. HyDE Paper (arXiv:2212.10496)](https://arxiv.org/abs/2212.10496)*
 
 ## Further Reading
 

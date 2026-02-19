@@ -8,11 +8,18 @@
 
 Imagine you are driving from New York to Los Angeles, and you need to remember every turn you made in order to describe the route to someone later. One approach is to record every single turn as you drive (expensive in storage but effortless to replay). Another approach is to save only a few major waypoints -- "I passed through Pittsburgh, then St. Louis, then Denver" -- and when asked for details, you re-drive each segment to reconstruct the turns between waypoints. You spend more time driving but need far less storage. Gradient checkpointing applies this same trade-off to neural network training: save only some intermediate results, re-derive the rest when needed.
 
+![Diagram comparing standard backpropagation (storing all activations) vs. gradient checkpointing (storing only selected checkpoints and recomputing intermediate activations during backward pass)](https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Gradient_checkpointing_tradeoff.svg/1200px-Gradient_checkpointing_tradeoff.svg.png)
+*Source: [Wikimedia Commons -- Gradient Checkpointing Tradeoff](https://commons.wikimedia.org/wiki/File:Gradient_checkpointing_tradeoff.svg)*
+
+
 During the forward pass of neural network training, the model computes activations at every layer. During the backward pass (backpropagation), these activations are needed to compute gradients. Standard training stores every activation in memory, which is fast but extremely memory-hungry. For a 70B parameter model, activation memory alone can exceed 120GB -- far more than the memory available on a single GPU. Gradient checkpointing solves this by storing activations at only a subset of layers (the "checkpoints") and recomputing the others from the nearest checkpoint during the backward pass.
 
 This technique is not optional for large-scale training -- it is a necessity. Without gradient checkpointing, the activation memory requirements of modern LLMs would make training physically impossible on available hardware. Combined with mixed-precision training, FlashAttention, and ZeRO optimizer sharding, gradient checkpointing is one of the four pillars that make large-scale LLM training feasible.
 
 ## How It Works
+
+
+*See the memory vs. compute trade-off diagrams in: [Chen et al., "Training Deep Nets with Sublinear Memory Cost" (arXiv:1604.06174)](https://arxiv.org/abs/1604.06174), Figure 1, which shows the sqrt(N) checkpointing strategy and how it reduces memory from O(N) to O(sqrt(N)) at the cost of ~33% additional compute.*
 
 ### Standard Backpropagation Memory Usage
 
@@ -129,6 +136,9 @@ In frameworks like DeepSpeed and Megatron-LM, checkpointing is configured at a h
 
 **Selective Checkpointing**: Not all layers consume equal memory. Attention layers (with their O(n^2) attention matrices) are far more memory-intensive than feed-forward layers. Selective checkpointing saves attention outputs while recomputing only the cheaper components:
 
+*See also the selective activation checkpointing strategy at: [Korthikanti et al., "Reducing Activation Recomputation in Large Transformer Models" (arXiv:2205.05198)](https://arxiv.org/abs/2205.05198) -- includes diagrams of which transformer layer components are checkpointed vs. recomputed for optimal memory-compute balance.*
+
+
 ```
 Memory savings breakdown:
 - Checkpointing attention only: ~60% memory reduction, ~15% compute overhead
@@ -174,15 +184,6 @@ Memory savings breakdown:
 - **ZeRO Optimizer Sharding**: Reduces optimizer state memory (a separate concern from activations), working alongside checkpointing to reduce total memory footprint.
 - **Distributed Training (Tensor/Pipeline Parallelism)**: Splits activation memory across devices, combining with checkpointing when per-device memory is still insufficient.
 - **Activation Recomputation**: Gradient checkpointing is the most common form of activation recomputation, but the general principle (recompute rather than store) applies to many settings beyond layer checkpoints.
-
-## Diagrams and Visualizations
-
-![Diagram comparing standard backpropagation (storing all activations) vs. gradient checkpointing (storing only selected checkpoints and recomputing intermediate activations during backward pass)](https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Gradient_checkpointing_tradeoff.svg/1200px-Gradient_checkpointing_tradeoff.svg.png)
-*Source: [Wikimedia Commons -- Gradient Checkpointing Tradeoff](https://commons.wikimedia.org/wiki/File:Gradient_checkpointing_tradeoff.svg)*
-
-*See the memory vs. compute trade-off diagrams in: [Chen et al., "Training Deep Nets with Sublinear Memory Cost" (arXiv:1604.06174)](https://arxiv.org/abs/1604.06174), Figure 1, which shows the sqrt(N) checkpointing strategy and how it reduces memory from O(N) to O(sqrt(N)) at the cost of ~33% additional compute.*
-
-*See also the selective activation checkpointing strategy at: [Korthikanti et al., "Reducing Activation Recomputation in Large Transformer Models" (arXiv:2205.05198)](https://arxiv.org/abs/2205.05198) -- includes diagrams of which transformer layer components are checkpointed vs. recomputed for optimal memory-compute balance.*
 
 ## Further Reading
 

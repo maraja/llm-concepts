@@ -8,6 +8,10 @@
 
 Training a large language model is an exercise in managing instability, memory constraints, and computational budgets. Three techniques -- often confused because they all have "gradient" in their names -- address distinct but equally critical challenges:
 
+![Illustration of gradient clipping showing the gradient vector being rescaled to fit within the clipping norm sphere while preserving direction](https://neptune.ai/wp-content/uploads/2022/10/gradient-clipping.png)
+*Source: [Neptune.ai -- Gradient Clipping in Practice](https://neptune.ai/blog/understanding-gradient-clipping-and-how-it-can-fix-exploding-gradients-problem)*
+
+
 Think of training a massive model as driving a high-performance race car:
 - **Gradient clipping** is the speed limiter that prevents the car from going so fast it flies off the track.
 - **Gradient accumulation** lets you fill a larger fuel tank by collecting fuel in smaller containers, even though each container is small.
@@ -22,6 +26,10 @@ Each addresses a different problem, but all three are nearly universal in large-
 ### What Is Gradient Clipping?
 
 During backpropagation, gradients can occasionally become extremely large -- a phenomenon called **exploding gradients**. This happens when multiple large gradient values multiply together through the chain rule, producing gradient magnitudes that are orders of magnitude larger than normal. If these enormous gradients are passed directly to the optimizer, the resulting parameter update can be so large that it destroys what the model has learned, often causing the loss to spike or become NaN.
+
+![Visualization of exploding gradients in deep networks showing how gradient magnitudes grow exponentially through layers without clipping, and how clipping bounds the maximum update magnitude](https://www.researchgate.net/publication/344394220/figure/fig1/AS:941248144195585@1601422682994/Exploding-and-vanishing-gradient-problem.png)
+*Source: [ResearchGate -- Exploding and Vanishing Gradient Problem](https://www.researchgate.net/)*
+
 
 Gradient clipping caps the magnitude of gradients before they reach the optimizer, ensuring that no single step can cause catastrophic damage.
 
@@ -129,6 +137,9 @@ Gradient checkpointing (also called **activation checkpointing** or **activation
 
 The basic strategy:
 
+*See also the gradient norm monitoring diagrams from LLM training runs at: [Pascanu et al., "On the difficulty of training recurrent neural networks" (arXiv:1211.5063)](https://arxiv.org/abs/1211.5063) -- includes figures showing how gradient clipping prevents the catastrophic parameter updates that cause training divergence.*
+
+
 1. **During the forward pass**: Only save the activations at selected "checkpoint" layers (e.g., the input to every transformer block). Discard all intermediate activations within each block.
 2. **During the backward pass**: When gradients need to flow through a block, re-run the forward pass for that block (using the saved checkpoint input) to reconstruct the needed activations, then compute the gradients normally.
 
@@ -192,16 +203,6 @@ Together, these three techniques are what make large-scale LLM training possible
 - **Mixed Precision Training**: Reduces activation memory (complementary to checkpointing) and affects gradient precision (relevant to clipping thresholds).
 - **Distributed Training**: Data parallelism interacts with gradient accumulation (effective batch size = micro-batch x GPUs x accumulation steps).
 - **Pre-Training**: All three techniques are standard components of the pre-training infrastructure.
-
-## Diagrams and Visualizations
-
-![Illustration of gradient clipping showing the gradient vector being rescaled to fit within the clipping norm sphere while preserving direction](https://neptune.ai/wp-content/uploads/2022/10/gradient-clipping.png)
-*Source: [Neptune.ai -- Gradient Clipping in Practice](https://neptune.ai/blog/understanding-gradient-clipping-and-how-it-can-fix-exploding-gradients-problem)*
-
-![Visualization of exploding gradients in deep networks showing how gradient magnitudes grow exponentially through layers without clipping, and how clipping bounds the maximum update magnitude](https://www.researchgate.net/publication/344394220/figure/fig1/AS:941248144195585@1601422682994/Exploding-and-vanishing-gradient-problem.png)
-*Source: [ResearchGate -- Exploding and Vanishing Gradient Problem](https://www.researchgate.net/)*
-
-*See also the gradient norm monitoring diagrams from LLM training runs at: [Pascanu et al., "On the difficulty of training recurrent neural networks" (arXiv:1211.5063)](https://arxiv.org/abs/1211.5063) -- includes figures showing how gradient clipping prevents the catastrophic parameter updates that cause training divergence.*
 
 ## Further Reading
 

@@ -8,6 +8,10 @@
 
 Imagine you hire a new employee and, instead of sending them through a week-long training program, you simply show them three completed examples of the work you need done and say, "Now do this one." Remarkably, they produce the correct output. That is in-context learning: a model that was trained once on a massive corpus can pick up entirely new tasks on the fly, just from a handful of demonstrations placed in its input.
 
+![Few-shot in-context learning example showing demonstrations in the prompt enabling task performance without gradient updates](https://lilianweng.github.io/posts/2023-03-15-prompt-engineering/few-shot-example.png)
+*Source: [Lilian Weng – Prompt Engineering](https://lilianweng.github.io/posts/2023-03-15-prompt-engineering/)*
+
+
 In-context learning is one of the most surprising emergent capabilities of large language models. A single pretrained model -- with completely frozen parameters -- can perform translation, sentiment classification, code generation, mathematical reasoning, data reformatting, and thousands of other tasks simply by varying the prompt. No separate fine-tuning run, no task-specific head, no additional training cost. You literally describe or demonstrate what you want, and the model does it.
 
 The phenomenon was first prominently demonstrated in GPT-3 (Brown et al., 2020), where the authors showed that scaling model size dramatically improved few-shot performance. A 175B parameter model could perform tasks it had never been explicitly trained on, given just a few input-output pairs in the prompt. This discovery fundamentally shifted the paradigm from "one model per task" to "one model, many tasks."
@@ -15,6 +19,9 @@ The phenomenon was first prominently demonstrated in GPT-3 (Brown et al., 2020),
 What makes ICL particularly fascinating to researchers is that it was not explicitly designed or trained for. No one programmed transformers to learn from demonstrations -- the capability emerged spontaneously from the combination of self-attention, massive scale, and diverse pre-training data. Understanding why this happens has become one of the central open questions in LLM research.
 
 ## How It Works
+
+
+*Recommended visual: In-context learning performance scaling with number of demonstrations and model size — see [GPT-3 Paper (arXiv:2005.14165)](https://arxiv.org/abs/2005.14165)*
 
 ### The Mechanics of Prompting
 
@@ -108,13 +115,6 @@ Why does ICL work? Several competing (and possibly complementary) theories have 
 - **Retrieval-Augmented Generation (RAG)**: RAG can be viewed as a form of dynamic ICL, where retrieved documents serve as demonstrations that ground the model's responses in specific evidence.
 - **Context Window Length**: The practical limit of ICL is determined by the model's context window. Longer contexts enable many-shot ICL, which approaches fine-tuning-level performance on some tasks.
 - **Scaling Laws**: ICL performance improves predictably with model scale, and the gap between few-shot and fine-tuned performance narrows as models grow larger, suggesting that sufficiently large models may close this gap entirely.
-
-## Diagrams and Visualizations
-
-![Few-shot in-context learning example showing demonstrations in the prompt enabling task performance without gradient updates](https://lilianweng.github.io/posts/2023-03-15-prompt-engineering/few-shot-example.png)
-*Source: [Lilian Weng – Prompt Engineering](https://lilianweng.github.io/posts/2023-03-15-prompt-engineering/)*
-
-*Recommended visual: In-context learning performance scaling with number of demonstrations and model size — see [GPT-3 Paper (arXiv:2005.14165)](https://arxiv.org/abs/2005.14165)*
 
 ## Further Reading
 

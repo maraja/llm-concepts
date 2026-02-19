@@ -8,11 +8,19 @@
 
 Imagine you are hiking down a mountain in dense fog. You can feel the slope beneath your feet (the gradient), but you cannot see the terrain ahead. Vanilla gradient descent says: "take a step directly downhill, proportional to the steepness." But this is naive -- some directions are steep ravines where you oscillate back and forth, while other directions are gentle slopes where you barely make progress.
 
+![Comparison of optimization trajectories for SGD, SGD with momentum, and Adam on a 2D loss surface, showing how Adam navigates ravines more efficiently with adaptive per-parameter learning rates](https://ruder.io/content/images/2016/09/contours_evaluation_optimizers.gif)
+*Source: [Sebastian Ruder -- An Overview of Gradient Descent Optimization Algorithms](https://ruder.io/optimizing-gradient-descent/)*
+
+
 Adam is like a smarter hiker who remembers two things: (1) the **average direction** they have been heading recently (momentum), and (2) **how variable the terrain has been** in each direction (adaptive learning rate). In directions where the gradient has been consistently pointing one way, Adam takes larger, confident steps. In directions where the gradient fluctuates wildly, Adam takes smaller, cautious steps.
 
 This per-parameter adaptivity is why Adam dramatically outperforms vanilla stochastic gradient descent (SGD) for training transformers.
 
 ## How It Works
+
+
+![Comparison of SGD, momentum, RMSProp, and Adam optimizers converging on a saddle point, illustrating how adaptive methods escape saddle points faster](https://ruder.io/content/images/2016/09/saddle_point_evaluation_optimizers.gif)
+*Source: [Sebastian Ruder -- An Overview of Gradient Descent Optimization Algorithms](https://ruder.io/optimizing-gradient-descent/)*
 
 ### Why Vanilla SGD Is Not Enough
 
@@ -76,6 +84,9 @@ Notable deviations from the original Adam defaults:
 
 Adam/AdamW stores three values per parameter: the parameter itself, the first moment $m$, and the second moment $v$. In FP32, this means:
 
+*See also the AdamW weight decay decoupling diagram in: [Loshchilov & Hutter, "Decoupled Weight Decay Regularization" (arXiv:1711.05101)](https://arxiv.org/abs/1711.05101), Figure 1, which illustrates the difference between L2 regularization in Adam vs. decoupled weight decay in AdamW.*
+
+
 - **Parameters**: 4 bytes each
 - **First moments**: 4 bytes each
 - **Second moments**: 4 bytes each
@@ -113,16 +124,6 @@ Attempts to replace AdamW with alternatives have been a persistent research dire
 - **Mixed Precision Training**: Affects how optimizer states are stored (master weights in FP32).
 - **Distributed Training**: Optimizer states must be partitioned across GPUs (e.g., via ZeRO).
 - **Scaling Laws**: The optimal learning rate and other hyperparameters shift predictably with model size.
-
-## Diagrams and Visualizations
-
-![Comparison of optimization trajectories for SGD, SGD with momentum, and Adam on a 2D loss surface, showing how Adam navigates ravines more efficiently with adaptive per-parameter learning rates](https://ruder.io/content/images/2016/09/contours_evaluation_optimizers.gif)
-*Source: [Sebastian Ruder -- An Overview of Gradient Descent Optimization Algorithms](https://ruder.io/optimizing-gradient-descent/)*
-
-![Comparison of SGD, momentum, RMSProp, and Adam optimizers converging on a saddle point, illustrating how adaptive methods escape saddle points faster](https://ruder.io/content/images/2016/09/saddle_point_evaluation_optimizers.gif)
-*Source: [Sebastian Ruder -- An Overview of Gradient Descent Optimization Algorithms](https://ruder.io/optimizing-gradient-descent/)*
-
-*See also the AdamW weight decay decoupling diagram in: [Loshchilov & Hutter, "Decoupled Weight Decay Regularization" (arXiv:1711.05101)](https://arxiv.org/abs/1711.05101), Figure 1, which illustrates the difference between L2 regularization in Adam vs. decoupled weight decay in AdamW.*
 
 ## Further Reading
 

@@ -8,6 +8,10 @@
 
 Imagine teaching a child to understand the world by having them read every book, website, and conversation transcript ever written -- without any teacher explicitly telling them what is right or wrong. Instead, the child simply practices predicting the next word in every sentence they encounter. Over time, through sheer volume, they internalize grammar, facts, reasoning patterns, coding conventions, and even cultural nuances.
 
+![Diagram of the GPT pre-training process showing text input flowing through transformer layers with next-token prediction objective, illustrating the autoregressive self-supervised learning loop](https://jalammar.github.io/images/gpt2/gpt2-output.png)
+*Source: [Jay Alammar -- The Illustrated GPT-2](https://jalammar.github.io/illustrated-gpt2/)*
+
+
 That is pre-training.
 
 Pre-training is the first and most resource-intensive phase of building a large language model. The model starts with randomly initialized parameters -- it knows nothing. It is then exposed to a massive corpus of text (typically trillions of tokens), and its sole task is **next-token prediction**: given a sequence of tokens, predict what comes next. No human labels the data. No one tells the model "this sentence is about physics" or "this code is correct." The supervision signal comes entirely from the data itself, making this a **self-supervised** learning process.
@@ -15,6 +19,10 @@ Pre-training is the first and most resource-intensive phase of building a large 
 The beauty of this approach is that next-token prediction, despite its apparent simplicity, forces the model to learn an extraordinary range of capabilities. To predict the next word in a medical textbook, the model must learn medicine. To predict the next token in Python code, it must learn programming. To predict the next word in a logical argument, it must learn reasoning.
 
 ## How It Works
+
+
+![Overview of the three-stage LLM development pipeline: pre-training (next-token prediction on large corpus), supervised fine-tuning (instruction following), and RLHF (human preference alignment)](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/rlhf/pretraining.png)
+*Source: [Hugging Face Blog -- RLHF: Reinforcement Learning from Human Feedback](https://huggingface.co/blog/rlhf)*
 
 ### The Training Loop
 
@@ -50,6 +58,10 @@ Through next-token prediction at scale, the model implicitly learns:
 
 The training corpus is never just one kind of text. Teams carefully curate a **data mix** that typically includes:
 
+![Pre-training pipeline showing massive text corpus being processed through the transformer to predict next tokens](https://jalammar.github.io/images/gpt2/gpt2-training-step-back-prop.png)
+*Source: [Jay Alammar – The Illustrated GPT-2](https://jalammar.github.io/illustrated-gpt2/)*
+
+
 | Source | Typical Proportion | Purpose |
 |--------|-------------------|---------|
 | Web crawl (Common Crawl, filtered) | 50-70% | Broad language coverage |
@@ -64,6 +76,9 @@ These ratios are among the most consequential decisions in pre-training. Getting
 ### Infrastructure and Cost
 
 Pre-training a frontier LLM is one of the most expensive computational endeavors in history:
+
+*See also the training loss curves and scaling behavior at: [Brown et al., "Language Models are Few-Shot Learners" (GPT-3, arXiv:2005.14165)](https://arxiv.org/abs/2005.14165), Figure 1, which shows smooth cross-entropy loss reduction over training steps for models of different sizes, demonstrating predictable scaling behavior during pre-training.*
+
 
 - **Hardware**: Thousands of high-end GPUs (e.g., 8,000-16,000 NVIDIA H100s) or equivalent TPU pods, connected with high-bandwidth interconnects (InfiniBand, NVLink).
 - **Duration**: Weeks to months of continuous training. GPT-4-class models may train for 3-6 months.
@@ -105,16 +120,6 @@ The enormous cost of pre-training also creates a significant barrier to entry. O
 - **Mixed Precision Training**: Essential for making pre-training computationally feasible.
 - **Fine-Tuning (SFT) and RLHF**: The stages that follow pre-training to specialize and align the model.
 - **Distributed Training**: Parallelism strategies (data, tensor, pipeline) that make training across thousands of GPUs possible.
-
-## Diagrams and Visualizations
-
-![Diagram of the GPT pre-training process showing text input flowing through transformer layers with next-token prediction objective, illustrating the autoregressive self-supervised learning loop](https://jalammar.github.io/images/gpt2/gpt2-output.png)
-*Source: [Jay Alammar -- The Illustrated GPT-2](https://jalammar.github.io/illustrated-gpt2/)*
-
-![Overview of the three-stage LLM development pipeline: pre-training (next-token prediction on large corpus), supervised fine-tuning (instruction following), and RLHF (human preference alignment)](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/rlhf/pretraining.png)
-*Source: [Hugging Face Blog -- RLHF: Reinforcement Learning from Human Feedback](https://huggingface.co/blog/rlhf)*
-
-*See also the training loss curves and scaling behavior at: [Brown et al., "Language Models are Few-Shot Learners" (GPT-3, arXiv:2005.14165)](https://arxiv.org/abs/2005.14165), Figure 1, which shows smooth cross-entropy loss reduction over training steps for models of different sizes, demonstrating predictable scaling behavior during pre-training.*
 
 ## Further Reading
 

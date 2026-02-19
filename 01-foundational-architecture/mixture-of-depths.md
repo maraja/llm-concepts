@@ -8,6 +8,9 @@
 
 Imagine a teacher grading a stack of essays. Some essays are clearly excellent or clearly failing -- a quick skim is enough. Others are borderline and need careful, line-by-line reading. A smart teacher spends the most time on the essays that need it, skimming the rest. A rigid teacher spends exactly 10 minutes on every essay regardless, wasting time on the easy ones.
 
+*Recommended visual: MoD architecture diagram showing the router selecting top-k tokens for full computation vs skip connection — see [Mixture of Depths Paper (arXiv:2404.02258)](https://arxiv.org/abs/2404.02258)*
+
+
 Standard transformers are the rigid teacher. Every token passes through every layer, receiving the same amount of computation regardless of whether it is a semantically rich content word ("photosynthesis") or a trivial function word ("the"). Mixture of Depths introduces a per-token, per-layer decision: does this token need the full transformer block at this layer, or can it skip ahead through the residual connection with no computation?
 
 The key result from Raposo et al. (Google DeepMind, 2024) is counterintuitive: MoD models trained with the same total FLOPs as standard transformers achieve *better* performance. The reason is that by saving computation on easy tokens at some layers, the FLOP budget can be redistributed to make the model larger (more layers, wider representations) while keeping the total compute constant. A bigger model that selectively skips work beats a smaller model that processes everything uniformly.
@@ -15,6 +18,9 @@ The key result from Raposo et al. (Google DeepMind, 2024) is counterintuitive: M
 Mixture of Depths is orthogonal to Mixture of Experts (MoE), which varies the *width* of computation (which expert processes each token). MoD varies the *depth* (whether a token is processed at all at a given layer). The two can be combined for savings on both axes simultaneously.
 
 ## How It Works
+
+
+*Recommended visual: Comparison of compute allocation across tokens showing how MoD dynamically skips easy tokens — see [Raphaël Millière's MoD Explainer](https://arxiv.org/abs/2404.02258)*
 
 ### The Router Mechanism
 
@@ -110,12 +116,6 @@ Analysis of trained MoD models reveals interesting routing patterns:
 - **Sparse Attention**: MoD can be viewed as a form of token-level sparse attention, where unselected tokens are dynamically excluded from the attention computation at each layer. This differs from pattern-based sparse attention (local windows, strided patterns).
 - **Self-Attention**: At MoD layers, attention is computed only among the top-k selected tokens. This changes the effective receptive field dynamically, as different tokens "see" different subsets of the sequence at different layers.
 - **Transformer Architecture**: MoD modifies the standard transformer by inserting a routing decision before each enabled layer, representing a significant architectural evolution from the fixed-computation-per-token paradigm.
-
-## Diagrams and Visualizations
-
-*Recommended visual: MoD architecture diagram showing the router selecting top-k tokens for full computation vs skip connection — see [Mixture of Depths Paper (arXiv:2404.02258)](https://arxiv.org/abs/2404.02258)*
-
-*Recommended visual: Comparison of compute allocation across tokens showing how MoD dynamically skips easy tokens — see [Raphaël Millière's MoD Explainer](https://arxiv.org/abs/2404.02258)*
 
 ## Further Reading
 

@@ -8,11 +8,18 @@
 
 Imagine you are searching for the lowest point in a vast, foggy valley. If you take enormous strides, you will quickly reach the general area of the valley floor but then keep overshooting it, bouncing back and forth across the bottom. If you take tiny steps from the start, you will make precise progress but it will take an eternity to get anywhere.
 
+![Comparison of learning rate schedules: constant, step decay, exponential decay, cosine annealing, and warmup + cosine decay, showing how each schedule modulates the learning rate over training steps](https://www.researchgate.net/publication/338427616/figure/fig3/AS:845546676903938@1578597896804/Different-learning-rate-schedules.png)
+*Source: [ResearchGate -- Different Learning Rate Schedules](https://www.researchgate.net/)*
+
+
 The optimal strategy is to start with medium strides to get your bearings, build up to large strides once you know the general direction, and then gradually shrink your steps as you approach the minimum so you can settle precisely into it. This is exactly what learning rate scheduling does.
 
 A **constant learning rate** is almost never optimal for LLM training. Instead, the learning rate follows a carefully designed **schedule** that changes throughout training, typically involving three phases: warmup, stable (or peak), and decay.
 
 ## How It Works
+
+
+*See the cosine annealing with warm restarts diagram in: [Loshchilov & Hutter, "SGDR: Stochastic Gradient Descent with Warm Restarts" (arXiv:1608.03983)](https://arxiv.org/abs/1608.03983), Figure 1, which shows the cyclic cosine decay pattern that forms the basis of modern LLM learning rate schedules.*
 
 ### Why Constant Learning Rate Fails
 
@@ -79,6 +86,9 @@ This schedule has a practical advantage: the stable phase produces checkpoints t
 
 Larger models generally require **smaller peak learning rates**. This relationship is well-characterized by scaling laws:
 
+*See also the LLM training learning rate schedule from: [Hoffmann et al., "Training Compute-Optimal Large Language Models" (Chinchilla, arXiv:2203.15556)](https://arxiv.org/abs/2203.15556) -- includes the warmup + cosine decay schedule used for Chinchilla training with specific hyperparameter values.*
+
+
 - GPT-3 175B: peak LR ~ 0.6e-4
 - LLaMA 65B: peak LR ~ 1.5e-4
 - LLaMA 7B: peak LR ~ 3.0e-4
@@ -118,15 +128,6 @@ Given that a single training run can cost tens of millions of dollars, getting t
 - **Training Stability (Gradient Clipping)**: Learning rate scheduling works alongside gradient clipping to maintain stable training.
 - **Mixed Precision Training**: Some precision formats (FP16 especially) are more sensitive to learning rate choices due to limited dynamic range.
 - **Fine-Tuning**: Fine-tuning uses a much smaller learning rate than pre-training (often 10-100x smaller), sometimes with its own warmup schedule.
-
-## Diagrams and Visualizations
-
-![Comparison of learning rate schedules: constant, step decay, exponential decay, cosine annealing, and warmup + cosine decay, showing how each schedule modulates the learning rate over training steps](https://www.researchgate.net/publication/338427616/figure/fig3/AS:845546676903938@1578597896804/Different-learning-rate-schedules.png)
-*Source: [ResearchGate -- Different Learning Rate Schedules](https://www.researchgate.net/)*
-
-*See the cosine annealing with warm restarts diagram in: [Loshchilov & Hutter, "SGDR: Stochastic Gradient Descent with Warm Restarts" (arXiv:1608.03983)](https://arxiv.org/abs/1608.03983), Figure 1, which shows the cyclic cosine decay pattern that forms the basis of modern LLM learning rate schedules.*
-
-*See also the LLM training learning rate schedule from: [Hoffmann et al., "Training Compute-Optimal Large Language Models" (Chinchilla, arXiv:2203.15556)](https://arxiv.org/abs/2203.15556) -- includes the warmup + cosine decay schedule used for Chinchilla training with specific hyperparameter values.*
 
 ## Further Reading
 

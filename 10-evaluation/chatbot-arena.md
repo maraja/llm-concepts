@@ -8,6 +8,9 @@
 
 Imagine you want to determine which restaurant in a city serves the best food. You could measure objective metrics: ingredient quality, cooking temperatures, presentation standards. Or you could do what Michelin does -- send real diners to eat at the restaurants and record which ones they prefer. Both approaches have value, but only the human preference approach captures the holistic experience of "is this actually good?"
 
+*Recommended visual: Chatbot Arena interface showing side-by-side anonymous model comparison with user voting — see [LMSYS Chatbot Arena](https://chat.lmsys.org/)*
+
+
 Chatbot Arena takes the Michelin approach to LLM evaluation. Real users visit the platform, type any prompt they want, and receive two responses from randomly selected anonymous models. They vote for which response is better (or declare a tie). Over millions of such comparisons, statistically robust rankings emerge.
 
 The platform was created by the **LMSYS (Large Model Systems Organization)** group at UC Berkeley, led by **Wei-Lin Chiang, Lianmin Zheng, Ying Sheng**, and others, with significant contributions from **Ion Stoica** and **Joseph E. Gonzalez**. LMSYS also developed the vLLM serving framework, giving them deep expertise in both model serving and evaluation.
@@ -15,6 +18,9 @@ The platform was created by the **LMSYS (Large Model Systems Organization)** gro
 As of early 2025, Chatbot Arena has collected **over 2 million human votes** across hundreds of models, making it the largest human preference dataset for LLM evaluation in existence. The leaderboard at chat.lmsys.org (later arena.lmsys.org) became the de facto standard for comparing model quality, cited by virtually every major AI lab in their model releases.
 
 ## How It Works
+
+
+*Recommended visual: Arena ELO/Bradley-Terry leaderboard showing model rankings with confidence intervals — see [LMSYS Leaderboard](https://huggingface.co/spaces/lmsys/chatbot-arena-leaderboard)*
 
 ### The User Experience
 
@@ -188,12 +194,6 @@ Beyond the leaderboard itself, the Arena project made several methodological con
 - **Reward Hacking**: Models that produce longer, more formatted responses may score higher in Arena without being genuinely more helpful. This is a form of reward hacking where the "reward" is human preference votes.
 - **Sycophancy**: Models that agree with the user's framing and produce confident, assertive responses tend to score higher in pairwise comparisons, even when more cautious or nuanced responses would be more accurate. This can reward sycophantic behavior.
 - **Human Evaluation**: Arena is the largest-scale implementation of pairwise human evaluation for LLMs, demonstrating both its strengths (captures holistic quality) and limitations (biases, demographics, cost).
-
-## Diagrams and Visualizations
-
-*Recommended visual: Chatbot Arena interface showing side-by-side anonymous model comparison with user voting — see [LMSYS Chatbot Arena](https://chat.lmsys.org/)*
-
-*Recommended visual: Arena ELO/Bradley-Terry leaderboard showing model rankings with confidence intervals — see [LMSYS Leaderboard](https://huggingface.co/spaces/lmsys/chatbot-arena-leaderboard)*
 
 ## Further Reading
 

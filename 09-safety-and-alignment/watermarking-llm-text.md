@@ -8,11 +8,17 @@
 
 As LLMs generate increasingly human-like text, distinguishing AI-generated content from human-written content becomes critical for combating misinformation, academic dishonesty, and fraud. Post-hoc detectors (trained classifiers that analyze text features) have proven unreliable -- they suffer from high false-positive rates, are easily defeated by paraphrasing, and cannot provide statistical guarantees.
 
+*Recommended visual: Watermarking process showing green/red list partitioning of vocabulary and bias injection during sampling — see [Kirchenbauer et al. Watermarking Paper (arXiv:2301.10226)](https://arxiv.org/abs/2301.10226)*
+
+
 Watermarking takes a fundamentally different approach: instead of detecting AI text after the fact, it embeds a signal into the text during generation. The signal is imperceptible to human readers but statistically detectable by anyone who knows the watermarking scheme. Think of it as invisible ink -- the text reads normally, but under the right "light" (the detection algorithm), the watermark is revealed.
 
 The landmark approach by Kirchenbauer et al. (2023) introduced a practical watermarking scheme based on biasing token selection during generation. The core idea: at each generation step, partition the vocabulary into a "green list" and a "red list" based on a hash of the preceding token(s), then add a bias to the logits of green-list tokens. This makes the model slightly more likely to choose green-list tokens without dramatically changing the output quality. Over a sequence of many tokens, the statistical excess of green-list tokens becomes detectable.
 
 ## How It Works
+
+
+*Recommended visual: Statistical detection of watermarked text using z-score test on green token frequency — see [Kirchenbauer et al. Paper](https://arxiv.org/abs/2301.10226)*
 
 ### The Kirchenbauer et al. Scheme
 
@@ -115,12 +121,6 @@ The fundamental trade-off: **stronger watermarks are more detectable but more di
 - **Guardrails**: Watermarking complements output guardrails -- guardrails filter harmful content, watermarking enables traceability of all content.
 - **Hallucination**: Watermarking does not address hallucination directly, but knowing that text is AI-generated (via watermark detection) may prompt users to verify claims more carefully.
 - **Red teaming**: Robustness testing of watermarking schemes is a form of red teaming -- adversaries try to remove watermarks while preserving text quality.
-
-## Diagrams and Visualizations
-
-*Recommended visual: Watermarking process showing green/red list partitioning of vocabulary and bias injection during sampling — see [Kirchenbauer et al. Watermarking Paper (arXiv:2301.10226)](https://arxiv.org/abs/2301.10226)*
-
-*Recommended visual: Statistical detection of watermarked text using z-score test on green token frequency — see [Kirchenbauer et al. Paper](https://arxiv.org/abs/2301.10226)*
 
 ## Further Reading
 

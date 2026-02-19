@@ -8,6 +8,9 @@
 
 Imagine you are trying to guess the next word in a sentence. If someone says "The cat sat on the ___," you would probably guess "mat" or "floor" with high confidence. You would not be very surprised when the answer is revealed. But if the next word turned out to be "cryptocurrency," you would be extremely surprised.
 
+*Recommended visual: Perplexity as average branching factor — a perplexity of 30 means the model is as uncertain as choosing uniformly among 30 options — see [Hugging Face Perplexity Documentation](https://huggingface.co/docs/transformers/perplexity)*
+
+
 Perplexity quantifies exactly this notion of surprise, averaged over an entire text. A language model with low perplexity is one that is rarely caught off guard -- it assigns high probability to the words that actually appear. A model with high perplexity is frequently surprised, meaning it has not learned the patterns of language very well.
 
 Think of it like a weather forecaster. A good forecaster who says "90% chance of rain" on days it rains and "10% chance of rain" on days it does not rain has low perplexity. A bad forecaster who assigns roughly equal odds to everything has high perplexity. The metric does not care whether the forecaster can also tell you why it rains -- only whether the probability assignments are accurate.
@@ -15,6 +18,9 @@ Think of it like a weather forecaster. A good forecaster who says "90% chance of
 ## How It Works
 
 Perplexity is defined as the exponentiated average cross-entropy of a model over a sequence of tokens. Given a sequence of N tokens (t_1, t_2, ..., t_N), the perplexity is:
+
+*Recommended visual: Perplexity curves during training showing how model quality improves with more training tokens — see [Chinchilla Paper (arXiv:2203.15556)](https://arxiv.org/abs/2203.15556)*
+
 
 ```
 PPL(W) = exp( -1/N * sum_{i=1}^{N} log P(t_i | t_1, ..., t_{i-1}) )
@@ -73,12 +79,6 @@ Beyond pre-training, perplexity is invaluable for:
 - **Scaling Laws**: The Chinchilla scaling laws predict how perplexity decreases as a function of model size and data volume.
 - **Benchmark Contamination**: Suspiciously low perplexity on benchmark test sets can be a signal of data contamination during pre-training.
 - **KL Divergence**: Perplexity is closely related to KL divergence between the model's distribution and the true data distribution.
-
-## Diagrams and Visualizations
-
-*Recommended visual: Perplexity as average branching factor — a perplexity of 30 means the model is as uncertain as choosing uniformly among 30 options — see [Hugging Face Perplexity Documentation](https://huggingface.co/docs/transformers/perplexity)*
-
-*Recommended visual: Perplexity curves during training showing how model quality improves with more training tokens — see [Chinchilla Paper (arXiv:2203.15556)](https://arxiv.org/abs/2203.15556)*
 
 ## Further Reading
 

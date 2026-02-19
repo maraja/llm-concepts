@@ -8,11 +8,17 @@
 
 Imagine a hotel with one large kitchen (the base model) that can prepare any cuisine by swapping in different recipe cards (LoRA adapters) for each guest's order. Rather than building a separate kitchen for every cuisine, the hotel uses one set of equipment and dynamically loads the right recipes as orders come in. Multi-LoRA serving works the same way: a single base model serves many fine-tuned variants by dynamically loading and swapping lightweight LoRA adapter weights.
 
+*Recommended visual: S-LoRA unified paging architecture showing shared base model with dynamically loaded LoRA adapters — see [S-LoRA Paper (arXiv:2311.03285)](https://arxiv.org/abs/2311.03285)*
+
+
 This matters because organizations increasingly fine-tune separate LoRA adapters for different tasks, customers, or domains. A company might have hundreds of adapters -- one per enterprise client, one per language, one per use case. The naive approach of loading each adapter as a separate model instance is wildly inefficient: a 7B model takes ~14GB in FP16, so serving 100 adapters would naively require 1.4TB of GPU memory. Since each LoRA adapter is only 10-50MB (0.1-0.5% of the base model), the shared-base approach reduces this to ~14GB base + ~5GB for all 100 adapters.
 
 The challenge is engineering: how do you efficiently batch requests that target different adapters, manage adapter weights in GPU memory, and compute the LoRA additions without destroying throughput? Systems like S-LoRA, Punica, and LoRAX solve these problems with custom memory management, specialized CUDA kernels, and intelligent adapter scheduling.
 
 ## How It Works
+
+
+*Recommended visual: Multi-LoRA batching diagram showing heterogeneous requests each using different adapters served from a single GPU — see [S-LoRA Paper Figure 1](https://arxiv.org/abs/2311.03285)*
 
 ### Unified Paging for LoRA Weights (S-LoRA)
 
@@ -111,12 +117,6 @@ LoRAX supports hot-swapping adapters at runtime, enabling use cases like A/B tes
 - **Quantization**: Base model quantization (GPTQ, AWQ) can be combined with LoRA serving to further reduce the memory footprint, fitting more adapters per GPU.
 - **Continuous Batching**: Multi-LoRA scheduling integrates with continuous batching to handle variable-length requests and adapter heterogeneity simultaneously.
 - **Mixture of Experts**: Conceptually similar to MoE where different experts activate for different inputs, but implemented at the adapter level with explicit routing rather than learned gating.
-
-## Diagrams and Visualizations
-
-*Recommended visual: S-LoRA unified paging architecture showing shared base model with dynamically loaded LoRA adapters — see [S-LoRA Paper (arXiv:2311.03285)](https://arxiv.org/abs/2311.03285)*
-
-*Recommended visual: Multi-LoRA batching diagram showing heterogeneous requests each using different adapters served from a single GPU — see [S-LoRA Paper Figure 1](https://arxiv.org/abs/2311.03285)*
 
 ## Further Reading
 

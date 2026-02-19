@@ -8,11 +8,17 @@
 
 Think of how a student improves on exams. After getting a test back, they do not just look at the score -- they review each mistake, understand why they got it wrong ("I confused meiosis with mitosis"), and store that insight for next time. The score alone (a scalar reward) is less useful than the verbal self-analysis ("I need to remember that meiosis produces four haploid cells"). Self-reflection in LLM agents works exactly this way: the agent attempts a task, evaluates its performance, generates a natural language critique, stores that critique in memory, and uses it to do better on the next attempt.
 
+*Recommended visual: Reflexion architecture showing Actor, Evaluator, Self-Reflection Model, and Memory components in a loop — see [Reflexion Paper (arXiv:2303.11366)](https://arxiv.org/abs/2303.11366)*
+
+
 This is what Shinn et al. call "verbal reinforcement learning" in their Reflexion paper (NeurIPS 2023). Traditional reinforcement learning uses scalar rewards (0 or 1, pass or fail) to update model weights through gradient descent. Reflexion instead keeps the model weights completely frozen and converts those scalar signals into rich verbal feedback stored in an episodic memory buffer. The agent learns across trials without any gradient updates -- only through better prompting informed by its own reflections on past failures.
 
 The broader family of self-improvement techniques includes Self-Refine (Madaan et al.), which iterates within a single trial through Generate-Critique-Refine loops, and Self-Debug (Chen et al.), which specifically targets code by executing it and debugging from error messages. All share the core principle: use feedback -- especially structured, verbal feedback -- to improve outputs iteratively.
 
 ## How It Works
+
+
+*Recommended visual: Self-Refine iterative loop showing Generate → Feedback → Refine cycle — see [Self-Refine Paper (arXiv:2303.17651)](https://arxiv.org/abs/2303.17651)*
 
 ### The Reflexion Architecture
 
@@ -111,12 +117,6 @@ Self-reflection is most effective on **verifiable tasks** where the evaluator ca
 - **Memory Systems**: Episodic memory is the mechanism that carries reflections across trials, making accumulated experience accessible to future attempts.
 - **Chain-of-Thought Prompting**: Self-reflection extends CoT from single-pass reasoning to iterative, feedback-driven reasoning across multiple attempts at the same problem.
 - **Multi-Agent Systems**: Critic agents in multi-agent architectures perform a role analogous to the evaluator and self-reflection components in Reflexion, providing external feedback.
-
-## Diagrams and Visualizations
-
-*Recommended visual: Reflexion architecture showing Actor, Evaluator, Self-Reflection Model, and Memory components in a loop — see [Reflexion Paper (arXiv:2303.11366)](https://arxiv.org/abs/2303.11366)*
-
-*Recommended visual: Self-Refine iterative loop showing Generate → Feedback → Refine cycle — see [Self-Refine Paper (arXiv:2303.17651)](https://arxiv.org/abs/2303.17651)*
 
 ## Further Reading
 

@@ -8,6 +8,9 @@
 
 Training language models typically requires human-generated data. But human data is expensive, slow to collect, and limited by what humans choose to write down.
 
+*See the STaR self-improvement loop diagram in: [Zelikman et al., "STaR: Bootstrapping Reasoning With Reasoning" (arXiv:2203.14465)](https://arxiv.org/abs/2203.14465), Figure 1, which illustrates the generate-filter-rationalize-train cycle where the model produces chain-of-thought rationales, filters for correct answers, and retrains on its own verified outputs.*
+
+
 Self-play and self-improvement methods flip this: the model generates its own training data, filters it for quality, and trains on its own best outputs.
 
 The idea has deep roots in game-playing AI. AlphaGo Zero learned superhuman Go by playing against itself millions of times, never seeing a human game. Language model self-improvement adapts this: the model generates candidate solutions, uses a verification mechanism (math checker, unit test, reward model) to identify correct ones, and trains on those verified outputs.
@@ -15,6 +18,9 @@ The idea has deep roots in game-playing AI. AlphaGo Zero learned superhuman Go b
 Each iteration produces a better model that generates better candidates in the next round. But this cycle is fragile. Unlike board games with perfect verifiers, language tasks often lack reliable verification. A model training on its own unfiltered outputs risks "model collapse" -- narrowing output diversity and amplifying errors. The methods below represent different strategies for managing this tension.
 
 ## How It Works
+
+
+*See the SPIN self-play framework in: [Chen et al., "Self-Play Fine-Tuning Converts Weak Language Models to Strong Language Models" (arXiv:2401.01335)](https://arxiv.org/abs/2401.01335), Figure 1, which shows the two-player game between the generator and discriminator, with convergence occurring when model outputs become indistinguishable from human data.*
 
 ### STaR (Self-Taught Reasoner)
 
@@ -58,6 +64,9 @@ SPIN provides theoretical convergence guarantees: it provably converges when the
 
 ReST uses an EM-inspired framework:
 
+*See also the Quiet-STaR internalized reasoning architecture at: [Zelikman et al., "Quiet-STaR" (arXiv:2403.09629)](https://arxiv.org/abs/2403.09629), Figure 1, which shows how thought tokens are generated at each position and a mixing head combines post-thought and pre-thought hidden states.*
+
+
 1. **E-step (Generate)**: Sample many outputs from the current model.
 2. **M-step (Improve)**: Filter with a reward model, fine-tune on top-scoring outputs.
 3. **Iterate**: Generate again with the improved model.
@@ -98,14 +107,6 @@ The EM framing connects to variational inference: the E-step samples from the mo
 - **GRPO and RLVR**: DeepSeek-R1 can be viewed as self-improvement through RL, with emergent reasoning as the result.
 - **Synthetic data**: Self-improvement is structured, iterative synthetic data generation.
 - **DPO**: SPIN uses a DPO-like objective, connecting self-improvement to preference optimization.
-
-## Diagrams and Visualizations
-
-*See the STaR self-improvement loop diagram in: [Zelikman et al., "STaR: Bootstrapping Reasoning With Reasoning" (arXiv:2203.14465)](https://arxiv.org/abs/2203.14465), Figure 1, which illustrates the generate-filter-rationalize-train cycle where the model produces chain-of-thought rationales, filters for correct answers, and retrains on its own verified outputs.*
-
-*See the SPIN self-play framework in: [Chen et al., "Self-Play Fine-Tuning Converts Weak Language Models to Strong Language Models" (arXiv:2401.01335)](https://arxiv.org/abs/2401.01335), Figure 1, which shows the two-player game between the generator and discriminator, with convergence occurring when model outputs become indistinguishable from human data.*
-
-*See also the Quiet-STaR internalized reasoning architecture at: [Zelikman et al., "Quiet-STaR" (arXiv:2403.09629)](https://arxiv.org/abs/2403.09629), Figure 1, which shows how thought tokens are generated at each position and a mixing head combines post-thought and pre-thought hidden states.*
 
 ## Further Reading
 

@@ -8,6 +8,10 @@
 
 Chain-of-thought (CoT) prompting showed that adding "Let's think step by step" to a prompt dramatically improves reasoning performance. But this was purely an inference-time trick -- the model wasn't *trained* to reason, it was merely *prompted* to.
 
+![Chain-of-thought prompting example showing how intermediate reasoning steps lead to correct answers](https://lilianweng.github.io/posts/2023-03-15-prompt-engineering/chain-of-thought-examples.png)
+*Source: [Lilian Weng – Prompt Engineering](https://lilianweng.github.io/posts/2023-03-15-prompt-engineering/)*
+
+
 Chain-of-thought training takes the next step: what if we train models to *always* produce extended reasoning before answering? What if the reasoning itself becomes a first-class training objective?
 
 The analogy is the difference between asking a student to "show their work" on an exam (prompting) versus spending years teaching them mathematical thinking, proof strategies, and problem decomposition (training). The first produces superficial steps; the second produces genuine reasoning capability.
@@ -15,6 +19,9 @@ The analogy is the difference between asking a student to "show their work" on a
 This shift is often described using Daniel Kahneman's framework: traditional LLMs operate in "System 1" mode -- fast, intuitive, pattern-matching responses. Reasoning models aim for "System 2" -- slow, deliberate, step-by-step analytical thinking. The result is models that spend more tokens (and therefore more computation) on harder problems, effectively learning to allocate compute dynamically.
 
 ## How It Works
+
+
+*Recommended visual: Evolution from chain-of-thought prompting to training with reasoning traces (o1/R1 paradigm) — see [OpenAI Learning to Reason](https://openai.com/index/learning-to-reason-with-llms/)*
 
 ### The Evolution from Prompting to Training
 
@@ -110,13 +117,6 @@ This has profound implications:
 - **Supervised fine-tuning** on reasoning traces is a complementary approach to RL-based training and is often used in distillation.
 - **Inference optimization** becomes more important when models produce long reasoning chains, motivating techniques like speculative decoding and KV-cache optimization.
 - **Synthetic data** -- reasoning models can generate synthetic reasoning traces used to train other models, creating a flywheel of reasoning capability.
-
-## Diagrams and Visualizations
-
-![Chain-of-thought prompting example showing how intermediate reasoning steps lead to correct answers](https://lilianweng.github.io/posts/2023-03-15-prompt-engineering/chain-of-thought-examples.png)
-*Source: [Lilian Weng – Prompt Engineering](https://lilianweng.github.io/posts/2023-03-15-prompt-engineering/)*
-
-*Recommended visual: Evolution from chain-of-thought prompting to training with reasoning traces (o1/R1 paradigm) — see [OpenAI Learning to Reason](https://openai.com/index/learning-to-reason-with-llms/)*
 
 ## Further Reading
 

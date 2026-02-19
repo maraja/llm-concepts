@@ -8,11 +8,17 @@
 
 In standard RAG pipelines, documents are chunked first and each chunk is embedded independently. This means the embedding model never sees the full document -- it processes each chunk in isolation. If a chunk says "He signed the contract on March 15th," the embedding model has no idea who "He" refers to because the antecedent appeared in a previous chunk. The coreference is lost, the embedding captures incomplete semantics, and retrieval quality suffers.
 
+*Recommended visual: Late chunking pipeline: full document through transformer → contextualized token embeddings → chunk and pool — see [Jina AI Late Chunking Blog](https://jina.ai/news/late-chunking-in-long-context-embedding-models/)*
+
+
 Late chunking, introduced by Gunther et al. (2024) at Jina AI, flips this pipeline. Instead of chunking first, you pass the entire document (or as much as fits in the model's context window) through the transformer encoder first. This produces a sequence of contextualized token embeddings where every token's representation is informed by every other token through self-attention. Then you apply chunk boundaries to these contextualized representations, mean-pooling the tokens within each chunk boundary to produce chunk-level embeddings.
 
 The critical difference: in late chunking, each token embedding already encodes information about the full document context. When you chunk and mean-pool these rich representations, each chunk embedding implicitly knows about the rest of the document. The pronoun "He" in our example is now represented as a token embedding that already encodes the information about which person it refers to, because self-attention connected it to the antecedent during the full-document forward pass.
 
 ## How It Works
+
+
+*Recommended visual: Comparison of traditional chunking (chunk then embed) vs late chunking (embed then chunk) showing context preservation — see [Günther et al. Late Chunking Paper (arXiv:2409.04701)](https://arxiv.org/abs/2409.04701)*
 
 ### The Standard Pipeline (Early Chunking)
 
@@ -93,12 +99,6 @@ Late chunking mitigates all of these by ensuring every chunk embedding is inform
 - **ColBERT / late interaction**: Both late chunking and ColBERT preserve token-level information that standard bi-encoder embedding discards. Late chunking preserves document context within chunks; ColBERT preserves per-token matching granularity.
 - **Long-context models**: The trend toward longer context windows in both embedding models and generative models is synergistic with late chunking, enabling it to work on longer documents.
 - **RAG**: Late chunking is an indexing-time improvement that transparently improves retrieval quality in any RAG pipeline without changing the query or generation phases.
-
-## Diagrams and Visualizations
-
-*Recommended visual: Late chunking pipeline: full document through transformer → contextualized token embeddings → chunk and pool — see [Jina AI Late Chunking Blog](https://jina.ai/news/late-chunking-in-long-context-embedding-models/)*
-
-*Recommended visual: Comparison of traditional chunking (chunk then embed) vs late chunking (embed then chunk) showing context preservation — see [Günther et al. Late Chunking Paper (arXiv:2409.04701)](https://arxiv.org/abs/2409.04701)*
 
 ## Further Reading
 

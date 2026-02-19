@@ -8,11 +8,17 @@
 
 Training-time scaling laws tell us that bigger models trained on more data perform better. Inference-time scaling laws reveal a parallel truth: you can also improve performance by spending more compute when generating answers, not just when training the model. Think of it as the difference between hiring a smarter employee versus giving an existing employee more time to think. Both approaches improve output quality, and sometimes the latter is more cost-effective.
 
+*Recommended visual: Inference-time compute scaling curves showing performance improving with more samples, longer chains, and tree search — see [Snell et al. Scaling LLM Test-Time Compute (arXiv:2408.03314)](https://arxiv.org/abs/2408.03314)*
+
+
 The core insight, demonstrated by Snell et al. (2024), is that a compute-optimal strategy exists at inference time just as at training time. A 7B model equipped with a process reward model (PRM) and best-of-N sampling can match the performance of a 34B model running standard greedy decoding on math reasoning benchmarks -- at comparable total FLOPs. This means the traditional assumption that "bigger model = better performance" breaks down when you account for inference-time compute allocation.
 
 This paradigm shift became dramatically visible with OpenAI's o1 model family, which uses extended internal reasoning chains to achieve remarkable performance on hard problems. On AIME 2024 (a challenging math competition), o1 improved from 12% at low compute to 83% at high compute. The subsequent o3 model achieved 87.5% on ARC-AGI at high compute settings, a benchmark previously considered resistant to LLM approaches. These results demonstrate that inference-time scaling is not merely an academic curiosity but a practical engineering lever that fundamentally changes what problems LLMs can solve.
 
 ## How It Works
+
+
+*Recommended visual: Compute-optimal inference showing when to use a smaller model with more inference compute vs a larger model — see [OpenAI Learning to Reason](https://openai.com/index/learning-to-reason-with-llms/)*
 
 ### Repeated Sampling and Self-Consistency
 
@@ -124,12 +130,6 @@ Each iteration roughly doubles the inference cost but can yield substantial qual
 - **Model Routing**: Routing can implement difficulty-dependent compute allocation by sending easy queries to small models (low compute) and hard queries to large models with extended reasoning (high compute).
 - **Monte Carlo Tree Search (MCTS)**: Tree search with value estimation is a natural framework for structured inference-time compute allocation, explored in approaches like Tree-of-Thought and reasoning-via-planning.
 - **Speculative Decoding**: While speculative decoding speeds up individual samples, inference-time scaling is about improving quality by spending more compute -- opposite goals that can coexist in the same system.
-
-## Diagrams and Visualizations
-
-*Recommended visual: Inference-time compute scaling curves showing performance improving with more samples, longer chains, and tree search — see [Snell et al. Scaling LLM Test-Time Compute (arXiv:2408.03314)](https://arxiv.org/abs/2408.03314)*
-
-*Recommended visual: Compute-optimal inference showing when to use a smaller model with more inference compute vs a larger model — see [OpenAI Learning to Reason](https://openai.com/index/learning-to-reason-with-llms/)*
 
 ## Further Reading
 

@@ -8,11 +8,19 @@
 
 Consider this thought experiment: you hand someone a bag of Scrabble tiles spelling "THE DOG BIT THE MAN." They can see every word, but the tiles are jumbled in the bag with no indication of order. They might reconstruct the sentence, or they might read "THE MAN BIT THE DOG" -- a very different meaning from the same words.
 
+![Sinusoidal positional encoding heatmap showing the wave patterns across positions and embedding dimensions, with low-frequency and high-frequency components](https://jalammar.github.io/images/t/transformer_positional_encoding_large_example.png)
+*Source: [Jay Alammar – The Illustrated Transformer](https://jalammar.github.io/illustrated-transformer/)*
+
+
 This is exactly the problem transformers face. The self-attention mechanism computes relationships between all pairs of tokens simultaneously, with no inherent notion of sequence. Mathematically, if you shuffle the input tokens and correspondingly shuffle the attention outputs, you get the same result. This property is called **permutation equivariance**, and while it makes transformers highly parallelizable, it means they are blind to word order without explicit help.
 
 Positional encoding is that help. It augments each token's embedding with information about where the token sits in the sequence, allowing the model to distinguish "dog bites man" from "man bites dog."
 
 ## How It Works
+
+
+![Diagram showing how positional encoding vectors are added element-wise to token embedding vectors to form the transformer input representation](https://jalammar.github.io/images/t/transformer_positional_encoding_vectors.png)
+*Source: [Jay Alammar – The Illustrated Transformer](https://jalammar.github.io/illustrated-transformer/)*
 
 ### Sinusoidal Positional Encoding (The Original)
 
@@ -61,6 +69,10 @@ Relative approaches include:
 
 The progression of positional encoding reflects the field's growing understanding of what matters:
 
+![Overview of positional encoding approaches in transformers: absolute (sinusoidal, learned) vs. relative (RoPE, ALiBi, T5 bias)](https://lilianweng.github.io/posts/2023-01-27-the-transformer-family-v2/position-encoding-methods.png)
+*Source: [Lilian Weng – The Transformer Family Version 2.0](https://lilianweng.github.io/posts/2023-01-27-the-transformer-family-v2/)*
+
+
 1. **2017**: Sinusoidal (fixed, absolute) -- simple, elegant, but limited extrapolation.
 2. **2018-2019**: Learned absolute (GPT-2, BERT) -- more flexible, but fixed maximum length.
 3. **2020**: Relative biases (T5) -- better generalization across positions.
@@ -99,17 +111,6 @@ The choice of positional encoding method also determines whether a model can han
 - **Context Window**: The maximum effective context length is heavily influenced by the positional encoding scheme and its ability to extrapolate.
 - **Self-Attention**: Positional encoding modifies what the attention mechanism "sees" about token relationships.
 - **Special Tokens**: Tokens like BOS always appear at position 0, creating a consistent positional anchor.
-
-## Diagrams and Visualizations
-
-![Sinusoidal positional encoding heatmap showing the wave patterns across positions and embedding dimensions, with low-frequency and high-frequency components](https://jalammar.github.io/images/t/transformer_positional_encoding_large_example.png)
-*Source: [Jay Alammar – The Illustrated Transformer](https://jalammar.github.io/illustrated-transformer/)*
-
-![Diagram showing how positional encoding vectors are added element-wise to token embedding vectors to form the transformer input representation](https://jalammar.github.io/images/t/transformer_positional_encoding_vectors.png)
-*Source: [Jay Alammar – The Illustrated Transformer](https://jalammar.github.io/illustrated-transformer/)*
-
-![Overview of positional encoding approaches in transformers: absolute (sinusoidal, learned) vs. relative (RoPE, ALiBi, T5 bias)](https://lilianweng.github.io/posts/2023-01-27-the-transformer-family-v2/position-encoding-methods.png)
-*Source: [Lilian Weng – The Transformer Family Version 2.0](https://lilianweng.github.io/posts/2023-01-27-the-transformer-family-v2/)*
 
 ## Further Reading
 

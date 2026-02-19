@@ -8,11 +8,17 @@
 
 Standard embedding models produce fixed-size vectors. If a model outputs 1536-dimensional embeddings, you always store and search over all 1536 dimensions. If you need smaller embeddings for efficiency, you must train a separate model or apply dimensionality reduction techniques like PCA -- which require extra computation and often degrade quality significantly.
 
+*Recommended visual: Matryoshka embedding showing nested representations at different dimensionalities, each being a valid embedding — see [Kusupati et al. MRL Paper (arXiv:2205.13147)](https://arxiv.org/abs/2205.13147)*
+
+
 Matryoshka Representation Learning, introduced by Kusupati et al. (2022), solves this by training a single model whose embeddings have a special property: the first d dimensions of the full D-dimensional embedding form a valid d-dimensional embedding for any d in a chosen set of granularities. The name comes from Matryoshka dolls (Russian nesting dolls) -- each successive layer contains a complete, smaller representation inside it.
 
 Concretely, if a model produces 2048-dimensional embeddings, you can truncate to the first 1024, 512, 256, 128, or even 64 dimensions and still get useful embeddings. The first 64 dimensions capture the coarsest semantic information; each additional block of dimensions adds finer-grained detail. This gives practitioners a single model that serves multiple deployment scenarios -- from resource-constrained edge devices using 64-dimensional embeddings to high-accuracy servers using the full 2048 dimensions.
 
 ## How It Works
+
+
+*Recommended visual: Quality vs dimensionality trade-off showing graceful degradation as embedding dimensions are truncated — see [Nomic Matryoshka Embeddings Blog](https://blog.nomic.ai/posts/nomic-embed-matryoshka)*
 
 ### The Training Objective
 
@@ -88,12 +94,6 @@ This is especially important for:
 - **Quantization**: MRL reduces dimensionality; quantization reduces per-dimension precision. They are complementary compression techniques.
 - **Approximate nearest neighbor search**: Lower-dimensional embeddings speed up ANN algorithms like HNSW and IVF, making MRL a natural companion to these indexing strategies.
 - **Contrastive learning**: MRL extends standard contrastive learning with multi-granularity objectives.
-
-## Diagrams and Visualizations
-
-*Recommended visual: Matryoshka embedding showing nested representations at different dimensionalities, each being a valid embedding — see [Kusupati et al. MRL Paper (arXiv:2205.13147)](https://arxiv.org/abs/2205.13147)*
-
-*Recommended visual: Quality vs dimensionality trade-off showing graceful degradation as embedding dimensions are truncated — see [Nomic Matryoshka Embeddings Blog](https://blog.nomic.ai/posts/nomic-embed-matryoshka)*
 
 ## Further Reading
 

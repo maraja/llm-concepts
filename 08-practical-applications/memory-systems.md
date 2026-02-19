@@ -8,11 +8,18 @@
 
 Consider how human memory works. Right now, you are holding the words of this sentence in sensory memory. The topic of this paragraph is in your short-term working memory. And your knowledge of what LLMs are comes from long-term memory, which itself breaks down into episodic memory (remembering when you first learned about transformers), semantic memory (knowing that attention is O(n^2)), and procedural memory (knowing how to write Python code). LLM memory systems borrow this cognitive science taxonomy to give agents persistent, structured access to information beyond what fits in a single prompt.
 
+![Memory types for LLM agents: sensory, short-term (in-context), and long-term (external storage) mapped to cognitive science](https://lilianweng.github.io/posts/2023-06-23-agent/memory.png)
+*Source: [Lilian Weng – LLM Powered Autonomous Agents](https://lilianweng.github.io/posts/2023-06-23-agent/)*
+
+
 The fundamental constraint is the context window. Even with modern models supporting 128K-200K tokens, this is a finite working memory that gets wiped between sessions. Worse, Liu et al. (2023) demonstrated the "lost in the middle" problem: models perform well on information at the beginning and end of long contexts but degrade significantly on information placed in the middle. This means raw context stuffing is not a reliable memory strategy even when you stay within the window limit.
 
 Memory systems solve this by creating external stores -- vector databases, knowledge graphs, summary buffers -- that the agent can read from and write to as needed. The agent's context window becomes like RAM in a computer: fast but limited, cleared on restart. External memory becomes like disk storage: larger, persistent across sessions, and accessed through explicit read/write operations. The art of memory system design is choosing what to keep in the context window (RAM), what to store externally (disk), and how to retrieve the right information at the right time with minimal latency and maximum relevance.
 
 ## How It Works
+
+
+*Recommended visual: MemGPT architecture showing hierarchical memory management with main context and external storage — see [MemGPT Paper (arXiv:2310.08560)](https://arxiv.org/abs/2310.08560)*
 
 ### Memory Types Mapped to LLM Architectures
 
@@ -108,13 +115,6 @@ The choice of persistence strategy depends on the application. A coding assistan
 - **Multi-Agent Systems**: Shared memory stores enable multiple agents to coordinate, share findings, and maintain consistent state across a collaborative workflow.
 - **Attention Mechanisms**: Understanding how attention distributes weight across the context window explains why the "lost in the middle" problem occurs and why external memory is needed.
 - **Prompt Engineering**: Memory retrieval results must be formatted and injected into prompts effectively. The placement, formatting, and quantity of retrieved memories significantly impact generation quality.
-
-## Diagrams and Visualizations
-
-![Memory types for LLM agents: sensory, short-term (in-context), and long-term (external storage) mapped to cognitive science](https://lilianweng.github.io/posts/2023-06-23-agent/memory.png)
-*Source: [Lilian Weng – LLM Powered Autonomous Agents](https://lilianweng.github.io/posts/2023-06-23-agent/)*
-
-*Recommended visual: MemGPT architecture showing hierarchical memory management with main context and external storage — see [MemGPT Paper (arXiv:2310.08560)](https://arxiv.org/abs/2310.08560)*
 
 ## Further Reading
 

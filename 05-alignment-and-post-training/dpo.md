@@ -8,11 +8,17 @@
 
 RLHF works, but it's a complex, fragile machine with many moving parts: you need to train a separate reward model, run an RL loop with PPO (which is notoriously unstable), keep four models in memory simultaneously, and carefully tune hyperparameters to prevent reward hacking. DPO asks: what if we could skip all of that?
 
+*Recommended visual: Side-by-side comparison of RLHF pipeline (reward model + PPO) vs DPO (direct optimization from preferences) — see [DPO Paper Figure 1 (arXiv:2305.18290)](https://arxiv.org/abs/2305.18290)*
+
+
 Here's the analogy. RLHF is like teaching someone to cook by first training a food critic (reward model), then having the cook repeatedly prepare dishes, getting scores from the critic, and adjusting (RL loop). DPO is like giving the cook direct access to the preference data -- "dish A was preferred over dish B for this request" -- and letting them learn directly from those comparisons, no middleman needed.
 
 The mathematical insight behind DPO is elegant: under the standard RLHF framework, there is a *closed-form solution* for the optimal policy given a reward function. By inverting this relationship, you can express the reward function in terms of the policy itself, which means you can optimize preferences directly without ever explicitly constructing a reward model.
 
 ## How It Works
+
+
+*Recommended visual: DPO loss landscape showing how the implicit reward is derived from the policy ratio — see [Lilian Weng – LLM Alignment Post](https://lilianweng.github.io/posts/2023-03-15-prompt-engineering/)*
 
 ### The Mathematical Reparameterization
 
@@ -99,12 +105,6 @@ DPO and its variants have become the dominant approach for open-source model ali
 - **Supervised fine-tuning** provides the reference model and initialization for DPO training.
 - **KL divergence** is implicitly enforced in DPO through the reference model terms in the loss, achieving the same regularization effect as the explicit KL penalty in RLHF.
 - **Constitutional AI** can provide the preference data that DPO trains on, combining RLAIF with DPO for a fully automated alignment pipeline.
-
-## Diagrams and Visualizations
-
-*Recommended visual: Side-by-side comparison of RLHF pipeline (reward model + PPO) vs DPO (direct optimization from preferences) — see [DPO Paper Figure 1 (arXiv:2305.18290)](https://arxiv.org/abs/2305.18290)*
-
-*Recommended visual: DPO loss landscape showing how the implicit reward is derived from the policy ratio — see [Lilian Weng – LLM Alignment Post](https://lilianweng.github.io/posts/2023-03-15-prompt-engineering/)*
 
 ## Further Reading
 

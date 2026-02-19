@@ -8,15 +8,24 @@
 
 Imagine making a photocopy of a photograph, then photocopying that photocopy, then photocopying that copy, and so on for twenty generations. Each copy loses a tiny bit of detail -- subtle gradients flatten, fine lines blur, and faint features vanish entirely. By the twentieth generation, you have a high-contrast, low-detail caricature that bears only a rough resemblance to the original. The most common features survive, but all nuance is gone. This is model collapse: each generation of AI training on AI-generated data loses distributional fidelity, and the losses compound irreversibly.
 
+*See the recursive degradation diagram in: [Shumailov et al., "AI Models Collapse When Trained on Recursively Generated Data" (Nature, 2024)](https://www.nature.com/articles/s41586-024-07566-y), Figure 1, which shows how the data distribution narrows generation after generation, with tail distributions progressively trimmed until only the modes remain.*
+
+
 Model collapse is not a hypothetical concern -- it is an emerging crisis for the field. As AI-generated text proliferates across the internet (blog posts, articles, code, social media comments, product descriptions), future web crawls used for pre-training will inevitably contain substantial synthetic content. Models trained on this polluted data will produce outputs with reduced diversity, which will in turn contaminate future training data even further. The feedback loop is self-reinforcing and, without intervention, degrades quality generation after generation.
 
 Shumailov et al. published a rigorous analysis in Nature (2024) demonstrating that this recursive training loop causes irreversible quality loss across multiple model types, including language models, variational autoencoders, and Gaussian mixture models. The mathematical result is stark: the tails of the data distribution are progressively trimmed until only the modes (most common patterns) remain.
 
 ## How It Works
 
+
+*See also the "self-consuming generative models" illustration in: [Alemohammad et al., "Self-Consuming Generative Models Go MAD" (arXiv:2307.01850)](https://arxiv.org/abs/2307.01850), Figure 1, which visualizes how iterative training on synthetic data causes the learned distribution to contract toward the mean, losing diversity and rare patterns across generations.*
+
 ### The Recursive Degradation Loop
 
 Model collapse proceeds through a multi-generational feedback loop:
+
+*See the distributional shift diagrams at: [Dohmatob et al., "A Tale of Tails: Model Collapse as a Change of Scaling Laws" (arXiv:2402.04164)](https://arxiv.org/abs/2402.04164) -- includes figures showing how the scaling law exponents worsen with each recursive training generation, quantifying the degradation in model capability.*
+
 
 ```
 Generation 0: Model M0 trained on real human data D0
@@ -111,14 +120,6 @@ for generation in range(20):
 - **Pre-training**: Model collapse primarily threatens the pre-training phase, where models consume massive web-scraped datasets that are increasingly contaminated with synthetic text.
 - **RLHF / Alignment Training**: Alignment training already uses synthetic data (AI-generated responses). Understanding model collapse informs how to structure this pipeline safely.
 - **Scaling Laws**: Model collapse may impose fundamental limits on scaling by degrading the quality of available training data, even as compute continues to increase.
-
-## Diagrams and Visualizations
-
-*See the recursive degradation diagram in: [Shumailov et al., "AI Models Collapse When Trained on Recursively Generated Data" (Nature, 2024)](https://www.nature.com/articles/s41586-024-07566-y), Figure 1, which shows how the data distribution narrows generation after generation, with tail distributions progressively trimmed until only the modes remain.*
-
-*See also the "self-consuming generative models" illustration in: [Alemohammad et al., "Self-Consuming Generative Models Go MAD" (arXiv:2307.01850)](https://arxiv.org/abs/2307.01850), Figure 1, which visualizes how iterative training on synthetic data causes the learned distribution to contract toward the mean, losing diversity and rare patterns across generations.*
-
-*See the distributional shift diagrams at: [Dohmatob et al., "A Tale of Tails: Model Collapse as a Change of Scaling Laws" (arXiv:2402.04164)](https://arxiv.org/abs/2402.04164) -- includes figures showing how the scaling law exponents worsen with each recursive training generation, quantifying the degradation in model capability.*
 
 ## Further Reading
 

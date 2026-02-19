@@ -8,6 +8,10 @@
 
 When you examine the attention patterns of trained transformers, something surprising appears: the very first token in the sequence receives an enormous amount of attention from tokens throughout the entire sequence. This happens regardless of what that first token actually is -- it could be a BOS (beginning-of-sequence) special token, a period, the word "the," or any arbitrary content. Across Llama 2, Falcon, Pythia, MPT, and many other model families, the pattern is remarkably consistent.
 
+![Attention heatmap showing disproportionate attention mass concentrated on the first few tokens (attention sinks) regardless of their semantic content, with the sink pattern visible across multiple layers](https://github.com/mit-han-lab/streaming-llm/raw/main/figures/attention_sink.png)
+*Source: [StreamingLLM -- MIT Han Lab GitHub Repository](https://github.com/mit-han-lab/streaming-llm)*
+
+
 Why does this happen? The answer lies in softmax's fundamental constraint. Every attention head must produce weights that sum to exactly 1.0 across all attended positions. But what happens when a query token has no particularly relevant prior context to attend to? There is no "none of the above" option in the softmax distribution. The attention mass *must* go somewhere. In practice, models learn during training to dump this excess probability mass onto the first token, which acts as a "sink" -- absorbing attention that has nowhere more useful to go.
 
 Think of it like a drainage system. Water (attention mass) must flow somewhere because the system is closed (softmax sums to 1). When there is no meaningful destination for the water, it flows to the lowest point -- the first token position, which through millions of training steps has become the model's learned default drain. The first token's actual content is largely irrelevant to this function; what matters is its consistent position at the beginning of every training sequence, making it a reliable, predictable dumping ground that all attention heads can coordinate around.
@@ -15,6 +19,10 @@ Think of it like a drainage system. Water (attention mass) must flow somewhere b
 This phenomenon has a critical practical consequence for long-context inference. If you use a sliding window or limited KV cache and evict the first token's key-value pairs from memory, perplexity catastrophically spikes to values exceeding 1000 -- even if you retain thousands of recent tokens with meaningful content. The model breaks not because it lost important semantic information, but because it lost its attention drain.
 
 ## How It Works
+
+
+![StreamingLLM KV cache layout showing fixed sink tokens at the beginning plus a rolling window of recent tokens, with evicted middle tokens creating a gap that does not degrade perplexity](https://github.com/mit-han-lab/streaming-llm/raw/main/figures/streaming_llm.png)
+*Source: [StreamingLLM -- MIT Han Lab GitHub Repository](https://github.com/mit-han-lab/streaming-llm)*
 
 ### The Mathematical Cause
 
@@ -93,14 +101,6 @@ Understanding attention sinks has several practical implications for model desig
 - **Softmax and attention normalization**: The sink phenomenon is a direct consequence of softmax's normalization constraint requiring attention weights to sum to 1. Alternative attention normalization schemes (like sigmoid attention or linear attention) handle this differently and may not exhibit sinks.
 - **Vision Transformer registers**: Darcet et al. (2023) independently identified a parallel phenomenon in Vision Transformers, where certain patch tokens accumulate excess attention. Their solution -- adding explicit learned "register" tokens -- is architecturally analogous to designing dedicated attention sinks.
 - **Differential Transformer**: Addresses the same root cause (attention noise from softmax's sum-to-one constraint) through a different mechanism: subtracting two attention maps to cancel common-mode noise rather than absorbing it into designated sink positions.
-
-## Diagrams and Visualizations
-
-![Attention heatmap showing disproportionate attention mass concentrated on the first few tokens (attention sinks) regardless of their semantic content, with the sink pattern visible across multiple layers](https://github.com/mit-han-lab/streaming-llm/raw/main/figures/attention_sink.png)
-*Source: [StreamingLLM -- MIT Han Lab GitHub Repository](https://github.com/mit-han-lab/streaming-llm)*
-
-![StreamingLLM KV cache layout showing fixed sink tokens at the beginning plus a rolling window of recent tokens, with evicted middle tokens creating a gap that does not degrade perplexity](https://github.com/mit-han-lab/streaming-llm/raw/main/figures/streaming_llm.png)
-*Source: [StreamingLLM -- MIT Han Lab GitHub Repository](https://github.com/mit-han-lab/streaming-llm)*
 
 ## Further Reading
 

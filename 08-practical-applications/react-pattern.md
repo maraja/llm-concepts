@@ -8,11 +8,18 @@
 
 Imagine you are solving a crossword puzzle. You do not just think silently and write all answers at once, nor do you randomly try letters without thinking. Instead, you reason ("5-across is probably 'TORCH' because the clue says 'portable light'"), act (write the letters), observe (check if the crossing words still make sense), and adjust. This interleaving of thinking, doing, and observing is exactly what ReAct brings to LLM agents.
 
+![ReAct framework showing interleaved Thought-Action-Observation steps grounding reasoning in environment feedback](https://lilianweng.github.io/posts/2023-06-23-agent/agent-overview.png)
+*Source: [Lilian Weng – LLM Powered Autonomous Agents](https://lilianweng.github.io/posts/2023-06-23-agent/)*
+
+
 Before ReAct, there were two separate paradigms. Chain-of-thought (CoT) prompting let models reason step-by-step but entirely inside their own heads -- with no way to check facts or interact with the world. This led to confident hallucinations where the model would fabricate plausible-sounding but incorrect facts. Conversely, action-only agents (Act) could call tools and APIs but had no explicit reasoning about when or why to use them, leading to poor planning, wasted actions, and inefficient tool usage.
 
 ReAct unifies both: the model's reasoning explicitly plans tool use, and the observations from tool use ground the model's reasoning in reality. Introduced by Yao et al. at Princeton and Google Brain (ICLR 2023), ReAct has become the foundational pattern behind virtually every modern agent framework. Whether you are using LangChain's AgentExecutor, OpenAI's function calling, or Anthropic's tool use, the underlying loop is a descendant of ReAct.
 
 ## How It Works
+
+
+*Recommended visual: ReAct vs Chain-of-Thought vs Act-Only comparison showing how interleaving reasoning with actions improves performance — see [ReAct Paper (arXiv:2210.03629)](https://arxiv.org/abs/2210.03629)*
 
 ### The Thought-Action-Observation Loop
 
@@ -117,13 +124,6 @@ All of these are architecturally ReAct -- they just use cleaner interfaces than 
 - **Tool Use and Function Calling**: ReAct provides the reasoning framework for deciding when, why, and how to invoke tools -- it is the "brain" behind tool selection.
 - **Self-Reflection**: Self-reflection extends ReAct by adding an evaluative step after task completion, enabling learning across trials rather than just within a single execution.
 - **Multi-Agent Systems**: Individual agents within multi-agent frameworks typically run ReAct loops internally while coordinating with other agents at the orchestration layer.
-
-## Diagrams and Visualizations
-
-![ReAct framework showing interleaved Thought-Action-Observation steps grounding reasoning in environment feedback](https://lilianweng.github.io/posts/2023-06-23-agent/agent-overview.png)
-*Source: [Lilian Weng – LLM Powered Autonomous Agents](https://lilianweng.github.io/posts/2023-06-23-agent/)*
-
-*Recommended visual: ReAct vs Chain-of-Thought vs Act-Only comparison showing how interleaving reasoning with actions improves performance — see [ReAct Paper (arXiv:2210.03629)](https://arxiv.org/abs/2210.03629)*
 
 ## Further Reading
 

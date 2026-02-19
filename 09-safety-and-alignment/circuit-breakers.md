@@ -8,6 +8,9 @@
 
 Standard AI safety training (RLHF, Constitutional AI) works by teaching models behavioral patterns: when the model detects a harmful request, it should produce a refusal response. This is fundamentally a pattern-matching approach -- the model learns "if input looks harmful, output a refusal." The problem is that this behavioral veneer can be bypassed by adversarial inputs that look different enough from the patterns the model was trained to refuse but still elicit harmful outputs. The knowledge remains in the model; only the refusal behavior is trained.
 
+*Recommended visual: Circuit breaker representation rerouting showing harmful activations redirected to orthogonal directions — see [Zou et al. Circuit Breakers Paper (arXiv:2406.04313)](https://arxiv.org/abs/2406.04313)*
+
+
 Circuit breakers take a fundamentally different approach. Instead of training output-level behaviors, they operate on the model's **internal representations**. The key insight: before a model produces harmful text, its internal activations must pass through "harmful" regions of representation space. If you can train the model to detect when its own internal states are entering these harmful regions and redirect those states toward safe regions, you get a defense that is much harder to bypass because it operates below the level that adversarial prompts directly manipulate.
 
 The analogy to electrical circuit breakers is precise: just as an electrical circuit breaker detects dangerous current flow and interrupts it before damage occurs, an AI circuit breaker detects dangerous internal representations and interrupts the generation process before harmful tokens are produced.
@@ -15,6 +18,9 @@ The analogy to electrical circuit breakers is precise: just as an electrical cir
 This work was developed primarily by **Andy Zou** and collaborators at the **Center for AI Safety** and **Gray Swan AI**. Zou is a central figure in both AI safety offense (he co-developed the GCG adversarial attack) and defense (representation engineering, circuit breakers), giving him unique insight into what makes defenses robust against attacks he himself pioneered.
 
 ## How It Works
+
+
+*Recommended visual: Attack success rate comparison: RLHF (80-95% jailbroken) vs Circuit Breakers (<5%) — see [Gray Swan AI Blog](https://www.gray-swan.com/)*
 
 ### The Core Mechanism: Representation Rerouting (RR)
 
@@ -142,12 +148,6 @@ Circuit breakers represent a potential paradigm shift in AI safety from **behavi
 - **Mechanistic Interpretability**: Understanding the internal representations that circuit breakers operate on requires insights from mechanistic interpretability. As our understanding of model internals improves, circuit breaker mechanisms can be made more targeted and robust.
 - **Machine Unlearning**: While unlearning removes knowledge and circuit breakers disrupt access to knowledge, both aim to prevent models from producing harmful outputs. They are complementary approaches to the same goal.
 - **Guardrails and Content Filtering**: Circuit breakers operate at the representation level (internal to the model), while guardrails operate at the input/output level (external to the model). Together they provide defense in depth.
-
-## Diagrams and Visualizations
-
-*Recommended visual: Circuit breaker representation rerouting showing harmful activations redirected to orthogonal directions — see [Zou et al. Circuit Breakers Paper (arXiv:2406.04313)](https://arxiv.org/abs/2406.04313)*
-
-*Recommended visual: Attack success rate comparison: RLHF (80-95% jailbroken) vs Circuit Breakers (<5%) — see [Gray Swan AI Blog](https://www.gray-swan.com/)*
 
 ## Further Reading
 

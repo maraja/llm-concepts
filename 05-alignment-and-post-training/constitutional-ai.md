@@ -8,6 +8,9 @@
 
 Traditional RLHF relies on thousands of human annotators to compare model outputs and express preferences. This is expensive, slow, hard to scale, and -- critically -- opaque. When a human rater says "Response A is better than Response B," you don't always know *why*. Different raters may have different values, creating inconsistent training signals.
 
+*Recommended visual: Constitutional AI pipeline showing the critique-revision loop guided by explicit principles — see [Anthropic Constitutional AI Paper (arXiv:2212.08073)](https://arxiv.org/abs/2212.08073)*
+
+
 Constitutional AI, developed by Anthropic, takes a radically different approach. Instead of relying on human raters for each individual comparison, you write down your values explicitly as a set of principles -- a "constitution" -- and then use AI to apply those principles consistently across all training data.
 
 Think of the analogy of a legal system. RLHF is like having a jury decide every individual case without written law -- you get human judgment, but it's inconsistent and unscalable. Constitutional AI is like creating a written legal code (the constitution) and having a trained judge (the AI) apply it consistently to every case. The principles are explicit, auditable, and can be debated and revised.
@@ -15,6 +18,9 @@ Think of the analogy of a legal system. RLHF is like having a jury decide every 
 ## How It Works
 
 Constitutional AI operates in two main phases:
+
+*Recommended visual: Comparison of RLHF with human feedback vs CAI with AI feedback — see [Anthropic Blog – Constitutional AI](https://www.anthropic.com/research/constitutional-ai-harmlessness-from-ai-feedback)*
+
 
 ### Phase 1: Supervised Learning from AI Feedback (SL-CAI)
 
@@ -102,12 +108,6 @@ Constitutional AI addresses several fundamental limitations of standard RLHF:
 - **Reward modeling** still plays a role in Phase 2 of CAI, with AI preferences used to train the reward model.
 - **Synthetic data** generation is at the heart of CAI -- the critiques, revisions, and preference labels are all forms of synthetic training data.
 - **Red teaming** often provides the adversarial prompts used in Phase 1 to elicit responses that need constitutional revision.
-
-## Diagrams and Visualizations
-
-*Recommended visual: Constitutional AI pipeline showing the critique-revision loop guided by explicit principles — see [Anthropic Constitutional AI Paper (arXiv:2212.08073)](https://arxiv.org/abs/2212.08073)*
-
-*Recommended visual: Comparison of RLHF with human feedback vs CAI with AI feedback — see [Anthropic Blog – Constitutional AI](https://www.anthropic.com/research/constitutional-ai-harmlessness-from-ai-feedback)*
 
 ## Further Reading
 

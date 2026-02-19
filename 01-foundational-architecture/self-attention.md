@@ -8,11 +8,19 @@
 
 Think of self-attention as an internal search engine. When the model processes the word "it" in the sentence "The cat sat on the mat because it was tired," it needs to figure out what "it" refers to. Self-attention lets the model issue a **query** ("What am I looking for?"), compare it against **keys** from every other word ("What do I contain?"), and then retrieve a weighted blend of **values** ("Here is my information") based on the match scores.
 
+![Scaled dot-product attention showing query, key, and value matrices flowing through MatMul, Scale, Mask, and Softmax operations to produce the weighted output](https://jalammar.github.io/images/t/self-attention-output.png)
+*Source: [The Illustrated Transformer -- Jay Alammar](https://jalammar.github.io/illustrated-transformer/)*
+
+
 More precisely: every token produces three vectors -- a query, a key, and a value. The query of one token is compared against the keys of all tokens (including itself) to produce attention scores. These scores, after normalization, determine how much of each token's value to mix into the output representation.
 
 This is "self" attention because the queries, keys, and values all come from the same sequence. The model is attending to itself.
 
 ## How It Works
+
+
+![Self-attention computation visualized step by step: computing Q, K, V vectors from input embeddings, calculating attention scores, and producing context-aware output representations](https://jalammar.github.io/images/t/self-attention-matrix-calculation-2.png)
+*Source: [The Illustrated Transformer -- Jay Alammar](https://jalammar.github.io/illustrated-transformer/)*
 
 ### Step 1: Produce Queries, Keys, and Values
 
@@ -48,6 +56,10 @@ The softmax is applied row-wise, so each row sums to 1. Row $i$ of matrix $A$ no
 
 $$\text{Attention}(Q, K, V) = A \cdot V$$
 
+![Query, Key, and Value vectors derived from input embeddings, showing how attention scores are computed via dot products](https://jalammar.github.io/images/t/transformer_self_attention_vectors.png)
+*Source: [Jay Alammar – The Illustrated Transformer](https://jalammar.github.io/illustrated-transformer/)*
+
+
 Each token's output is a weighted sum of all value vectors, with the weights from the attention matrix. The complete formula in one line:
 
 $$\text{Attention}(Q, K, V) = \text{softmax}\left(\frac{Q K^\top}{\sqrt{d_k}}\right) V$$
@@ -61,6 +73,10 @@ $$\text{Attention}(Q, K, V) = \text{softmax}\left(\frac{Q K^\top}{\sqrt{d_k}}\ri
 | Pages are ranked by relevance | Dot product $q_i \cdot k_j$ produces a relevance score |
 | You get a ranked list of results | Softmax normalizes scores into a distribution |
 | You read the content of top results | Value vectors $v_j$ are weighted and combined |
+
+![Attention heatmap visualization showing which words attend to which other words in a sentence, illustrating how "it" attends to "the animal" for coreference resolution](https://jalammar.github.io/images/t/transformer_self-attention_visualization.png)
+*Source: [The Illustrated Transformer -- Jay Alammar](https://jalammar.github.io/illustrated-transformer/)*
+
 
 The key insight: the "search query" changes depending on context. The word "bank" in "river bank" issues a different query than "bank" in "bank account," because the query is computed from the current representation, which is influenced by surrounding context in deeper layers.
 
@@ -100,17 +116,6 @@ Self-attention is also the mechanism that makes Transformers **interpretable** (
 - **Residual Connections**: The output of self-attention is added to the input via a skip connection (see `residual-connections.md`).
 - **Positional Encoding**: Necessary because self-attention itself is position-agnostic.
 - **KV Cache**: In autoregressive generation, the keys and values from previous tokens are cached to avoid recomputation (see `autoregressive-generation.md`).
-
-## Diagrams and Visualizations
-
-![Scaled dot-product attention showing query, key, and value matrices flowing through MatMul, Scale, Mask, and Softmax operations to produce the weighted output](https://jalammar.github.io/images/t/self-attention-output.png)
-*Source: [The Illustrated Transformer -- Jay Alammar](https://jalammar.github.io/illustrated-transformer/)*
-
-![Self-attention computation visualized step by step: computing Q, K, V vectors from input embeddings, calculating attention scores, and producing context-aware output representations](https://jalammar.github.io/images/t/self-attention-matrix-calculation-2.png)
-*Source: [The Illustrated Transformer -- Jay Alammar](https://jalammar.github.io/illustrated-transformer/)*
-
-![Attention heatmap visualization showing which words attend to which other words in a sentence, illustrating how "it" attends to "the animal" for coreference resolution](https://jalammar.github.io/images/t/transformer_self-attention_visualization.png)
-*Source: [The Illustrated Transformer -- Jay Alammar](https://jalammar.github.io/illustrated-transformer/)*
 
 ## Further Reading
 

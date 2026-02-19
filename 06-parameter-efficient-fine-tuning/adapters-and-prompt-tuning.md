@@ -8,9 +8,15 @@
 
 Imagine a large orchestra performing a symphony. Full fine-tuning would be rewriting the entire score for every instrument. LoRA would be adding subtle harmony annotations to each musician's sheet music. But there are other approaches: you could insert a small chamber ensemble between movements (adapters), have a conductor signal new interpretive cues at the start of every passage (prefix tuning), whisper a brief instruction to the orchestra before they begin playing (prompt tuning), or adjust the volume knob on each instrument section (multiplicative rescaling).
 
+*Recommended visual: Adapter bottleneck architecture showing small trainable modules inserted between frozen transformer layers — see [Houlsby et al. Adapter Paper (arXiv:1902.00751)](https://arxiv.org/abs/1902.00751)*
+
+
 Each of these PEFT methods represents a different philosophy about where to inject new learnable information into a frozen model. They share the goal of training only a tiny fraction of parameters while preserving most of the pretrained model's capability, but they differ significantly in mechanism, overhead, and quality.
 
 ## How It Works
+
+
+*Recommended visual: Comparison of adapter, prefix tuning, prompt tuning, and LoRA showing where each injects trainable parameters — see [Hugging Face PEFT Documentation](https://huggingface.co/docs/peft/index)*
 
 ### Bottleneck Adapters
 
@@ -139,12 +145,6 @@ The existence of multiple approaches also drives theoretical understanding of wh
 - **Mixture of Experts (MoE)**: Some recent work treats multiple LoRA or adapter modules as "experts" that are routed to based on input, bridging PEFT with MoE architectures.
 - **Continual learning**: PEFT methods are natural tools for continual learning, since the frozen base model prevents catastrophic forgetting of pre-existing knowledge.
 - **Multi-task learning**: Methods like prompt tuning naturally support multi-task setups by learning different soft prompts for different tasks while sharing the same frozen backbone.
-
-## Diagrams and Visualizations
-
-*Recommended visual: Adapter bottleneck architecture showing small trainable modules inserted between frozen transformer layers — see [Houlsby et al. Adapter Paper (arXiv:1902.00751)](https://arxiv.org/abs/1902.00751)*
-
-*Recommended visual: Comparison of adapter, prefix tuning, prompt tuning, and LoRA showing where each injects trainable parameters — see [Hugging Face PEFT Documentation](https://huggingface.co/docs/peft/index)*
 
 ## Further Reading
 

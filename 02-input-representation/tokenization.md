@@ -8,15 +8,27 @@
 
 Imagine you're trying to teach someone a new language, but they can only learn by memorizing flashcards. Each flashcard has a chunk of text on one side and a number on the other. The question is: what should each flashcard contain? A single letter? A whole word? Something in between?
 
+![Comparison of tokenization strategies: character-level, word-level, and subword (BPE/WordPiece) showing the trade-offs between vocabulary size and sequence length](https://huggingface.co/datasets/huggingface-course/documentation-images/resolve/main/en/chapter6/tokenization_strategies.svg)
+*Source: [Hugging Face NLP Course – Chapter 6: Tokenizers](https://huggingface.co/learn/nlp-course/chapter6/1)*
+
+
 Tokenization is the answer to that question for language models. It's the translation layer between human-readable text and the numerical IDs that a model actually processes. When you type "Hello, world!" into ChatGPT, the model never sees those characters directly. Instead, a tokenizer breaks the text into pieces -- tokens -- and converts each piece into an integer. The model thinks entirely in these integers.
 
 This seemingly mundane preprocessing step is one of the most consequential design decisions in all of NLP. It determines how much text fits in a model's context window, how well the model handles different languages, why LLMs struggle with simple arithmetic, and how much each API call costs you.
 
 ## How It Works
 
+
+![Overview of the three main subword tokenization algorithms: BPE (bottom-up merging), WordPiece (likelihood-based merging), and Unigram (top-down pruning)](https://huggingface.co/datasets/huggingface-course/documentation-images/resolve/main/en/chapter6/bpe_subword.svg)
+*Source: [Hugging Face NLP Course – Subword Tokenization](https://huggingface.co/learn/nlp-course/chapter6/5)*
+
 ### Why Not Just Use Characters?
 
 The simplest approach would be to treat each character as a token. English has roughly 100 common characters (letters, digits, punctuation), so the vocabulary would be tiny. The problem: the sequence "understanding" becomes 13 tokens. A 4096-token context window would hold only about 4,000 characters -- roughly one page of text. The model would also need to learn spelling from scratch, wasting capacity on something trivially solved by other approaches.
+
+![BPE tokenization process showing how text is split into subword tokens of varying granularity](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/tokenizers/bpe_tokenization.png)
+*Source: [Hugging Face – Tokenizers Documentation](https://huggingface.co/docs/tokenizers/index)*
+
 
 ### Why Not Just Use Words?
 
@@ -38,6 +50,9 @@ The subword approach elegantly captures morphological structure: "un-" as a nega
 ### The Major Algorithms
 
 **Byte-Pair Encoding (BPE)**: Starts with individual characters (or bytes) and iteratively merges the most frequent adjacent pair. Used by GPT-2, GPT-3, GPT-4, LLaMA, and most modern LLMs. It is bottom-up and greedy.
+
+*See also the interactive tokenizer visualization at: [Tiktokenizer](https://tiktokenizer.vercel.app/) -- lets you compare how different models (GPT-4, LLaMA, etc.) tokenize the same input text.*
+
 
 **WordPiece**: Similar to BPE but selects merges based on maximizing the likelihood of the training data rather than raw frequency. The merge that most increases $\log P(\text{corpus})$ is chosen. Used by BERT and its variants.
 
@@ -78,16 +93,6 @@ Tokenization's impact is pervasive and often underappreciated:
 - **Context Window**: Tokenization efficiency directly determines how much text fits in the model's context.
 - **Special Tokens**: Tokenizers include special control tokens (BOS, EOS, PAD) that aren't derived from text.
 - **Positional Encoding**: Positions are assigned per-token, so tokenization granularity affects what "position" means.
-
-## Diagrams and Visualizations
-
-![Comparison of tokenization strategies: character-level, word-level, and subword (BPE/WordPiece) showing the trade-offs between vocabulary size and sequence length](https://huggingface.co/datasets/huggingface-course/documentation-images/resolve/main/en/chapter6/tokenization_strategies.svg)
-*Source: [Hugging Face NLP Course – Chapter 6: Tokenizers](https://huggingface.co/learn/nlp-course/chapter6/1)*
-
-![Overview of the three main subword tokenization algorithms: BPE (bottom-up merging), WordPiece (likelihood-based merging), and Unigram (top-down pruning)](https://huggingface.co/datasets/huggingface-course/documentation-images/resolve/main/en/chapter6/bpe_subword.svg)
-*Source: [Hugging Face NLP Course – Subword Tokenization](https://huggingface.co/learn/nlp-course/chapter6/5)*
-
-*See also the interactive tokenizer visualization at: [Tiktokenizer](https://tiktokenizer.vercel.app/) -- lets you compare how different models (GPT-4, LLaMA, etc.) tokenize the same input text.*
 
 ## Further Reading
 

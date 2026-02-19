@@ -8,9 +8,15 @@
 
 Running an LLM is not as simple as loading weights and calling a forward pass. A production serving system must handle dozens of concurrent users with different prompt lengths and generation requirements, keep GPUs maximally utilized, manage gigabytes of dynamically growing KV caches, and deliver tokens back to users as they are generated.
 
+*Recommended visual: vLLM architecture diagram showing PagedAttention, continuous batching, and request scheduling — see [vLLM Documentation](https://docs.vllm.ai/en/latest/)*
+
+
 Think of a restaurant kitchen. The chef (GPU) can cook any dish (process any request), but the restaurant needs a system for taking orders, managing the kitchen queue, ensuring ingredients (memory) are allocated efficiently, and delivering plates as they are ready -- not waiting until every table's order is complete. Model serving frameworks are this restaurant management system.
 
 ## How It Works
+
+
+*Recommended visual: Comparison of LLM serving frameworks (vLLM, TensorRT-LLM, SGLang) throughput benchmarks — see [vLLM Paper (arXiv:2309.06180)](https://arxiv.org/abs/2309.06180)*
 
 ### The Fundamental Challenge: Continuous Batching
 
@@ -131,12 +137,6 @@ The framework also determines:
 - **Flash Attention**: All major serving frameworks integrate Flash Attention as a foundational optimization. It is no longer optional.
 - **Throughput vs. Latency**: Serving frameworks provide the knobs (batch size, scheduling policy, prefill chunking) to navigate this trade-off.
 - **Speculative Decoding**: Framework support for speculative decoding is still maturing, with vLLM and TensorRT-LLM leading.
-
-## Diagrams and Visualizations
-
-*Recommended visual: vLLM architecture diagram showing PagedAttention, continuous batching, and request scheduling — see [vLLM Documentation](https://docs.vllm.ai/en/latest/)*
-
-*Recommended visual: Comparison of LLM serving frameworks (vLLM, TensorRT-LLM, SGLang) throughput benchmarks — see [vLLM Paper (arXiv:2309.06180)](https://arxiv.org/abs/2309.06180)*
 
 ## Further Reading
 

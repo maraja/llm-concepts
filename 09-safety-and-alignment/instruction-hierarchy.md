@@ -8,6 +8,9 @@
 
 Imagine a military chain of command. A general issues standing orders, a colonel provides mission-specific directives, and a sergeant relays immediate instructions to soldiers on the ground. If a captured enemy combatant tells a soldier to stand down, the soldier does not comply -- because the instruction violates the chain of command, regardless of how convincingly it is phrased. The soldier is trained to recognize the source authority of each instruction and act accordingly.
 
+*Recommended visual: Instruction hierarchy showing priority levels: system prompt > developer instructions > user input — see [OpenAI Instruction Hierarchy Paper (arXiv:2404.13208)](https://arxiv.org/abs/2404.13208)*
+
+
 The instruction hierarchy applies this same principle to language models. It establishes a strict priority ordering: **system-level instructions** (set by the model provider) take highest precedence, **developer-level instructions** (the system prompt from the application builder) come next, and **user-level instructions** (the end user's messages) have the lowest priority. When a user instruction conflicts with a developer or system instruction, the model is trained to refuse the user's request gracefully rather than comply.
 
 This architecture directly addresses the most persistent vulnerability in deployed LLM applications: prompt injection. Without an instruction hierarchy, a model treats all text in its context window with roughly equal authority. An attacker can embed instructions in user input (direct injection) or in tool outputs and retrieved documents (indirect injection) that override the intended behavior. The instruction hierarchy provides a principled, trainable defense by making the model aware of -- and responsive to -- the provenance and authority level of every instruction it processes.
@@ -120,10 +123,6 @@ When instructions conflict, the model follows the higher-priority source. When i
 - **Agentic AI Systems**: Tool use and multi-agent architectures create indirect injection surfaces that the hierarchy must cover.
 - **Constitutional AI**: Shares the principle of embedding behavioral constraints at training time rather than relying on runtime filtering.
 - **Red-Teaming**: Evaluating the hierarchy's robustness requires systematic adversarial testing across all priority levels.
-
-## Diagrams and Visualizations
-
-*Recommended visual: Instruction hierarchy showing priority levels: system prompt > developer instructions > user input — see [OpenAI Instruction Hierarchy Paper (arXiv:2404.13208)](https://arxiv.org/abs/2404.13208)*
 
 ## Further Reading
 

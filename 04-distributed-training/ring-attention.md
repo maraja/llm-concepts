@@ -8,6 +8,9 @@
 
 The context window is one of the most fundamental constraints of transformer models. Even with FlashAttention, a single GPU can only hold so many tokens before running out of memory. Doubling context length quadruples attention computation and doubles KV memory. At some point, no single device can handle the full sequence.
 
+*Recommended visual: Ring topology diagram showing KV blocks circulating between devices while each device computes attention with its local queries -- see [Liu et al., "Ring Attention with Blockwise Transformers for Near-Infinite Context" (2023)](https://arxiv.org/abs/2310.01889), Figure 1*
+
+
 Ring Attention solves this by distributing the sequence itself across devices. Imagine a group of people sitting in a circle, each holding a different chapter of a book. To understand the full book, each person reads their chapter while simultaneously passing their notes (key-value pairs) to the person on their left.
 
 As the notes circulate around the ring, each person computes attention between their chapter (queries) and each set of incoming notes. By the time the notes have traveled the full circle, everyone has attended to every chapter.
@@ -15,6 +18,9 @@ As the notes circulate around the ring, each person computes attention between t
 The critical trick: computation and communication happen simultaneously. While you compute attention with the current KV block, the next block is already in transit. Since attention computation (quadratic in block size) typically takes longer than data transfer (linear in block size), the communication is effectively free.
 
 ## How It Works
+
+
+*Recommended visual: Computation-communication overlap timeline showing how attention computation on the current KV block hides the transfer latency of the next block -- see [Liu et al., "Ring Attention" (2023)](https://arxiv.org/abs/2310.01889), Figure 2*
 
 ### Sequence Partitioning and Ring Topology
 
@@ -61,6 +67,9 @@ For causal models, tokens only attend to earlier tokens. Roughly half the attent
 
 The ring pattern applies to the backward pass as well. Gradients flow in the reverse direction around the ring, with the same computation-communication overlap. Each device computes local gradients with respect to its queries while circulating the KV blocks and their gradients.
 
+*Recommended visual: Striped attention token assignment pattern for causal masking load balance, contrasting block-contiguous vs interleaved partitioning -- see [Brandon et al., "Striped Attention" (2023)](https://arxiv.org/abs/2311.09431), Figure 1*
+
+
 ## Why It Matters
 
 1. **Near-unlimited context**: Scales context linearly with devices. 256 GPUs with 8K tokens each = 2M+ token context.
@@ -94,14 +103,6 @@ The ring pattern applies to the backward pass as well. Gradients flow in the rev
 - **Sequence parallelism**: Megatron-LM distributes activations across the sequence for non-attention ops. Ring Attention extends this to attention itself.
 - **Sliding window attention**: An alternative for long sequences via locality. Ring Attention preserves full global attention.
 - **Context window extension**: Ring Attention is a key enabler for extending context beyond single-device limits.
-
-## Diagrams and Visualizations
-
-*Recommended visual: Ring topology diagram showing KV blocks circulating between devices while each device computes attention with its local queries -- see [Liu et al., "Ring Attention with Blockwise Transformers for Near-Infinite Context" (2023)](https://arxiv.org/abs/2310.01889), Figure 1*
-
-*Recommended visual: Computation-communication overlap timeline showing how attention computation on the current KV block hides the transfer latency of the next block -- see [Liu et al., "Ring Attention" (2023)](https://arxiv.org/abs/2310.01889), Figure 2*
-
-*Recommended visual: Striped attention token assignment pattern for causal masking load balance, contrasting block-contiguous vs interleaved partitioning -- see [Brandon et al., "Striped Attention" (2023)](https://arxiv.org/abs/2311.09431), Figure 1*
 
 ## Further Reading
 

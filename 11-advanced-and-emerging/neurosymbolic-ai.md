@@ -8,11 +8,17 @@
 
 Imagine two types of thinkers. The first is a gifted storyteller who can discuss any topic fluently, make creative analogies, and handle ambiguity gracefully -- but sometimes confidently says things that are logically contradictory. The second is a mathematician who reasons with perfect precision and never makes logical errors -- but can only work with formally defined problems and breaks when faced with ambiguous natural language. Neurosymbolic AI is the attempt to create a third thinker that combines the storyteller's fluency with the mathematician's rigor.
 
+*Recommended visual: Neurosymbolic AI spectrum showing integration patterns from neural-dominant to symbolic-dominant — see [Kautz Neurosymbolic AI Survey](https://arxiv.org/abs/2305.00813)*
+
+
 Neural networks (including LLMs) excel at perception, language understanding, pattern recognition, and handling ambiguity. Symbolic systems (logic engines, knowledge graphs, formal verifiers, constraint solvers) excel at deduction, consistency checking, planning with guarantees, and providing interpretable reasoning chains. Each approach's strengths correspond to the other's weaknesses.
 
 Neurosymbolic AI bridges these two paradigms, creating systems where neural components handle the "soft" parts of reasoning (understanding intent, processing natural language, generating hypotheses) while symbolic components handle the "hard" parts (verifying logical consistency, enforcing constraints, producing provably correct derivations).
 
 ## How It Works
+
+
+*Recommended visual: LLM + symbolic solver pipeline showing natural language parsed to formal representation then solved — see [PAL: Program-aided Language Models (arXiv:2211.10435)](https://arxiv.org/abs/2211.10435)*
 
 ### The Fundamental Tension
 
@@ -157,12 +163,6 @@ The importance of neurosymbolic AI is driven by the reliability gap in pure neur
 - **RAG**: Retrieval-augmented generation is the simplest point on the neurosymbolic spectrum -- grounding neural generation in structured external knowledge.
 - **Tool Use**: Using formal tools (calculators, code interpreters, theorem provers) is a lightweight neurosymbolic pattern that most modern LLM systems already employ.
 - **Hallucination Mitigation**: Symbolic verification is one of the most principled approaches to detecting and preventing hallucination.
-
-## Diagrams and Visualizations
-
-*Recommended visual: Neurosymbolic AI spectrum showing integration patterns from neural-dominant to symbolic-dominant — see [Kautz Neurosymbolic AI Survey](https://arxiv.org/abs/2305.00813)*
-
-*Recommended visual: LLM + symbolic solver pipeline showing natural language parsed to formal representation then solved — see [PAL: Program-aided Language Models (arXiv:2211.10435)](https://arxiv.org/abs/2211.10435)*
 
 ## Further Reading
 

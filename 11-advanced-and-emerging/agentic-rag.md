@@ -8,6 +8,9 @@
 
 Standard RAG follows a fixed three-step pipeline: embed query, retrieve top-k documents, generate answer. This works well for simple factual questions where a single retrieval step returns sufficient context. But it breaks down on complex queries that require:
 
+*Recommended visual: Agentic RAG loop showing dynamic retrieval decisions, query reformulation, and iterative refinement — see [LangChain Agentic RAG Documentation](https://python.langchain.com/docs/tutorials/qa_chat_history/)*
+
+
 - **Multiple retrieval steps**: "Compare the environmental policies of the EU and China" requires at least two separate retrievals.
 - **Adaptive query formulation**: The initial query may not be the right search query. An agent might need to reformulate, decompose, or expand the query based on what it finds (or fails to find).
 - **Sufficiency judgment**: The agent needs to decide whether retrieved documents actually answer the question, or whether additional retrieval is needed.
@@ -17,6 +20,9 @@ Standard RAG follows a fixed three-step pipeline: embed query, retrieve top-k do
 Agentic RAG addresses all of these by wrapping the retrieval process in an agent loop. The LLM is not just the generator -- it is the orchestrator that plans, executes, and evaluates the entire retrieval process.
 
 ## How It Works
+
+
+*Recommended visual: Comparison of naive RAG pipeline vs agentic RAG with decision points — see [LlamaIndex Agentic RAG](https://docs.llamaindex.ai/en/stable/)*
 
 ### Core Architecture
 
@@ -136,12 +142,6 @@ Production deployments at companies building knowledge assistants, research tool
 - **HyDE**: An agentic RAG system might choose to use HyDE for certain types of queries where direct query embedding is likely to fail.
 - **Function calling**: The tool-calling interface of modern LLMs is the mechanism through which agentic RAG systems invoke retrieval and other tools.
 - **Compound AI systems**: Agentic RAG is a prime example of compound AI systems -- multiple components (LLM, retriever, evaluator, tools) working together.
-
-## Diagrams and Visualizations
-
-*Recommended visual: Agentic RAG loop showing dynamic retrieval decisions, query reformulation, and iterative refinement — see [LangChain Agentic RAG Documentation](https://python.langchain.com/docs/tutorials/qa_chat_history/)*
-
-*Recommended visual: Comparison of naive RAG pipeline vs agentic RAG with decision points — see [LlamaIndex Agentic RAG](https://docs.llamaindex.ai/en/stable/)*
 
 ## Further Reading
 

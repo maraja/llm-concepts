@@ -8,6 +8,9 @@
 
 Standard vector RAG excels at finding specific passages that are semantically similar to a query. Ask "What is the company's parental leave policy?" and vector search will find the relevant policy chunk. But ask "What are the main themes discussed across all board meeting transcripts this year?" and vector RAG fails completely. No single chunk contains the answer because the question requires synthesizing information scattered across the entire corpus. The query is *global* -- it asks about the dataset as a whole, not about a specific fact.
 
+*Recommended visual: GraphRAG pipeline: document → entities/relationships → knowledge graph → community detection → community summaries — see [Microsoft GraphRAG Paper (arXiv:2404.16130)](https://arxiv.org/abs/2404.16130)*
+
+
 GraphRAG, introduced by Edge, Trinh, Cheng, et al. at Microsoft Research (2024), solves this by building a structured knowledge graph from the document corpus and then using that graph's hierarchical community structure to answer both local (specific) and global (thematic) queries.
 
 The key insight is that a knowledge graph captures *relationships* between entities, not just the content of individual chunks. And by detecting communities of densely connected entities and pre-generating summaries of those communities, GraphRAG creates a multi-resolution map of the corpus that can answer questions at any level of abstraction.
@@ -15,6 +18,9 @@ The key insight is that a knowledge graph captures *relationships* between entit
 The paper's title captures the aspiration precisely: "From Local to Global: A Graph RAG Approach to Query-Focused Summarization."
 
 ## How It Works
+
+
+*Recommended visual: Local vs global search in GraphRAG showing entity-level retrieval vs community-summary-level retrieval — see [Microsoft GraphRAG GitHub](https://github.com/microsoft/graphrag)*
 
 ### The GraphRAG Indexing Pipeline (Offline)
 
@@ -179,12 +185,6 @@ The knowledge graph also provides a powerful foundation for explainability. Inst
 - **Agentic RAG**: An agentic system can dynamically choose between standard RAG and GraphRAG based on query complexity, routing simple queries through vector search and complex ones through graph-based retrieval.
 - **Compound AI systems**: GraphRAG is a prime example of a compound AI system -- multiple LLM calls, graph algorithms, and retrieval mechanisms orchestrated into a pipeline.
 - **Neurosymbolic AI**: GraphRAG combines neural capabilities (LLM extraction and generation) with symbolic structures (knowledge graphs), making it a form of neurosymbolic AI applied to retrieval.
-
-## Diagrams and Visualizations
-
-*Recommended visual: GraphRAG pipeline: document → entities/relationships → knowledge graph → community detection → community summaries — see [Microsoft GraphRAG Paper (arXiv:2404.16130)](https://arxiv.org/abs/2404.16130)*
-
-*Recommended visual: Local vs global search in GraphRAG showing entity-level retrieval vs community-summary-level retrieval — see [Microsoft GraphRAG GitHub](https://github.com/microsoft/graphrag)*
 
 ## Further Reading
 

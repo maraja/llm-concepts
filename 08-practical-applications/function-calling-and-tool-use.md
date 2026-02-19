@@ -8,11 +8,18 @@
 
 Imagine giving someone a phone and a directory of services. They cannot leave the room, but they can call any service, ask for information, and use the answers to help you. The person is the LLM, the phone is function calling, and the directory is the set of tool definitions you provide.
 
+![Tool use pattern showing LLM receiving a query, generating a structured function call, executing it, and incorporating results](https://lilianweng.github.io/posts/2023-06-23-agent/tool-use.png)
+*Source: [Lilian Weng – LLM Powered Autonomous Agents](https://lilianweng.github.io/posts/2023-06-23-agent/)*
+
+
 LLMs, by themselves, can only produce text. They cannot check today's weather, query a database, send an email, or perform calculations with guaranteed precision. Function calling bridges this gap by giving the model a formal way to say "I need to call this specific function with these specific arguments" and a mechanism for the application to execute that call and return the result.
 
 This capability was popularized by OpenAI's June 2023 function calling API, but the pattern has since become a standard feature across major model providers including Anthropic (tool use), Google (function calling in Gemini), and open-source models fine-tuned for tool use.
 
 ## How It Works
+
+
+*Recommended visual: Function calling flow showing JSON schema definition, LLM generating structured calls, and application executing them — see [OpenAI Function Calling Documentation](https://platform.openai.com/docs/guides/function-calling)*
 
 ### The Execution Loop
 
@@ -110,13 +117,6 @@ This is the foundation of the agent paradigm. Every AI agent -- from coding assi
 - **RAG** often uses function calling as its trigger mechanism: the model calls a `search` tool to retrieve documents.
 - **Prompt engineering** applies to tool descriptions and system prompts that guide tool selection behavior.
 - **Safety and alignment** become critical when tools can take real-world actions. The application layer must implement authorization, rate limiting, and human-in-the-loop approval for sensitive operations.
-
-## Diagrams and Visualizations
-
-![Tool use pattern showing LLM receiving a query, generating a structured function call, executing it, and incorporating results](https://lilianweng.github.io/posts/2023-06-23-agent/tool-use.png)
-*Source: [Lilian Weng – LLM Powered Autonomous Agents](https://lilianweng.github.io/posts/2023-06-23-agent/)*
-
-*Recommended visual: Function calling flow showing JSON schema definition, LLM generating structured calls, and application executing them — see [OpenAI Function Calling Documentation](https://platform.openai.com/docs/guides/function-calling)*
 
 ## Further Reading
 

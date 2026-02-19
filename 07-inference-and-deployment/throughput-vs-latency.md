@@ -8,9 +8,15 @@
 
 Imagine a highway. **Throughput** is the total number of cars that pass through per hour. **Latency** is how long it takes any single car to get from point A to point B. You can increase throughput by adding more cars (higher density), but at some point the highway becomes congested and every car slows down -- latency increases.
 
+*Recommended visual: Throughput vs latency trade-off curve showing how increasing batch size improves throughput but degrades per-request latency — see [Lilian Weng – Large Transformer Model Inference Optimization](https://lilianweng.github.io/posts/2023-01-10-inference-optimization/)*
+
+
 LLM serving faces exactly this tension. You can serve more users by packing more requests into each GPU batch, but each individual request takes longer because it shares GPU resources with others. Every production system must decide where on this spectrum to operate, and the right answer depends entirely on the application.
 
 ## How It Works
+
+
+*Recommended visual: Roofline model showing compute-bound (prefill) vs memory-bound (decode) regimes — see [Efficient LLM Inference Survey (arXiv:2404.14294)](https://arxiv.org/abs/2404.14294)*
 
 ### The Three Key Metrics
 
@@ -161,12 +167,6 @@ Getting this wrong means either overpaying for hardware (over-provisioned for la
 - **Quantization**: Reduces model memory, freeing space for larger KV caches and thus larger batches. Also reduces per-token latency via lower memory bandwidth requirements.
 - **Speculative Decoding**: A pure latency optimization that works best at low batch sizes, explicitly trading potential throughput for lower per-request latency.
 - **Model Serving Frameworks**: The framework's scheduling policy, batching strategy, and memory management directly implement the chosen position on the throughput-latency trade-off curve.
-
-## Diagrams and Visualizations
-
-*Recommended visual: Throughput vs latency trade-off curve showing how increasing batch size improves throughput but degrades per-request latency — see [Lilian Weng – Large Transformer Model Inference Optimization](https://lilianweng.github.io/posts/2023-01-10-inference-optimization/)*
-
-*Recommended visual: Roofline model showing compute-bound (prefill) vs memory-bound (decode) regimes — see [Efficient LLM Inference Survey (arXiv:2404.14294)](https://arxiv.org/abs/2404.14294)*
 
 ## Further Reading
 

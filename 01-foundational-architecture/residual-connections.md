@@ -8,6 +8,10 @@
 
 Imagine a river flowing through a landscape. Along its path, tributaries add water. The river does not stop and start at each tributary -- it flows continuously, with each tributary contributing incrementally. A residual connection works the same way: there is a main "stream" of information flowing through the model, and each layer (attention, FFN) adds its contribution to this stream rather than replacing it.
 
+![Residual connection (skip connection) in a Transformer layer showing the Add & Norm step where the layer's input is added to its output](https://jalammar.github.io/images/t/transformer_resideual_layer_norm_2.png)
+*Source: [Jay Alammar – The Illustrated Transformer](https://jalammar.github.io/illustrated-transformer/)*
+
+
 Mathematically, instead of computing $y = f(x)$ where $f$ is some layer, a residual connection computes:
 
 $$y = x + f(x)$$
@@ -15,6 +19,9 @@ $$y = x + f(x)$$
 The layer $f$ only needs to learn the **residual** -- the difference between the desired output and the input. Hence the name "residual connection." If a layer has nothing useful to contribute, it can learn weights close to zero, and $y \approx x$, meaning the input passes through unmodified. This is much easier than learning an identity mapping from scratch.
 
 ## How It Works
+
+
+*Recommended visual: Residual stream concept showing how information flows through the entire model via skip connections — see [Chris Olah's Transformer Circuits Thread](https://transformer-circuits.pub/2021/framework/index.html)*
 
 ### In a Transformer Block
 
@@ -96,13 +103,6 @@ This robustness is a direct consequence of the additive nature of residual conne
 - **Self-Attention / FFN**: These are the components that read from and write to the residual stream (see `self-attention.md`, `feed-forward-networks.md`).
 - **Mechanistic Interpretability**: The residual stream framework is central to understanding how Transformer circuits work.
 - **Mixture of Experts**: MoE layers also write additively to the residual stream, just through a selected subset of expert FFNs (see `mixture-of-experts.md`).
-
-## Diagrams and Visualizations
-
-![Residual connection (skip connection) in a Transformer layer showing the Add & Norm step where the layer's input is added to its output](https://jalammar.github.io/images/t/transformer_resideual_layer_norm_2.png)
-*Source: [Jay Alammar – The Illustrated Transformer](https://jalammar.github.io/illustrated-transformer/)*
-
-*Recommended visual: Residual stream concept showing how information flows through the entire model via skip connections — see [Chris Olah's Transformer Circuits Thread](https://transformer-circuits.pub/2021/framework/index.html)*
 
 ## Further Reading
 

@@ -8,11 +8,18 @@
 
 In standard data parallelism, every GPU holds a complete copy of everything: the model parameters, the gradients, and the optimizer states. This is enormously wasteful. If you have 64 GPUs, you are storing 64 identical copies of the optimizer states, 64 identical copies of the gradients, and 64 identical copies of the model parameters. The only thing that differs across GPUs is the data.
 
+![ZeRO Stages 1, 2, and 3 showing progressive sharding of optimizer states, gradients, and parameters](https://jalammar.github.io/images/model-parallelism/zero-deepspeed.png)
+*Source: [Jay Alammar - The Illustrated Model Parallelism](https://jalammar.github.io/model-parallelism/)*
+
+
 Imagine a library with 64 branches, each keeping a full copy of every book, every catalog card, and every librarian's reading notes. ZeRO's insight is: why not distribute the collection? Each branch keeps only 1/64th of the books, notes, and catalogs. When a patron needs a book held by another branch, it is quickly delivered, used, and returned. The total storage across the system is the same as a single branch, not 64 times that.
 
 **ZeRO** (Zero Redundancy Optimizer), developed by Microsoft Research for DeepSpeed, implements this in three progressive stages. **FSDP** (Fully Sharded Data Parallel), developed by Meta for PyTorch, brings the ZeRO Stage 3 concept natively into the PyTorch ecosystem.
 
 ## How It Works
+
+
+*Recommended visual: Memory consumption comparison across ZeRO stages showing the reduction from 16x redundancy to zero redundancy -- see [Rajbhandari et al., "ZeRO: Memory Optimizations Toward Training Trillion Parameter Models" (2020)](https://arxiv.org/abs/1910.02054), Figure 1*
 
 ### The Memory Problem
 
@@ -75,6 +82,9 @@ PyTorch's FSDP implements the ZeRO Stage 3 concept as a native PyTorch module wr
 
 ZeRO Stage 3 / FSDP requires more communication than standard DDP:
 
+*Recommended visual: FSDP all-gather and reduce-scatter communication pattern during forward and backward passes -- see [Lilian Weng - How to Train Really Large Models on Many GPUs](https://lilianweng.github.io/posts/2021-09-25-train-large/)*
+
+
 - **DDP**: One all-reduce per step = `2P` bytes transmitted per GPU
 - **ZeRO-3/FSDP**: All-gather (forward) + all-gather (backward) + reduce-scatter (backward) = `3P` bytes transmitted per GPU (approximately 1.5x DDP)
 
@@ -108,15 +118,6 @@ This democratization means that a team with 8 GPUs can now train models that pre
 - **Pipeline Parallelism**: Also complementary. In a 3D parallelism setup, FSDP can serve as the data-parallel component while pipeline and tensor parallelism handle the model-parallel dimensions.
 - **Mixed Precision Training**: Tightly integrated with ZeRO/FSDP. The distinction between fp16 compute copies and fp32 optimizer master copies is central to the memory accounting.
 - **Gradient Accumulation**: Often combined with FSDP to increase effective batch size without increasing per-micro-batch memory, allowing the all-gather communication to be amortized over more compute.
-
-## Diagrams and Visualizations
-
-![ZeRO Stages 1, 2, and 3 showing progressive sharding of optimizer states, gradients, and parameters](https://jalammar.github.io/images/model-parallelism/zero-deepspeed.png)
-*Source: [Jay Alammar - The Illustrated Model Parallelism](https://jalammar.github.io/model-parallelism/)*
-
-*Recommended visual: Memory consumption comparison across ZeRO stages showing the reduction from 16x redundancy to zero redundancy -- see [Rajbhandari et al., "ZeRO: Memory Optimizations Toward Training Trillion Parameter Models" (2020)](https://arxiv.org/abs/1910.02054), Figure 1*
-
-*Recommended visual: FSDP all-gather and reduce-scatter communication pattern during forward and backward passes -- see [Lilian Weng - How to Train Really Large Models on Many GPUs](https://lilianweng.github.io/posts/2021-09-25-train-large/)*
 
 ## Further Reading
 

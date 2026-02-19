@@ -8,11 +8,19 @@
 
 Imagine you're reading a script for a play. The words the actors speak are the content, but the script also contains stage directions: "ENTER Hamlet," "Exit, pursued by a bear," "End of Act III." These directions aren't part of the dialogue -- they're meta-information that controls the performance.
 
+![BERT input representation showing how token embeddings, segment embeddings, and position embeddings combine, with CLS and SEP special tokens marked](https://jalammar.github.io/images/bert-input-representation.png)
+*Source: [Jay Alammar – A Visual Guide to Using BERT](https://jalammar.github.io/a-visual-guide-to-using-bert-for-the-first-time/)*
+
+
 Special tokens serve the same role for language models. They are tokens that don't represent text content but instead carry instructions to the model about structure and behavior. When the model sees `<|endoftext|>`, it doesn't interpret that as English words -- it understands that the current text has ended. When it sees `<|im_start|>assistant`, it knows it should begin generating a response in the assistant's voice.
 
 These tokens are manually added to the vocabulary (not learned through BPE merges) and are given dedicated embedding vectors that are trained to encode their control functions. They are invisible to the end user in most interfaces but are essential to the functioning of every modern LLM.
 
 ## How It Works
+
+
+![Diagram of GPT-2 tokenization pipeline showing how text is split into tokens including special tokens like end-of-text, then converted to token IDs and embeddings](https://jalammar.github.io/images/gpt2/gpt2-token-embeddings-wte-2.png)
+*Source: [Jay Alammar – The Illustrated GPT-2](https://jalammar.github.io/illustrated-gpt2/)*
 
 ### The Core Special Tokens
 
@@ -79,6 +87,9 @@ The special tokens are provided as input context but are not prediction targets.
 
 Special tokens are added to the tokenizer with specific properties:
 
+*See also the Hugging Face documentation on chat templates and special tokens: [Hugging Face – Chat Templates](https://huggingface.co/docs/transformers/chat_templating) -- shows how different model families structure conversations with role-specific special tokens.*
+
+
 1. **They are never split by the tokenizer.** The string `<|endoftext|>` is always tokenized as a single token, never as `<`, `|`, `end`, `of`, `text`, `|`, `>`.
 2. **They have reserved IDs.** These are typically at the beginning or end of the vocabulary. LLaMA's `<s>` is token ID 1, `</s>` is token ID 2.
 3. **Their embeddings are trained.** Like regular tokens, special tokens have learned embedding vectors. The BOS embedding learns to represent "this is the start of a sequence," and the model's layers learn to use this signal.
@@ -117,16 +128,6 @@ Special tokens are the invisible control plane of LLMs. Their correct handling i
 - **Positional Encoding**: The BOS token typically occupies position 0, creating a fixed positional reference point.
 - **Context Window**: Special tokens consume positions in the context window. A complex chat template with many special tokens reduces the space available for actual content.
 - **Vocabulary Design**: Special tokens are a fixed overhead in the vocabulary. Models with many special tokens (e.g., for multilingual or multi-task use) dedicate vocabulary slots to these control signals.
-
-## Diagrams and Visualizations
-
-![BERT input representation showing how token embeddings, segment embeddings, and position embeddings combine, with CLS and SEP special tokens marked](https://jalammar.github.io/images/bert-input-representation.png)
-*Source: [Jay Alammar – A Visual Guide to Using BERT](https://jalammar.github.io/a-visual-guide-to-using-bert-for-the-first-time/)*
-
-![Diagram of GPT-2 tokenization pipeline showing how text is split into tokens including special tokens like end-of-text, then converted to token IDs and embeddings](https://jalammar.github.io/images/gpt2/gpt2-token-embeddings-wte-2.png)
-*Source: [Jay Alammar – The Illustrated GPT-2](https://jalammar.github.io/illustrated-gpt2/)*
-
-*See also the Hugging Face documentation on chat templates and special tokens: [Hugging Face – Chat Templates](https://huggingface.co/docs/transformers/chat_templating) -- shows how different model families structure conversations with role-specific special tokens.*
 
 ## Further Reading
 

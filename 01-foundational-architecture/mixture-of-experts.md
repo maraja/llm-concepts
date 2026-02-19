@@ -8,11 +8,19 @@
 
 Imagine a hospital where every patient sees every specialist -- cardiologist, neurologist, dermatologist, orthopedist -- regardless of their condition. That would be absurdly expensive and wasteful. Instead, a triage nurse (the **router**) evaluates each patient and sends them to the relevant 1-2 specialists (the **experts**). The hospital can employ 100 specialists but each patient only consumes the time of 2.
 
+![Mixture of Experts layer architecture showing a router/gating network that sends each token to a selected subset of expert feed-forward networks, with outputs weighted and combined](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/moe/00_switch_transformer.png)
+*Source: [Mixture of Experts Explained -- Hugging Face Blog](https://huggingface.co/blog/moe)*
+
+
 Mixture of Experts (MoE) applies this same logic to neural networks. Instead of one large feed-forward network (FFN) that processes every token, an MoE layer contains multiple FFNs (experts) and a **gating network** (router) that decides which experts each token should be sent to. Typically, only 1-2 experts are activated per token, so the computation cost remains similar to a dense model with a single FFN, while the total parameter count is multiplied by the number of experts.
 
 This is the principle of **conditional computation**: different parts of the network are activated for different inputs. Not every parameter participates in every forward pass.
 
 ## How It Works
+
+
+![Switch Transformer architecture diagram showing top-1 routing where each token is dispatched to a single expert, with the router producing a sparse gating distribution](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/moe/01_switch_transformer.png)
+*Source: [Mixture of Experts Explained -- Hugging Face Blog](https://huggingface.co/blog/moe)*
 
 ### The MoE Layer (Replacing the FFN)
 
@@ -61,6 +69,10 @@ For a model with $N = 8$ experts and $k = 2$ (top-2 routing):
 - The model has 8x the FFN parameters of a dense model.
 - Each token uses only 2x the FFN computation of a dense model (actually 2x the FFN compute, but the FFN is typically ~2/3 of total compute, so the overall increase is moderate).
 - Different tokens in the same sequence can be routed to different experts.
+
+![Comparison of dense Transformer FFN vs. MoE layer showing how the single FFN is replaced by N parallel expert FFNs with a learned gating mechanism selecting top-k experts per token](https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Sparse_MoE_with_Top-2_Gating.svg/800px-Sparse_MoE_with_Top-2_Gating.svg.png)
+*Source: [Mixture of Experts -- Wikipedia](https://en.wikipedia.org/wiki/Mixture_of_experts)*
+
 
 ## Why It Matters
 
@@ -133,17 +145,6 @@ where $f_i$ is the fraction of tokens routed to expert $i$ and $P_i$ is the aver
 - **Transformer Architecture**: MoE is a modification of the standard Transformer block, replacing one component (see `transformer-architecture.md`).
 - **Next-Token Prediction**: MoE models are trained with the same next-token prediction objective as dense models (see `next-token-prediction.md`).
 - **Logits and Softmax**: The router uses softmax to produce expert weights, similar in form to the output layer (see `logits-and-softmax.md`).
-
-## Diagrams and Visualizations
-
-![Mixture of Experts layer architecture showing a router/gating network that sends each token to a selected subset of expert feed-forward networks, with outputs weighted and combined](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/moe/00_switch_transformer.png)
-*Source: [Mixture of Experts Explained -- Hugging Face Blog](https://huggingface.co/blog/moe)*
-
-![Switch Transformer architecture diagram showing top-1 routing where each token is dispatched to a single expert, with the router producing a sparse gating distribution](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/moe/01_switch_transformer.png)
-*Source: [Mixture of Experts Explained -- Hugging Face Blog](https://huggingface.co/blog/moe)*
-
-![Comparison of dense Transformer FFN vs. MoE layer showing how the single FFN is replaced by N parallel expert FFNs with a learned gating mechanism selecting top-k experts per token](https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Sparse_MoE_with_Top-2_Gating.svg/800px-Sparse_MoE_with_Top-2_Gating.svg.png)
-*Source: [Mixture of Experts -- Wikipedia](https://en.wikipedia.org/wiki/Mixture_of_experts)*
 
 ## Further Reading
 

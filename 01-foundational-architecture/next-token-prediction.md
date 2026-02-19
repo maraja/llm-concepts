@@ -8,6 +8,10 @@
 
 At its core, an LLM is trained to do one thing: given a sequence of tokens, predict what comes next. That is the entire training objective. There is no explicit instruction to learn grammar, no labeled dataset of facts, no reasoning curriculum. Just: read this text, predict the next word. Repeat, billions of times.
 
+![Next token prediction showing the model receiving a sequence and outputting probability distributions over the vocabulary at each position](https://jalammar.github.io/images/gpt2/gpt2-output-scores-2.png)
+*Source: [Jay Alammar – The Illustrated GPT-2](https://jalammar.github.io/illustrated-gpt2/)*
+
+
 The profundity of this approach is in its simplicity. Imagine training a child by showing them the first $n-1$ words of millions of sentences and asking "What word comes next?" Over time, to get consistently good at this game, the child would need to learn:
 
 - **Grammar**: Knowing that "She are" is unlikely but "She is" is common.
@@ -19,6 +23,10 @@ The profundity of this approach is in its simplicity. Imagine training a child b
 All of these capabilities emerge implicitly from a single, simple objective.
 
 ## How It Works
+
+
+![Autoregressive language model training showing how the model learns to predict each token from its left context](https://jalammar.github.io/images/xlnet/output_training_7.png)
+*Source: [Jay Alammar – XLNet Illustrated](https://jalammar.github.io/illustrated-gpt2/)*
 
 ### The Training Objective
 
@@ -109,14 +117,6 @@ A subtlety: small improvements in cross-entropy loss can correspond to dramatic 
 - **Logits and Softmax**: The output layer that converts hidden states into next-token probability distributions (see `logits-and-softmax.md`).
 - **Encoder-Decoder Architecture**: Encoder-only models use masked LM instead of next-token prediction; a different training paradigm with different tradeoffs (see `encoder-decoder-architecture.md`).
 - **Feed-Forward Networks**: Where the factual knowledge needed for good next-token prediction is stored (see `feed-forward-networks.md`).
-
-## Diagrams and Visualizations
-
-![Next token prediction showing the model receiving a sequence and outputting probability distributions over the vocabulary at each position](https://jalammar.github.io/images/gpt2/gpt2-output-scores-2.png)
-*Source: [Jay Alammar – The Illustrated GPT-2](https://jalammar.github.io/illustrated-gpt2/)*
-
-![Autoregressive language model training showing how the model learns to predict each token from its left context](https://jalammar.github.io/images/xlnet/output_training_7.png)
-*Source: [Jay Alammar – XLNet Illustrated](https://jalammar.github.io/illustrated-gpt2/)*
 
 ## Further Reading
 

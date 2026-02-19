@@ -8,11 +8,18 @@
 
 Imagine you have a massive, expertly painted mural on a wall. You want to adapt it to a new theme, but repainting the entire mural is expensive and time-consuming. Instead, you place thin transparent overlays on top of the mural, each with small adjustments. The original mural stays untouched, and the overlays are lightweight enough to swap in and out.
 
+![LoRA architecture showing frozen pretrained weights W with trainable low-rank matrices A and B, where the update is W + BA](https://huggingface.co/datasets/trl-internal-testing/example-images/resolve/main/blog/stackllama/lora.png)
+*Source: [Hugging Face – LoRA](https://huggingface.co/blog/stackllama)*
+
+
 LoRA (Low-Rank Adaptation) works on exactly this principle. Instead of modifying all the billions of parameters in a pretrained language model during fine-tuning, LoRA freezes the original weight matrices and introduces small, trainable "overlay" matrices alongside them. These overlay matrices are deliberately structured to be low-rank, meaning they are compact decompositions that capture the essential adaptation needed without requiring a full-sized update matrix.
 
 The method was introduced by Hu et al. (2021) at Microsoft Research and has since become the dominant approach to parameter-efficient fine-tuning, used everywhere from Hugging Face's PEFT library to Apple's on-device model personalization.
 
 ## How It Works
+
+
+*Recommended visual: LoRA low-rank decomposition showing how a d×d weight update is factored into d×r and r×d matrices — see [LoRA Paper Figure 1 (arXiv:2106.09685)](https://arxiv.org/abs/2106.09685)*
 
 ### The Core Decomposition
 
@@ -98,13 +105,6 @@ LoRA has fundamentally changed the economics of model customization:
 - **Quantization**: LoRA is complementary to quantization -- the frozen base model can be quantized while the LoRA matrices remain in higher precision.
 - **Model merging**: LoRA adapters can be merged with the base model or with each other, connecting to the broader topic of model merging and task arithmetic.
 - **Serving infrastructure**: LoRA's small adapter size enables architectures like S-LoRA that batch requests across many different adapters efficiently.
-
-## Diagrams and Visualizations
-
-![LoRA architecture showing frozen pretrained weights W with trainable low-rank matrices A and B, where the update is W + BA](https://huggingface.co/datasets/trl-internal-testing/example-images/resolve/main/blog/stackllama/lora.png)
-*Source: [Hugging Face – LoRA](https://huggingface.co/blog/stackllama)*
-
-*Recommended visual: LoRA low-rank decomposition showing how a d×d weight update is factored into d×r and r×d matrices — see [LoRA Paper Figure 1 (arXiv:2106.09685)](https://arxiv.org/abs/2106.09685)*
 
 ## Further Reading
 

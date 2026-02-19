@@ -8,11 +8,19 @@
 
 Think of a language model as a judge scoring a talent competition with 50,000 contestants (tokens in the vocabulary). After processing the context, the model assigns each contestant a raw score -- these are the **logits**. Some scores are high (likely next tokens), most are low (unlikely tokens), and some may be negative (very unlikely tokens).
 
+![Language model output showing logits being converted through softmax into a probability distribution over the vocabulary](https://jalammar.github.io/images/gpt2/gpt2-output.png)
+*Source: [Jay Alammar – The Illustrated GPT-2](https://jalammar.github.io/illustrated-gpt2/)*
+
+
 But raw scores are not probabilities. A score of 5.2 does not tell you "this token has a 30% chance." To convert these raw scores into a proper probability distribution (non-negative values that sum to 1), we use the **softmax** function. After softmax, each token has a clear probability, and we can sample from this distribution to generate the next token.
 
 The word "logit" comes from the logistic function and statistics. In the context of neural networks, it simply means "the output before the final activation (softmax)."
 
 ## How It Works
+
+
+![Softmax function visualization showing how raw logits are transformed into a valid probability distribution](https://jalammar.github.io/images/t/transformer_decoder_output_softmax.png)
+*Source: [Jay Alammar – The Illustrated Transformer](https://jalammar.github.io/illustrated-transformer/)*
 
 ### Step 1: The Language Model Head
 
@@ -116,14 +124,6 @@ The log of the softmax output ($\log P(t_i)$) is the **log-probability** of a to
 - **Feed-Forward Networks**: The hidden state that becomes logits is the residual stream output, shaped heavily by FFN layers (see `feed-forward-networks.md`).
 - **Activation Functions**: Softmax is itself an activation function, applied at the final output layer (see `activation-functions.md`).
 - **Transformer Architecture**: The logits layer sits on top of the full Transformer stack (see `transformer-architecture.md`).
-
-## Diagrams and Visualizations
-
-![Language model output showing logits being converted through softmax into a probability distribution over the vocabulary](https://jalammar.github.io/images/gpt2/gpt2-output.png)
-*Source: [Jay Alammar – The Illustrated GPT-2](https://jalammar.github.io/illustrated-gpt2/)*
-
-![Softmax function visualization showing how raw logits are transformed into a valid probability distribution](https://jalammar.github.io/images/t/transformer_decoder_output_softmax.png)
-*Source: [Jay Alammar – The Illustrated Transformer](https://jalammar.github.io/illustrated-transformer/)*
 
 ## Further Reading
 

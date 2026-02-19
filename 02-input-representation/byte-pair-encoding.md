@@ -8,13 +8,24 @@
 
 Imagine you're inventing a shorthand system for writing. You start by looking at your notes and noticing that "th" appears together constantly. So you invent a single symbol for "th." Then you notice "the" appears often (now representable as your new "th" symbol plus "e"), so you merge those. You keep going, always combining the most frequent pair, until you have a shorthand vocabulary of a desired size.
 
+![Step-by-step illustration of the BPE merge process, showing how character pairs are iteratively combined into subword tokens based on frequency](https://huggingface.co/datasets/huggingface-course/documentation-images/resolve/main/en/chapter6/bpe_subword.svg)
+*Source: [Hugging Face NLP Course – Chapter 6: Tokenizers](https://huggingface.co/learn/nlp-course/chapter6/5)*
+
+
 That's BPE in a nutshell. Originally developed by Philip Gage in 1994 as a data compression technique, it was adapted for neural machine translation by Sennrich et al. in 2016 and has since become the dominant tokenization algorithm in modern LLMs. GPT-2, GPT-3, GPT-4, LLaMA, Mistral, and most leading models use BPE or close variants.
 
 ## How It Works
 
+
+![Visualization of BPE tokenization showing how words are split into subword units and how the vocabulary is built through iterative merging](https://huggingface.co/datasets/huggingface-course/documentation-images/resolve/main/en/chapter6/bpe-training-steps.svg)
+*Source: [Hugging Face NLP Course – BPE Training](https://huggingface.co/learn/nlp-course/chapter6/5)*
+
 ### Training the Tokenizer (Building the Vocabulary)
 
 BPE training is a straightforward iterative process. Let's walk through a concrete example.
+
+*See also the tokenization visualization at: [Tiktokenizer](https://tiktokenizer.vercel.app/) -- an interactive tool that shows how text is split into BPE tokens by different models' tokenizers.*
+
 
 **Step 0: Start with a corpus and initialize the vocabulary with individual characters.**
 
@@ -122,16 +133,6 @@ BPE is not just one algorithm among equals -- it is the foundation of tokenizati
 - **Token Embeddings**: Each BPE token ID maps to a row in the embedding matrix. The vocabulary BPE produces defines the dimensions of this matrix.
 - **Special Tokens**: BPE vocabularies are augmented with special tokens (BOS, EOS, etc.) that are added separately, not learned through the merge process.
 - **Context Window**: BPE's compression efficiency determines how many words of text fit within a model's fixed token-length context window.
-
-## Diagrams and Visualizations
-
-![Step-by-step illustration of the BPE merge process, showing how character pairs are iteratively combined into subword tokens based on frequency](https://huggingface.co/datasets/huggingface-course/documentation-images/resolve/main/en/chapter6/bpe_subword.svg)
-*Source: [Hugging Face NLP Course – Chapter 6: Tokenizers](https://huggingface.co/learn/nlp-course/chapter6/5)*
-
-![Visualization of BPE tokenization showing how words are split into subword units and how the vocabulary is built through iterative merging](https://huggingface.co/datasets/huggingface-course/documentation-images/resolve/main/en/chapter6/bpe-training-steps.svg)
-*Source: [Hugging Face NLP Course – BPE Training](https://huggingface.co/learn/nlp-course/chapter6/5)*
-
-*See also the tokenization visualization at: [Tiktokenizer](https://tiktokenizer.vercel.app/) -- an interactive tool that shows how text is split into BPE tokens by different models' tokenizers.*
 
 ## Further Reading
 

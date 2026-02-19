@@ -8,11 +8,17 @@
 
 Imagine two chess players. One plays speed chess -- glancing at the board and moving within seconds. The other studies the board for minutes, mentally simulating dozens of move sequences, evaluating positions, and backtracking from dead ends before committing to a move. Both know the same rules, but the deliberate player wins more often on complex positions. Reasoning models are the deliberate player: they invest significant inference-time compute to think through problems step-by-step before producing a final answer.
 
+*Recommended visual: OpenAI o1 performance scaling with inference-time compute on AIME and MATH benchmarks — see [OpenAI Learning to Reason](https://openai.com/index/learning-to-reason-with-llms/)*
+
+
 Traditional LLMs generate answers in a single forward pass or a short chain-of-thought, essentially "blurting out" the first plausible response. Reasoning models instead produce long internal reasoning chains -- sometimes thousands of tokens -- exploring multiple approaches, catching their own errors, backtracking from failed attempts, and verifying solutions before committing to a final response. This represents a fundamental paradigm shift from scaling training compute (bigger models, more data) to scaling inference compute (more thinking time per query). The bet is that a moderately-sized model that thinks carefully can outperform a much larger model that answers impulsively.
 
 The two landmark systems that defined this paradigm are OpenAI's o1 (September 2024) and DeepSeek's R1 (January 2025). OpenAI's approach keeps the reasoning chain hidden from users; DeepSeek's open-weight R1 exposes the full chain in `<think>` tags. Together, they demonstrate that inference-time scaling can yield performance jumps comparable to orders-of-magnitude increases in model size, fundamentally changing how we think about making LLMs smarter.
 
 ## How It Works
+
+
+*Recommended visual: DeepSeek-R1 four-stage training pipeline: R1-Zero → Cold-Start SFT → Large-Scale RL → Rejection Sampling + SFT — see [DeepSeek-R1 Paper (arXiv:2501.12948)](https://arxiv.org/abs/2501.12948)*
 
 ### OpenAI o1: Reinforcement Learning for Reasoning
 
@@ -110,12 +116,6 @@ This adaptive compute allocation is analogous to how humans spend more mental ef
 - **Scaling Laws**: Reasoning models introduce inference-time scaling as a complement to training-time scaling, adding a new dimension to the compute-performance tradeoff.
 - **Self-Reflection**: The self-verification behavior that emerges naturally in reasoning models is closely related to self-reflection, but occurs within a single generation rather than across separate trials.
 - **Distillation and Model Compression**: The R1 distillation results demonstrate that reasoning can be transferred from large teacher models to small student models, extending classical knowledge distillation techniques to emergent reasoning behaviors.
-
-## Diagrams and Visualizations
-
-*Recommended visual: OpenAI o1 performance scaling with inference-time compute on AIME and MATH benchmarks — see [OpenAI Learning to Reason](https://openai.com/index/learning-to-reason-with-llms/)*
-
-*Recommended visual: DeepSeek-R1 four-stage training pipeline: R1-Zero → Cold-Start SFT → Large-Scale RL → Rejection Sampling + SFT — see [DeepSeek-R1 Paper (arXiv:2501.12948)](https://arxiv.org/abs/2501.12948)*
 
 ## Further Reading
 

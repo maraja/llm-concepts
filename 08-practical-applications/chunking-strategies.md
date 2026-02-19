@@ -8,9 +8,15 @@
 
 Imagine you have a 300-page textbook and someone asks you a specific question. You would not hand them the entire book -- that is too much to process. You also would not rip out individual sentences -- most sentences are meaningless without surrounding context. Instead, you would find the most relevant section, perhaps a paragraph or two, that contains the answer and enough surrounding context to make sense.
 
+*Recommended visual: Comparison of fixed-size, recursive, sentence-level, and semantic chunking strategies showing chunk boundaries — see [Pinecone Chunking Strategies Guide](https://www.pinecone.io/learn/chunking-strategies/)*
+
+
 Chunking is this same decision, automated at scale. Before documents can be embedded and stored in a vector database, they must be split into pieces (chunks) that are small enough to be embedded meaningfully and retrieved precisely, but large enough to contain coherent, self-contained information. This seemingly simple task has an outsized impact on RAG quality: the best embedding model and the best LLM in the world cannot compensate for chunks that split a key fact across two pieces or bury a relevant sentence in a wall of irrelevant text.
 
 ## How It Works
+
+
+*Recommended visual: Impact of chunk size on retrieval quality showing the precision-recall trade-off — see [LangChain Documentation on Text Splitters](https://python.langchain.com/docs/concepts/text_splitters/)*
 
 ### Fixed-Size Chunking
 
@@ -131,12 +137,6 @@ Chunking is often the most impactful and least glamorous part of a RAG pipeline.
 - **Vector databases** store chunks and their embeddings; chunk count directly affects index size and cost.
 - **Prompt engineering** determines how retrieved chunks are presented to the generative model.
 - **Long-context models** change the calculus: larger context windows mean more chunks can be included, partially mitigating imperfect retrieval.
-
-## Diagrams and Visualizations
-
-*Recommended visual: Comparison of fixed-size, recursive, sentence-level, and semantic chunking strategies showing chunk boundaries — see [Pinecone Chunking Strategies Guide](https://www.pinecone.io/learn/chunking-strategies/)*
-
-*Recommended visual: Impact of chunk size on retrieval quality showing the precision-recall trade-off — see [LangChain Documentation on Text Splitters](https://python.langchain.com/docs/concepts/text_splitters/)*
 
 ## Further Reading
 

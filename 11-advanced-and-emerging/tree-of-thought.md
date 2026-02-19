@@ -8,6 +8,10 @@
 
 Imagine solving a complex puzzle. With chain-of-thought, you think step by step along a single path: "First I'll try this... then this... then this..." If you make a wrong turn three steps in, you are stuck -- you have committed to a path, and the remaining reasoning builds on a flawed foundation. You cannot go back.
 
+![Tree of Thought diagram showing branching reasoning paths with evaluation and backtracking](https://lilianweng.github.io/posts/2023-03-15-prompt-engineering/tree-of-thought.png)
+*Source: [Lilian Weng – Prompt Engineering](https://lilianweng.github.io/posts/2023-03-15-prompt-engineering/)*
+
+
 Now imagine solving the same puzzle with a pencil that has an eraser. At each step, you consider multiple options, tentatively explore each one, evaluate which looks most promising, and erase the unpromising paths. If a path leads to a dead end, you backtrack and try a different branch. This is Tree-of-Thought.
 
 Standard CoT produces a single linear reasoning chain. ToT produces a tree of reasoning chains, where each branch represents a different choice at a decision point. The system evaluates intermediate states to prune unpromising branches and allocates more exploration to promising ones. The final answer comes from the best path through the tree, not from a single committed chain.
@@ -15,6 +19,9 @@ Standard CoT produces a single linear reasoning chain. ToT produces a tree of re
 This transforms the reasoning problem from "generate one good chain" (which requires getting every step right on the first try) to "search for a good chain" (which tolerates mistakes as long as they are detected and corrected).
 
 ## How It Works
+
+
+*Recommended visual: Comparison of Chain-of-Thought (linear), Self-Consistency (parallel), and Tree-of-Thought (branching) — see [Yao et al. ToT Paper (arXiv:2305.10601)](https://arxiv.org/abs/2305.10601)*
 
 ### The Framework
 
@@ -136,13 +143,6 @@ ToT represents a paradigm shift in how we think about LLM problem-solving:
 - **Reasoning Models (o1, o3)**: OpenAI's reasoning models likely use ToT-like internal search processes (the details are proprietary). The reasoning traces that o1/o3 produce suggest exploration of multiple paths with evaluation and selection.
 - **Self-Consistency**: A simplified version of ToT that generates multiple independent chains and votes on the final answer, without intermediate evaluation or backtracking.
 - **Compound AI Systems**: ToT is a compound system pattern -- multiple LLM calls coordinated by a search algorithm to achieve better results than a single call.
-
-## Diagrams and Visualizations
-
-![Tree of Thought diagram showing branching reasoning paths with evaluation and backtracking](https://lilianweng.github.io/posts/2023-03-15-prompt-engineering/tree-of-thought.png)
-*Source: [Lilian Weng – Prompt Engineering](https://lilianweng.github.io/posts/2023-03-15-prompt-engineering/)*
-
-*Recommended visual: Comparison of Chain-of-Thought (linear), Self-Consistency (parallel), and Tree-of-Thought (branching) — see [Yao et al. ToT Paper (arXiv:2305.10601)](https://arxiv.org/abs/2305.10601)*
 
 ## Further Reading
 

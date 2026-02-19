@@ -8,9 +8,16 @@
 
 Imagine building a skyscraper. You need three kinds of organization simultaneously: (1) within each floor, specialized teams handle different sections of the same floor plan in parallel (this is tensor parallelism -- splitting work within a single layer); (2) different floors are assigned to different construction crews who pass materials up the building sequentially (this is pipeline parallelism -- splitting consecutive layers); (3) you build multiple identical buildings at once to house more people (this is data parallelism -- processing different data through identical model replicas).
 
+![3D parallelism topology mapping data, tensor, and pipeline parallelism to hardware hierarchy](https://jalammar.github.io/images/model-parallelism/3d-parallelism-megatron.png)
+*Source: [Jay Alammar - The Illustrated Model Parallelism](https://jalammar.github.io/model-parallelism/)*
+
+
 No single strategy alone can handle the scale of training frontier language models. A model with 175 billion to over a trillion parameters, trained on trillions of tokens across thousands of GPUs for months, requires the orchestrated combination of all three parallelism dimensions. 3D parallelism is the engineering framework that makes this possible.
 
 ## How It Works
+
+
+*Recommended visual: Diagram showing how D x T x P GPUs are organized with tensor parallelism within nodes, pipeline parallelism across nodes, and data parallelism across replicas -- see [Megatron-LM paper (Narayanan et al., 2021)](https://arxiv.org/abs/2104.04473), Figure 3*
 
 ### The Three Dimensions
 
@@ -91,6 +98,9 @@ With 3D+ parallelism, the training loop becomes a carefully orchestrated dance:
 
 Training frontier models demands extraordinary infrastructure:
 
+*Recommended visual: PTD-P (Pipeline, Tensor, Data Parallelism) schedule showing micro-batch interleaving across pipeline stages with tensor-parallel groups -- see [Lilian Weng's blog post on Large Transformer Model Training](https://lilianweng.github.io/posts/2021-09-25-train-large/)*
+
+
 - **GPU count**: 2,000-16,000+ GPUs (H100 or newer)
 - **Interconnect**: Multi-rail InfiniBand (400-3200 Gbps per node) or proprietary interconnects (Google TPU pods, NVLink Switch)
 - **Training duration**: 3-6 months continuous operation
@@ -128,15 +138,6 @@ The choice of parallelism configuration directly impacts training throughput (an
 - **Mixed Precision Training**: Universal at scale. FP16/BF16 computation with FP32 master weights reduces both memory and communication volume.
 - **MoE (Mixture of Experts)**: Adds the expert parallelism dimension, enabling models with trillions of parameters while keeping per-token compute manageable.
 - **Flash Attention**: Reduces activation memory for the attention mechanism, complementing parallelism strategies by lowering the per-GPU memory floor.
-
-## Diagrams and Visualizations
-
-![3D parallelism topology mapping data, tensor, and pipeline parallelism to hardware hierarchy](https://jalammar.github.io/images/model-parallelism/3d-parallelism-megatron.png)
-*Source: [Jay Alammar - The Illustrated Model Parallelism](https://jalammar.github.io/model-parallelism/)*
-
-*Recommended visual: Diagram showing how D x T x P GPUs are organized with tensor parallelism within nodes, pipeline parallelism across nodes, and data parallelism across replicas -- see [Megatron-LM paper (Narayanan et al., 2021)](https://arxiv.org/abs/2104.04473), Figure 3*
-
-*Recommended visual: PTD-P (Pipeline, Tensor, Data Parallelism) schedule showing micro-batch interleaving across pipeline stages with tensor-parallel groups -- see [Lilian Weng's blog post on Large Transformer Model Training](https://lilianweng.github.io/posts/2021-09-25-train-large/)*
 
 ## Further Reading
 

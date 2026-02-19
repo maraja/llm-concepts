@@ -8,11 +8,19 @@
 
 Think of reading a book through a small window cut in a piece of cardboard. You can slide the window over the page and see whatever text is currently visible, but you cannot see the whole page at once. The size of that window determines how much context you have for understanding any given word.
 
+![The "Lost in the Middle" U-shaped curve showing how LLM accuracy varies depending on where relevant information is placed within the context window](https://github.com/nelson-liu/lost-in-the-middle/raw/main/lost-in-the-middle.png)
+*Source: [Nelson Liu – Lost in the Middle GitHub Repository](https://github.com/nelson-liu/lost-in-the-middle)*
+
+
 A transformer's context window works similarly. When you send a prompt to GPT-4, the model can only "see" a certain number of tokens at once. If your conversation plus the model's response exceeds that limit, older content must be dropped or summarized. The context window is the hard upper bound on how much information the model can jointly reason about in a single computation.
 
 This is not merely a technical limitation -- it fundamentally shapes what LLMs can and cannot do. A model with a 4K context window literally cannot read a 10,000-word document in one pass. A model with 128K context can, but may not use it all equally well.
 
 ## How It Works
+
+
+![Illustration of the self-attention mechanism showing quadratic scaling of computation with sequence length, the fundamental constraint on context window size](https://jalammar.github.io/images/t/transformer_self-attention_visualization.png)
+*Source: [Jay Alammar – The Illustrated Transformer](https://jalammar.github.io/illustrated-transformer/)*
 
 ### What Determines Context Length
 
@@ -69,6 +77,9 @@ This means the **effective context** -- the portion of the window the model reli
 
 These are different concepts:
 
+*See also the Needle-in-a-Haystack evaluation visualizations at: [Greg Kamradt's NIAH Testing](https://github.com/gkamradt/LLMTest_NeedleInAHaystack) -- heatmaps showing model retrieval accuracy across different context depths and positions.*
+
+
 - **Nominal context length**: The maximum number of tokens the model can accept as input (e.g., 128K for GPT-4 Turbo).
 - **Effective context length**: The range within which the model reliably attends to and uses information. This is measured by "needle-in-a-haystack" tests, where a specific fact is hidden at various positions in a long document and the model is queried about it.
 
@@ -107,16 +118,6 @@ The context window is one of the most practically important properties of an LLM
 - **Token Embeddings**: Each position in the context window is occupied by an embedding vector; the full context is a matrix of these vectors.
 - **Special Tokens**: The BOS token anchors position 0, and the EOS token signals the end of useful context.
 - **Self-Attention**: The quadratic cost of attention with respect to sequence length is the fundamental computational constraint on context window size.
-
-## Diagrams and Visualizations
-
-![The "Lost in the Middle" U-shaped curve showing how LLM accuracy varies depending on where relevant information is placed within the context window](https://github.com/nelson-liu/lost-in-the-middle/raw/main/lost-in-the-middle.png)
-*Source: [Nelson Liu – Lost in the Middle GitHub Repository](https://github.com/nelson-liu/lost-in-the-middle)*
-
-![Illustration of the self-attention mechanism showing quadratic scaling of computation with sequence length, the fundamental constraint on context window size](https://jalammar.github.io/images/t/transformer_self-attention_visualization.png)
-*Source: [Jay Alammar – The Illustrated Transformer](https://jalammar.github.io/illustrated-transformer/)*
-
-*See also the Needle-in-a-Haystack evaluation visualizations at: [Greg Kamradt's NIAH Testing](https://github.com/gkamradt/LLMTest_NeedleInAHaystack) -- heatmaps showing model retrieval accuracy across different context depths and positions.*
 
 ## Further Reading
 

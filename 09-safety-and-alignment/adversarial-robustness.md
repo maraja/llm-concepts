@@ -8,6 +8,9 @@
 
 In computer vision, adversarial robustness is well-studied: imperceptible pixel perturbations can cause a classifier to misidentify a stop sign as a speed limit sign. The analogous problem for LLMs is: can carefully crafted input text cause a safety-trained model to produce harmful outputs it was trained to refuse?
 
+*Recommended visual: GCG adversarial suffix optimization showing gradient-based token search on source model with transfer to target — see [Zou et al. GCG Paper (arXiv:2307.15043)](https://arxiv.org/abs/2307.15043)*
+
+
 The answer, demonstrated convincingly since 2023, is a resounding yes. But the LLM setting introduces unique challenges that make it both harder to attack and harder to defend than image classifiers:
 
 - **Discrete input space**: Text is composed of discrete tokens, not continuous pixels. You cannot apply infinitesimal perturbations. Every change involves swapping one token for another, making gradient-based optimization more difficult (requiring approximations like the Gumbel-Softmax trick or greedy coordinate search).
@@ -17,6 +20,9 @@ The answer, demonstrated convincingly since 2023, is a resounding yes. But the L
 The field has evolved rapidly from manual jailbreak discovery (2022-2023) to fully automated, gradient-optimized attacks (2023-present), driving a corresponding evolution in defenses.
 
 ## How It Works
+
+
+*Recommended visual: Taxonomy of LLM attacks: gradient-based (GCG), semantic (AutoDAN), black-box (PAIR), many-shot — see [HarmBench Paper (arXiv:2402.04249)](https://arxiv.org/abs/2402.04249)*
 
 ### Attack Methods
 
@@ -224,12 +230,6 @@ Adversarial attacks are the technical toolkit for red teaming. Organizations use
 - **Guardrails and Content Filtering**: External defense layers that complement model-level robustness. Guardrails catch attacks that bypass model-level defenses; robustness reduces the load on guardrails.
 - **Benchmark Contamination**: Just as contamination undermines benchmark evaluation, adversarial vulnerability undermines safety evaluation. A model that appears safe on standard tests may fail catastrophically on adversarial inputs.
 - **Machine Unlearning**: Where adversarial robustness asks "can we prevent the model from producing harmful output?", unlearning asks "can we remove the harmful knowledge entirely?" They are complementary approaches with different threat models.
-
-## Diagrams and Visualizations
-
-*Recommended visual: GCG adversarial suffix optimization showing gradient-based token search on source model with transfer to target — see [Zou et al. GCG Paper (arXiv:2307.15043)](https://arxiv.org/abs/2307.15043)*
-
-*Recommended visual: Taxonomy of LLM attacks: gradient-based (GCG), semantic (AutoDAN), black-box (PAIR), many-shot — see [HarmBench Paper (arXiv:2402.04249)](https://arxiv.org/abs/2402.04249)*
 
 ## Further Reading
 

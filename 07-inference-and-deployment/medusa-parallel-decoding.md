@@ -8,11 +8,19 @@
 
 Imagine an octopus writing with multiple arms simultaneously, each arm drafting the next few words in parallel rather than one word at a time. That is essentially what Medusa does to autoregressive language model inference. Standard LLM decoding generates one token per forward pass, leaving most of the GPU's compute capacity underutilized during the memory-bound decode phase. Medusa breaks this bottleneck by predicting several future tokens at once.
 
+![Medusa architecture diagram showing multiple prediction heads attached to the base model's final hidden state for parallel token generation](https://raw.githubusercontent.com/FasterDecoding/Medusa/main/assets/medusa_logo.png)
+*See detailed architecture and tree verification diagrams at: [Medusa GitHub Repository](https://github.com/FasterDecoding/Medusa)*
+
+
 Medusa augments a pre-trained transformer with K additional prediction heads -- small MLP networks that share the same hidden state produced by the base model's final layer. While the original language model head predicts the next token at position t+1, Medusa head k predicts the token at position t+k+1. All heads operate in parallel on the same hidden representation, so the additional compute cost per forward pass is minimal. The candidates from these heads are then organized into a tree structure and verified in a single forward pass using a specially crafted attention mask.
 
 This approach sits in the broader family of parallel decoding methods alongside speculative decoding, but with a critical architectural difference: there is no separate draft model. Everything lives within a single model, sharing a single KV cache, which eliminates the engineering complexity of managing two models and avoids vocabulary mismatch issues entirely. This simplicity is what makes Medusa particularly attractive for production deployments where operational complexity is a real concern.
 
 ## How It Works
+
+
+![Tree-structured verification diagram showing how candidate tokens from Medusa heads form a tree verified in a single forward pass](https://cai-tianle.github.io/medusa-site/assets/overview.png)
+*See diagram at: [Medusa Project Page](https://sites.google.com/view/medusa-llm)*
 
 ### Multi-Head Architecture
 
@@ -66,6 +74,9 @@ The key architectural difference is that EAGLE's draft head takes as input both 
 
 When deploying Medusa in production, several practical factors affect real-world speedup. Batch size is critical: Medusa provides the most benefit at batch size 1 (single-request latency optimization) and diminishing benefit at large batch sizes where the system becomes compute-bound rather than memory-bound. The tree topology can be tuned per deployment -- a deeper tree works better for predictable text (code, structured data), while a wider, shallower tree suits open-ended generation. Medusa heads must be trained on data that matches the deployment domain: heads trained on general text will underperform on specialized domains like medical or legal text.
 
+*See EAGLE feature-level autoregression diagram at: [EAGLE GitHub Repository](https://github.com/SafeAILab/EAGLE)*
+
+
 ## Why It Matters
 
 1. **Inference speedup without quality loss**: Medusa-2 achieves 2.3-3.6x faster generation while provably preserving the base model's output distribution through rejection sampling.
@@ -110,16 +121,6 @@ When deploying Medusa in production, several practical factors affect real-world
 - **Quantization**: Medusa heads can be applied on top of quantized base models, combining memory savings from quantization with latency savings from parallel decoding.
 - **Lookahead Decoding**: Another parallel decoding method that uses Jacobi iteration to generate and verify multiple tokens, providing a training-free alternative to Medusa's learned heads.
 - **Continuous Batching**: In serving systems with continuous batching, Medusa's per-request speedup translates into higher overall throughput by reducing the time each request occupies a batch slot.
-
-## Diagrams and Visualizations
-
-![Medusa architecture diagram showing multiple prediction heads attached to the base model's final hidden state for parallel token generation](https://raw.githubusercontent.com/FasterDecoding/Medusa/main/assets/medusa_logo.png)
-*See detailed architecture and tree verification diagrams at: [Medusa GitHub Repository](https://github.com/FasterDecoding/Medusa)*
-
-![Tree-structured verification diagram showing how candidate tokens from Medusa heads form a tree verified in a single forward pass](https://cai-tianle.github.io/medusa-site/assets/overview.png)
-*See diagram at: [Medusa Project Page](https://sites.google.com/view/medusa-llm)*
-
-*See EAGLE feature-level autoregression diagram at: [EAGLE GitHub Repository](https://github.com/SafeAILab/EAGLE)*
 
 ## Further Reading
 

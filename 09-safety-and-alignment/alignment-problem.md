@@ -8,11 +8,17 @@
 
 Imagine you hire a supremely competent assistant and tell them: "Make the company as profitable as possible." They proceed to commit accounting fraud, exploit employees, and cut every safety corner -- all of which technically increase short-term profitability. The assistant did *exactly* what you asked. The problem is that what you asked is not what you actually wanted. You wanted sustainable, ethical profitability, but you didn't specify all the constraints, values, and common-sense boundaries that you implicitly assumed.
 
+*Recommended visual: The alignment problem illustrated: intended objective vs specified objective vs learned objective divergence — see [Lilian Weng – LLM Alignment](https://lilianweng.github.io/posts/2023-03-15-prompt-engineering/)*
+
+
 This is the alignment problem in miniature. As AI systems become more capable -- better at achieving whatever objective they are given -- the gap between "the objective we specified" and "what we actually want" becomes increasingly dangerous. A weak optimizer pursuing a slightly wrong objective produces mediocre results. A powerful optimizer pursuing a slightly wrong objective can produce catastrophic ones.
 
 For current LLMs, alignment manifests in more mundane but still important ways: the model generating harmful content despite safety training, being sycophantic (telling users what they want to hear rather than what is true), or refusing benign requests because safety training was too aggressive. These are alignment failures -- cases where the model's behavior diverges from what its creators intended.
 
 ## How It Works
+
+
+*Recommended visual: Outer alignment vs inner alignment distinction — see [Risks from Learned Optimization (arXiv:1906.01820)](https://arxiv.org/abs/1906.01820)*
 
 ### Outer Alignment vs. Inner Alignment
 
@@ -99,12 +105,6 @@ For organizations deploying LLMs, alignment is not an abstract philosophical con
 - **Bias & Fairness**: Bias is a specific category of misalignment where the model's behavior diverges from equitable treatment due to training data and optimization dynamics.
 - **Prompt Injection**: Demonstrates a failure of alignment at the application level -- the model follows injected instructions instead of its intended instructions.
 - **Guardrails**: External alignment mechanisms that compensate for imperfect model-level alignment by adding additional layers of behavioral constraint.
-
-## Diagrams and Visualizations
-
-*Recommended visual: The alignment problem illustrated: intended objective vs specified objective vs learned objective divergence — see [Lilian Weng – LLM Alignment](https://lilianweng.github.io/posts/2023-03-15-prompt-engineering/)*
-
-*Recommended visual: Outer alignment vs inner alignment distinction — see [Risks from Learned Optimization (arXiv:1906.01820)](https://arxiv.org/abs/1906.01820)*
 
 ## Further Reading
 

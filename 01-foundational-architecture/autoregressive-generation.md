@@ -8,6 +8,10 @@
 
 The term "autoregressive" means "self-feeding" -- the model's own outputs become its future inputs. Imagine a storyteller who writes one word, reads back everything written so far (including the new word), then writes the next word. This continues until the story is complete.
 
+![Autoregressive generation process showing the two phases: prefill (processing the full prompt in parallel) and decode (generating tokens one at a time with the KV cache growing at each step)](https://jalammar.github.io/images/gpt2/gpt2-output.png)
+*Source: [The Illustrated GPT-2 -- Jay Alammar](https://jalammar.github.io/illustrated-gpt2/)*
+
+
 More formally, the model factors the probability of a sequence as a product of conditional probabilities:
 
 $$P(t_1, t_2, \ldots, t_n) = \prod_{i=1}^{n} P(t_i \mid t_1, t_2, \ldots, t_{i-1})$$
@@ -16,9 +20,17 @@ At each step, the model computes a probability distribution over the entire voca
 
 ## How It Works
 
+
+![GPT-2 generating text token by token, showing how each newly generated token is fed back as input and the model produces a probability distribution over the vocabulary at each step](https://jalammar.github.io/images/xlnet/gpt-2-autoregression-2.gif)
+*Source: [The Illustrated GPT-2 -- Jay Alammar](https://jalammar.github.io/illustrated-gpt2/)*
+
 ### The Two Phases: Prefill and Decode
 
 Modern LLM inference has two distinct computational phases:
+
+![GPT-2 autoregressive generation showing each new token being fed back as input for predicting the next token](https://jalammar.github.io/images/gpt2/gpt2-autoregression-2.gif)
+*Source: [Jay Alammar – The Illustrated GPT-2](https://jalammar.github.io/illustrated-gpt2/)*
+
 
 #### Phase 1: Prefill (Processing the Prompt)
 
@@ -117,14 +129,6 @@ For interactive applications (chatbots, coding assistants), the sequential natur
 - **Logits and Softmax**: The output layer that produces the probability distribution at each generation step (see `logits-and-softmax.md`).
 - **Multi-Head Attention (MQA/GQA)**: Variants designed to reduce KV cache size for more efficient generation (see `multi-head-attention.md`).
 - **Transformer Architecture**: The underlying model that performs each generation step (see `transformer-architecture.md`).
-
-## Diagrams and Visualizations
-
-![Autoregressive generation process showing the two phases: prefill (processing the full prompt in parallel) and decode (generating tokens one at a time with the KV cache growing at each step)](https://jalammar.github.io/images/gpt2/gpt2-output.png)
-*Source: [The Illustrated GPT-2 -- Jay Alammar](https://jalammar.github.io/illustrated-gpt2/)*
-
-![GPT-2 generating text token by token, showing how each newly generated token is fed back as input and the model produces a probability distribution over the vocabulary at each step](https://jalammar.github.io/images/xlnet/gpt-2-autoregression-2.gif)
-*Source: [The Illustrated GPT-2 -- Jay Alammar](https://jalammar.github.io/illustrated-gpt2/)*
 
 ## Further Reading
 

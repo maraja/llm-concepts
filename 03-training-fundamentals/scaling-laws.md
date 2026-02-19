@@ -8,9 +8,16 @@
 
 Imagine you are planning to build the world's tallest skyscraper. Before committing billions of dollars, you build a series of smaller buildings -- 5 stories, 10 stories, 50 stories -- and carefully measure how construction cost, stability, and usable space scale with height. You discover that these relationships follow clean, predictable mathematical curves. Using these curves, you can forecast the cost and characteristics of a 200-story building without building it first.
 
+![Log-log plot of language model loss vs. compute (FLOPs) showing the smooth power-law relationship, where performance improves as a straight line on the log-log scale across many orders of magnitude](https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/Scaling_laws_-_loss_vs_compute.svg/1200px-Scaling_laws_-_loss_vs_compute.svg.png)
+*Source: [Wikimedia Commons -- Scaling Laws for Neural Language Models](https://commons.wikimedia.org/wiki/File:Scaling_laws_-_loss_vs_compute.svg)*
+
+
 Scaling laws for LLMs work the same way. By training a series of small, medium, and large models and plotting their performance, researchers discovered that **loss decreases as a smooth power law** with respect to three variables: the number of model parameters ($N$), the amount of training data ($D$), and the total training compute ($C$). These relationships are remarkably consistent across orders of magnitude, allowing teams to make informed decisions about how to allocate billion-dollar compute budgets.
 
 ## How It Works
+
+
+*See the Chinchilla compute-optimal frontier in: [Hoffmann et al., "Training Compute-Optimal Large Language Models" (arXiv:2203.15556)](https://arxiv.org/abs/2203.15556), Figure 1, which plots loss isocontours as a function of model size and token count, showing the optimal allocation curve where parameters and data should scale equally.*
 
 ### The Kaplan et al. Power Laws (2020)
 
@@ -69,6 +76,9 @@ The implication was explosive: **most existing models were significantly undertr
 
 The total training compute (in FLOPs) is approximately:
 
+*Recommended visual: Power law scaling curves showing test loss decreasing predictably with compute, data, and parameters — see [Kaplan et al. Scaling Laws Paper (arXiv:2001.08361)](https://arxiv.org/abs/2001.08361)*
+
+
 $$C \approx 6 \times N \times D$$
 
 where the factor of 6 accounts for the forward pass (2 multiplications per parameter per token) and backward pass (approximately 4 multiplications). Given a fixed compute budget $C$, the Chinchilla-optimal allocation is:
@@ -80,6 +90,9 @@ Both scale equally with compute -- a dramatic shift from the Kaplan recommendati
 ### Beyond Chinchilla: The Over-Training Regime
 
 In practice, many production models are deliberately trained **beyond the Chinchilla-optimal** token count. This is because:
+
+*See also the original Kaplan scaling law figures at: [Kaplan et al., "Scaling Laws for Neural Language Models" (arXiv:2001.08361)](https://arxiv.org/abs/2001.08361), Figures 1-3, which show the separate power-law relationships between loss and model parameters, dataset size, and total compute.*
+
 
 1. **Inference cost matters**: A smaller model trained on more data (e.g., LLaMA 7B on 1T+ tokens) is cheaper to deploy than a compute-optimal larger model, even if the training run is "compute-inefficient."
 2. **Data is cheaper than GPUs**: Training a 7B model on 2T tokens uses more FLOPs than Chinchilla suggests, but the marginal cost of additional data processing is small compared to using 10x more GPUs for a larger model.
@@ -123,15 +136,6 @@ The billion-dollar decisions in AI -- how many GPUs to buy, what size model to t
 - **Mixed Precision Training**: Enables the compute throughput necessary to operate at the scales described by scaling laws.
 - **Distributed Training**: The infrastructure that makes billion-parameter, trillion-token training possible.
 - **Compute-Optimal Training**: The direct practical application of Chinchilla-style scaling analysis.
-
-## Diagrams and Visualizations
-
-![Log-log plot of language model loss vs. compute (FLOPs) showing the smooth power-law relationship, where performance improves as a straight line on the log-log scale across many orders of magnitude](https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/Scaling_laws_-_loss_vs_compute.svg/1200px-Scaling_laws_-_loss_vs_compute.svg.png)
-*Source: [Wikimedia Commons -- Scaling Laws for Neural Language Models](https://commons.wikimedia.org/wiki/File:Scaling_laws_-_loss_vs_compute.svg)*
-
-*See the Chinchilla compute-optimal frontier in: [Hoffmann et al., "Training Compute-Optimal Large Language Models" (arXiv:2203.15556)](https://arxiv.org/abs/2203.15556), Figure 1, which plots loss isocontours as a function of model size and token count, showing the optimal allocation curve where parameters and data should scale equally.*
-
-*See also the original Kaplan scaling law figures at: [Kaplan et al., "Scaling Laws for Neural Language Models" (arXiv:2001.08361)](https://arxiv.org/abs/2001.08361), Figures 1-3, which show the separate power-law relationships between loss and model parameters, dataset size, and total compute.*
 
 ## Further Reading
 

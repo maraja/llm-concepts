@@ -8,9 +8,15 @@
 
 Imagine you trained a reader to process single pages. Now you hand them an entire novel and ask them to understand it all at once. The reader has never seen that much text -- their "sense of position" breaks down. They do not know where they are in the document, and the sheer volume of cross-referencing overwhelms their capacity. Context window extension is the collection of techniques that teach this reader to handle the novel without starting their education from scratch.
 
+*Recommended visual: Timeline of context window lengths from 512 (original Transformer) to 1M+ (Gemini) — see [Lilian Weng – The Transformer Family](https://lilianweng.github.io/posts/2023-01-27-the-transformer-family-v2/)*
+
+
 Every Transformer-based LLM is trained with a fixed maximum sequence length. GPT-2 was trained on 1,024 tokens. Early LLaMA used 2,048. But applications demand much more: analyzing legal contracts, processing codebases, or maintaining long conversations. Extending context is hard for two reasons: (1) attention's compute and memory cost scales quadratically with sequence length, and (2) positional encodings learned at one length do not generalize to longer sequences without modification.
 
 ## How It Works
+
+
+*Recommended visual: RoPE position interpolation vs extrapolation showing how scaling the frequency base extends context — see [Chen et al. YaRN Paper (arXiv:2309.00071)](https://arxiv.org/abs/2309.00071)*
 
 ### The Core Problem: Quadratic Attention
 
@@ -100,12 +106,6 @@ The progression from 512 tokens (BERT) to 10M+ tokens (Gemini 1.5) represents a 
 - **RAG (Retrieval-Augmented Generation)**: Long context and RAG represent complementary solutions to the knowledge access problem -- one extends the input window, the other fetches relevant information.
 - **KV Cache and Inference Optimization**: Context extension directly increases KV cache requirements, making techniques like GQA, MQA, and KV cache quantization critical companions.
 - **Distributed Training**: Ring Attention and context parallelism connect context extension to distributed systems design.
-
-## Diagrams and Visualizations
-
-*Recommended visual: Timeline of context window lengths from 512 (original Transformer) to 1M+ (Gemini) — see [Lilian Weng – The Transformer Family](https://lilianweng.github.io/posts/2023-01-27-the-transformer-family-v2/)*
-
-*Recommended visual: RoPE position interpolation vs extrapolation showing how scaling the frequency base extends context — see [Chen et al. YaRN Paper (arXiv:2309.00071)](https://arxiv.org/abs/2309.00071)*
 
 ## Further Reading
 

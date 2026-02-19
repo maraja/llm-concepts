@@ -8,9 +8,15 @@
 
 Imagine renovating a house. Full fine-tuning is a complete gut renovation -- you tear out every wall, rewire the electrical, replace the plumbing, and rebuild from the studs up. You get exactly the house you want, but it costs a fortune, takes months, and requires a large crew. PEFT methods are targeted renovations -- you repaint the walls, update the fixtures, and remodel the kitchen. The house looks and functions remarkably differently, but the foundation, framing, and most infrastructure remain untouched. For most purposes, the targeted renovation achieves 95% of the full renovation's outcome at 5% of the cost.
 
+*Recommended visual: Parameter count comparison across PEFT methods showing trainable vs frozen parameters — see [Hugging Face PEFT Documentation](https://huggingface.co/docs/peft/index)*
+
+
 This comparison is about understanding when you truly need the gut renovation (full fine-tuning) versus when the targeted approach (PEFT) is not just cheaper but actually preferable.
 
 ## How It Works
+
+
+*Recommended visual: Performance vs parameter efficiency trade-off curves for full fine-tuning, LoRA, QLoRA, and adapters — see [Scaling Down to Scale Up: A Guide to Parameter-Efficient Fine-Tuning (arXiv:2303.15647)](https://arxiv.org/abs/2303.15647)*
 
 ### Full Fine-Tuning
 
@@ -152,12 +158,6 @@ The binary choice between full and PEFT is increasingly blurred:
 - **Inference optimization**: Merged LoRA adapters have zero inference overhead, making them compatible with all inference optimizations (quantization, KV caching, speculative decoding). Separate adapter architectures may complicate some optimizations.
 - **Model merging and task arithmetic**: PEFT adapters enable model merging techniques (e.g., TIES merging, DARE) that combine capabilities from multiple fine-tuned variants without additional training.
 - **Instruction tuning and RLHF**: Both the supervised fine-tuning (SFT) stage and the reinforcement learning stage of alignment can use either full fine-tuning or PEFT. Many open-source alignment efforts use LoRA for SFT and full fine-tuning (or LoRA) for the reward model.
-
-## Diagrams and Visualizations
-
-*Recommended visual: Parameter count comparison across PEFT methods showing trainable vs frozen parameters — see [Hugging Face PEFT Documentation](https://huggingface.co/docs/peft/index)*
-
-*Recommended visual: Performance vs parameter efficiency trade-off curves for full fine-tuning, LoRA, QLoRA, and adapters — see [Scaling Down to Scale Up: A Guide to Parameter-Efficient Fine-Tuning (arXiv:2303.15647)](https://arxiv.org/abs/2303.15647)*
 
 ## Further Reading
 

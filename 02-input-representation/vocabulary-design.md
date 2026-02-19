@@ -8,11 +8,18 @@
 
 Imagine you're designing an alphabet for a new universal language. Too few characters and every word requires long, cumbersome sequences of symbols. Too many characters and people must memorize thousands of glyphs, many of which they'll rarely use. The sweet spot depends on who will use the language, what they'll write about, and how much memory they have for learning symbols.
 
+![Chart showing tokenization fertility (tokens per word) across different languages, illustrating the disparity between English and non-Latin-script languages](https://raw.githubusercontent.com/openai/tiktoken/main/scripts/vocab_size_comparison.png)
+*Source: [OpenAI tiktoken – Vocabulary Size Comparison](https://github.com/openai/tiktoken)*
+
+
 Vocabulary design for LLMs faces exactly this trade-off. The vocabulary is the fixed set of tokens (subword units) that the model can recognize and produce. Every piece of text the model reads or writes must be expressed using only these tokens. The vocabulary is typically finalized before model training begins and remains immutable throughout the model's lifetime.
 
 Choices about vocabulary size, the training corpus used to build it, and whether to use byte-level or character-level base units have profound downstream effects on model performance, efficiency, and fairness.
 
 ## How It Works
+
+
+*See diagram comparing vocabulary allocation strategies at: [Petrov et al., "Language Model Tokenizers Introduce Unfairness Between Languages" (NeurIPS 2024)](https://arxiv.org/abs/2305.15425) -- includes figures showing token fertility ratios across 350+ languages and the impact of vocabulary size on multilingual equity.*
 
 ### Choosing Vocabulary Size
 
@@ -102,6 +109,9 @@ However, byte-level models currently lag behind subword models in efficiency and
 
 Beyond size, the composition of the vocabulary matters. A well-designed vocabulary includes:
 
+*See also the vocabulary composition analysis at: [Hugging Face Blog – Tokenizers: How Machines Read](https://huggingface.co/docs/tokenizers/) -- includes visualizations of how different vocabulary sizes affect compression ratios and the trade-off between vocabulary coverage and embedding matrix size.*
+
+
 - **Base tokens**: Individual bytes or characters (256 for byte-level).
 - **Common words**: High-frequency words in the training languages.
 - **Morphological units**: Prefixes, suffixes, and stems that enable compositional understanding.
@@ -141,15 +151,6 @@ Vocabulary design decisions are among the most permanent choices in LLM developm
 - **Context Window**: Tokenization fertility (determined by vocabulary) controls how much text fits in the fixed-token-length context window.
 - **Special Tokens**: These are manually added to the vocabulary outside the normal BPE process.
 - **Byte-Pair Encoding**: The specific algorithm most commonly used to construct the vocabulary from a training corpus.
-
-## Diagrams and Visualizations
-
-![Chart showing tokenization fertility (tokens per word) across different languages, illustrating the disparity between English and non-Latin-script languages](https://raw.githubusercontent.com/openai/tiktoken/main/scripts/vocab_size_comparison.png)
-*Source: [OpenAI tiktoken – Vocabulary Size Comparison](https://github.com/openai/tiktoken)*
-
-*See diagram comparing vocabulary allocation strategies at: [Petrov et al., "Language Model Tokenizers Introduce Unfairness Between Languages" (NeurIPS 2024)](https://arxiv.org/abs/2305.15425) -- includes figures showing token fertility ratios across 350+ languages and the impact of vocabulary size on multilingual equity.*
-
-*See also the vocabulary composition analysis at: [Hugging Face Blog – Tokenizers: How Machines Read](https://huggingface.co/docs/tokenizers/) -- includes visualizations of how different vocabulary sizes affect compression ratios and the trade-off between vocabulary coverage and embedding matrix size.*
 
 ## Further Reading
 

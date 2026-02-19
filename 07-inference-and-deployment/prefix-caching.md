@@ -8,11 +8,17 @@
 
 Imagine a law firm where every legal brief begins with the same 20-page boilerplate: firm name, jurisdiction, standard disclaimers, and regulatory citations. Without prefix caching, every attorney drafting a brief retyping those 20 pages from scratch before adding their unique case arguments. With prefix caching, the firm keeps a master copy of the boilerplate already formatted and typeset. Each new brief starts from page 21, and the attorney only writes the novel content. The time and cost savings are enormous when thousands of briefs are produced daily.
 
+*Recommended visual: Prefix caching showing shared system prompt KV cache reused across multiple requests — see [SGLang RadixAttention Paper (arXiv:2312.07104)](https://arxiv.org/abs/2312.07104)*
+
+
 In LLM serving, the "boilerplate" is the system prompt, few-shot examples, or RAG-retrieved documents that appear identically at the beginning of many requests. During the prefill phase, the model processes these input tokens to compute key-value vectors for every attention layer. For a 4,000-token system prompt on a 70B model, this prefill computation is substantial -- potentially hundreds of milliseconds of GPU time. When thousands of requests per minute share the same system prompt, the system recomputes identical KV states over and over again.
 
 Prefix caching eliminates this redundancy. The first request computes the KV cache for the shared prefix and stores it. Every subsequent request that begins with the same token sequence reuses the cached KV states and only computes the prefill for the unique suffix (the user's actual query). The savings scale with how much of the prompt is shared and how many requests benefit from the cache.
 
 ## How It Works
+
+
+*Recommended visual: Radix tree data structure indexing KV cache blocks by token content for automatic prefix matching — see [SGLang Documentation](https://sgl-project.github.io/)*
 
 ### Exact Token Matching
 
@@ -98,12 +104,6 @@ At the block level, prefix caching maps naturally onto PagedAttention. Cached KV
 - **Flash Attention**: Flash Attention computes attention efficiently during the prefill phase. Prefix caching eliminates the need for that computation entirely for cached tokens -- a complementary optimization.
 - **Continuous Batching**: New requests admitted via continuous batching benefit immediately from prefix cache hits, making their prefill phase nearly instantaneous and allowing faster batch admission.
 - **Throughput vs. Latency**: Prefix caching primarily reduces latency (TTFT) and cost for individual requests. At the system level, reduced prefill compute frees GPU cycles for more decode throughput.
-
-## Diagrams and Visualizations
-
-*Recommended visual: Prefix caching showing shared system prompt KV cache reused across multiple requests — see [SGLang RadixAttention Paper (arXiv:2312.07104)](https://arxiv.org/abs/2312.07104)*
-
-*Recommended visual: Radix tree data structure indexing KV cache blocks by token content for automatic prefix matching — see [SGLang Documentation](https://sgl-project.github.io/)*
 
 ## Further Reading
 

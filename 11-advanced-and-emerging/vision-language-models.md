@@ -8,11 +8,17 @@
 
 Imagine a person who can read but has never seen an image, and another person who can see but has never read. Neither can fully understand a newspaper: the reader misses the photographs, the viewer misses the articles. A VLM is like a person who can do both -- look at an image and discuss what they see in natural language, answer questions about visual content, or follow instructions that require understanding both text and images.
 
+*Recommended visual: Vision-Language Model architecture showing vision encoder, projection layer, and language model backbone — see [LLaVA Paper (arXiv:2304.08485)](https://arxiv.org/abs/2304.08485)*
+
+
 VLMs combine two fundamentally different types of information processing. Vision involves spatial relationships, textures, colors, object recognition, and scene understanding. Language involves sequential reasoning, abstraction, and symbolic manipulation. The challenge is not just having both capabilities but deeply integrating them so the model can reason about the relationship between what it sees and what it reads.
 
 This is not simply "image captioning plus a chatbot." Modern VLMs can understand charts and graphs, read handwritten text, analyze medical images, navigate user interfaces, interpret diagrams, and follow visual instructions -- tasks that require genuine cross-modal reasoning.
 
 ## How It Works
+
+
+*Recommended visual: CLIP contrastive learning showing image-text pairs aligned in shared embedding space — see [Radford et al. CLIP Paper (arXiv:2103.00020)](https://arxiv.org/abs/2103.00020)*
 
 ### The Three-Component Architecture
 
@@ -116,12 +122,6 @@ VLMs represent a qualitative expansion of what AI systems can do:
 - **Flash Attention**: Essential for processing the large token counts that arise from high-resolution images combined with text.
 - **AI Agents**: VLMs enable visual grounding for agents -- understanding screenshots, reading web pages, interpreting dashboards, and navigating graphical interfaces.
 - **Prompt Injection**: VLMs introduce new attack surfaces: adversarial images can contain hidden text or patterns that manipulate model behavior.
-
-## Diagrams and Visualizations
-
-*Recommended visual: Vision-Language Model architecture showing vision encoder, projection layer, and language model backbone — see [LLaVA Paper (arXiv:2304.08485)](https://arxiv.org/abs/2304.08485)*
-
-*Recommended visual: CLIP contrastive learning showing image-text pairs aligned in shared embedding space — see [Radford et al. CLIP Paper (arXiv:2103.00020)](https://arxiv.org/abs/2103.00020)*
 
 ## Further Reading
 

@@ -8,11 +8,19 @@
 
 Imagine a writer composing a sonnet. Normally they have complete freedom -- any word, any structure. Now imagine an editor sitting beside them who, after each word, instantly crosses out every possible next word that would violate the sonnet's rules: wrong syllable count, broken rhyme scheme, incorrect meter. The writer still chooses freely among the remaining valid words, preserving their creative style, but the structural constraints are guaranteed to be met. The editor never changes the writer's preferences -- they only remove options that would break the form.
 
+![Outlines structured generation overview showing how a finite-state machine guides token generation to produce valid JSON](https://raw.githubusercontent.com/dottxt-ai/outlines/main/docs/assets/images/logo.png)
+*See diagram at: [Outlines - Structured Generation Library](https://github.com/dottxt-ai/outlines)*
+
+
 This is exactly what constrained decoding does to an LLM. At each generation step, the model produces logits (scores) for every token in its vocabulary. Before sampling, a constraint engine masks tokens that would produce structurally invalid output -- setting their logits to negative infinity so they have zero probability of being selected. The model then samples from the remaining valid tokens using its normal probability distribution.
 
 The power of this approach is its guarantee: the output is 100% structurally valid by construction, not by hope. Without constrained decoding, developers resort to fragile retry loops -- generate output, parse it, if parsing fails retry with a scolding prompt -- which wastes compute, adds latency, and still does not guarantee success. Constrained decoding eliminates this failure mode entirely.
 
 ## How It Works
+
+
+![XGrammar constrained decoding architecture showing grammar compilation and token masking pipeline](https://raw.githubusercontent.com/mlc-ai/blog/main/img/xgrammar/xgrammar-overview.svg)
+*See diagram at: [XGrammar: Flexible and Efficient Structured Generation (MLC Blog)](https://blog.mlc.ai/2024/11/22/achieving-efficient-flexible-portable-structured-generation-with-xgrammar)*
 
 ### Grammar Compilation to Automata
 
@@ -102,6 +110,9 @@ lm += "Answer: {" + '"sentiment": "' + select(["positive", "negative", "neutral"
 
 OpenAI's "Structured Outputs" and Anthropic's tool use with JSON schemas implement constrained decoding server-side. When you specify a JSON schema in the API:
 
+*See diagram of token masking during constrained decoding at: [Guidance - Microsoft (GitHub)](https://github.com/guidance-ai/guidance)*
+
+
 ```python
 response = client.chat.completions.create(
     model="gpt-4o",
@@ -158,16 +169,6 @@ The server applies token masking internally, so the API consumer receives a 100%
 - **Tokenization (BPE)**: The token-boundary problem is a direct consequence of BPE's variable-length token-to-character mapping. Understanding BPE is essential for grasping why constrained decoding is non-trivial.
 - **Model Serving Frameworks**: vLLM, TGI, and TensorRT-LLM all integrate constrained decoding, making it available as a serving-layer feature rather than requiring client-side implementation.
 - **Speculative Decoding**: Constrained decoding interacts with speculative decoding -- draft tokens must also be checked against the grammar, and rejected tokens may need grammar state rollback.
-
-## Diagrams and Visualizations
-
-![Outlines structured generation overview showing how a finite-state machine guides token generation to produce valid JSON](https://raw.githubusercontent.com/dottxt-ai/outlines/main/docs/assets/images/logo.png)
-*See diagram at: [Outlines - Structured Generation Library](https://github.com/dottxt-ai/outlines)*
-
-![XGrammar constrained decoding architecture showing grammar compilation and token masking pipeline](https://raw.githubusercontent.com/mlc-ai/blog/main/img/xgrammar/xgrammar-overview.svg)
-*See diagram at: [XGrammar: Flexible and Efficient Structured Generation (MLC Blog)](https://blog.mlc.ai/2024/11/22/achieving-efficient-flexible-portable-structured-generation-with-xgrammar)*
-
-*See diagram of token masking during constrained decoding at: [Guidance - Microsoft (GitHub)](https://github.com/guidance-ai/guidance)*
 
 ## Further Reading
 

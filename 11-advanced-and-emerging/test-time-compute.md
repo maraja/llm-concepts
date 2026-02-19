@@ -8,11 +8,17 @@
 
 Consider the difference between a student who writes the first answer that comes to mind versus one who drafts multiple solutions, checks each for errors, and selects the best one. Both students have the same knowledge (same model weights), but the second student spends more time **thinking** (more compute at test time) and consistently gets better results.
 
+*Recommended visual: Test-time compute scaling showing performance improving with repeated sampling, verification, and search — see [Snell et al. Paper (arXiv:2408.03314)](https://arxiv.org/abs/2408.03314)*
+
+
 Test-time compute -- also called inference-time scaling or inference-time compute -- refers to techniques that improve model outputs by spending more computation when generating each response, rather than during training. This is the new scaling frontier: instead of only asking "how big should the model be?" we now also ask "how much should the model think about this particular problem?"
 
 The traditional scaling paradigm (Kaplan et al., 2020; Hoffmann et al., 2022) showed that performance improves predictably with more training compute (larger models, more data). The test-time compute paradigm, validated by OpenAI's o1 and subsequent reasoning models, shows that performance also scales predictably with inference compute -- and for many hard problems, this scaling is more efficient.
 
 ## How It Works
+
+
+*Recommended visual: Compute-optimal frontier showing trade-off between model size and inference-time compute — see [OpenAI Learning to Reason](https://openai.com/index/learning-to-reason-with-llms/)*
 
 ### Self-Consistency (Wang et al., 2023)
 
@@ -116,12 +122,6 @@ Test-time compute may be the most important development in AI scaling since the 
 - **Compound AI Systems**: Test-time compute techniques (sampling, verification, search) are building blocks for compound systems that combine multiple inference strategies.
 - **Model Distillation**: Knowledge from reasoning models can be distilled into faster models that approximate the reasoning behavior without the full search cost.
 - **Evaluation and Benchmarks**: Reasoning models have saturated many traditional benchmarks, driving demand for harder evaluations (FrontierMath, SWE-bench Verified).
-
-## Diagrams and Visualizations
-
-*Recommended visual: Test-time compute scaling showing performance improving with repeated sampling, verification, and search — see [Snell et al. Paper (arXiv:2408.03314)](https://arxiv.org/abs/2408.03314)*
-
-*Recommended visual: Compute-optimal frontier showing trade-off between model size and inference-time compute — see [OpenAI Learning to Reason](https://openai.com/index/learning-to-reason-with-llms/)*
 
 ## Further Reading
 

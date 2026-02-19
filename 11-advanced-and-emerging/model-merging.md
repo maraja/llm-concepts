@@ -8,11 +8,17 @@
 
 Imagine you have two chefs: one specializes in French cuisine, the other in Japanese. Model merging is like mathematically combining their skills into a single chef who can cook both -- without that chef ever setting foot in a kitchen. It sounds like it should not work, but it does, and remarkably well.
 
+*Recommended visual: Model merging methods comparison: linear interpolation, SLERP, TIES, DARE showing weight combination strategies — see [Hugging Face Model Merging Guide](https://huggingface.co/blog/mlabonne/merge-models)*
+
+
 Model merging takes the learned parameters (weights) from multiple models and combines them using mathematical operations -- averaging, interpolation, or more sophisticated methods -- to produce a new model that inherits capabilities from all parents. No training data is needed. No gradient computation. Just arithmetic on weight tensors.
 
 This works because fine-tuned models that share a common pre-trained base occupy the same region of the loss landscape. The loss surface between them tends to be relatively flat (low loss barriers), meaning interpolated points between them are also good solutions. This is sometimes called the "linear mode connectivity" property.
 
 ## How It Works
+
+
+*Recommended visual: Task vector arithmetic showing how task capabilities can be added and subtracted in weight space — see [Ilharco et al. Task Arithmetic Paper (arXiv:2212.04089)](https://arxiv.org/abs/2212.04089)*
 
 ### Linear Interpolation (LERP) and Model Soups
 
@@ -112,12 +118,6 @@ Model merging has democratized model development. The open-source community uses
 - **Distillation**: An alternative approach to combining capabilities: distill a merged model's knowledge into a new model through training on the merged model's outputs.
 - **Test-Time Compute**: Kimi's innovation of merging reasoning and fast models connects merging to the inference-time scaling paradigm.
 - **Open-Source Ecosystem**: Merging has become central to the open-source model ecosystem, enabling community-driven improvement without massive compute budgets.
-
-## Diagrams and Visualizations
-
-*Recommended visual: Model merging methods comparison: linear interpolation, SLERP, TIES, DARE showing weight combination strategies — see [Hugging Face Model Merging Guide](https://huggingface.co/blog/mlabonne/merge-models)*
-
-*Recommended visual: Task vector arithmetic showing how task capabilities can be added and subtracted in weight space — see [Ilharco et al. Task Arithmetic Paper (arXiv:2212.04089)](https://arxiv.org/abs/2212.04089)*
 
 ## Further Reading
 

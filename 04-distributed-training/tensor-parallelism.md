@@ -8,15 +8,25 @@
 
 Imagine a restaurant kitchen where a single dish requires chopping an enormous pile of vegetables. Instead of one chef doing all the chopping (which would take too long), you divide the pile among four chefs, each working on their quarter simultaneously at the same counter. They are all working on the same dish at the same time, just handling different portions of the ingredients. Occasionally they need to pass partially prepared ingredients to each other (a quick handoff since they are shoulder-to-shoulder), and then continue.
 
+![Tensor parallelism splitting the MLP and self-attention layers across GPUs with column-wise and row-wise partitioning](https://jalammar.github.io/images/model-parallelism/megatron-lm-tensor-parallelism.png)
+*Source: [Jay Alammar - The Illustrated Model Parallelism](https://jalammar.github.io/model-parallelism/)*
+
+
 Tensor parallelism applies this idea to neural network layers. Instead of one GPU computing the full output of a matrix multiplication, the weight matrix is partitioned across multiple GPUs. Each GPU multiplies the input by its slice of the weight matrix, producing a partial result. A quick communication step combines these partial results, and training proceeds to the next operation.
 
 This is fundamentally different from data parallelism (where each GPU processes different data through the full model) and pipeline parallelism (where each GPU handles different layers). In tensor parallelism, every GPU works on the **same data** through the **same layer**, but each handles a different **slice of that layer's parameters**.
 
 ## How It Works
 
+
+*Recommended visual: Megatron-LM column-parallel and row-parallel linear layer decomposition showing how f and g operators handle all-reduce communication -- see [Shoeybi et al., "Megatron-LM" (2019)](https://arxiv.org/abs/1909.08053), Figure 3*
+
 ### Partitioning Strategies for Linear Layers
 
 Consider a linear layer `Y = XW + b`, where `X` is the input of shape `[batch, d_in]` and `W` is the weight matrix of shape `[d_in, d_out]`.
+
+*Recommended visual: Attention head partitioning across GPUs, showing independent per-head computation with a single all-reduce for the output projection -- see [Lilian Weng - How to Train Really Large Models on Many GPUs](https://lilianweng.github.io/posts/2021-09-25-train-large/)*
+
 
 **Column-wise (output) partitioning**: Split `W` along columns into `N` chunks:
 
@@ -95,15 +105,6 @@ Tensor parallelism also reduces the **per-GPU computation time** for each layer,
 - **3D Parallelism**: The combination of data, tensor, and pipeline parallelism, where tensor parallelism handles the intra-node dimension.
 - **Sequence Parallelism**: Extends tensor parallelism to split the sequence dimension for operations like LayerNorm and dropout that otherwise require the full hidden state, further reducing activation memory.
 - **Attention Mechanisms**: Multi-head attention is naturally amenable to tensor parallelism because attention heads operate independently, making the column-wise split communication-free during the core attention computation.
-
-## Diagrams and Visualizations
-
-![Tensor parallelism splitting the MLP and self-attention layers across GPUs with column-wise and row-wise partitioning](https://jalammar.github.io/images/model-parallelism/megatron-lm-tensor-parallelism.png)
-*Source: [Jay Alammar - The Illustrated Model Parallelism](https://jalammar.github.io/model-parallelism/)*
-
-*Recommended visual: Megatron-LM column-parallel and row-parallel linear layer decomposition showing how f and g operators handle all-reduce communication -- see [Shoeybi et al., "Megatron-LM" (2019)](https://arxiv.org/abs/1909.08053), Figure 3*
-
-*Recommended visual: Attention head partitioning across GPUs, showing independent per-head computation with a single all-reduce for the output projection -- see [Lilian Weng - How to Train Really Large Models on Many GPUs](https://lilianweng.github.io/posts/2021-09-25-train-large/)*
 
 ## Further Reading
 

@@ -8,6 +8,10 @@
 
 Imagine a library with 32 researchers (query heads), each working on their own question. In the standard setup (multi-head attention / MHA), each researcher has their own personal copy of every book in the library (key-value heads). That is 32 complete copies of the entire library -- enormous space, but each researcher has exactly the reference they need.
 
+![Comparison of Multi-Head Attention, Grouped-Query Attention, and Multi-Query Attention showing how KV heads are shared across query heads](https://blog.fireworks.ai/content/images/2023/07/GQA.png)
+*Source: [GQA Paper – Ainslie et al., 2023](https://arxiv.org/abs/2305.13245)*
+
+
 In multi-query attention (MQA), the library cuts costs radically: there is only one copy of each book, and all 32 researchers share it. This saves massive space but creates a bottleneck -- the single set of reference materials must serve all 32 researchers, and quality suffers.
 
 Grouped query attention (GQA) finds the middle ground: the library maintains 8 copies of each book, and groups of 4 researchers share each copy. This dramatically reduces space (8 copies instead of 32) while giving each researcher much better access than a single shared copy. The quality is nearly identical to having 32 copies, but at a quarter of the storage cost.
@@ -15,6 +19,9 @@ Grouped query attention (GQA) finds the middle ground: the library maintains 8 c
 In LLM terms, GQA shares key-value (KV) heads among groups of query heads, reducing the size of the KV cache that must be stored in GPU memory during inference. This is not a quality optimization -- it is a memory optimization that makes it practical to serve large models with long contexts at scale.
 
 ## How It Works
+
+
+*Recommended visual: GQA interpolation between MHA and MQA with benchmark results — see [GQA Paper Figure 1 (arXiv:2305.13245)](https://arxiv.org/abs/2305.13245)*
 
 ### The Attention Variants
 
@@ -129,13 +136,6 @@ GQA has become the standard attention configuration for production LLMs because 
 - **Sparse Attention**: Both GQA and sparse attention reduce the effective cost of attention, but through different mechanisms: GQA reduces per-token memory; sparse attention reduces the number of tokens attended to.
 - **Context Window Extension**: Longer contexts require larger KV caches, making GQA increasingly important as context lengths grow.
 - **Model Serving / Throughput vs. Latency**: GQA is primarily a throughput optimization -- it enables serving more concurrent requests or longer contexts within the same memory budget.
-
-## Diagrams and Visualizations
-
-![Comparison of Multi-Head Attention, Grouped-Query Attention, and Multi-Query Attention showing how KV heads are shared across query heads](https://blog.fireworks.ai/content/images/2023/07/GQA.png)
-*Source: [GQA Paper – Ainslie et al., 2023](https://arxiv.org/abs/2305.13245)*
-
-*Recommended visual: GQA interpolation between MHA and MQA with benchmark results — see [GQA Paper Figure 1 (arXiv:2305.13245)](https://arxiv.org/abs/2305.13245)*
 
 ## Further Reading
 

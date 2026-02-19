@@ -8,11 +8,19 @@
 
 Imagine you are reading a book. A recurrent neural network (RNN) reads one word at a time, left to right, carrying a summary of everything it has read in a single, fixed-size memory vector. By the time it reaches word 500, its memory of word 1 is faded and compressed. The Transformer, by contrast, lays every word of the book out on a table simultaneously and lets each word look directly at every other word to decide what matters.
 
+![The Transformer model architecture showing the encoder (left) and decoder (right) stacks with multi-head attention, feed-forward networks, residual connections, and layer normalization](https://nlp.seas.harvard.edu/images/the-annotated-transformer_14_0.png)
+*Source: [The Annotated Transformer -- Harvard NLP](https://nlp.seas.harvard.edu/annotated-transformer/)*
+
+
 Introduced in the landmark 2017 paper "Attention Is All You Need" by Vaswani et al. at Google, the Transformer discarded recurrence and convolutions entirely. Instead, it relies on a mechanism called **self-attention** to model relationships between all positions in a sequence at once. This single architectural bet turned out to be one of the most consequential decisions in the history of artificial intelligence.
 
 ## How It Works
 
 The original Transformer follows an **encoder-decoder** design. Here is the conceptual data flow:
+
+![Detailed walkthrough of the Transformer architecture showing input embeddings, positional encoding, encoder self-attention, decoder masked attention, cross-attention, and output generation](https://jalammar.github.io/images/t/transformer_resideual_layer_norm_3.png)
+*Source: [The Illustrated Transformer -- Jay Alammar](https://jalammar.github.io/illustrated-transformer/)*
+
 
 ### 1. Input Embedding and Positional Encoding
 Raw tokens (words or subwords) are converted into dense vectors via an embedding layer. Because the Transformer has no inherent sense of order (unlike RNNs), **positional encodings** are added to the embeddings so the model knows that "the" in position 1 is different from "the" in position 20. The original paper used sinusoidal functions for this:
@@ -38,6 +46,10 @@ The decoder is also a stack of $N$ identical layers, but each layer has three su
 
 ### 4. Output Layer
 The decoder's output passes through a linear layer and a softmax to produce probabilities over the vocabulary for the next token.
+
+![The Transformer model architecture showing the encoder (left) and decoder (right) stacks with multi-head attention, feed-forward layers, and residual connections](https://jalammar.github.io/images/t/The_transformer_encoder_decoder_stack.png)
+*Source: [Jay Alammar – The Illustrated Transformer](https://jalammar.github.io/illustrated-transformer/)*
+
 
 ### The Full Forward Pass (Summarized)
 ```
@@ -84,17 +96,6 @@ This parallelism is why the Transformer could scale. The entire era of large lan
 - **Feed-Forward Networks**: The layers that store factual knowledge (see `feed-forward-networks.md`).
 - **Positional Encoding**: Covered in a dedicated topic; the mechanism that gives order to the Transformer's otherwise order-agnostic attention.
 - **Autoregressive Generation**: How the decoder generates text token by token (see `autoregressive-generation.md`).
-
-## Diagrams and Visualizations
-
-![The Transformer model architecture showing the encoder (left) and decoder (right) stacks with multi-head attention, feed-forward networks, residual connections, and layer normalization](https://nlp.seas.harvard.edu/images/the-annotated-transformer_14_0.png)
-*Source: [The Annotated Transformer -- Harvard NLP](https://nlp.seas.harvard.edu/annotated-transformer/)*
-
-![Detailed walkthrough of the Transformer architecture showing input embeddings, positional encoding, encoder self-attention, decoder masked attention, cross-attention, and output generation](https://jalammar.github.io/images/t/transformer_resideual_layer_norm_3.png)
-*Source: [The Illustrated Transformer -- Jay Alammar](https://jalammar.github.io/illustrated-transformer/)*
-
-![The encoder-decoder structure of the Transformer with data flow from input embeddings through stacked encoder layers, cross-attention into decoder layers, and final linear plus softmax output](https://jalammar.github.io/images/t/The_transformer_encoder_decoder_stack.png)
-*Source: [The Illustrated Transformer -- Jay Alammar](https://jalammar.github.io/illustrated-transformer/)*
 
 ## Further Reading
 

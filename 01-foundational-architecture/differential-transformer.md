@@ -8,6 +8,9 @@
 
 Standard attention has a fundamental problem: softmax must distribute probability mass across all tokens, even when only a few are truly relevant. If you attend to 4,096 tokens but only 10 matter, the remaining 4,086 still receive some non-zero weight. This "attention noise" dilutes the signal, contributes to hallucination, and degrades in-context learning.
 
+*Recommended visual: Differential attention mechanism diagram showing dual softmax maps and their subtraction to cancel noise — see [Differential Transformer Paper (arXiv:2410.05258)](https://arxiv.org/abs/2410.05258)*
+
+
 The Differential Transformer borrows an idea from electrical engineering. A differential amplifier takes two input signals and outputs their *difference*, canceling noise common to both inputs. Similarly, the Differential Transformer computes two attention patterns and subtracts one from the other.
 
 Noise patterns appearing in both maps cancel out. Genuine signal -- attention to truly relevant tokens -- is preserved and amplified.
@@ -97,10 +100,6 @@ Total FLOPs match standard attention. The only overhead is the element-wise subt
 - **Attention sinks**: Both address attention noise. Sinks are a symptom of softmax's constraint; differential attention is an architectural solution.
 - **Vision Transformer registers**: Darcet et al. proposed register tokens to absorb excess attention in ViTs -- a different solution to the same noise problem.
 - **Hallucination**: Noise reduction directly addresses one hallucination mechanism: attending to and incorporating irrelevant context.
-
-## Diagrams and Visualizations
-
-*Recommended visual: Differential attention mechanism diagram showing dual softmax maps and their subtraction to cancel noise — see [Differential Transformer Paper (arXiv:2410.05258)](https://arxiv.org/abs/2410.05258)*
 
 ## Further Reading
 

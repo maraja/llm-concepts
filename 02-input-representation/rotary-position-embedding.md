@@ -8,11 +8,19 @@
 
 Imagine two clock hands. Each starts pointing in a specific direction determined by the token it represents (its embedding). Now, rotate each hand by an angle proportional to its position in the sequence -- the first token gets a small rotation, the tenth token gets a larger rotation, the hundredth token gets a much larger rotation.
 
+![RoPE rotation mechanism showing how query and key vectors are rotated in 2D subspaces, with the angle proportional to the token position](https://blog.eleuther.ai/assets/images/rotary-embeddings/rope_diagram.png)
+*Source: [EleutherAI – Rotary Embeddings: A Relative Revolution](https://blog.eleuther.ai/rotary-embeddings/)*
+
+
 When you measure the angle between the two hands, it depends only on the difference in their positions, not on where they are in absolute terms. Tokens that are 5 apart will always have the same angular difference, whether they're at positions (2, 7) or (100, 105).
 
 This is the core insight of RoPE. By encoding position as rotation, the relative position information falls naturally out of the dot product computation in attention. Proposed by Jianlin Su et al. in 2021, RoPE has become the dominant positional encoding in modern LLMs -- it is used by LLaMA, Mistral, PaLM, Qwen, Gemma, and most other leading models.
 
 ## How It Works
+
+
+![Visualization of RoPE's multi-frequency rotation scheme across embedding dimension pairs, showing low-frequency components for long-range and high-frequency for local position encoding](https://raw.githubusercontent.com/lucidrains/rotary-embedding-torch/main/rope.png)
+*Source: [lucidrains – Rotary Embedding PyTorch Implementation](https://github.com/lucidrains/rotary-embedding-torch)*
 
 ### The Mathematical Foundation
 
@@ -55,6 +63,9 @@ The asterisk denotes the complex conjugate. The phase depends only on the distan
 ### Context Extension: NTK-Aware Interpolation and YaRN
 
 A critical challenge: if a model is trained with RoPE on sequences of length $L$, how can it handle sequences of length $4L$?
+
+*See also the detailed RoPE explanation with diagrams at: [EleutherAI Blog – Rotary Embeddings](https://blog.eleuther.ai/rotary-embeddings/) -- includes visual derivations of the rotation matrices and their effect on attention scores.*
+
 
 **Position Interpolation (PI)**: Simply scale all positions by $L / L'$, mapping positions $[0, L')$ to $[0, L)$. This works but requires fine-tuning and can lose resolution for nearby tokens.
 
@@ -103,16 +114,6 @@ RoPE has become the de facto standard for position encoding in modern LLMs for s
 - **Context Window**: RoPE's extensibility properties (NTK, YaRN) are key enablers of long-context models.
 - **Token Embeddings**: RoPE is applied after the initial embedding and Q/K projections, not to the embeddings themselves.
 - **Fine-Tuning**: Context extension via RoPE modification typically requires some fine-tuning to adapt the model to the new positional distribution.
-
-## Diagrams and Visualizations
-
-![RoPE rotation mechanism showing how query and key vectors are rotated in 2D subspaces, with the angle proportional to the token position](https://blog.eleuther.ai/assets/images/rotary-embeddings/rope_diagram.png)
-*Source: [EleutherAI – Rotary Embeddings: A Relative Revolution](https://blog.eleuther.ai/rotary-embeddings/)*
-
-![Visualization of RoPE's multi-frequency rotation scheme across embedding dimension pairs, showing low-frequency components for long-range and high-frequency for local position encoding](https://raw.githubusercontent.com/lucidrains/rotary-embedding-torch/main/rope.png)
-*Source: [lucidrains – Rotary Embedding PyTorch Implementation](https://github.com/lucidrains/rotary-embedding-torch)*
-
-*See also the detailed RoPE explanation with diagrams at: [EleutherAI Blog – Rotary Embeddings](https://blog.eleuther.ai/rotary-embeddings/) -- includes visual derivations of the rotation matrices and their effect on attention scores.*
 
 ## Further Reading
 

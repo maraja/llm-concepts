@@ -8,11 +8,17 @@
 
 Imagine training a model on the entire internet. The internet reflects human society, and human society is not equitable. Historical texts describe women as nurses and men as doctors. News articles disproportionately associate certain ethnic groups with crime. English-language content vastly outnumbers content in most other languages. Cultural perspectives from wealthy Western countries dominate.
 
+*Recommended visual: Sources of bias in the LLM pipeline: training data, annotation, model architecture, and deployment — see [Hugging Face Ethics Documentation](https://huggingface.co/docs/hub/model-cards)*
+
+
 An LLM trained on this data does not merely reflect these patterns -- it **absorbs them as statistical regularities** and reproduces them in its outputs. When asked to complete "The nurse walked into the room. She..." the model assigns "she" a higher probability than "he" not because it believes nurses must be women, but because that pattern appeared more frequently in its training data.
 
 This is bias in LLMs: systematic skew in model outputs that reflects and can reinforce societal inequities. Fairness, conversely, is the aspiration that model outputs treat different groups equitably -- though defining exactly what "equitably" means turns out to be surprisingly difficult and context-dependent.
 
 ## How It Works
+
+
+*Recommended visual: Gender bias in word embeddings showing stereotypical associations (he:doctor :: she:nurse) — see [Bolukbasi et al. Debiasing Paper (arXiv:1607.06520)](https://arxiv.org/abs/1607.06520)*
 
 ### Sources of Bias
 
@@ -93,12 +99,6 @@ The scale of LLM deployment means that even small biases, applied billions of ti
 - **Red Teaming**: Bias testing is a core component of red teaming exercises, with specialized teams probing for demographic biases across many dimensions.
 - **Guardrails**: Content filters can catch some egregiously biased outputs, but subtle, systemic bias typically passes through output filters undetected.
 - **Hallucination**: The model's tendency to confabulate can interact with bias -- it may hallucinate "facts" that align with stereotypical patterns absorbed from training data.
-
-## Diagrams and Visualizations
-
-*Recommended visual: Sources of bias in the LLM pipeline: training data, annotation, model architecture, and deployment — see [Hugging Face Ethics Documentation](https://huggingface.co/docs/hub/model-cards)*
-
-*Recommended visual: Gender bias in word embeddings showing stereotypical associations (he:doctor :: she:nurse) — see [Bolukbasi et al. Debiasing Paper (arXiv:1607.06520)](https://arxiv.org/abs/1607.06520)*
 
 ## Further Reading
 

@@ -8,11 +8,17 @@
 
 Imagine you are moderating a large online forum. Most posts are fine. Some are obviously toxic -- slurs, threats, harassment. But many exist in a gray zone. A medical discussion about self-harm: informative or dangerous? A historical analysis of extremist rhetoric: educational or amplifying? A dark comedy routine: creative expression or harmful? Context determines everything, and automated systems struggle with context.
 
+*Recommended visual: Toxicity detection pipeline showing input classification, content moderation, and output filtering — see [Perspective API Documentation](https://perspectiveapi.com/)*
+
+
 Toxicity detection in the LLM context is the challenge of identifying when model outputs cross the line from acceptable to harmful. This is harder than it sounds because toxicity is not a binary property of text -- it depends on context, audience, intent, and cultural norms. The same sentence can be helpful medical advice in one context and dangerous content in another.
 
 For LLMs specifically, toxicity detection serves two purposes: (1) evaluating model safety -- measuring how often and how severely a model produces toxic outputs -- and (2) operational filtering -- catching and blocking toxic outputs before they reach users in production systems.
 
 ## How It Works
+
+
+*Recommended visual: RealToxicityPrompts evaluation framework — see [Gehman et al. Paper (arXiv:2009.11462)](https://arxiv.org/abs/2009.11462)*
 
 ### Detection Approaches
 
@@ -108,12 +114,6 @@ Toxicity detection is essential for safe LLM deployment:
 - **Safety Training (RLHF)**: Safety training aims to reduce model-level toxicity; detection systems evaluate whether it succeeded and catch residual failures.
 - **Jailbreaking**: Many jailbreaks specifically aim to elicit toxic outputs that the model has been trained to refuse. Toxicity detection measures the success rate of these attacks.
 - **Hallucination**: A model that hallucinates harmful claims about real people is producing a specific kind of toxic output that combines factual inaccuracy with potential harm.
-
-## Diagrams and Visualizations
-
-*Recommended visual: Toxicity detection pipeline showing input classification, content moderation, and output filtering — see [Perspective API Documentation](https://perspectiveapi.com/)*
-
-*Recommended visual: RealToxicityPrompts evaluation framework — see [Gehman et al. Paper (arXiv:2009.11462)](https://arxiv.org/abs/2009.11462)*
 
 ## Further Reading
 

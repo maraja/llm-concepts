@@ -8,11 +8,19 @@
 
 Imagine you are managing a factory with a thousand machines arranged in a pipeline. The final product comes out defective. You need to figure out which machines, and which settings on those machines, contributed to the defect -- and by how much. If you could trace the defect backward through every machine in the pipeline and compute each machine's contribution, you could adjust every setting simultaneously to improve the product.
 
+![Computational graph of a neural network showing the forward pass computing activations and the backward pass propagating gradients via the chain rule](https://colah.github.io/posts/2015-08-Backprop/img/tree-backprop.png)
+*Source: [Chris Olah -- Calculus on Computational Graphs: Backpropagation](https://colah.github.io/posts/2015-08-Backprop/)*
+
+
 That is backpropagation. It is the algorithm for computing **gradients** -- the direction and magnitude of change needed for every parameter in the network to reduce the loss. Once you have these gradients, **gradient descent** uses them to actually update the parameters.
 
 Backpropagation is not a learning algorithm itself. It is a gradient computation algorithm. Combined with an optimizer like Adam, it forms the complete learning system.
 
 ## How It Works
+
+
+![Illustration of gradient flow through a multi-layer neural network showing how the chain rule decomposes the total gradient into local gradient products at each layer](https://cs231n.github.io/assets/nn2/backprop_example.png)
+*Source: [Stanford CS231n -- Backpropagation, Intuitions](https://cs231n.github.io/optimization-2/)*
 
 ### The Forward Pass
 
@@ -70,6 +78,10 @@ Modern deep learning frameworks (PyTorch, JAX) build the computational graph aut
 
 Transformers have specific properties that affect gradient flow:
 
+![Neural network forward pass and backward pass showing how gradients flow back through layers](https://cs231n.github.io/assets/nn1/neural_net2.jpeg)
+*Source: [Stanford CS231n – Neural Networks](https://cs231n.github.io/neural-networks-1/)*
+
+
 - **Residual connections**: These create "gradient highways" that allow gradients to flow directly from the loss to early layers without being multiplied through every intermediate operation. The residual connection means the gradient at layer $l$ is:
 
 $$\frac{\partial \mathcal{L}}{\partial x_l} = \frac{\partial \mathcal{L}}{\partial x_{l+1}} + \frac{\partial \mathcal{L}}{\partial x_{l+1}} \cdot \frac{\partial f_l(x_l)}{\partial x_l}$$
@@ -84,6 +96,9 @@ $$\frac{\partial \mathcal{L}}{\partial Q} = \frac{\partial \mathcal{L}}{\partial
 ### Memory Requirements
 
 Backpropagation requires storing all intermediate activations from the forward pass (they are needed to compute gradients). For a large transformer, this can consume enormous memory. A model with 70 billion parameters might require:
+
+*See also the visual explanation of gradient flow through residual connections at: [Jay Alammar -- The Illustrated Transformer](https://jalammar.github.io/illustrated-transformer/) -- shows how skip connections in transformers create gradient highways that prevent vanishing gradients.*
+
 
 - **Parameters**: ~140 GB (in FP16/BF16)
 - **Optimizer states**: ~560 GB (Adam stores 2 additional copies per parameter)
@@ -121,16 +136,6 @@ Backpropagation reduces the cost of computing all gradients to roughly 2-3 times
 - **Mixed Precision Training**: Affects how gradients are computed and stored.
 - **Gradient Checkpointing**: A memory optimization technique that modifies how backpropagation stores intermediate activations.
 - **Residual Connections (in Transformers)**: Architectural feature that directly improves gradient flow.
-
-## Diagrams and Visualizations
-
-![Computational graph of a neural network showing the forward pass computing activations and the backward pass propagating gradients via the chain rule](https://colah.github.io/posts/2015-08-Backprop/img/tree-backprop.png)
-*Source: [Chris Olah -- Calculus on Computational Graphs: Backpropagation](https://colah.github.io/posts/2015-08-Backprop/)*
-
-![Illustration of gradient flow through a multi-layer neural network showing how the chain rule decomposes the total gradient into local gradient products at each layer](https://cs231n.github.io/assets/nn2/backprop_example.png)
-*Source: [Stanford CS231n -- Backpropagation, Intuitions](https://cs231n.github.io/optimization-2/)*
-
-*See also the visual explanation of gradient flow through residual connections at: [Jay Alammar -- The Illustrated Transformer](https://jalammar.github.io/illustrated-transformer/) -- shows how skip connections in transformers create gradient highways that prevent vanishing gradients.*
 
 ## Further Reading
 

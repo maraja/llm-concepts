@@ -8,11 +8,19 @@
 
 Picture a restaurant where the kitchen refuses to take any new orders until every table from the current seating has finished eating. Table 1 finishes in 15 minutes, but table 8 ordered a seven-course meal that takes 90 minutes. Tables 2 through 7 have long since paid and left, their places sitting empty, while a line of hungry customers grows outside the door. No new food is being prepared for those empty seats -- the kitchen simply waits. This is static batching.
 
+![Continuous batching vs static batching comparison showing how iteration-level scheduling eliminates idle GPU slots](https://raw.githubusercontent.com/vllm-project/vllm/main/docs/source/assets/logos/vllm-logo-text-light.png)
+*See diagram of continuous vs static batching at: [Anyscale Blog - How Continuous Batching Enables 23x Throughput](https://www.anyscale.com/blog/continuous-batching-llm-inference)*
+
+
 Now imagine the restaurant adopts a rolling policy: the moment a table clears, a new party is seated immediately and their order goes into the kitchen. The kitchen is continuously serving food, never idle, and the line outside the door moves steadily. This is continuous batching, and it is one of the highest-impact optimizations in modern LLM serving.
 
 In static batching, a group of requests is assembled into a batch, processed together until every sequence in the batch has finished generating (by producing an end-of-sequence token or reaching the maximum length), and only then is the next batch admitted. Because sequences vary dramatically in output length -- one might generate 10 tokens, another 500 -- the GPU sits idle for finished sequences while it waits for the longest one. With a batch of 32 sequences where most finish at 50 tokens but one runs to 500, the GPU is doing useful work for only a fraction of those 32 slots during the tail of generation. Continuous batching eliminates this waste entirely.
 
 ## How It Works
+
+
+![Orca iteration-level scheduling showing requests entering and leaving the batch at each decode step](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/tgi-messages-api/tgi-logo.png)
+*See detailed batching diagrams at: [Hugging Face Text Generation Inference Documentation](https://huggingface.co/docs/text-generation-inference)*
 
 ### Iteration-Level Scheduling
 
@@ -109,14 +117,6 @@ while requests_pending or active_sequences:
 - **Throughput vs. Latency**: Continuous batching primarily optimizes throughput (total tokens per second across all requests) while also improving tail latency for short requests. The trade-off between prefill admission and decode smoothness is a key tuning dimension.
 - **Speculative Decoding**: Speculative decoding generates variable numbers of tokens per step (depending on acceptance), requiring the scheduler to handle variable-length advances per sequence -- a natural extension of continuous batching's flexibility.
 - **Model Serving Frameworks**: Continuous batching is the core scheduling innovation that differentiates modern LLM-specific serving systems (vLLM, TGI) from general-purpose model serving (basic Triton, Flask + PyTorch).
-
-## Diagrams and Visualizations
-
-![Continuous batching vs static batching comparison showing how iteration-level scheduling eliminates idle GPU slots](https://raw.githubusercontent.com/vllm-project/vllm/main/docs/source/assets/logos/vllm-logo-text-light.png)
-*See diagram of continuous vs static batching at: [Anyscale Blog - How Continuous Batching Enables 23x Throughput](https://www.anyscale.com/blog/continuous-batching-llm-inference)*
-
-![Orca iteration-level scheduling showing requests entering and leaving the batch at each decode step](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/tgi-messages-api/tgi-logo.png)
-*See detailed batching diagrams at: [Hugging Face Text Generation Inference Documentation](https://huggingface.co/docs/text-generation-inference)*
 
 ## Further Reading
 

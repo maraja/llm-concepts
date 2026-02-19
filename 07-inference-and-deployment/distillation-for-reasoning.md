@@ -8,11 +8,18 @@
 
 Standard knowledge distillation transfers a large model's knowledge through soft probability distributions over the vocabulary -- the teacher's output logits guide the student's learning, providing richer training signal than hard one-hot labels alone. But reasoning is fundamentally different from factual knowledge. A model that can solve a complex math problem does not just need the right answer; it needs the right *thinking process*. The answer "42" is meaningless without the chain of logical steps that produced it.
 
+![Knowledge distillation teacher-student framework showing how soft labels transfer knowledge from a large model to a small model](https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/Knowledge_Distillation.svg/800px-Knowledge_Distillation.svg.png)
+*Source: [Wikimedia Commons - Knowledge Distillation](https://commons.wikimedia.org/wiki/File:Knowledge_Distillation.svg)*
+
+
 Distillation for reasoning adapts the teacher-student framework to transfer *process*, not just *output*. Instead of training the student to match the teacher's token-level probability distributions, you generate the teacher's complete chain-of-thought traces -- the full step-by-step reasoning from problem statement to final solution -- and train the student to reproduce these reasoning patterns through standard supervised fine-tuning on the trace text.
 
 The analogy is the difference between copying a textbook's answer key versus studying worked solutions. A student who memorizes that the answer to problem 7 is "42" learns nothing transferable. A student who studies hundreds of worked solutions -- seeing how an expert identifies the problem type, selects a strategy, executes intermediate steps, checks the work, and arrives at the conclusion -- develops genuine problem-solving skills that transfer to novel problems never seen before. Reasoning distillation gives small models hundreds of thousands of "worked solutions" from a much larger, more capable teacher model.
 
 ## How It Works
+
+
+*See diagram of the DeepSeek-R1 distillation pipeline and reasoning trace generation at: [DeepSeek-R1 Paper (arXiv:2501.12948)](https://arxiv.org/abs/2501.12948)*
 
 ### The Reasoning Trace Pipeline
 
@@ -49,6 +56,9 @@ This finding suggests a practical recipe: train reasoning capability in the larg
 ### Orca: Teaching Reasoning Strategies
 
 Microsoft's Orca series pioneered a complementary approach to reasoning distillation, focusing on *explanation quality* and *strategy selection*:
+
+*See diagram of Orca's progressive learning from explanation traces at: [Orca Paper (arXiv:2306.02707)](https://arxiv.org/abs/2306.02707)*
+
 
 **Orca 1** (Mukherjee et al., 2023): Collected "explanation traces" from GPT-4 where the teacher was specifically prompted to explain its reasoning step-by-step, show all intermediate work, and provide pedagogically clear explanations. Rather than just getting GPT-4's answer with its natural reasoning, the prompts elicited maximally detailed explanations. A 13B student trained on ~5M of these traces significantly outperformed models trained on standard GPT-3.5 outputs and matched GPT-3.5 itself on several reasoning benchmarks.
 
@@ -95,15 +105,6 @@ Several practical details affect the quality of reasoning distillation:
 - **GRPO and RL for reasoning**: DeepSeek-R1 (the teacher) was trained with GRPO using rule-based rewards. The finding that distillation outperforms direct RL at small scales directly informs the choice between these training paradigms at different model sizes.
 - **Supervised fine-tuning**: The actual training procedure for reasoning distillation is standard SFT with cross-entropy loss. The innovation lies in the training data (teacher reasoning traces), not the training algorithm.
 - **Self-play and self-improvement**: Reasoning distillation is teacher-dependent (requires a stronger model), while self-improvement bootstraps from the model's own outputs. The two approaches are complementary -- a distilled model can be further improved through self-play iterations.
-
-## Diagrams and Visualizations
-
-![Knowledge distillation teacher-student framework showing how soft labels transfer knowledge from a large model to a small model](https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/Knowledge_Distillation.svg/800px-Knowledge_Distillation.svg.png)
-*Source: [Wikimedia Commons - Knowledge Distillation](https://commons.wikimedia.org/wiki/File:Knowledge_Distillation.svg)*
-
-*See diagram of the DeepSeek-R1 distillation pipeline and reasoning trace generation at: [DeepSeek-R1 Paper (arXiv:2501.12948)](https://arxiv.org/abs/2501.12948)*
-
-*See diagram of Orca's progressive learning from explanation traces at: [Orca Paper (arXiv:2306.02707)](https://arxiv.org/abs/2306.02707)*
 
 ## Further Reading
 

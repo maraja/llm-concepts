@@ -8,11 +8,19 @@
 
 Suppose you have a dictionary of 50,000 words, and you want to represent each word as a number. You could assign "cat" = 1, "dog" = 2, "automobile" = 3, and so on. But this creates a problem: the model would conclude that "cat" is closer to "dog" than to "automobile" simply because 1 is closer to 2 than to 3. The numbering is arbitrary and encodes false relationships.
 
+![Embedding lookup illustration showing how a one-hot token ID vector indexes into the embedding matrix to retrieve a dense vector representation](https://jalammar.github.io/images/word2vec/embedding-lookup.png)
+*Source: [Jay Alammar – The Illustrated Word2Vec](https://jalammar.github.io/illustrated-word2vec/)*
+
+
 Token embeddings solve this by representing each token not as a single number but as a **vector** -- a list of numbers in a high-dimensional space. "Cat" might be `[0.2, -0.5, 0.8, ...]` (768 numbers long), and "dog" might be `[0.3, -0.4, 0.7, ...]`. These vectors are close together because cats and dogs are semantically related. "Automobile" lives in a completely different region of the space.
 
 Think of it like a cosmic map where every word has coordinates, and the distances between coordinates reflect meaning. Words used in similar contexts drift toward each other during training, while unrelated words drift apart. The embedding layer is the model's first translation step: from a flat list of token IDs to a rich geometric landscape of meaning.
 
 ## How It Works
+
+
+![The famous word embedding analogy visualization showing king - man + woman = queen as vector arithmetic in embedding space](https://jalammar.github.io/images/word2vec/king-analogy-viz.png)
+*Source: [Jay Alammar – The Illustrated Word2Vec](https://jalammar.github.io/illustrated-word2vec/)*
 
 ### The Embedding Matrix
 
@@ -51,6 +59,10 @@ During training, when the model processes "The cat sat on the mat" and "The dog 
 
 The most famous demonstration of embedding structure is the word analogy:
 
+![Word embedding space showing semantically similar words clustering together in high-dimensional space](https://jalammar.github.io/images/word2vec/king-queen-composition.png)
+*Source: [Jay Alammar – The Illustrated Word2Vec](https://jalammar.github.io/illustrated-word2vec/)*
+
+
 $$\vec{\text{king}} - \vec{\text{man}} + \vec{\text{woman}} \approx \vec{\text{queen}}$$
 
 This works because the embedding space encodes a "gender" direction. Subtracting $\vec{\text{man}}$ from $\vec{\text{king}}$ removes the male component, leaving "royalty." Adding $\vec{\text{woman}}$ reintroduces gender in the female direction, landing near $\vec{\text{queen}}$.
@@ -64,6 +76,10 @@ In practice, modern LLM embeddings are more complex than Word2Vec-era embeddings
 ### Weight Tying
 
 A powerful technique used in many models (GPT-2, LLaMA, T5, and others) is **weight tying** (also called **weight sharing**): using the same matrix $\mathbf{E}$ for both the input embeddings and the output projection layer.
+
+![GPT-2 token and positional embedding process showing how token IDs are converted to embedding vectors and combined with positional encodings](https://jalammar.github.io/images/gpt2/gpt2-token-embeddings-wte-2.png)
+*Source: [Jay Alammar – The Illustrated GPT-2](https://jalammar.github.io/illustrated-gpt2/)*
+
 
 The output layer computes logits for next-token prediction:
 
@@ -108,17 +124,6 @@ Embeddings also matter practically:
 - **Vocabulary Design**: The size and composition of the vocabulary directly determine the shape and efficiency of the embedding matrix.
 - **Attention Mechanism**: Operates on the embedded (and positionally encoded) vectors. Attention queries, keys, and values are all linear projections of these representations.
 - **Context Window**: Each position in the context window corresponds to one embedding vector; the total input to the transformer is a sequence of these vectors.
-
-## Diagrams and Visualizations
-
-![Embedding lookup illustration showing how a one-hot token ID vector indexes into the embedding matrix to retrieve a dense vector representation](https://jalammar.github.io/images/word2vec/embedding-lookup.png)
-*Source: [Jay Alammar – The Illustrated Word2Vec](https://jalammar.github.io/illustrated-word2vec/)*
-
-![The famous word embedding analogy visualization showing king - man + woman = queen as vector arithmetic in embedding space](https://jalammar.github.io/images/word2vec/king-analogy-viz.png)
-*Source: [Jay Alammar – The Illustrated Word2Vec](https://jalammar.github.io/illustrated-word2vec/)*
-
-![GPT-2 token and positional embedding process showing how token IDs are converted to embedding vectors and combined with positional encodings](https://jalammar.github.io/images/gpt2/gpt2-token-embeddings-wte-2.png)
-*Source: [Jay Alammar – The Illustrated GPT-2](https://jalammar.github.io/illustrated-gpt2/)*
 
 ## Further Reading
 

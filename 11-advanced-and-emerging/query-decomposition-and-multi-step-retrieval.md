@@ -8,11 +8,17 @@
 
 Most real-world questions are not simple. "Compare the environmental policies of the EU and China in terms of carbon pricing, renewable energy targets, and enforcement mechanisms" requires at least six separate pieces of information (EU carbon pricing, China carbon pricing, EU renewable targets, China renewable targets, EU enforcement, China enforcement). No single text chunk contains all of this. Standard RAG, which embeds the full query and retrieves the top-k most similar chunks, will likely return a mishmash of partially relevant documents that cover some aspects but not others.
 
+*Recommended visual: Query decomposition pipeline breaking a complex question into sub-queries, retrieving for each, and synthesizing — see [LangChain Query Decomposition Documentation](https://python.langchain.com/docs/how_to/query_decomposition/)*
+
+
 Query decomposition explicitly breaks complex queries into atomic sub-queries, each simple enough to be answered by a focused retrieval step. The results are then synthesized into a comprehensive answer. This is the retrieval equivalent of chain-of-thought reasoning: instead of trying to solve a complex problem in one step, break it into manageable pieces.
 
 Multi-step retrieval extends this further: the answer to one sub-query informs the formulation of the next sub-query. This is essential for **multi-hop questions** where you cannot know what to ask next until you have the answer to the current question. "Which company acquired the startup that developed the technology used in iPhone's Face ID?" requires first identifying the technology (structured light via TrueDepth camera), then the company that developed it (PrimeSense), then who acquired PrimeSense (Apple itself acquired it, but the question structure illustrates multi-hop reasoning).
 
 ## How It Works
+
+
+*Recommended visual: IRCoT (Interleaving Retrieval with Chain of Thought) showing alternating reasoning and retrieval steps — see [Trivedi et al. IRCoT Paper (arXiv:2212.10509)](https://arxiv.org/abs/2212.10509)*
 
 ### Technique 1: Query Decomposition (Parallel Sub-Queries)
 
@@ -212,12 +218,6 @@ In practice, query decomposition is often the first step in building an agentic 
 - **Chain-of-thought**: Query decomposition is the retrieval analog of chain-of-thought reasoning. Both break complex problems into sequential steps. IRCoT explicitly interleaves them.
 - **Prompt engineering**: The decomposition prompt is a critical piece of prompt engineering. Few-shot examples, output format instructions, and domain-specific guidance all affect decomposition quality.
 - **Compound AI systems**: Multi-step retrieval systems with decomposition, routing, reranking, and synthesis are compound AI systems with multiple interacting components.
-
-## Diagrams and Visualizations
-
-*Recommended visual: Query decomposition pipeline breaking a complex question into sub-queries, retrieving for each, and synthesizing — see [LangChain Query Decomposition Documentation](https://python.langchain.com/docs/how_to/query_decomposition/)*
-
-*Recommended visual: IRCoT (Interleaving Retrieval with Chain of Thought) showing alternating reasoning and retrieval steps — see [Trivedi et al. IRCoT Paper (arXiv:2212.10509)](https://arxiv.org/abs/2212.10509)*
 
 ## Further Reading
 

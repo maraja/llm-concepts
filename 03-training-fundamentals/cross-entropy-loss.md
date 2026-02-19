@@ -8,11 +8,19 @@
 
 Imagine you are a weather forecaster. Every day, you announce the probability of rain. If you say "90% chance of rain" and it rains, your prediction was good -- you should not be penalized much. But if you say "5% chance of rain" and it rains, your prediction was terrible -- you should be penalized heavily.
 
+![Graph of the negative log-likelihood function showing how cross-entropy heavily penalizes low-probability predictions for the correct class (steep curve near zero) and lightly penalizes high-probability correct predictions](https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/Cross_entropy_-_loss_function.svg/1200px-Cross_entropy_-_loss_function.svg.png)
+*Source: [Wikimedia Commons -- Cross-Entropy Loss Function](https://commons.wikimedia.org/wiki/File:Cross_entropy_-_loss_function.svg)*
+
+
 Cross-entropy loss works exactly this way. After the model reads a sequence of tokens and predicts a probability distribution over the entire vocabulary for the next token, cross-entropy measures **how much probability the model assigned to the token that actually appeared**. If the model assigned high probability to the correct token, the loss is low. If the model assigned almost zero probability to the correct token, the loss is enormous.
 
 This simple idea -- reward confident correct predictions, heavily penalize confident wrong predictions -- is the engine that drives all of LLM pre-training.
 
 ## How It Works
+
+
+![Diagram of the softmax output layer showing logits converted to probabilities, with cross-entropy loss computed against the one-hot target distribution](https://jalammar.github.io/images/t/output_target_probability_distributions.png)
+*Source: [Jay Alammar -- The Illustrated Transformer](https://jalammar.github.io/illustrated-transformer/)*
 
 ### The Mathematical Formula
 
@@ -68,6 +76,9 @@ If using base-2 logarithms, perplexity equals $2^{H(p,q)}$. Perplexity can be in
 
 The gradient of cross-entropy loss with respect to the logits has an elegant form. For the softmax output $q_i = P(x_i)$ and the true one-hot label $p_i$:
 
+*See also the relationship between cross-entropy, KL divergence, and entropy visualized at: [Chris Olah -- Visual Information Theory](https://colah.github.io/posts/2015-09-Visual-Information/) -- provides intuitive visual explanations of information-theoretic concepts underlying cross-entropy loss.*
+
+
 $$\frac{\partial \mathcal{L}}{\partial z_i} = q_i - p_i$$
 
 This means:
@@ -105,16 +116,6 @@ The choice of cross-entropy is not arbitrary. It is the theoretically optimal lo
 - **Softmax Temperature**: Scaling logits before softmax changes the "sharpness" of the distribution, directly affecting cross-entropy.
 - **Knowledge Distillation**: Uses cross-entropy between a student model's distribution and a teacher model's distribution (soft targets) rather than one-hot labels.
 - **KL Divergence**: Used in RLHF to keep the fine-tuned model close to the pre-trained model; intimately related to cross-entropy.
-
-## Diagrams and Visualizations
-
-![Graph of the negative log-likelihood function showing how cross-entropy heavily penalizes low-probability predictions for the correct class (steep curve near zero) and lightly penalizes high-probability correct predictions](https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/Cross_entropy_-_loss_function.svg/1200px-Cross_entropy_-_loss_function.svg.png)
-*Source: [Wikimedia Commons -- Cross-Entropy Loss Function](https://commons.wikimedia.org/wiki/File:Cross_entropy_-_loss_function.svg)*
-
-![Diagram of the softmax output layer showing logits converted to probabilities, with cross-entropy loss computed against the one-hot target distribution](https://jalammar.github.io/images/t/output_target_probability_distributions.png)
-*Source: [Jay Alammar -- The Illustrated Transformer](https://jalammar.github.io/illustrated-transformer/)*
-
-*See also the relationship between cross-entropy, KL divergence, and entropy visualized at: [Chris Olah -- Visual Information Theory](https://colah.github.io/posts/2015-09-Visual-Information/) -- provides intuitive visual explanations of information-theoretic concepts underlying cross-entropy loss.*
 
 ## Further Reading
 

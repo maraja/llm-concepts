@@ -8,11 +8,18 @@
 
 Imagine you are preparing ingredients for a world-class restaurant. You could buy everything from the cheapest wholesale market -- huge quantities for low cost -- but your dishes would taste mediocre because the ingredients are inconsistent, sometimes spoiled, and occasionally contaminated. Alternatively, you could carefully source from trusted suppliers, inspect every delivery, remove anything subpar, and thoughtfully combine ingredients in precise proportions. The second approach costs more effort but produces dramatically better results.
 
+![The data curation pipeline showing the stages: raw web crawl, text extraction, language filtering, quality filtering, deduplication, toxic content removal, and final data mixing](https://huggingface.co/datasets/HuggingFaceFW/fineweb/resolve/main/FineWeb_pipeline.png)
+*Source: [Hugging Face -- FineWeb Dataset Documentation](https://huggingface.co/datasets/HuggingFaceFW/fineweb)*
+
+
 Training data curation is this sourcing and preparation process for LLMs. The raw internet contains trillions of tokens of text, but most of it is low quality: duplicated content, spam, machine-generated filler, toxic material, personally identifiable information, and text in formats that teach the model little of value. Curating training data means transforming this raw material into a carefully constructed dataset that maximizes what the model learns per token processed.
 
 This is not a solved problem. The quality of the training data is widely believed to be one of the primary differentiators between frontier models and their weaker competitors.
 
 ## How It Works
+
+
+*See the deduplication impact analysis in: [Lee et al., "Deduplicating Training Data Makes Language Models Better" (arXiv:2107.06499)](https://arxiv.org/abs/2107.06499), Figure 1, which shows how removing duplicate content improves model performance on downstream benchmarks while reducing memorization and training compute waste.*
 
 ### Stage 1: Raw Data Collection
 
@@ -114,6 +121,9 @@ The quality ceiling for synthetic data is the capability of the generating model
 
 There is growing concern that the available supply of high-quality natural text is approaching its limits. Estimates suggest:
 
+*See also the data mixing ablation results at: [Penedo et al., "The FineWeb Datasets" (arXiv:2406.17557)](https://arxiv.org/abs/2406.17557) -- includes figures comparing model quality across different filtering strategies and data mix proportions, demonstrating that data quality dominates data quantity.*
+
+
 - Total "high-quality" text on the internet: approximately 5-10 trillion tokens.
 - Frontier models already train on 1-15 trillion tokens.
 - Multiple organizations are competing for the same finite pool.
@@ -155,15 +165,6 @@ As model architectures converge (most frontier models are dense transformers wit
 - **Emergent Abilities**: The data mix may influence which capabilities emerge and at what scale.
 - **Fine-Tuning**: High-quality curated data is equally important for the supervised fine-tuning stage.
 - **Bias and Fairness**: Data curation decisions (what to include, what to filter) directly determine the model's biases.
-
-## Diagrams and Visualizations
-
-![The data curation pipeline showing the stages: raw web crawl, text extraction, language filtering, quality filtering, deduplication, toxic content removal, and final data mixing](https://huggingface.co/datasets/HuggingFaceFW/fineweb/resolve/main/FineWeb_pipeline.png)
-*Source: [Hugging Face -- FineWeb Dataset Documentation](https://huggingface.co/datasets/HuggingFaceFW/fineweb)*
-
-*See the deduplication impact analysis in: [Lee et al., "Deduplicating Training Data Makes Language Models Better" (arXiv:2107.06499)](https://arxiv.org/abs/2107.06499), Figure 1, which shows how removing duplicate content improves model performance on downstream benchmarks while reducing memorization and training compute waste.*
-
-*See also the data mixing ablation results at: [Penedo et al., "The FineWeb Datasets" (arXiv:2406.17557)](https://arxiv.org/abs/2406.17557) -- includes figures comparing model quality across different filtering strategies and data mix proportions, demonstrating that data quality dominates data quantity.*
 
 ## Further Reading
 

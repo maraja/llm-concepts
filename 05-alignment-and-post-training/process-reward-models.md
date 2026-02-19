@@ -8,6 +8,9 @@
 
 Imagine two math teachers grading student work. Teacher A (the outcome reward model) only looks at the final answer: correct gets full marks, incorrect gets zero. Teacher B (the process reward model) reads every line of work, giving credit for each correct step and flagging where the reasoning goes wrong.
 
+*Recommended visual: Process Reward Model vs Outcome Reward Model showing step-level vs final-answer evaluation — see [Let's Verify Step by Step Paper (arXiv:2305.20050)](https://arxiv.org/abs/2305.20050)*
+
+
 Teacher A's students quickly learn that getting the right answer is all that matters -- some develop tricks and shortcuts that happen to work but reflect no understanding, and others get the right answer by coincidence (two errors canceling out). Teacher B's students learn that the reasoning process matters. They develop robust problem-solving skills because every step must be justified, and they cannot get credit for right answers arrived at through wrong reasoning.
 
 This analogy captures the core distinction:
@@ -16,6 +19,9 @@ This analogy captures the core distinction:
 - **Process Reward Models (PRMs)**: Score each intermediate step. The reward signal is dense -- one number per reasoning step.
 
 ## How It Works
+
+
+*Recommended visual: PRM scoring each reasoning step in a math problem with step-level correctness labels — see [OpenAI Process Reward Models Blog](https://openai.com/index/improving-mathematical-reasoning-with-process-reward-models/)*
 
 ### Outcome Reward Models (ORMs)
 
@@ -137,12 +143,6 @@ The PRM vs. ORM distinction addresses some of the deepest challenges in AI reaso
 - **Tree-of-Thought**: ToT needs a way to evaluate intermediate reasoning states. PRMs provide exactly this capability.
 - **RLVR**: RLVR uses verifiable final outcomes as rewards (like an ORM with perfect accuracy). PRMs complement RLVR by adding step-level signals to the outcome-level verification.
 - **DPO**: DPO can be applied at the step level (StepDPO), preferring correct reasoning steps over incorrect ones, combining the simplicity of DPO with the density of PRM-style supervision.
-
-## Diagrams and Visualizations
-
-*Recommended visual: Process Reward Model vs Outcome Reward Model showing step-level vs final-answer evaluation — see [Let's Verify Step by Step Paper (arXiv:2305.20050)](https://arxiv.org/abs/2305.20050)*
-
-*Recommended visual: PRM scoring each reasoning step in a math problem with step-level correctness labels — see [OpenAI Process Reward Models Blog](https://openai.com/index/improving-mathematical-reasoning-with-process-reward-models/)*
 
 ## Further Reading
 

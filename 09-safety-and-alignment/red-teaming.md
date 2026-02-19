@@ -8,11 +8,17 @@
 
 The term "red teaming" originates from military strategy, where a designated "red team" plays the role of the enemy to stress-test defenses. In cybersecurity, red teams attempt to breach systems to find vulnerabilities before malicious actors do. Applied to LLMs, red teaming means systematically attempting to make the model produce outputs that are harmful, inaccurate, biased, privacy-violating, or otherwise undesirable.
 
+*Recommended visual: Red teaming pipeline: define scope, design attacks, execute probes, document findings, remediate — see [Anthropic Red Teaming Research](https://www.anthropic.com/research)*
+
+
 Think of it as a structured dress rehearsal for everything that could go wrong. Rather than waiting for millions of users to discover that the model can be tricked into generating instructions for dangerous activities, or that it exhibits strong gender bias when discussing certain professions, a red team deliberately seeks out these failure modes under controlled conditions.
 
 Red teaming is not about proving a model is "safe" -- it is about discovering the specific ways in which it is *not* safe, so those failures can be addressed before deployment.
 
 ## How It Works
+
+
+*Recommended visual: Automated red teaming with attacker LLM generating adversarial prompts — see [Perez et al. Red Teaming Paper (arXiv:2202.03286)](https://arxiv.org/abs/2202.03286)*
 
 ### Manual Red Teaming
 
@@ -97,12 +103,6 @@ Red teaming also creates organizational knowledge. The process of trying to brea
 - **Bias & Fairness**: Bias testing is a core component of red teaming, and red team exercises often uncover biases that automated fairness metrics miss.
 - **The Alignment Problem**: Red teaming is a practical, empirical approach to discovering alignment failures -- cases where the model's behavior diverges from what its developers intended.
 - **RLHF**: Red team findings are often used to generate additional training data for RLHF, creating a feedback loop between adversarial testing and model improvement.
-
-## Diagrams and Visualizations
-
-*Recommended visual: Red teaming pipeline: define scope, design attacks, execute probes, document findings, remediate — see [Anthropic Red Teaming Research](https://www.anthropic.com/research)*
-
-*Recommended visual: Automated red teaming with attacker LLM generating adversarial prompts — see [Perez et al. Red Teaming Paper (arXiv:2202.03286)](https://arxiv.org/abs/2202.03286)*
 
 ## Further Reading
 

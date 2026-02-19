@@ -8,6 +8,10 @@
 
 Without activation functions, a neural network is just a stack of linear transformations -- and a stack of linear transformations collapses into a single linear transformation. No matter how many layers you add, the network can only learn linear relationships: $y = Wx + b$.
 
+![Plot comparing common activation functions -- ReLU, GELU, SiLU/Swish -- showing their shapes: ReLU with a hard zero cutoff, GELU and SiLU with smooth curves that dip slightly below zero for negative inputs](https://production-media.paperswithcode.com/methods/Screen_Shot_2020-05-27_at_12.48.44_PM.png)
+*Source: [GELU Activation Function -- Papers With Code](https://paperswithcode.com/method/gelu)*
+
+
 An activation function $\sigma$ is applied after each linear transformation to introduce **non-linearity**:
 
 $$y = \sigma(Wx + b)$$
@@ -17,6 +21,10 @@ This non-linearity is what gives neural networks their extraordinary representat
 Think of it this way: a linear function can draw a straight line through data. An activation function lets the network bend, curve, and fold the space, creating the complex decision boundaries needed to model language.
 
 ## How It Works
+
+
+![Comparison of ReLU and Swish (SiLU) activation functions showing the non-monotonic property of Swish where it allows small negative values to pass through before returning to zero](https://production-media.paperswithcode.com/methods/Screen_Shot_2020-05-27_at_12.17.29_PM_CpPmzYG.png)
+*Source: [Swish Activation Function -- Papers With Code](https://paperswithcode.com/method/swish)*
 
 ### ReLU (Rectified Linear Unit)
 
@@ -118,14 +126,6 @@ The success of GLU variants highlights a broader principle: **multiplicative int
 - **Residual Connections**: The output of activated FFN layers is added to the residual stream (see `residual-connections.md`).
 - **Layer Normalization**: Normalization and activation functions interact to determine the distribution of values flowing through the network (see `layer-normalization.md`).
 - **Mixture of Experts**: Each expert in an MoE model contains an FFN with its own activation function (see `mixture-of-experts.md`).
-
-## Diagrams and Visualizations
-
-![Plot comparing common activation functions -- ReLU, GELU, SiLU/Swish -- showing their shapes: ReLU with a hard zero cutoff, GELU and SiLU with smooth curves that dip slightly below zero for negative inputs](https://production-media.paperswithcode.com/methods/Screen_Shot_2020-05-27_at_12.48.44_PM.png)
-*Source: [GELU Activation Function -- Papers With Code](https://paperswithcode.com/method/gelu)*
-
-![Comparison of ReLU and Swish (SiLU) activation functions showing the non-monotonic property of Swish where it allows small negative values to pass through before returning to zero](https://production-media.paperswithcode.com/methods/Screen_Shot_2020-05-27_at_12.17.29_PM_CpPmzYG.png)
-*Source: [Swish Activation Function -- Papers With Code](https://paperswithcode.com/method/swish)*
 
 ## Further Reading
 

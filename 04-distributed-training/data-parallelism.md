@@ -8,11 +8,18 @@
 
 Imagine you have a massive textbook to summarize and four friends willing to help. Rather than giving each friend a different chapter (which would require coordination about narrative flow), you photocopy the entire textbook for each friend and assign each person a different quarter of the pages to summarize. At the end, everyone shares their notes and you merge them into a single, complete summary.
 
+![Data parallelism overview showing model replicas processing different data shards with gradient synchronization](https://jalammar.github.io/images/model-parallelism/data-parallelism.png)
+*Source: [Jay Alammar - The Illustrated Model Parallelism](https://jalammar.github.io/model-parallelism/)*
+
+
 Data parallelism works exactly this way. Every GPU gets a complete copy of the model. The training dataset is split into chunks, and each GPU processes its own chunk independently. After computing gradients on their local data, all GPUs communicate to average those gradients. Then every GPU applies the same averaged gradient update, keeping all model copies perfectly synchronized.
 
 This is the simplest and most widely-used form of distributed training. If your model fits on a single GPU and you just want to train faster, data parallelism is almost always the right first choice.
 
 ## How It Works
+
+
+*Recommended visual: Ring all-reduce algorithm showing how gradient chunks are passed around a ring of GPUs in 2(N-1) steps -- see [Lilian Weng - How to Train Really Large Models on Many GPUs](https://lilianweng.github.io/posts/2021-09-25-train-large/)*
 
 ### Step-by-Step Breakdown
 
@@ -57,6 +64,9 @@ This overlap can hide a significant fraction of communication latency, making DD
 
 In the ideal case, training throughput scales linearly with the number of GPUs:
 
+*Recommended visual: DDP bucketed gradient all-reduce overlapping with backward pass computation -- see [PyTorch DDP documentation](https://pytorch.org/docs/stable/notes/ddp.html)*
+
+
 ```
 Throughput_N = N * Throughput_1
 ```
@@ -100,15 +110,6 @@ Data parallelism is the foundation of virtually all distributed training. Even w
 - **ZeRO / FSDP**: These techniques address the memory limitation of data parallelism by sharding optimizer states, gradients, and parameters across GPUs while preserving the data-parallel training paradigm.
 - **Mixed Precision Training**: Often used alongside data parallelism to reduce communication volume (sending fp16 gradients instead of fp32) and speed up computation.
 - **Gradient Compression**: Techniques like gradient quantization or sparsification reduce communication volume in data parallelism, improving scaling efficiency at the cost of some approximation.
-
-## Diagrams and Visualizations
-
-![Data parallelism overview showing model replicas processing different data shards with gradient synchronization](https://jalammar.github.io/images/model-parallelism/data-parallelism.png)
-*Source: [Jay Alammar - The Illustrated Model Parallelism](https://jalammar.github.io/model-parallelism/)*
-
-*Recommended visual: Ring all-reduce algorithm showing how gradient chunks are passed around a ring of GPUs in 2(N-1) steps -- see [Lilian Weng - How to Train Really Large Models on Many GPUs](https://lilianweng.github.io/posts/2021-09-25-train-large/)*
-
-*Recommended visual: DDP bucketed gradient all-reduce overlapping with backward pass computation -- see [PyTorch DDP documentation](https://pytorch.org/docs/stable/notes/ddp.html)*
 
 ## Further Reading
 

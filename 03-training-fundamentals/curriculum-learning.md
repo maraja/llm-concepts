@@ -8,11 +8,17 @@
 
 Imagine teaching calculus to students by randomly shuffling all topics -- one day differential equations, the next day basic limits, then multivariable integration, then what a derivative is. Students would struggle tremendously, wasting effort on advanced material they lack the foundation to understand. Real education sequences material deliberately: arithmetic before algebra, algebra before calculus, single-variable before multivariable. Each stage builds on the previous one, and the overall learning process is more efficient and reaches a higher level of understanding. Curriculum learning applies this same principle to training neural networks.
 
+*See the curriculum learning framework diagram in: [Bengio et al., "Curriculum Learning" (ICML 2009)](https://dl.acm.org/doi/10.1145/1553374.1553380), Figure 1, which illustrates how training examples are ordered by difficulty and how the model progressively encounters harder examples.*
+
+
 Instead of presenting training examples in random order (the default in machine learning), curriculum learning organizes them from easy to hard. "Easy" might mean short sentences, common vocabulary, low perplexity, or high-quality text, while "hard" might mean long documents, rare words, noisy text, or complex reasoning. The model first builds strong foundational representations on accessible examples, then progressively encounters more challenging material that refines and deepens those representations.
 
 In the era of large language models, curriculum learning has evolved beyond simple easy-to-hard sequencing into dynamic data mixing strategies, where the proportions of different data domains (code, mathematics, web text, books, scientific papers) are adjusted throughout training. This modern form of curriculum learning is used by virtually every frontier model lab, though the specific schedules are often proprietary secrets.
 
 ## How It Works
+
+
+*See also the DoReMi data mixing visualization at: [Xie et al., "DoReMi: Optimizing Data Mixtures" (arXiv:2305.10429)](https://arxiv.org/abs/2305.10429), Figure 1, which shows how proxy model excess loss is used to dynamically reweight domain proportions during LLM training.*
 
 ### Defining Difficulty
 
@@ -94,6 +100,9 @@ Curriculum (late):  Var(gradient) = sigma^2_easy + sigma^2_hard
 
 Counterintuitively, presenting hard examples first (anti-curriculum) can also work in certain settings, particularly contrastive learning. The theory is that hard negatives early in training force the model to learn fine-grained distinctions from the start, rather than developing lazy features that only distinguish easy cases. This works best when the task is about learning distinctions rather than building up foundational knowledge.
 
+*See the training data ordering comparison at: [Albalak et al., "A Survey on Data Selection for Language Models" (arXiv:2402.16827)](https://arxiv.org/abs/2402.16827) -- includes figures comparing random ordering, easy-to-hard curriculum, and dynamic data mixing strategies for LLM pre-training.*
+
+
 ## Why It Matters
 
 1. **Better performance at equal compute**: Curriculum learning can achieve the same final model quality with 10-30% less training compute, or better quality at the same compute budget. For frontier models costing millions of dollars to train, this represents enormous savings.
@@ -130,14 +139,6 @@ Counterintuitively, presenting hard examples first (anti-curriculum) can also wo
 - **Model Collapse**: Curriculum learning can help mitigate model collapse by explicitly upweighting high-quality, verified human data at critical training phases.
 - **Catastrophic Forgetting**: Curriculum transitions must be managed carefully to avoid forgetting earlier training. Gradual transitions and data replay help maintain stability.
 - **Mixed-Precision Training**: Both are "training efficiency" techniques that improve the cost-performance trade-off without changing the model architecture.
-
-## Diagrams and Visualizations
-
-*See the curriculum learning framework diagram in: [Bengio et al., "Curriculum Learning" (ICML 2009)](https://dl.acm.org/doi/10.1145/1553374.1553380), Figure 1, which illustrates how training examples are ordered by difficulty and how the model progressively encounters harder examples.*
-
-*See also the DoReMi data mixing visualization at: [Xie et al., "DoReMi: Optimizing Data Mixtures" (arXiv:2305.10429)](https://arxiv.org/abs/2305.10429), Figure 1, which shows how proxy model excess loss is used to dynamically reweight domain proportions during LLM training.*
-
-*See the training data ordering comparison at: [Albalak et al., "A Survey on Data Selection for Language Models" (arXiv:2402.16827)](https://arxiv.org/abs/2402.16827) -- includes figures comparing random ordering, easy-to-hard curriculum, and dynamic data mixing strategies for LLM pre-training.*
 
 ## Further Reading
 

@@ -8,11 +8,17 @@
 
 Imagine you have a working computer but no documentation -- no source code, no circuit diagrams, no manuals. You can see what goes in and what comes out, but you want to understand **how** it works internally. You start probing individual components, tracing signals, mapping circuits. That is mechanistic interpretability applied to neural networks.
 
+*Recommended visual: Sparse autoencoder decomposing model activations into interpretable features — see [Anthropic Scaling Monosemanticity](https://transformer-circuits.pub/2024/scaling-monosemanticity/index.html)*
+
+
 Unlike behavioral evaluation (testing what a model does) or probing (asking if information exists somewhere inside), mechanistic interpretability seeks to understand the **causal computational structure**: what does each component compute, how do components connect to form circuits, and how do these circuits produce the model's observed behavior? The goal is not just correlation but mechanism.
 
 This matters enormously for AI safety. If we cannot understand what a model is computing internally, we cannot verify that it is being honest, detect hidden objectives, or predict failures in novel situations. Mechanistic interpretability is the long-term path toward trustworthy AI.
 
 ## How It Works
+
+
+*Recommended visual: Induction head circuit showing how two attention heads compose to implement in-context pattern matching — see [Olsson et al. In-context Learning and Induction Heads](https://transformer-circuits.pub/2022/in-context-learning-and-induction-heads/index.html)*
 
 ### Features: The Atoms of Representation
 
@@ -105,12 +111,6 @@ The stakes for mechanistic interpretability extend beyond scientific curiosity:
 - **AI Safety**: The primary motivation for much interpretability research. Detecting deception, power-seeking, and value misalignment all require understanding internal computations.
 - **Model Editing**: Once circuits are identified, targeted editing (activation patching, feature clamping) can modify specific behaviors without retraining.
 - **Neuroscience**: The methodology draws parallels to neuroscience -- probing, ablation studies, and circuit mapping are inspired by techniques used to study biological brains.
-
-## Diagrams and Visualizations
-
-*Recommended visual: Sparse autoencoder decomposing model activations into interpretable features — see [Anthropic Scaling Monosemanticity](https://transformer-circuits.pub/2024/scaling-monosemanticity/index.html)*
-
-*Recommended visual: Induction head circuit showing how two attention heads compose to implement in-context pattern matching — see [Olsson et al. In-context Learning and Induction Heads](https://transformer-circuits.pub/2022/in-context-learning-and-induction-heads/index.html)*
 
 ## Further Reading
 

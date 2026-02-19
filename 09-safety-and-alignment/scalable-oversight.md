@@ -8,11 +8,17 @@
 
 Imagine you are the editor of a prestigious medical journal, but you are not a doctor. You receive a paper claiming a breakthrough cancer treatment. You cannot personally evaluate whether the molecular biology is sound, the clinical trial design is valid, or the statistical analysis is correct. But you have a powerful tool: peer review. You send the paper to multiple independent experts who scrutinize different aspects, debate the methodology, and report their assessments back to you. Through this structured process, you -- the non-expert -- can make a well-informed decision about a topic that exceeds your personal understanding.
 
+*Recommended visual: Scalable oversight techniques: debate, recursive reward modeling, iterated amplification — see [Lilian Weng – Alignment](https://lilianweng.github.io/posts/2023-03-15-prompt-engineering/)*
+
+
 Scalable oversight applies this principle to AI alignment. Current alignment techniques (RLHF, DPO, Constitutional AI) fundamentally depend on someone providing accurate feedback on model outputs. When a model writes a simple email, a human can easily judge quality. But when a model writes a complex mathematical proof, generates novel code for a distributed system, or produces a nuanced policy analysis, human evaluation capacity becomes the bottleneck. The human cannot reliably assess whether the output is correct, safe, and aligned with intent.
 
 The scalable oversight research agenda asks: how can we extend human oversight to cover outputs and behaviors that exceed human evaluation capacity? The answer is not a single technique but a family of approaches, each using AI systems to amplify human judgment in different ways. The fundamental tension is recursive: every approach that uses AI to help evaluate AI introduces another AI system that itself needs oversight. This is the **recursive trust problem**, and it remains the deepest open challenge in the field.
 
 ## How It Works
+
+
+*Recommended visual: AI Debate protocol where two AI systems argue opposing sides for a human judge — see [Irving et al. AI Safety via Debate (arXiv:1805.00899)](https://arxiv.org/abs/1805.00899)*
 
 ### AI Safety via Debate
 Debate (Irving et al., 2018) is one of the most elegant scalable oversight proposals. The structure is adversarial:
@@ -155,12 +161,6 @@ Lightman et al. showed that process reward models significantly outperform outco
 - **Sycophancy**: Complicates oversight because the model actively tells evaluators what they want to hear rather than surfacing genuine disagreements.
 - **AI Sandbagging**: If models underperform during evaluation, oversight systems must account for hidden capabilities.
 - **Constitutional AI**: An alternative alignment paradigm that partially sidesteps the oversight problem by grounding behavior in principles rather than per-instance evaluation.
-
-## Diagrams and Visualizations
-
-*Recommended visual: Scalable oversight techniques: debate, recursive reward modeling, iterated amplification — see [Lilian Weng – Alignment](https://lilianweng.github.io/posts/2023-03-15-prompt-engineering/)*
-
-*Recommended visual: AI Debate protocol where two AI systems argue opposing sides for a human judge — see [Irving et al. AI Safety via Debate (arXiv:1805.00899)](https://arxiv.org/abs/1805.00899)*
 
 ## Further Reading
 

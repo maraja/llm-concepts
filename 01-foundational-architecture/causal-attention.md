@@ -8,11 +8,19 @@
 
 Imagine you are taking an exam where each question builds on the previous one. You are allowed to look back at your earlier answers, but you absolutely cannot peek ahead at questions you have not reached yet. Causal attention enforces exactly this rule for language models: when computing the representation for token at position $t$, the model can only "see" tokens at positions $1, 2, \ldots, t$. It is blind to positions $t+1, t+2, \ldots, n$.
 
+![Causal attention mask showing the lower-triangular matrix that prevents each token from attending to future positions](https://jalammar.github.io/images/gpt2/self-attention-and-masked-self-attention.png)
+*Source: [Jay Alammar – The Illustrated GPT-2](https://jalammar.github.io/illustrated-gpt2/)*
+
+
 This constraint is called "causal" because it enforces a causal ordering: the representation of a token can only be caused (influenced) by tokens that came before it, never by tokens from the future.
 
 The term "masked" comes from the implementation: a mask is applied to the attention scores before softmax, setting all "future" positions to negative infinity so they receive zero attention weight.
 
 ## How It Works
+
+
+![Masked self-attention matrix visualization showing how the triangular mask restricts information flow to left-to-right only](https://jalammar.github.io/images/xlnet/masked-self-attention-2.png)
+*Source: [Jay Alammar – A Visual Guide to Using BERT](https://jalammar.github.io/a-visual-guide-to-using-bert-for-the-first-time/)*
 
 ### Step 1: Compute Attention Scores (Same as Standard)
 
@@ -112,14 +120,6 @@ In the original encoder-decoder Transformer, the encoder uses bidirectional atte
 - **Next-Token Prediction**: Causal masking is essential for the training objective to work correctly (see `next-token-prediction.md`).
 - **Encoder-Decoder Architecture**: The distinction between causal and bidirectional attention defines the difference between encoder and decoder (see `encoder-decoder-architecture.md`).
 - **KV Cache**: The append-only nature of the KV cache is a direct consequence of the causal mask.
-
-## Diagrams and Visualizations
-
-![Causal attention mask showing the lower-triangular matrix that prevents each token from attending to future positions](https://jalammar.github.io/images/gpt2/self-attention-and-masked-self-attention.png)
-*Source: [Jay Alammar – The Illustrated GPT-2](https://jalammar.github.io/illustrated-gpt2/)*
-
-![Masked self-attention matrix visualization showing how the triangular mask restricts information flow to left-to-right only](https://jalammar.github.io/images/xlnet/masked-self-attention-2.png)
-*Source: [Jay Alammar – A Visual Guide to Using BERT](https://jalammar.github.io/a-visual-guide-to-using-bert-for-the-first-time/)*
 
 ## Further Reading
 

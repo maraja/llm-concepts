@@ -8,11 +8,19 @@
 
 Standard attention has a dirty secret: it is not slow because of the *computation* -- modern GPUs have more than enough arithmetic power. It is slow because of *memory traffic*. The naive implementation writes a massive N x N attention matrix to GPU main memory (HBM), then reads it back to apply softmax, then writes the result again. For long sequences, this memory shuffling dominates the runtime.
 
+![Flash Attention tiling diagram showing how Q, K, V blocks are loaded into SRAM to avoid materializing the full N x N attention matrix in HBM](https://raw.githubusercontent.com/Dao-AILab/flash-attention/main/assets/FlashAttention_banner.jpg)
+*Source: [Flash Attention GitHub Repository](https://github.com/Dao-AILab/flash-attention)*
+
+
 Flash Attention is like reorganizing a kitchen so everything the chef needs is within arm's reach on the counter (SRAM), rather than walking to the pantry (HBM) for every ingredient. The chef cooks the same dish -- the result is identical -- but finishes much faster because the time spent walking is eliminated.
 
 Introduced by Tri Dao et al. in 2022, Flash Attention has become so foundational that it is now integrated into essentially every serious LLM framework and is the default attention implementation in PyTorch.
 
 ## How It Works
+
+
+![GPU memory hierarchy showing the bandwidth gap between SRAM and HBM that Flash Attention exploits](https://gordicaleksa.medium.com/eli5-flash-attention-5c44017022ad)
+*See detailed GPU memory hierarchy and tiling diagrams at: [Aleksa Gordic - ELI5 Flash Attention](https://gordicaleksa.medium.com/eli5-flash-attention-5c44017022ad)*
 
 ### GPU Memory Hierarchy
 
@@ -86,6 +94,9 @@ Flash Attention 2 (Dao, 2023) improved upon the original with:
 
 Flash Attention 3 (Dao et al., 2024) targets NVIDIA Hopper architecture (H100) with:
 
+*See comparison of standard attention vs Flash Attention memory access patterns at: [Tri Dao's Flash Attention Paper (arXiv:2205.14135)](https://arxiv.org/abs/2205.14135)*
+
+
 - **Asynchronous operations**: Overlaps data loading (using the Tensor Memory Accelerator, or TMA) with computation using warp specialization. While one set of warps loads the next tile, another set computes on the current tile.
 - **FP8 support**: Native FP8 attention computation, leveraging Hopper's FP8 tensor cores for near-2x throughput over FP16.
 - **Incoherent processing**: Techniques to manage the reduced precision of FP8 while maintaining accuracy.
@@ -124,16 +135,6 @@ Flash Attention is not just faster -- it fundamentally changes what is practical
 - **Model Serving Frameworks**: Every major serving framework (vLLM, TGI, TensorRT-LLM) integrates Flash Attention as a non-negotiable baseline optimization.
 - **Throughput vs. Latency**: Flash Attention's speedup benefits both throughput (more tokens per second in batch) and latency (faster per-request attention).
 - **Speculative Decoding**: During the verification step, the target model processes multiple tokens at once -- Flash Attention ensures this batched attention is fast.
-
-## Diagrams and Visualizations
-
-![Flash Attention tiling diagram showing how Q, K, V blocks are loaded into SRAM to avoid materializing the full N x N attention matrix in HBM](https://raw.githubusercontent.com/Dao-AILab/flash-attention/main/assets/FlashAttention_banner.jpg)
-*Source: [Flash Attention GitHub Repository](https://github.com/Dao-AILab/flash-attention)*
-
-![GPU memory hierarchy showing the bandwidth gap between SRAM and HBM that Flash Attention exploits](https://gordicaleksa.medium.com/eli5-flash-attention-5c44017022ad)
-*See detailed GPU memory hierarchy and tiling diagrams at: [Aleksa Gordic - ELI5 Flash Attention](https://gordicaleksa.medium.com/eli5-flash-attention-5c44017022ad)*
-
-*See comparison of standard attention vs Flash Attention memory access patterns at: [Tri Dao's Flash Attention Paper (arXiv:2205.14135)](https://arxiv.org/abs/2205.14135)*
 
 ## Further Reading
 

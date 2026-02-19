@@ -8,6 +8,9 @@
 
 Standard PPO in the RLHF pipeline requires four models in memory simultaneously: the policy, the reference model, the reward model, and a critic (value) model that estimates how good each state is. The critic is essential for computing "advantages" -- how much better an action was compared to what was expected. But training this critic is itself unstable, memory-intensive, and adds another source of error.
 
+*Recommended visual: GRPO algorithm diagram showing group sampling, z-score advantage estimation, and clipped policy update — see [DeepSeekMath Paper (arXiv:2402.03300)](https://arxiv.org/abs/2402.03300)*
+
+
 GRPO asks: what if we could estimate advantages without a critic at all?
 
 The key insight is surprisingly simple. Instead of training a neural network to predict expected rewards, GRPO samples a *group* of outputs for each prompt and uses the group's own statistics as the baseline. Think of it like grading on a curve: instead of having an external judge estimate what a "good" score should be, you simply compare each student's performance against the class average. If a response scored above the group mean, it gets a positive advantage; below the mean, negative. No external critic needed.
@@ -15,6 +18,9 @@ The key insight is surprisingly simple. Instead of training a neural network to 
 This approach draws from a long lineage in RL -- REINFORCE with baselines, self-play, and rejection sampling -- but packages it into a practical, scalable algorithm that proved powerful enough to train DeepSeek-R1, one of the first models to develop emergent chain-of-thought reasoning purely from reinforcement learning.
 
 ## How It Works
+
+
+*Recommended visual: Comparison of PPO (with critic) vs GRPO (critic-free group-based advantage) — see [DeepSeek-R1 Paper (arXiv:2501.12948)](https://arxiv.org/abs/2501.12948)*
 
 ### Group-Based Advantage Estimation
 
@@ -100,12 +106,6 @@ A single GRPO training iteration proceeds as follows:
 - **Rejection sampling**: GRPO's group sampling is related, but uses all samples for policy gradients rather than just the best one.
 - **RLHF/RLVR**: GRPO is a drop-in replacement for PPO in the RLHF or RLVR pipeline.
 - **Chain-of-thought training**: DeepSeek-R1-Zero's emergent reasoning connects GRPO to the study of how reasoning is elicited through RL.
-
-## Diagrams and Visualizations
-
-*Recommended visual: GRPO algorithm diagram showing group sampling, z-score advantage estimation, and clipped policy update — see [DeepSeekMath Paper (arXiv:2402.03300)](https://arxiv.org/abs/2402.03300)*
-
-*Recommended visual: Comparison of PPO (with critic) vs GRPO (critic-free group-based advantage) — see [DeepSeek-R1 Paper (arXiv:2501.12948)](https://arxiv.org/abs/2501.12948)*
 
 ## Further Reading
 

@@ -8,11 +8,17 @@
 
 Standard autoregressive generation has an uncomfortable truth: generating each token requires a full forward pass through the model, but during the decode phase, most of the GPU's computational power sits idle. The bottleneck is memory bandwidth -- reading billions of parameters from GPU memory -- not arithmetic. The GPU can multiply matrices far faster than it can load them.
 
+*Recommended visual: Speculative decoding pipeline showing draft model generating candidate tokens and target model verifying in a single forward pass — see [Leviathan et al. Paper (arXiv:2211.17192)](https://arxiv.org/abs/2211.17192)*
+
+
 Speculative decoding exploits this gap. Think of it like a junior associate drafting a document and a senior partner reviewing it. The junior works fast and produces a rough draft of several paragraphs. The senior reads the whole draft at once and approves most of it, only redlining a few sections. This is far faster than the senior dictating every word one at a time, because reading and approving in bulk is cheap compared to composing from scratch.
 
 The "junior" is a small draft model (e.g., a 1B parameter model). The "senior" is the large target model (e.g., a 70B parameter model). The draft model proposes K tokens (typically 3-8), and the target model verifies all of them in one parallel forward pass.
 
 ## How It Works
+
+
+*Recommended visual: Acceptance/rejection verification step showing how rejected tokens are resampled to maintain exact output distribution — see [Chen et al. Paper (arXiv:2302.01318)](https://arxiv.org/abs/2302.01318)*
 
 ### Step-by-Step Process
 
@@ -89,12 +95,6 @@ The "free lunch" nature of speculative decoding -- identical quality, strictly f
 - **Throughput vs. Latency**: Speculative decoding is primarily a latency optimization. At high batch sizes (throughput-oriented), its benefits diminish because the GPU is already well-utilized.
 - **Model Serving Frameworks**: vLLM and TensorRT-LLM both support speculative decoding, with ongoing work to improve integration with continuous batching.
 - **Knowledge Distillation**: A distilled small model can serve as an excellent draft model, combining two optimization strategies.
-
-## Diagrams and Visualizations
-
-*Recommended visual: Speculative decoding pipeline showing draft model generating candidate tokens and target model verifying in a single forward pass — see [Leviathan et al. Paper (arXiv:2211.17192)](https://arxiv.org/abs/2211.17192)*
-
-*Recommended visual: Acceptance/rejection verification step showing how rejected tokens are resampled to maintain exact output distribution — see [Chen et al. Paper (arXiv:2302.01318)](https://arxiv.org/abs/2302.01318)*
 
 ## Further Reading
 

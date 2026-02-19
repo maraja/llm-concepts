@@ -8,6 +8,9 @@
 
 RL algorithms like PPO and GRPO update model weights to produce better outputs. But there is a much simpler way to improve outputs: generate many candidates and pick the best one.
 
+*Recommended visual: Best-of-N sampling pipeline showing N responses generated, scored by reward model, and best selected — see [Llama 2 Paper Figure (arXiv:2307.09288)](https://arxiv.org/abs/2307.09288)*
+
+
 This is rejection sampling, also called Best-of-N. Generate $N$ complete responses, score each with a reward model, return the highest-scoring one.
 
 The analogy: imagine writing an important email. You do not send the first draft. You write several versions, reread them, and send the best. Rejection sampling does exactly this, with a reward model as the editor.
@@ -15,6 +18,9 @@ The analogy: imagine writing an important email. You do not send the first draft
 What makes this powerful is its theoretical properties. Selecting the best of $N$ samples is mathematically equivalent to sampling from a KL-constrained distribution -- exactly what PPO optimizes, but without any gradient updates. The KL is approximately $\log(N) - (N-1)/N$, meaning increasing $N$ gives diminishing returns. $N = 16$ captures ~80% of the available improvement; $N = 256$ adds relatively little.
 
 ## How It Works
+
+
+*Recommended visual: Rejection sampling performance curves showing diminishing returns as N increases — see [Llama 2 Technical Report](https://arxiv.org/abs/2307.09288)*
 
 ### Best-of-N at Inference Time
 
@@ -100,12 +106,6 @@ This "online DPO" addresses DPO's off-policy weakness by generating fresh, on-po
 - **DPO**: Best and worst samples form on-policy preference pairs for DPO (as in Llama 3).
 - **Reward modeling**: RS quality is entirely dependent on the reward model's ranking ability.
 - **Synthetic data**: RS is a common technique for high-quality synthetic data generation beyond alignment.
-
-## Diagrams and Visualizations
-
-*Recommended visual: Best-of-N sampling pipeline showing N responses generated, scored by reward model, and best selected — see [Llama 2 Paper Figure (arXiv:2307.09288)](https://arxiv.org/abs/2307.09288)*
-
-*Recommended visual: Rejection sampling performance curves showing diminishing returns as N increases — see [Llama 2 Technical Report](https://arxiv.org/abs/2307.09288)*
 
 ## Further Reading
 

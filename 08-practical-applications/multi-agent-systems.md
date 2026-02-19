@@ -8,6 +8,9 @@
 
 Think of a multi-agent system like a well-run software engineering team. You have a project manager who breaks down tasks, a developer who writes code, a reviewer who checks quality, and a tester who validates results. No single person does everything -- each brings specialized expertise and they communicate through structured processes. Multi-agent LLM systems work the same way: instead of prompting one model to do everything, you instantiate multiple agents with distinct roles, tools, and instructions, then orchestrate their collaboration.
 
+*Recommended visual: Multi-agent collaboration patterns showing debate, delegation, pipeline, and voting architectures — see [AutoGen Paper (arXiv:2308.08155)](https://arxiv.org/abs/2308.08155)*
+
+
 The key insight is that specialization improves performance. A single monolithic prompt trying to handle research, coding, testing, and documentation simultaneously tends to lose focus and produce mediocre results across all dimensions. By decomposing that into agents with narrow mandates, each agent can maintain a tighter context window focused on its specialty, use role-specific tools without distraction, and be evaluated independently against clear success criteria. The orchestration layer handles routing messages between agents, sequencing their execution, and resolving conflicts when agents disagree.
 
 This approach has exploded in popularity since 2023, with frameworks like AutoGen, CrewAI, and LangGraph each offering different abstractions for building multi-agent workflows. The space is evolving rapidly, but the core patterns are stabilizing around a few well-understood architectures that balance flexibility with reliability.
@@ -15,6 +18,9 @@ This approach has exploded in popularity since 2023, with frameworks like AutoGe
 The practical question is not whether multi-agent systems can work -- they clearly can -- but when the added complexity and cost are justified versus a single capable agent with good tools. Understanding the tradeoffs is essential for making that decision.
 
 ## How It Works
+
+
+*Recommended visual: CrewAI agent-role-task framework diagram — see [CrewAI Documentation](https://docs.crewai.com/)*
 
 ### Major Frameworks
 
@@ -107,12 +113,6 @@ They lose on simple single-step tasks where the orchestration overhead (3-10x co
 - **Reasoning Models**: Using reasoning models (o1, R1) as the backbone for critical agents (reviewers, planners) can improve multi-agent system quality on complex tasks.
 - **RAG (Retrieval-Augmented Generation)**: Research agents in multi-agent systems typically use RAG to ground their outputs in retrieved documents before passing results to other agents.
 - **Prompt Engineering**: The system prompt for each agent is effectively a role specification -- the quality of these prompts directly determines how well agents perform their specialized functions.
-
-## Diagrams and Visualizations
-
-*Recommended visual: Multi-agent collaboration patterns showing debate, delegation, pipeline, and voting architectures — see [AutoGen Paper (arXiv:2308.08155)](https://arxiv.org/abs/2308.08155)*
-
-*Recommended visual: CrewAI agent-role-task framework diagram — see [CrewAI Documentation](https://docs.crewai.com/)*
 
 ## Further Reading
 

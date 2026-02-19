@@ -8,11 +8,17 @@
 
 Think of prompt compression like creating a telegram from a long letter. In the early 20th century, telegrams charged by the word, so people learned to strip out filler while keeping the essential meaning intact: "Arriving Tuesday 3PM, bring car" instead of "I wanted to let you know that I will be arriving on Tuesday at 3 PM, and it would be wonderful if you could bring the car to pick me up." Prompt compression does the same thing for LLM inputs -- it removes tokens that contribute little to the model's understanding while preserving the information the model actually needs to generate accurate responses.
 
+*Recommended visual: LLMLingua pipeline showing budget controller, iterative token compression, and distribution alignment — see [LLMLingua Paper (arXiv:2310.05736)](https://arxiv.org/abs/2310.05736)*
+
+
 This matters because LLM API costs scale linearly with input token count, and prefill latency scales quadratically with sequence length due to attention computation. A 10,000-token prompt that can be compressed to 2,500 tokens costs 75% less and processes roughly 2-4x faster during the prefill phase. For applications like RAG pipelines that routinely stuff multiple retrieved documents into context, compression can be the difference between a viable product and a cost-prohibitive one.
 
 The field has evolved rapidly from simple heuristic approaches (removing stop words, truncating documents) to sophisticated learned methods. The LLMLingua family from Microsoft Research represents the state of the art, using small language models to identify which tokens carry the most information and which can be safely dropped without degrading downstream task performance.
 
 ## How It Works
+
+
+*Recommended visual: Token-level perplexity scoring showing how low-perplexity (predictable) tokens are pruned first — see [LLMLingua-2 Paper (arXiv:2403.12968)](https://arxiv.org/abs/2403.12968)*
 
 ### Perplexity-Based Token Importance (LLMLingua)
 
@@ -110,12 +116,6 @@ Compression ratio can be dynamically adjusted based on the input length relative
 - **Tokenization**: Compression operates at the token level, so its effectiveness depends on the tokenizer -- subword tokenizers may split semantically important words into multiple tokens with different importance scores.
 - **Knowledge Distillation**: LLMLingua-2's training process distills GPT-4's compression judgment into a small classifier, a form of task-specific knowledge distillation.
 - **Model Routing**: Compression and routing are complementary cost-reduction strategies. Routing selects a cheaper model; compression reduces the input cost for whichever model is selected.
-
-## Diagrams and Visualizations
-
-*Recommended visual: LLMLingua pipeline showing budget controller, iterative token compression, and distribution alignment — see [LLMLingua Paper (arXiv:2310.05736)](https://arxiv.org/abs/2310.05736)*
-
-*Recommended visual: Token-level perplexity scoring showing how low-perplexity (predictable) tokens are pruned first — see [LLMLingua-2 Paper (arXiv:2403.12968)](https://arxiv.org/abs/2403.12968)*
 
 ## Further Reading
 

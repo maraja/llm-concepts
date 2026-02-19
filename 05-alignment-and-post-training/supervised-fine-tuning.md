@@ -8,11 +8,18 @@
 
 Imagine you've hired someone with encyclopedic knowledge -- they've read every book, every website, every forum post. They know an astonishing amount. But if you ask them "Can you summarize this document for me?", they might just... keep writing more document-like text. They know *about* everything, but they don't know how to *help* you.
 
+![The three stages of LLM development: pretraining, supervised fine-tuning on instruction-response pairs, and RLHF alignment](https://huggingface.co/datasets/trl-internal-testing/example-images/resolve/main/blog/rlhf/thumbnail.png)
+*Source: [Hugging Face – Illustrating RLHF](https://huggingface.co/blog/rlhf)*
+
+
 Supervised fine-tuning (SFT) is the process of teaching that knowledgeable entity how to be helpful. It takes a pre-trained base model -- one that has absorbed vast amounts of text and learned the statistical structure of language -- and trains it further on carefully curated examples of desired behavior. These examples typically take the form of (instruction, response) pairs: "When a user asks X, a good response looks like Y."
 
 Instruction tuning is a specific and hugely influential form of SFT where the training data is explicitly structured around instructions. Rather than fine-tuning for a single downstream task (like sentiment classification), instruction tuning trains the model across hundreds or thousands of task types simultaneously, teaching it the *meta-skill* of instruction following itself.
 
 ## How It Works
+
+
+*Recommended visual: SFT training on instruction-response pairs showing how a base model becomes an instruction-following assistant — see [InstructGPT Paper (arXiv:2203.02155)](https://arxiv.org/abs/2203.02155)*
 
 ### The Basic Pipeline
 
@@ -85,13 +92,6 @@ SFT is also the bridge to further alignment. RLHF and DPO build on top of an SFT
 - **LoRA and parameter-efficient fine-tuning** make SFT practical for smaller organizations by reducing the computational cost of fine-tuning.
 - **Synthetic data generation** is increasingly used to create SFT datasets, with stronger models generating training data for weaker ones (distillation).
 - **Evaluation and benchmarks** (like MT-Bench and AlpacaEval) specifically measure the quality of instruction-following that SFT enables.
-
-## Diagrams and Visualizations
-
-![The three stages of LLM development: pretraining, supervised fine-tuning on instruction-response pairs, and RLHF alignment](https://huggingface.co/datasets/trl-internal-testing/example-images/resolve/main/blog/rlhf/thumbnail.png)
-*Source: [Hugging Face – Illustrating RLHF](https://huggingface.co/blog/rlhf)*
-
-*Recommended visual: SFT training on instruction-response pairs showing how a base model becomes an instruction-following assistant — see [InstructGPT Paper (arXiv:2203.02155)](https://arxiv.org/abs/2203.02155)*
 
 ## Further Reading
 

@@ -8,11 +8,18 @@
 
 Imagine you are giving instructions to an extraordinarily well-read but extremely literal colleague. They have read nearly everything ever written, they can mimic any style, and they are eager to help -- but they will do *exactly* what you ask, not what you *meant* to ask. Prompt engineering is the skill of learning to say precisely what you mean.
 
+![Prompt engineering techniques taxonomy: zero-shot, few-shot, chain-of-thought, self-consistency, and more](https://lilianweng.github.io/posts/2023-03-15-prompt-engineering/prompt-chain-of-thought.png)
+*Source: [Lilian Weng – Prompt Engineering](https://lilianweng.github.io/posts/2023-03-15-prompt-engineering/)*
+
+
 At its core, a prompt is the text you send to an LLM before it begins generating. This includes everything: the system message that sets behavioral ground rules, any examples you provide, the user's question, and even the formatting hints you include. Every token in that prompt shapes the probability distribution over the model's next-token predictions. Prompt engineering is about deliberately shaping that distribution so the model lands in the region of outputs you actually want.
 
 The term "engineering" is deliberate. While early prompt work felt more like art -- trying random phrasings until something clicked -- the field has matured into a systematic practice with reproducible techniques, measurable outcomes, and documented best practices.
 
 ## How It Works
+
+
+*Recommended visual: Chain-of-thought prompting comparison showing standard vs CoT prompting with intermediate reasoning steps — see [Wei et al. CoT Paper (arXiv:2201.11903)](https://arxiv.org/abs/2201.11903)*
 
 ### The Prompting Spectrum: Zero-Shot to Many-Shot
 
@@ -49,6 +56,8 @@ Controlling how a model formats its response is critical for software integratio
 
 In production systems, prompts are rarely written freehand. Instead, they are **templates** with variables that get filled at runtime. A RAG prompt template might look like: "Given the following context: {retrieved_documents}\n\nAnswer the user's question: {user_query}." This separation of prompt logic from prompt content enables version control, A/B testing, and systematic improvement.
 
+
+
 ## Why It Matters
 
 Prompt engineering is the primary interface between human intent and LLM capability. A well-crafted prompt can be the difference between a useless response and a production-quality output -- without changing the model, the data, or the infrastructure. It is the highest-leverage, lowest-cost intervention available.
@@ -80,13 +89,6 @@ For businesses, good prompt engineering reduces the need for expensive fine-tuni
 - **System prompts** interact with **RLHF and alignment** -- the model's instruction-following ability is what makes system prompts work at all.
 - **Prompt templates** are the foundation of **RAG pipelines** and **agent frameworks**, where retrieved context or tool results are injected into structured prompts.
 - **Output format control** connects directly to **structured output and constrained decoding**.
-
-## Diagrams and Visualizations
-
-![Prompt engineering techniques taxonomy: zero-shot, few-shot, chain-of-thought, self-consistency, and more](https://lilianweng.github.io/posts/2023-03-15-prompt-engineering/prompt-chain-of-thought.png)
-*Source: [Lilian Weng – Prompt Engineering](https://lilianweng.github.io/posts/2023-03-15-prompt-engineering/)*
-
-*Recommended visual: Chain-of-thought prompting comparison showing standard vs CoT prompting with intermediate reasoning steps — see [Wei et al. CoT Paper (arXiv:2201.11903)](https://arxiv.org/abs/2201.11903)*
 
 ## Further Reading
 

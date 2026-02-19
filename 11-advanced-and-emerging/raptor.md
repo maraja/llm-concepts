@@ -8,6 +8,9 @@
 
 Standard RAG systems split documents into fixed-size chunks and embed each chunk independently. This flat structure works well for questions that can be answered by a single chunk, but it fails for questions that require understanding across multiple chunks or at a higher level of abstraction.
 
+*Recommended visual: RAPTOR tree structure showing leaf chunks clustered and summarized into hierarchical nodes — see [Sarthi et al. RAPTOR Paper (arXiv:2401.18059)](https://arxiv.org/abs/2401.18059)*
+
+
 Consider a 50-page research paper. Standard RAG chunks it into ~100 pieces of 512 tokens each. If you ask "What specific results did the authors report in Table 3?", vector search will likely find the right chunk. But if you ask "What is the overall contribution of this paper?", no single chunk contains a complete answer. The abstract might help, but it does not capture the nuanced synthesis that comes from understanding the full paper.
 
 RAPTOR, introduced by Sarthi, Abdullah, Tuli, Khanna, Goldie, and Manning at Stanford (2024), solves this by building a tree of summaries over the chunks. Adjacent or semantically related chunks are clustered together and summarized by an LLM. Those summaries are then clustered and summarized again, recursively, until you reach a root summary of the entire corpus (or major sections thereof). The tree preserves information at every level of granularity: leaf nodes contain specific details, intermediate nodes contain section-level summaries, and the root contains the highest-level themes.
@@ -15,6 +18,9 @@ RAPTOR, introduced by Sarthi, Abdullah, Tuli, Khanna, Goldie, and Manning at Sta
 At retrieval time, the system searches across all levels of the tree simultaneously, returning the most relevant nodes regardless of whether they are specific chunks or abstract summaries.
 
 ## How It Works
+
+
+*Recommended visual: Multi-level retrieval in RAPTOR showing queries matching at different abstraction levels in the tree — see [RAPTOR Paper Figure 1](https://arxiv.org/abs/2401.18059)*
 
 ### Building the RAPTOR Tree (Indexing)
 
@@ -141,12 +147,6 @@ RAPTOR addresses a fundamental limitation of flat-chunk RAG: the loss of hierarc
 - **Embedding models**: RAPTOR uses embeddings for both clustering (via UMAP) and retrieval (via similarity search). The quality of the embedding model affects both stages.
 - **Agentic RAG**: An agentic system could use RAPTOR's tree structure strategically -- first retrieving high-level summaries to understand the landscape, then drilling into specific leaf nodes for details.
 - **Late chunking**: Both RAPTOR and late chunking aim to preserve broader context that is lost in standard chunking. Late chunking preserves context at the embedding level; RAPTOR preserves it through hierarchical summarization.
-
-## Diagrams and Visualizations
-
-*Recommended visual: RAPTOR tree structure showing leaf chunks clustered and summarized into hierarchical nodes — see [Sarthi et al. RAPTOR Paper (arXiv:2401.18059)](https://arxiv.org/abs/2401.18059)*
-
-*Recommended visual: Multi-level retrieval in RAPTOR showing queries matching at different abstraction levels in the tree — see [RAPTOR Paper Figure 1](https://arxiv.org/abs/2401.18059)*
 
 ## Further Reading
 

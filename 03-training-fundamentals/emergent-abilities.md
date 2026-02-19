@@ -8,11 +8,18 @@
 
 Imagine you are gradually heating water. From 0 to 99 degrees Celsius, nothing dramatic happens -- the water gets warmer, but it remains liquid. Then at 100 degrees, it suddenly boils, undergoing a phase transition to steam. The ability to become steam was not present at 50 degrees, not present at 90 degrees, and then seemingly appeared from nowhere at 100 degrees.
 
+![BIG-Bench task performance curves showing the sharp phase transitions in accuracy as model scale increases, with some tasks jumping from near-random to high accuracy at specific parameter thresholds](https://raw.githubusercontent.com/google/BIG-bench/main/bigbench/benchmark_tasks/results/plot_all_tasks.png)
+*Source: [Google BIG-Bench Repository](https://github.com/google/BIG-bench)*
+
+
 Emergent abilities in LLMs are often described through a similar lens. As models scale from millions to billions to hundreds of billions of parameters, certain capabilities appear to be absent in smaller models and then suddenly present in larger ones. A 1B parameter model cannot do multi-step arithmetic. A 10B parameter model still cannot. Then a 100B+ parameter model seemingly "unlocks" this ability -- not through any architectural change or special training, but purely through increased scale.
 
 The term "emergence" was formalized in the LLM context by Wei et al. (2022), who defined an emergent ability as one that is "not present in smaller models but is present in larger models." This definition, and indeed whether emergence is real at all, has become one of the most debated topics in AI research.
 
 ## How It Works
+
+
+*See the emergent abilities compilation figure in: [Wei et al., "Emergent Abilities of Large Language Models" (arXiv:2206.07682)](https://arxiv.org/abs/2206.07682), Figure 2, which shows performance on multiple tasks across model families (GPT-3, LaMDA, PaLM) with clear phase transitions from random to above-chance accuracy.*
 
 ### The Observed Pattern
 
@@ -62,6 +69,9 @@ This suggests that what we call "emergence" may simply be the interaction betwee
 ### The Counter-Arguments
 
 Defenders of emergence argue:
+
+*See also the metric artifact analysis in: [Schaeffer et al., "Are Emergent Abilities a Mirage?" (arXiv:2304.15004)](https://arxiv.org/abs/2304.15004), Figure 1, which demonstrates how the same underlying smooth improvement appears emergent or smooth depending on whether exact-match or continuous metrics are used.*
+
 
 - **Practical emergence matters even if mechanistic emergence does not.** If a capability is useless below a threshold (you need 100% of a math solution, not 50%), then the practical "emergence" is real and relevant regardless of whether the underlying probability improved smoothly.
 - **Some abilities may genuinely be discontinuous.** Complex reasoning chains might require a minimum capacity to maintain coherent multi-step inference, creating genuine thresholds in capability.
@@ -113,15 +123,6 @@ Organizations and governments attempting to forecast AI progress rely heavily on
 - **In-Context Learning**: The ability to learn from examples in the prompt, itself considered emergent, interacts with other emergent capabilities.
 - **AI Safety and Alignment**: Emergence directly impacts the ability to forecast and prepare for potentially dangerous capabilities.
 - **Evaluation and Benchmarks**: The choice of metric fundamentally affects whether emergence is observed.
-
-## Diagrams and Visualizations
-
-![BIG-Bench task performance curves showing the sharp phase transitions in accuracy as model scale increases, with some tasks jumping from near-random to high accuracy at specific parameter thresholds](https://raw.githubusercontent.com/google/BIG-bench/main/bigbench/benchmark_tasks/results/plot_all_tasks.png)
-*Source: [Google BIG-Bench Repository](https://github.com/google/BIG-bench)*
-
-*See the emergent abilities compilation figure in: [Wei et al., "Emergent Abilities of Large Language Models" (arXiv:2206.07682)](https://arxiv.org/abs/2206.07682), Figure 2, which shows performance on multiple tasks across model families (GPT-3, LaMDA, PaLM) with clear phase transitions from random to above-chance accuracy.*
-
-*See also the metric artifact analysis in: [Schaeffer et al., "Are Emergent Abilities a Mirage?" (arXiv:2304.15004)](https://arxiv.org/abs/2304.15004), Figure 1, which demonstrates how the same underlying smooth improvement appears emergent or smooth depending on whether exact-match or continuous metrics are used.*
 
 ## Further Reading
 

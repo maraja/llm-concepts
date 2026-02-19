@@ -8,11 +8,17 @@
 
 Imagine a student who has read thousands of textbooks but never checked a single fact against the real world. When asked a question, they don't retrieve an answer from a database of verified truths -- they construct a response that *sounds like* what the right answer would sound like, based on the patterns they absorbed during study. Most of the time this works remarkably well. But sometimes the student confidently fabricates a citation that doesn't exist, invents a historical event that never happened, or subtly distorts a real fact into something slightly wrong.
 
+*Recommended visual: Types of hallucination: intrinsic (contradicts source) vs extrinsic (unverifiable) — see [Survey of Hallucination in NLG (arXiv:2202.03629)](https://arxiv.org/abs/2202.03629)*
+
+
 This is hallucination in large language models. The term refers to any generated output that is not grounded in the model's training data or provided context -- content that is fluent, confident, and entirely fabricated. It is not a bug in the traditional software sense; it is an emergent consequence of how these models fundamentally work.
 
 The complementary concept is **grounding**: techniques that anchor a model's outputs to verifiable sources of truth, constraining its natural tendency to confabulate.
 
 ## How It Works
+
+
+*Recommended visual: Hallucination mitigation strategies: retrieval augmentation, self-consistency, citation generation — see [Hugging Face Blog](https://huggingface.co/blog)*
 
 ### Why Hallucination Happens
 
@@ -78,12 +84,6 @@ For content creation, hallucination erodes trust. A single fabricated citation i
 - **Prompt Engineering**: Careful prompt design (e.g., "Answer only based on the provided context. If you cannot answer, say so.") reduces hallucination in practice.
 - **Evaluation and Benchmarks**: Hallucination measurement is a core component of LLM evaluation, with benchmarks like TruthfulQA specifically targeting it.
 - **Guardrails**: Post-generation fact-checking and citation-verification systems serve as a safety net against hallucinated outputs reaching end users.
-
-## Diagrams and Visualizations
-
-*Recommended visual: Types of hallucination: intrinsic (contradicts source) vs extrinsic (unverifiable) — see [Survey of Hallucination in NLG (arXiv:2202.03629)](https://arxiv.org/abs/2202.03629)*
-
-*Recommended visual: Hallucination mitigation strategies: retrieval augmentation, self-consistency, citation generation — see [Hugging Face Blog](https://huggingface.co/blog)*
 
 ## Further Reading
 

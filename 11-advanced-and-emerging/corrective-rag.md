@@ -8,6 +8,9 @@
 
 Standard RAG has a critical blind spot: it assumes the retrieval step succeeds. After retrieving the top-k documents, the pipeline feeds them directly to the LLM for generation, regardless of whether those documents actually contain relevant information. If the query is "What is the company's parental leave policy?" and the retrieval returns chunks about general company benefits, vacation policy, and office locations (because the parental leave document was not well-indexed, or the embedding model failed to match the query), the LLM receives irrelevant context and must either hallucinate an answer or correctly identify that the context does not contain the answer. In practice, LLMs often hallucinate.
 
+*Recommended visual: CRAG pipeline showing retrieval evaluation, confidence scoring, and corrective actions (rewrite, web search fallback) — see [Yan et al. CRAG Paper (arXiv:2401.15884)](https://arxiv.org/abs/2401.15884)*
+
+
 Corrective RAG (CRAG), formalized by Yan et al. (2024), addresses this by inserting an explicit evaluation and correction layer between retrieval and generation. A lightweight evaluator (which can be an LLM, a specialized classifier, or a heuristic) assesses the relevance of each retrieved document. Based on this assessment, the system takes one of several corrective actions:
 
 - **Correct**: Retrieved documents are relevant. Proceed to generation normally, potentially after refining the documents to extract the most pertinent information.
@@ -129,10 +132,6 @@ In the CRAG paper's experiments, the approach improved RAG performance by 5-10% 
 - **ColBERT / reranking**: Cross-encoder rerankers can serve as the relevance evaluator in CRAG, providing calibrated relevance scores.
 - **Guardrails and safety**: CRAG shares the philosophy of evaluation-before-action with guardrails systems -- both add a checking layer to prevent poor outputs.
 - **Hallucination**: CRAG specifically targets context-based hallucination (the LLM generating answers from irrelevant context), one of the primary hallucination modes in RAG systems.
-
-## Diagrams and Visualizations
-
-*Recommended visual: CRAG pipeline showing retrieval evaluation, confidence scoring, and corrective actions (rewrite, web search fallback) — see [Yan et al. CRAG Paper (arXiv:2401.15884)](https://arxiv.org/abs/2401.15884)*
 
 ## Further Reading
 

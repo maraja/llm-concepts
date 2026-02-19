@@ -8,11 +8,17 @@
 
 Imagine a building with multiple security systems: locked doors, badge readers, security cameras, and guards. Each system was designed to prevent unauthorized access. But a sufficiently creative intruder can find gaps: a propped-open fire exit, a cloned badge, a camera blind spot, a guard distracted during shift change. No individual system is perfect, and the attacker only needs to find one weakness.
 
+*Recommended visual: Taxonomy of jailbreak techniques: role-playing, encoding tricks, multi-turn, adversarial suffixes — see [Liu et al. Jailbreak Survey (arXiv:2308.03825)](https://arxiv.org/abs/2308.03825)*
+
+
 Jailbreaking works the same way. LLMs have been trained -- through RLHF, Constitutional AI, and fine-tuning -- to refuse harmful requests. These safety behaviors are learned patterns, not hard logical constraints. They are statistical tendencies that can be overridden by inputs that push the model into regions where its safety training breaks down. The attacker's goal is to find inputs that make the model "forget" or override its safety training while still producing coherent, capable outputs.
 
 The term "jailbreaking" comes from the iOS jailbreaking community, where users circumvented Apple's software restrictions. In the LLM context, it means circumventing the model provider's safety restrictions.
 
 ## How It Works
+
+
+*Recommended visual: DAN (Do Anything Now) jailbreak example showing role-play prompt structure — see [Shen et al. Jailbreak Analysis (arXiv:2308.03825)](https://arxiv.org/abs/2308.03825)*
 
 ### Categories of Jailbreak Techniques
 
@@ -117,12 +123,6 @@ Jailbreaking has direct practical implications for AI deployment:
 - **Safety Training (RLHF/RLAIF)**: Jailbreaking exploits the limitations of safety training. Understanding jailbreaking motivates the development of more robust training approaches.
 - **Guardrails & Content Filtering**: External guardrails provide defense-in-depth against jailbreaks that bypass model-level safety training. A multi-layered approach combining internal safety training with external filtering is the standard.
 - **The Alignment Problem**: Jailbreaking is a concrete demonstration that current alignment techniques produce probabilistic safety, not guaranteed safety. This motivates research into more fundamentally robust alignment approaches.
-
-## Diagrams and Visualizations
-
-*Recommended visual: Taxonomy of jailbreak techniques: role-playing, encoding tricks, multi-turn, adversarial suffixes — see [Liu et al. Jailbreak Survey (arXiv:2308.03825)](https://arxiv.org/abs/2308.03825)*
-
-*Recommended visual: DAN (Do Anything Now) jailbreak example showing role-play prompt structure — see [Shen et al. Jailbreak Analysis (arXiv:2308.03825)](https://arxiv.org/abs/2308.03825)*
 
 ## Further Reading
 

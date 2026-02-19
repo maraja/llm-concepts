@@ -8,11 +8,17 @@
 
 Think of guardrails on a highway. The road itself (the model) is designed to keep cars moving in the right direction, but guardrails exist as an additional safety layer for when things go wrong -- when a driver swerves, when conditions are poor, when the unexpected happens. The guardrails don't make the road safe by themselves, but they prevent the worst outcomes.
 
+*Recommended visual: Multi-layered guardrails architecture: input filters, system prompt, model-level constraints, output filters — see [NeMo Guardrails Documentation](https://docs.nvidia.com/nemo/guardrails/)*
+
+
 In LLM applications, guardrails serve the same function. Despite safety training (RLHF, Constitutional AI), models can still produce harmful, inaccurate, or policy-violating content. Guardrails are the **engineering systems built around the model** that intercept, filter, modify, or block inputs and outputs that violate defined policies. They operate on the principle of **defense in depth**: no single layer is sufficient, but multiple overlapping layers provide robust protection.
 
 A production LLM system without guardrails is like deploying a web application without input validation, authentication, or error handling. The core system might work correctly most of the time, but the failure modes are unacceptable for production use.
 
 ## How It Works
+
+
+*Recommended visual: NVIDIA NeMo Guardrails pipeline showing programmable safety rails — see [NeMo Guardrails GitHub](https://github.com/NVIDIA/NeMo-Guardrails)*
 
 ### The Multi-Layered Architecture
 
@@ -101,12 +107,6 @@ Guardrails also provide **adaptability**. When safety requirements change (new r
 - **Red Teaming**: Red teaming exercises directly test guardrail effectiveness, identifying gaps in the filter chain that adversarial inputs can exploit.
 - **Bias & Fairness**: Guardrails can include bias detection classifiers, though subtle biases are often harder to catch with post-hoc filtering than explicit harmful content.
 - **The Alignment Problem**: Guardrails are an external alignment mechanism -- they constrain the model's behavior from outside rather than changing the model's internal optimization. They are a practical, engineering-driven complement to research-driven alignment techniques.
-
-## Diagrams and Visualizations
-
-*Recommended visual: Multi-layered guardrails architecture: input filters, system prompt, model-level constraints, output filters — see [NeMo Guardrails Documentation](https://docs.nvidia.com/nemo/guardrails/)*
-
-*Recommended visual: NVIDIA NeMo Guardrails pipeline showing programmable safety rails — see [NeMo Guardrails GitHub](https://github.com/NVIDIA/NeMo-Guardrails)*
 
 ## Further Reading
 

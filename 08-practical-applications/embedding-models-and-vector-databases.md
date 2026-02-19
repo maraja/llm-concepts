@@ -8,9 +8,16 @@
 
 Imagine a library where every book is placed on a shelf not alphabetically, but by *meaning*. Books about cooking are near each other, books about quantum physics cluster together, and a book about "the chemistry of baking" sits somewhere between the two groups. Embedding models are the librarians who decide where each book goes, and vector databases are the shelving systems designed to find the nearest books to any query instantly.
 
+![Word embedding space showing how semantically similar words cluster together, with vector arithmetic like king - man + woman = queen](https://jalammar.github.io/images/word2vec/king-analogy-viz.png)
+*Source: [Jay Alammar – The Illustrated Word2Vec](https://jalammar.github.io/illustrated-word2vec/)*
+
+
 More precisely, an embedding model is a neural network that takes a piece of text (a sentence, paragraph, or document) and outputs a fixed-size vector -- a list of floating-point numbers, typically 384 to 3072 dimensions. These vectors are constructed so that texts with similar meanings have similar vectors, as measured by geometric distance or angle. A vector database is a specialized storage system optimized for storing millions or billions of such vectors and answering "find me the most similar vectors" queries in milliseconds.
 
 ## How It Works
+
+
+*Recommended visual: Vector database architecture showing embedding, indexing (HNSW/IVF), and similarity search pipeline — see [Pinecone – What is a Vector Database](https://www.pinecone.io/learn/vector-database/)*
 
 ### Text to Vectors: Embedding Models
 
@@ -94,13 +101,6 @@ Embeddings and vector databases are the infrastructure layer that enables RAG, s
 - **Tokenization** matters because embedding models have their own tokenizers and context windows, separate from the generative LLM.
 - **Attention mechanisms** are the building blocks inside embedding models themselves.
 - **Fine-tuning** embedding models on domain-specific data (using techniques like contrastive fine-tuning) can dramatically improve retrieval quality for specialized domains.
-
-## Diagrams and Visualizations
-
-![Word embedding space showing how semantically similar words cluster together, with vector arithmetic like king - man + woman = queen](https://jalammar.github.io/images/word2vec/king-analogy-viz.png)
-*Source: [Jay Alammar – The Illustrated Word2Vec](https://jalammar.github.io/illustrated-word2vec/)*
-
-*Recommended visual: Vector database architecture showing embedding, indexing (HNSW/IVF), and similarity search pipeline — see [Pinecone – What is a Vector Database](https://www.pinecone.io/learn/vector-database/)*
 
 ## Further Reading
 

@@ -8,6 +8,9 @@
 
 Imagine you ask three different people to summarize a news article. Each summary will be different -- different word choices, different sentence structures, maybe different aspects emphasized -- but they could all be equally good. Now imagine you need an automated system to score a fourth summary. How do you decide if it is good?
 
+*Recommended visual: BLEU n-gram matching example showing precision calculation between generated and reference text — see [Hugging Face Evaluate Documentation](https://huggingface.co/docs/evaluate/index)*
+
+
 The fundamental challenge of text evaluation is that there are many valid ways to express the same meaning. Traditional metrics address this by comparing generated text against one or more "reference" texts (human-written gold standards) and measuring how much they overlap.
 
 BLEU asks: "How many chunks of the generated text also appear in the reference?" (precision-focused). ROUGE asks: "How many chunks of the reference also appear in the generated text?" (recall-focused). BERTScore asks: "How semantically similar are the generated and reference texts at the token level?" (meaning-focused).
@@ -15,6 +18,9 @@ BLEU asks: "How many chunks of the generated text also appear in the reference?"
 Think of it like comparing two recipes for chocolate cake. BLEU checks whether the ingredients in your recipe are real cake ingredients. ROUGE checks whether your recipe covers all the important cake ingredients. BERTScore checks whether your recipe would actually produce something that tastes like chocolate cake, even if you used "cocoa powder" where the reference said "dark chocolate."
 
 ## How It Works
+
+
+*Recommended visual: BERTScore computation showing cosine similarity between contextual embeddings of generated and reference tokens — see [BERTScore Paper (arXiv:1904.09675)](https://arxiv.org/abs/1904.09675)*
 
 ### BLEU (Bilingual Evaluation Understudy)
 
@@ -140,12 +146,6 @@ These metrics remain most relevant for narrower, well-defined tasks (translation
 - **Embeddings and Representations**: BERTScore relies on contextual embeddings, connecting it to the broader literature on learned text representations.
 - **Benchmarks**: Many standard benchmarks (WMT for translation, CNN/DailyMail for summarization) report these metrics as their primary evaluation measure.
 - **Human Evaluation**: The ultimate validation for all automated metrics. A metric's value is measured by its correlation with human judgments.
-
-## Diagrams and Visualizations
-
-*Recommended visual: BLEU n-gram matching example showing precision calculation between generated and reference text — see [Hugging Face Evaluate Documentation](https://huggingface.co/docs/evaluate/index)*
-
-*Recommended visual: BERTScore computation showing cosine similarity between contextual embeddings of generated and reference tokens — see [BERTScore Paper (arXiv:1904.09675)](https://arxiv.org/abs/1904.09675)*
 
 ## Further Reading
 

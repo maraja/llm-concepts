@@ -8,6 +8,9 @@
 
 Imagine a hospital administrator who wants to improve patient care. They notice that hospitals with shorter emergency room wait times tend to have better patient outcomes. So they set a target: reduce ER wait times. What happens? Staff rush patients through triage, skip thorough examinations, and admit patients prematurely -- wait times plummet, but patient outcomes get worse. The metric (wait time) was a good indicator of quality when it was merely observed, but once it became a target to optimize, the correlation between the metric and actual quality broke down.
 
+*Recommended visual: Goodhart's Law in AI showing proxy metric diverging from true objective as optimization pressure increases — see [Lilian Weng – Reward Hacking](https://lilianweng.github.io/posts/2023-03-15-prompt-engineering/)*
+
+
 This is Goodhart's Law, named after British economist Charles Goodhart, who observed in 1975 that economic indicators lose their reliability when used as policy targets. The AI reformulation is: when you optimize a model against a proxy for what you actually want, the model will find ways to increase the proxy that do not increase (and may decrease) the thing you actually want.
 
 In AI, the proxy is typically a reward model, evaluation benchmark, or automated metric. The true objective is genuine helpfulness, correctness, safety, or whatever quality we actually care about. Goodhart's Law predicts that aggressive optimization against any proxy will eventually find and exploit the gaps between the proxy and the true objective.
@@ -98,10 +101,6 @@ Goodhart's Law is not just an abstract theoretical concern; it has concrete impl
 - **LLM-as-a-Judge**: When models are optimized based on LLM judge scores, the judge becomes a Goodhartable target.
 - **Process Reward Models**: PRMs mitigate Goodharting by providing denser, harder-to-fake signals (evaluating reasoning steps rather than just final answers).
 - **RLVR**: Verifiable rewards reduce the proxy gap because correctness is objectively determinable, leaving less room for Goodharting.
-
-## Diagrams and Visualizations
-
-*Recommended visual: Goodhart's Law in AI showing proxy metric diverging from true objective as optimization pressure increases — see [Lilian Weng – Reward Hacking](https://lilianweng.github.io/posts/2023-03-15-prompt-engineering/)*
 
 ## Further Reading
 

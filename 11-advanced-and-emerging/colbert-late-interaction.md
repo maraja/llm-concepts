@@ -8,6 +8,9 @@
 
 There is a fundamental trade-off in neural retrieval between speed and accuracy:
 
+*Recommended visual: ColBERT late interaction architecture showing per-token embeddings and MaxSim operation between query and document tokens — see [ColBERT Paper (arXiv:2004.12832)](https://arxiv.org/abs/2004.12832)*
+
+
 **Bi-encoders** (standard embedding models) encode queries and documents independently into single vectors. Retrieval is a fast nearest-neighbor search. But compressing an entire document into one vector loses information -- the model must decide at encoding time what to emphasize, without knowing what the query will ask.
 
 **Cross-encoders** process the query and document together, with full token-level attention between them. This is far more accurate because the model sees exactly how each query term relates to each document term. But it requires running the transformer over every (query, document) pair, making it impossibly slow for first-stage retrieval over millions of documents.
@@ -15,6 +18,9 @@ There is a fundamental trade-off in neural retrieval between speed and accuracy:
 ColBERT, introduced by Khattab and Zaharia (2020), finds a middle ground with **late interaction**: queries and documents are encoded independently (like bi-encoders), preserving the ability to pre-compute document representations. But instead of collapsing to a single vector, every token retains its own embedding. Relevance is computed by comparing each query token against all document tokens, finding the maximum similarity for each query token, and summing these maxima. This "MaxSim" operation captures fine-grained token-level matching while keeping document encoding offline and independent of queries.
 
 ## How It Works
+
+
+*Recommended visual: Comparison of bi-encoder (single vector), cross-encoder (joint), and ColBERT (late interaction) architectures — see [ColBERTv2 Paper (arXiv:2112.01488)](https://arxiv.org/abs/2112.01488)*
 
 ### Architecture
 
@@ -117,12 +123,6 @@ ColBERT closes roughly 70-90% of the gap between bi-encoders and cross-encoders 
 - **Matryoshka embeddings**: While MRL varies the dimensionality of single-vector embeddings, ColBERT varies the granularity of representation (per-token vs. per-document). Both address retrieval efficiency.
 - **Cross-encoders**: ColBERT approximates cross-encoder quality while maintaining the pre-computation advantages of bi-encoders. ColBERTv2's training uses cross-encoder distillation.
 - **Late chunking**: Both late chunking and ColBERT preserve fine-grained information that single-vector approaches discard. They are complementary and could theoretically be combined.
-
-## Diagrams and Visualizations
-
-*Recommended visual: ColBERT late interaction architecture showing per-token embeddings and MaxSim operation between query and document tokens — see [ColBERT Paper (arXiv:2004.12832)](https://arxiv.org/abs/2004.12832)*
-
-*Recommended visual: Comparison of bi-encoder (single vector), cross-encoder (joint), and ColBERT (late interaction) architectures — see [ColBERTv2 Paper (arXiv:2112.01488)](https://arxiv.org/abs/2112.01488)*
 
 ## Further Reading
 

@@ -8,11 +8,17 @@
 
 Consider a standardized test like the SAT. The test's validity depends on students not having seen the specific questions beforehand. If a student memorizes the answer key, their high score tells you nothing about their actual aptitude -- it only tells you they had access to the answers. Now imagine that the answer key was accidentally posted on a website that was included in a study materials collection. Some students might have encountered it without even realizing it; others might have studied it deliberately. Detecting who had prior access, and whether it affected their scores, is exactly the contamination detection problem.
 
+*Recommended visual: Contamination detection methods: n-gram overlap, Min-K% Prob membership inference, canary strings, perplexity analysis — see [Shi et al. Min-K% Prob Paper (arXiv:2310.16789)](https://arxiv.org/abs/2310.16789)*
+
+
 For LLMs, the situation is systemic and pervasive. Pre-training corpora are assembled from massive web crawls (Common Crawl, C4, The Pile, etc.) containing trillions of tokens. Benchmark datasets -- MMLU, GSM8K, HumanEval, HellaSwag, ARC, TruthfulQA, and many others -- are published on GitHub, Hugging Face, arXiv, and academic websites. These websites are included in web crawls. The result: benchmark test questions and answers are almost certainly present in the training data of most large language models.
 
 The field of contamination detection has grown from informal concerns (anecdotal observations that models perform suspiciously well on certain benchmarks) into a rigorous subfield with dedicated benchmarks, statistical frameworks, and detection tools.
 
 ## How It Works
+
+
+*Recommended visual: Performance inflation from benchmark contamination showing score differences on contaminated vs clean splits — see [Oren et al. Contamination Paper (arXiv:2311.04850)](https://arxiv.org/abs/2311.04850)*
 
 ### Detection Methods
 
@@ -255,12 +261,6 @@ Commercially, contaminated benchmark scores create information asymmetry. AI com
 - **Scaling Laws**: If benchmark improvements partly reflect contamination rather than genuine capability gains, scaling law estimates (how much does capability improve with compute/data/parameters?) may be biased upward.
 - **Machine Unlearning**: If a model is found to be contaminated on a specific benchmark, machine unlearning could theoretically remove the contamination. In practice, this is difficult because the contaminated benchmark data is entangled with legitimate training.
 - **Memorization vs. Generalization**: Contamination is a specific instance of the broader memorization problem. Detection methods for contamination draw on the same principles used to study memorization in neural networks more generally.
-
-## Diagrams and Visualizations
-
-*Recommended visual: Contamination detection methods: n-gram overlap, Min-K% Prob membership inference, canary strings, perplexity analysis — see [Shi et al. Min-K% Prob Paper (arXiv:2310.16789)](https://arxiv.org/abs/2310.16789)*
-
-*Recommended visual: Performance inflation from benchmark contamination showing score differences on contaminated vs clean splits — see [Oren et al. Contamination Paper (arXiv:2311.04850)](https://arxiv.org/abs/2311.04850)*
 
 ## Further Reading
 

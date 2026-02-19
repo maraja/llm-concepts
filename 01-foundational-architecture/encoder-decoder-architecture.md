@@ -8,6 +8,10 @@
 
 Think of these three architectures as different approaches to reading and writing:
 
+![Comparison of encoder-only (BERT), decoder-only (GPT), and encoder-decoder (T5) architectures showing bidirectional vs. causal attention patterns and cross-attention connections](https://jalammar.github.io/images/xlnet/transformer-encoder-decoder.png)
+*Source: [The Illustrated GPT-2 -- Jay Alammar](https://jalammar.github.io/illustrated-gpt2/)*
+
+
 - **Encoder-only** (BERT): Like a speed reader who absorbs an entire document and then answers questions about it. Can see everything at once but does not generate new text.
 - **Decoder-only** (GPT): Like a writer who composes text left to right, one word at a time, each word informed by everything written so far. Excels at generation.
 - **Encoder-decoder** (T5): Like a translator who first reads the entire source text (encoding), then writes the translation word by word (decoding). Two distinct phases for understanding and generating.
@@ -16,9 +20,17 @@ Each paradigm uses the same fundamental building blocks (attention, FFN, residua
 
 ## How They Work
 
+
+![Encoder-decoder architecture showing how the encoder processes the full input with bidirectional attention, and the decoder generates output autoregressively with cross-attention to encoder representations](https://jalammar.github.io/images/t/The_transformer_encoder_decoder_stack.png)
+*Source: [The Illustrated Transformer -- Jay Alammar](https://jalammar.github.io/illustrated-transformer/)*
+
 ### Encoder-Only (BERT, RoBERTa, DeBERTa)
 
 The encoder uses **bidirectional attention**: every token attends to every other token, including tokens that come after it. There is no causal mask.
+
+![BERT encoder-only architecture with bidirectional self-attention where every token attends to every other token, contrasted with GPT decoder-only masked self-attention](https://jalammar.github.io/images/gpt2/self-attention-and-masked-self-attention.png)
+*Source: [The Illustrated GPT-2 -- Jay Alammar](https://jalammar.github.io/illustrated-gpt2/)*
+
 
 **Architecture**: A stack of Transformer blocks, each containing multi-head self-attention (full, bidirectional) and an FFN.
 
@@ -33,6 +45,10 @@ The encoder uses **bidirectional attention**: every token attends to every other
 ### Decoder-Only (GPT, LLaMA, Claude, Mistral)
 
 The decoder uses **causal (masked) attention**: each token can only attend to itself and previous tokens. Future tokens are masked out.
+
+![Encoder-decoder architecture showing the encoder processing the input sequence and the decoder generating output tokens with cross-attention](https://jalammar.github.io/images/t/transformer_decoding_1.gif)
+*Source: [Jay Alammar – The Illustrated Transformer](https://jalammar.github.io/illustrated-transformer/)*
+
 
 **Architecture**: A stack of Transformer blocks, each containing **causally-masked** multi-head self-attention and an FFN.
 
@@ -111,17 +127,6 @@ Decoder-only models naturally support in-context learning: provide examples in t
 - **Autoregressive Generation**: The generation mechanism used by decoders and decoder-only models (see `autoregressive-generation.md`).
 - **Next-Token Prediction**: The training objective that powers decoder-only models (see `next-token-prediction.md`).
 - **Transformer Architecture**: All three paradigms are variations of the Transformer (see `transformer-architecture.md`).
-
-## Diagrams and Visualizations
-
-![Comparison of encoder-only (BERT), decoder-only (GPT), and encoder-decoder (T5) architectures showing bidirectional vs. causal attention patterns and cross-attention connections](https://jalammar.github.io/images/xlnet/transformer-encoder-decoder.png)
-*Source: [The Illustrated GPT-2 -- Jay Alammar](https://jalammar.github.io/illustrated-gpt2/)*
-
-![Encoder-decoder architecture showing how the encoder processes the full input with bidirectional attention, and the decoder generates output autoregressively with cross-attention to encoder representations](https://jalammar.github.io/images/t/The_transformer_encoder_decoder_stack.png)
-*Source: [The Illustrated Transformer -- Jay Alammar](https://jalammar.github.io/illustrated-transformer/)*
-
-![BERT encoder-only architecture with bidirectional self-attention where every token attends to every other token, contrasted with GPT decoder-only masked self-attention](https://jalammar.github.io/images/gpt2/self-attention-and-masked-self-attention.png)
-*Source: [The Illustrated GPT-2 -- Jay Alammar](https://jalammar.github.io/illustrated-gpt2/)*
 
 ## Further Reading
 

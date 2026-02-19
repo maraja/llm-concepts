@@ -8,6 +8,9 @@
 
 Standard RAG has two fundamental rigidities. First, it *always* retrieves -- even for questions the model can answer from parametric knowledge ("What is the capital of France?"), retrieval adds latency and may introduce noise. Second, it *never* evaluates -- the system has no mechanism to assess whether the retrieved passages are relevant to the query or whether the generated answer is actually supported by the retrieved evidence.
 
+*Recommended visual: Self-RAG architecture showing reflection tokens (Retrieve, IsRel, IsSup, IsUse) controlling retrieval and generation — see [Asai et al. Self-RAG Paper (arXiv:2310.11511)](https://arxiv.org/abs/2310.11511)*
+
+
 Self-RAG, introduced by Asai, Wu, Wang, Sil, and Hajishirzi (2024, ICLR 2024), addresses both problems by training a single LLM to generate special **reflection tokens** that control and evaluate the retrieval-generation process. The model learns to:
 
 1. **Decide** whether retrieval is needed for a given query (or at any point during generation).
@@ -179,10 +182,6 @@ Self-RAG represents a paradigm shift in how we think about RAG systems:
 - **Hallucination**: Self-RAG directly addresses hallucination through the `[IsSup]` token, providing a native mechanism for detecting unsupported claims during generation.
 - **Constitutional AI**: Both Self-RAG and Constitutional AI train models to self-evaluate and self-correct. Self-RAG applies this principle to retrieval and factual grounding; Constitutional AI applies it to safety and harmlessness.
 - **Reward modeling**: The reflection tokens can be viewed as a form of process reward -- evaluating intermediate steps (retrieval decisions, relevance, support) rather than just the final output.
-
-## Diagrams and Visualizations
-
-*Recommended visual: Self-RAG architecture showing reflection tokens (Retrieve, IsRel, IsSup, IsUse) controlling retrieval and generation — see [Asai et al. Self-RAG Paper (arXiv:2310.11511)](https://arxiv.org/abs/2310.11511)*
 
 ## Further Reading
 

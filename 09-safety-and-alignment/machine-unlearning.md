@@ -8,6 +8,9 @@
 
 Imagine you have written a comprehensive encyclopedia from thousands of source books. Now, one of those source authors invokes their legal right to have their contributions removed. You cannot simply tear out the pages that reference that author, because their information has been synthesized, cross-referenced, and woven throughout the entire text. The challenge is to remove that author's specific influence while preserving everything else intact. This is the machine unlearning problem.
 
+*Recommended visual: Machine unlearning pipeline: identify forget set, apply unlearning method, verify removal while maintaining utility — see [TOFU Benchmark Paper (arXiv:2401.06121)](https://arxiv.org/abs/2401.06121)*
+
+
 For LLMs, the challenge is even harder. During pre-training on trillions of tokens, models develop entangled representations where knowledge from different sources is deeply intertwined in shared parameters. A single neuron or weight may encode information from millions of training examples simultaneously. There is no clean "undo button" for individual data points.
 
 **Exact unlearning** would require retraining the model from scratch on the dataset minus the data to be forgotten. For a model that cost $100M+ and months to train, this is economically prohibitive. **Approximate unlearning** aims to achieve a result that is statistically indistinguishable from exact unlearning, at a fraction of the cost.
@@ -15,6 +18,9 @@ For LLMs, the challenge is even harder. During pre-training on trillions of toke
 The field emerged from traditional machine learning (Cao & Yang, 2015; Bourtoule et al., 2021, SISA training) but has gained enormous urgency as LLMs became central to AI deployment and as regulators began enforcing data rights.
 
 ## How It Works
+
+
+*Recommended visual: Gradient ascent unlearning showing loss maximization on forget data alongside retention on keep data — see [Machine Unlearning Survey (arXiv:2402.08787)](https://arxiv.org/abs/2402.08787)*
 
 ### The Formal Definition
 
@@ -179,12 +185,6 @@ Furthermore, **verification** remains unsolved. How do you prove that a model ha
 - **Differential Privacy**: DP training provides formal guarantees that individual data points have bounded influence on the model, which can facilitate later unlearning. However, DP at scale significantly degrades model quality.
 - **Membership Inference Attacks**: Used as both a threat model (what we want to prevent) and an evaluation tool (verifying that unlearning succeeded).
 - **Mechanistic Interpretability**: Understanding where and how knowledge is stored in LLMs (circuits, features, factual associations in MLP layers) directly informs more targeted unlearning approaches.
-
-## Diagrams and Visualizations
-
-*Recommended visual: Machine unlearning pipeline: identify forget set, apply unlearning method, verify removal while maintaining utility — see [TOFU Benchmark Paper (arXiv:2401.06121)](https://arxiv.org/abs/2401.06121)*
-
-*Recommended visual: Gradient ascent unlearning showing loss maximization on forget data alongside retention on keep data — see [Machine Unlearning Survey (arXiv:2402.08787)](https://arxiv.org/abs/2402.08787)*
 
 ## Further Reading
 

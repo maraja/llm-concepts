@@ -8,6 +8,9 @@
 
 Consider an art restorer working on a massive painting. The painting itself is stored as a highly compressed photograph (saving space), but whenever the restorer needs to make a precise touch-up, they work at full resolution on just that small patch. The compressed photograph preserves the painting's overall quality, while the high-resolution patches ensure the adjustments are precise.
 
+*Recommended visual: QLoRA architecture showing 4-bit NormalFloat quantized base model with FP16 LoRA adapters and double quantization — see [QLoRA Paper (arXiv:2305.14314)](https://arxiv.org/abs/2305.14314)*
+
+
 QLoRA applies this same philosophy to model fine-tuning. The pretrained base model is compressed down to 4-bit precision (the "compressed photograph"), dramatically shrinking its memory footprint. Meanwhile, the LoRA adapter matrices -- the parts being actively trained -- remain in 16-bit precision (the "high-resolution patches"). During the forward and backward passes, the 4-bit weights are temporarily dequantized to 16-bit for computation, and the LoRA gradients flow through at full precision.
 
 Introduced by Dettmers et al. (2023) at the University of Washington, QLoRA made it possible to fine-tune models that previously required multi-GPU clusters on a single consumer or prosumer GPU, fundamentally democratizing access to large model customization.
@@ -15,6 +18,9 @@ Introduced by Dettmers et al. (2023) at the University of Washington, QLoRA made
 ## How It Works
 
 QLoRA introduces three key technical innovations on top of standard LoRA:
+
+*Recommended visual: Memory comparison between full fine-tuning, LoRA, and QLoRA for 65B parameter models — see [QLoRA Paper Figure 1](https://arxiv.org/abs/2305.14314)*
+
 
 ### 1. NormalFloat4 (NF4) Data Type
 
@@ -113,12 +119,6 @@ QLoRA's impact on the field has been enormous:
 - **Gradient checkpointing**: Often combined with QLoRA for additional memory savings during training.
 - **Mixed-precision training**: QLoRA extends the concept of mixed precision -- rather than just mixing fp32 and fp16, it mixes 4-bit storage with 16-bit computation.
 - **Distributed training**: For models too large even for QLoRA on a single GPU, QLoRA can be combined with model parallelism techniques like FSDP.
-
-## Diagrams and Visualizations
-
-*Recommended visual: QLoRA architecture showing 4-bit NormalFloat quantized base model with FP16 LoRA adapters and double quantization — see [QLoRA Paper (arXiv:2305.14314)](https://arxiv.org/abs/2305.14314)*
-
-*Recommended visual: Memory comparison between full fine-tuning, LoRA, and QLoRA for 65B parameter models — see [QLoRA Paper Figure 1](https://arxiv.org/abs/2305.14314)*
 
 ## Further Reading
 

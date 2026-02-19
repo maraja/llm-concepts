@@ -8,11 +8,18 @@
 
 Imagine a hospital triage system. Not every patient needs a brain surgeon -- most can be treated by a general practitioner, and only the most complex cases get escalated to specialists. Model routing applies this same principle to LLM inference: a lightweight decision layer examines each incoming query and routes it to the cheapest model capable of producing a good answer. Simple factual questions go to a small, fast model; nuanced reasoning tasks get sent to a frontier model.
 
+![RouteLLM architecture diagram showing query classification routing between strong and weak models based on estimated difficulty](https://raw.githubusercontent.com/lm-sys/RouteLLM/main/assets/router.png)
+*See diagram at: [RouteLLM GitHub Repository (LMSys)](https://github.com/lm-sys/RouteLLM)*
+
+
 This matters because frontier models like GPT-4 and Claude Opus can be 10-100x more expensive per token than smaller models like GPT-4o-mini or Claude Haiku. Yet empirical studies consistently show that 40-60% of real-world queries do not require frontier-level capability. A customer asking "What are your store hours?" does not need the same model as one asking "Analyze the tax implications of this corporate restructuring across three jurisdictions." Routing exploits this variance in query difficulty to dramatically cut costs without sacrificing quality on the queries that actually need it.
 
 The challenge is building a routing mechanism that is fast (sub-millisecond to low-millisecond overhead), accurate (correctly identifying which queries need which tier), and adaptive (learning from feedback to improve over time). Several approaches have emerged, from simple classifiers to sophisticated cascading systems with learned stopping criteria. The field has matured rapidly, with production-ready frameworks now available from both research labs and commercial providers.
 
 ## How It Works
+
+
+*See FrugalGPT cascading architecture diagram showing learned stopping criteria across model tiers at: [FrugalGPT Paper (arXiv:2305.05176)](https://arxiv.org/abs/2305.05176)*
 
 ### Classifier-Based Routing
 
@@ -70,6 +77,9 @@ These approaches are best suited for high-value queries where the additional rou
 
 In practice, production routing systems often combine multiple approaches in a layered architecture:
 
+*See Semantic Router embedding-based routing diagram at: [Semantic Router GitHub Repository (Aurelio AI)](https://github.com/aurelio-labs/semantic-router)*
+
+
 1. **First layer (semantic)**: Sub-millisecond embedding-based routing handles obvious cases -- clearly simple queries go directly to the cheapest model, clearly complex queries go directly to the frontier model.
 2. **Second layer (classifier)**: Ambiguous queries that fall near the decision boundary get evaluated by a more accurate classifier-based router.
 3. **Third layer (cascade)**: For the most uncertain cases, a cascading approach generates a response from the cheaper model and evaluates quality before potentially escalating.
@@ -113,15 +123,6 @@ This layered design ensures that the majority of queries are routed quickly whil
 - **Mixture of Experts (MoE)**: Model routing is conceptually similar to MoE gating, but operates at the system level (choosing between separate models) rather than the layer level (choosing between expert FFN blocks).
 - **Inference-Time Scaling**: Routing can allocate more inference compute (better model, more samples, longer CoT) to harder queries, implementing a form of adaptive compute allocation.
 - **Speculative Decoding**: Both routing and speculative decoding optimize inference cost by using cheaper computation where possible, escalating to expensive computation only when needed.
-
-## Diagrams and Visualizations
-
-![RouteLLM architecture diagram showing query classification routing between strong and weak models based on estimated difficulty](https://raw.githubusercontent.com/lm-sys/RouteLLM/main/assets/router.png)
-*See diagram at: [RouteLLM GitHub Repository (LMSys)](https://github.com/lm-sys/RouteLLM)*
-
-*See FrugalGPT cascading architecture diagram showing learned stopping criteria across model tiers at: [FrugalGPT Paper (arXiv:2305.05176)](https://arxiv.org/abs/2305.05176)*
-
-*See Semantic Router embedding-based routing diagram at: [Semantic Router GitHub Repository (Aurelio AI)](https://github.com/aurelio-labs/semantic-router)*
 
 ## Further Reading
 

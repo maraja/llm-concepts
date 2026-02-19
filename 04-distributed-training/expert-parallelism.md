@@ -8,15 +8,25 @@
 
 Mixture-of-Experts models activate only a small subset of their total parameters for each input token. Mixtral 8x7B has 46.7 billion total parameters but only uses 12.9 billion per token -- the router selects 2 of 8 experts for each token. This sparse activation means MoE models can be dramatically larger than dense models at the same computational cost per token.
 
+![Switch Transformer architecture showing routing of tokens to individual experts across devices](https://production-media.paperswithcode.com/methods/Screen_Shot_2021-01-26_at_3.23.50_PM_dpkfwMF.png)
+*Source: [Papers With Code - Switch Transformer](https://paperswithcode.com/method/switch-transformer)*
+
+
 But where do all those expert parameters physically reside? Each expert is a full feed-forward network (typically two large linear layers with an activation function), and with hundreds or thousands of experts, they cannot all fit on a single GPU. Expert parallelism solves this by distributing experts across devices: GPU 0 holds experts 0-7, GPU 1 holds experts 8-15, and so on. When a token is routed to expert 12, it must be physically sent to the GPU holding that expert, processed through the expert's feed-forward network, and sent back to its originating device.
 
 Think of it like a hospital with specialist doctors spread across different buildings. A patient (token) arrives at triage (the router), which determines they need a cardiologist (expert 12) in Building B (GPU 1). The patient's records are transferred to Building B, the cardiologist treats them, and the results are sent back. The efficiency of the hospital depends critically on two things: making sure patients are distributed evenly across buildings so no single building is overwhelmed while others sit idle (load balancing), and making sure the transfer process is fast enough that doctors are not waiting for patients to arrive (communication overhead).
 
 ## How It Works
 
+
+*Recommended visual: All-to-all communication pattern for expert parallelism showing token dispatch and combine operations across GPUs -- see [Lilian Weng - How to Train Really Large Models on Many GPUs](https://lilianweng.github.io/posts/2021-09-25-train-large/)*
+
 ### Token Routing and All-to-All Communication
 
 In expert parallelism, each device processes a local batch of tokens through the shared layers (attention, layer normalization, embeddings) using standard data or tensor parallelism. These shared layers are identical across all devices. At each MoE feed-forward layer, the following sequence occurs:
+
+*Recommended visual: MoE layer with gating network routing tokens to distributed experts, illustrating load balancing and capacity factors -- see [GShard paper (Lepikhin et al., 2020)](https://arxiv.org/abs/2006.16668), Figure 2*
+
 
 1. **Route**: The gating network (a small learned linear layer + softmax) computes routing decisions for all local tokens, determining which expert(s) each token should visit and with what weight.
 2. **Dispatch (all-to-all)**: Tokens are sent to the devices holding their assigned experts. This is an all-to-all communication operation -- every device simultaneously sends tokens destined for other devices' experts and receives tokens that other devices' routers have assigned to its local experts.
@@ -82,15 +92,6 @@ In production training systems, expert parallelism is implemented with careful a
 - **Tensor parallelism**: Can be applied within individual experts if they are large enough to benefit, and is standardly used for the shared (non-MoE) attention layers of the model.
 - **Pipeline parallelism**: In deep MoE models, different layers can be distributed across pipeline stages, with expert parallelism applied within each stage that contains MoE layers.
 - **3D/4D parallelism**: Expert parallelism adds a fourth scaling dimension orthogonal to the standard 3D parallelism (data + tensor + pipeline), enabling the comprehensive distribution strategies used in the largest training runs.
-
-## Diagrams and Visualizations
-
-![Switch Transformer architecture showing routing of tokens to individual experts across devices](https://production-media.paperswithcode.com/methods/Screen_Shot_2021-01-26_at_3.23.50_PM_dpkfwMF.png)
-*Source: [Papers With Code - Switch Transformer](https://paperswithcode.com/method/switch-transformer)*
-
-*Recommended visual: All-to-all communication pattern for expert parallelism showing token dispatch and combine operations across GPUs -- see [Lilian Weng - How to Train Really Large Models on Many GPUs](https://lilianweng.github.io/posts/2021-09-25-train-large/)*
-
-*Recommended visual: MoE layer with gating network routing tokens to distributed experts, illustrating load balancing and capacity factors -- see [GShard paper (Lepikhin et al., 2020)](https://arxiv.org/abs/2006.16668), Figure 2*
 
 ## Further Reading
 
