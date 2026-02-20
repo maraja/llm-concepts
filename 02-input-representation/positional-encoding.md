@@ -69,7 +69,8 @@ Relative approaches include:
 
 The progression of positional encoding reflects the field's growing understanding of what matters:
 
-*Recommended visual: Overview of positional encoding approaches in transformers: absolute (sinusoidal, learned) vs. relative (RoPE, ALiBi, T5 bias) — see [Lilian Weng – The Transformer Family Version 2.0](https://lilianweng.github.io/posts/2023-01-27-the-transformer-family-v2/)*
+![Sinusoidal positional encoding scheme used in the original Transformer](https://lilianweng.github.io/posts/2023-01-27-the-transformer-family-v2/sinoidual-positional-encoding.png)
+*Source: [Lilian Weng – The Transformer Family Version 2.0](https://lilianweng.github.io/posts/2023-01-27-the-transformer-family-v2/)*
 
 
 1. **2017**: Sinusoidal (fixed, absolute) -- simple, elegant, but limited extrapolation.

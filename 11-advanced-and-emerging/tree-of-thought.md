@@ -8,7 +8,8 @@
 
 Imagine solving a complex puzzle. With chain-of-thought, you think step by step along a single path: "First I'll try this... then this... then this..." If you make a wrong turn three steps in, you are stuck -- you have committed to a path, and the remaining reasoning builds on a flawed foundation. You cannot go back.
 
-*Recommended visual: Tree of Thought diagram showing branching reasoning paths with evaluation and backtracking — see [Lilian Weng – Prompt Engineering](https://lilianweng.github.io/posts/2023-03-15-prompt-engineering/)*
+![Tree of Thought diagram showing branching reasoning paths with evaluation and backtracking](https://lilianweng.github.io/posts/2023-03-15-prompt-engineering/tree-of-thoughts.png)
+*Source: [Lilian Weng – Prompt Engineering](https://lilianweng.github.io/posts/2023-03-15-prompt-engineering/)*
 
 
 Now imagine solving the same puzzle with a pencil that has an eraser. At each step, you consider multiple options, tentatively explore each one, evaluate which looks most promising, and erase the unpromising paths. If a path leads to a dead end, you backtrack and try a different branch. This is Tree-of-Thought.

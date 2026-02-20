@@ -8,7 +8,8 @@
 
 Think of how a student improves on exams. After getting a test back, they do not just look at the score -- they review each mistake, understand why they got it wrong ("I confused meiosis with mitosis"), and store that insight for next time. The score alone (a scalar reward) is less useful than the verbal self-analysis ("I need to remember that meiosis produces four haploid cells"). Self-reflection in LLM agents works exactly this way: the agent attempts a task, evaluates its performance, generates a natural language critique, stores that critique in memory, and uses it to do better on the next attempt.
 
-*Recommended visual: Reflexion architecture showing Actor, Evaluator, Self-Reflection Model, and Memory components in a loop — see [Reflexion Paper (arXiv:2303.11366)](https://arxiv.org/abs/2303.11366)*
+![Reflexion architecture showing Actor, Evaluator, Self-Reflection Model, and Memory components](https://lilianweng.github.io/posts/2023-06-23-agent/reflexion.png)
+*Source: [Lilian Weng – LLM Powered Autonomous Agents](https://lilianweng.github.io/posts/2023-06-23-agent/)*
 
 
 This is what Shinn et al. call "verbal reinforcement learning" in their Reflexion paper (NeurIPS 2023). Traditional reinforcement learning uses scalar rewards (0 or 1, pass or fail) to update model weights through gradient descent. Reflexion instead keeps the model weights completely frozen and converts those scalar signals into rich verbal feedback stored in an episodic memory buffer. The agent learns across trials without any gradient updates -- only through better prompting informed by its own reflections on past failures.

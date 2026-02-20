@@ -16,7 +16,8 @@ Every Transformer-based LLM is trained with a fixed maximum sequence length. GPT
 ## How It Works
 
 
-*Recommended visual: RoPE position interpolation vs extrapolation showing how scaling the frequency base extends context — see [Chen et al. YaRN Paper (arXiv:2309.00071)](https://arxiv.org/abs/2309.00071)*
+![RoPE positional encoding mechanism enabling position interpolation for context extension](https://lilianweng.github.io/posts/2023-01-27-the-transformer-family-v2/RoPE.png)
+*Source: [Lilian Weng – The Transformer Family](https://lilianweng.github.io/posts/2023-01-27-the-transformer-family-v2/)*
 
 ### The Core Problem: Quadratic Attention
 

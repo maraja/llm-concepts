@@ -8,7 +8,8 @@
 
 Imagine giving someone a phone and a directory of services. They cannot leave the room, but they can call any service, ask for information, and use the answers to help you. The person is the LLM, the phone is function calling, and the directory is the set of tool definitions you provide.
 
-*Recommended visual: Tool use pattern showing LLM receiving a query, generating a structured function call, executing it, and incorporating results — see [Lilian Weng – LLM Powered Autonomous Agents](https://lilianweng.github.io/posts/2023-06-23-agent/)*
+![ReAct tool use pattern showing LLM generating actions and incorporating observations](https://lilianweng.github.io/posts/2023-06-23-agent/react.png)
+*Source: [Lilian Weng – LLM Powered Autonomous Agents](https://lilianweng.github.io/posts/2023-06-23-agent/)*
 
 
 LLMs, by themselves, can only produce text. They cannot check today's weather, query a database, send an email, or perform calculations with guaranteed precision. Function calling bridges this gap by giving the model a formal way to say "I need to call this specific function with these specific arguments" and a mechanism for the application to execute that call and return the result.

@@ -8,7 +8,8 @@
 
 Supervised fine-tuning teaches a model the *format* of good responses -- but how do you teach it the *quality*? If you show a model ten different ways to answer "Explain quantum computing," how does it learn which explanation is clearest, most accurate, and most helpful? You can't easily encode "helpfulness" into a simple cross-entropy loss.
 
-*Recommended visual: RLHF three-phase pipeline: pretraining, reward model training from human preferences, and RL fine-tuning with PPO — see [Hugging Face – Illustrating RLHF](https://huggingface.co/blog/rlhf)*
+![RLHF three-phase pipeline: pretraining, reward model training from human preferences, and RL fine-tuning with PPO](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/rlhf/rlhf.png)
+*Source: [Hugging Face – Illustrating RLHF](https://huggingface.co/blog/rlhf)*
 
 
 RLHF solves this by borrowing an idea from reinforcement learning: let humans express preferences between model outputs, train a separate model to predict those preferences (the reward model), and then use that reward model as a signal to improve the language model itself.
@@ -65,7 +66,8 @@ The PPO algorithm itself involves:
 
 Without the KL penalty, the policy would find degenerate ways to maximize reward -- exploiting quirks in the reward model rather than genuinely improving response quality. For example, the model might learn to produce responses that are extremely verbose (because the reward model slightly prefers longer responses) or repeat certain phrases that game the reward signal.
 
-*Recommended visual: OpenAI InstructGPT diagram showing the three steps of RLHF — see [InstructGPT Paper (arXiv:2203.02155)](https://arxiv.org/abs/2203.02155)*
+![OpenAI InstructGPT diagram showing the three steps of RLHF](https://huggingface.co/datasets/trl-internal-testing/example-images/resolve/main/blog/stackllama/instructGPT.png)
+*Source: [InstructGPT Paper (arXiv:2203.02155)](https://arxiv.org/abs/2203.02155)*
 
 
 The KL divergence:

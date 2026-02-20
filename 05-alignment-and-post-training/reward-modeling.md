@@ -8,7 +8,8 @@
 
 When we say a response is "good" or "helpful," we're making a complex, multidimensional judgment. A reward model is an attempt to distill that judgment into a single number -- a scalar score that captures how much a human would prefer one response over another.
 
-*Recommended visual: Reward model training from human pairwise preferences, showing comparisons being converted to Bradley-Terry scores — see [InstructGPT Paper (arXiv:2203.02155)](https://arxiv.org/abs/2203.02155)*
+![Reward model training from human pairwise preferences](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/rlhf/reward-model.png)
+*Source: [Hugging Face – Illustrating RLHF](https://huggingface.co/blog/rlhf)*
 
 
 Think of a reward model as training an automated film critic. You show the critic thousands of pairs of movies along with audience preferences ("audiences preferred Movie A over Movie B"). Over time, the critic develops an internal model of what makes a good movie -- pacing, acting, story coherence, emotional impact. But the critic isn't perfect: it might overweight surface-level features (explosion count) and underweight subtle ones (thematic depth). This imperfection is the core challenge of reward modeling.
@@ -18,7 +19,8 @@ In the RLHF pipeline, the reward model sits between human judgment and model opt
 ## How It Works
 
 
-*Recommended visual: Reward model in the RLHF pipeline receiving two responses and learning to predict human preferences — see [Hugging Face – Illustrating RLHF](https://huggingface.co/blog/rlhf)*
+![Reward model in the RLHF pipeline learning to predict human preferences](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/rlhf/rlhf.png)
+*Source: [Hugging Face – Illustrating RLHF](https://huggingface.co/blog/rlhf)*
 
 ### Data Collection
 

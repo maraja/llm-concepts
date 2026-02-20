@@ -19,7 +19,7 @@ Introduced by Hinton, Vartia, and Dean in 2015, distillation has become one of t
 ## How It Works
 
 
-![Illustration of soft label distributions showing dark knowledge in the teacher's probability outputs](https://lilianweng.github.io/posts/2023-01-27-the-transformer-family-v2/)
+*Recommended visual: Illustration of soft label distributions showing dark knowledge in the teacher's probability outputs — see [Lilian Weng – The Transformer Family](https://lilianweng.github.io/posts/2023-01-27-the-transformer-family-v2/)*
 *See detailed distillation architecture diagrams at: [Lilian Weng - The Transformer Family v2](https://lilianweng.github.io/posts/2023-01-27-the-transformer-family-v2/)*
 
 ### The Teacher-Student Framework

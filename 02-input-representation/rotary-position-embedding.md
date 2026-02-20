@@ -8,7 +8,8 @@
 
 Imagine two clock hands. Each starts pointing in a specific direction determined by the token it represents (its embedding). Now, rotate each hand by an angle proportional to its position in the sequence -- the first token gets a small rotation, the tenth token gets a larger rotation, the hundredth token gets a much larger rotation.
 
-*Recommended visual: RoPE rotation mechanism showing how query and key vectors are rotated in 2D subspaces, with the angle proportional to the token position — see [EleutherAI – Rotary Embeddings: A Relative Revolution](https://blog.eleuther.ai/rotary-embeddings/)*
+![RoPE rotation mechanism showing how query and key vectors are rotated in 2D subspaces](https://lilianweng.github.io/posts/2023-01-27-the-transformer-family-v2/RoPE.png)
+*Source: [Lilian Weng – The Transformer Family](https://lilianweng.github.io/posts/2023-01-27-the-transformer-family-v2/)*
 
 
 When you measure the angle between the two hands, it depends only on the difference in their positions, not on where they are in absolute terms. Tokens that are 5 apart will always have the same angular difference, whether they're at positions (2, 7) or (100, 105).
